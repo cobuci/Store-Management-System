@@ -11,24 +11,6 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $vendas = DB::table('vendas')
-            ->select(
-                DB::raw('count(id) as `data`'),
-                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
-                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
-                DB::raw('SUM(precoVenda) as capital')
-            )
-            ->groupby('year', 'month')
-            ->orderBy('created_at', 'desc')
-            ->limit(3)
-            ->get();
-
-        $result[] = ['month', 'Valor'];
-
-        foreach ($vendas as $key => $value) {
-            $result[++$key] = [(int)$value->month, (double)$value->capital];
-        }
-
         return view('admin.dashboard')->with('visitor', json_encode($result));
     }
 
