@@ -15,19 +15,19 @@
                             @csrf
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86); margin-bottom: 10px">Dados
                             </h4>
-                            <select class="form-select" id="categoria" name="categoria"
+                            <select class="form-select text-light bg-dark" id="categoria" name="categoria"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);">
                                 <optgroup label="Categoria">
-                                    <option value=""> Categoria </option>
+                                    <option disabled selected value=""> Categoria </option>
                                     @foreach ($categorias as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                     @endforeach
                                 </optgroup>
                             </select>
-                            <select class="form-select" id="produto" name="produto"
+                            <select class="form-select text-light bg-dark" id="produto" name="produto"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color: rgb(0, 0, 0);">
                                 <optgroup label="Produto">
-                                    <option value=""> Produto </option>
+                                    <option disabled selected value=""> Produto </option>
                                 </optgroup>
                             </select>
                             <input class="form-control" type="text" id="quantidade" required=""

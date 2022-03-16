@@ -35,6 +35,8 @@ class ProdutoController extends Controller
         $data['id_categoria'] = $request->categoria;
         $produto->update($data);
 
+        HistoricoController::adicionar("EDIÇÃO", "O Produto '$produto->nome - $produto->peso - $produto->marca' Foi editado");
+
         return view('admin.estoque');
     }
 
@@ -44,6 +46,9 @@ class ProdutoController extends Controller
             return redirect()->route('admin.estoque');
         } else {
             $produto->delete();
+
+            HistoricoController::adicionar("APAGAR", "O Produto $produto->nome - $produto->marca foi excluido ");
+
             return redirect()->route('admin.estoque');
         }
     }

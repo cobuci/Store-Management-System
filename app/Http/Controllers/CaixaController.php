@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Caixa;
 use App\Models\Financa;
 use App\Models\Produto;
+use Livewire\WithPagination;
 
 class CaixaController extends Controller
 {
-
+use WithPagination;
     public function index(Caixa $caixa)
     {
         $caixa = $caixa->all();

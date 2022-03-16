@@ -17,7 +17,7 @@
                                 Dados
                             </h4>
                             
-                            <select class="form-select" id="categoria"
+                            <select class="form-select text-light bg-dark" id="categoria"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="categoria">
                                 <optgroup label="Categoria">
@@ -38,7 +38,7 @@
                                 name="peso"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <select class="form-select" id="tipoPeso"
+                            <select class="form-select text-light bg-dark" id="tipoPeso"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="tipoPeso">
                                 <optgroup label="Unidade">

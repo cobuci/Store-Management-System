@@ -18,7 +18,7 @@
                             </h4>
                             <input class="form-control" type="text" id="nome" placeholder="Nome (*)" name="nome"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
-                            <select class="form-select" name="sexo" id="sexo"
+                            <select class="form-select text-light bg-dark" name="sexo" id="sexo"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color: var(--bs-white);">
                                 <optgroup label="Sexo">
                                     <option value="M">Masculino</option>

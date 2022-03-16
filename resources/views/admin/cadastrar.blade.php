@@ -15,33 +15,34 @@
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86)">
                                 Dados
                             </h4>
-                            <select class="form-select" id="categoria"
+                            <select class="form-select text-light bg-dark" id="categoria" required
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="categoria">
                                 <optgroup label="Categoria">
+                                    <option disabled selected value="">Categoria</option>
                                     @foreach (Categoria::listar() as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                     @endforeach
                                 </optgroup>
                             </select>
-                            <input class="form-control" type="text" id="nome" placeholder="Nome (*)"
-                                name="nome"
+                            <input class="form-control " type="text" id="nome" placeholder="Nome (*)"
+                                name="nome" required
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
                             <input class="form-control" type="text" id="marca"  placeholder="Marca" name="marca"
                                 style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"
-                                inputmode="tel" />
-                            <input class="form-control" type="text" id="peso"  placeholder="Unidade (*)"
+                                 />
+                            <input class="form-control" type="text" id="peso"  placeholder="Unidade (*)" required
                                 name="peso"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <select class="form-select" id="tipoPeso"
+                            <select class="form-select text-light bg-dark"  id="tipoPeso"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="tipoPeso">
                                 <optgroup label="Unidade">
-                                    <option value="L">Litros</option>
                                     <option value="ml">Mililitros</option>
-                                    <option value="KG">Kg</option>
+                                    <option value="L">Litros</option>
                                     <option value="g">Gramas</option>
+                                    <option value="KG">Kg</option>                                    
                                     <option value="un">Unidade</option>
                                 </optgroup>
                             </select>

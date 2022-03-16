@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VendaProduto;
 use Illuminate\Http\Request;
 use App\Models\Venda;
 use App\Models\Produto;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 class VendaController extends Controller
 {
+    use WithPagination;
     public function index(Venda $venda)
     {
-        
+
         $venda = Venda::latest("id")->simplepaginate(10);
 
         return view('admin.relatorio', [
@@ -21,7 +24,7 @@ class VendaController extends Controller
     }
 
 
-    public function vendaIfood(Request $request)
+    public function vendaIfood(VendaProduto $request)
     {
 
         $produto = Produto::find($request->produto);
@@ -44,6 +47,7 @@ class VendaController extends Controller
         $venda->precoUnidade = $produto->custo;
         $venda->desconto = $request->desconto;
         $venda->marca = $produto->marca;
+        $venda->id_produto = $produto->id;
 
         $venda->save();
 
@@ -53,7 +57,7 @@ class VendaController extends Controller
         return redirect('/relatorio');
     }
 
-    public function vendaLoja(Request $request)
+    public function vendaLoja(VendaProduto $request)
     {
 
         $produto = Produto::find($request->produto);
@@ -107,11 +111,12 @@ class VendaController extends Controller
         $venda = Venda::find($id);
 
         ProdutoController::adicionarEstoque($venda->id_produto, $venda->quantidade);
-        CaixaController::removerSaldo($venda->precoVenda);
+        $venda->formaPagamento != "Ifood" ?  CaixaController::removerSaldo($venda->precoVenda) : CaixaController::removerIfood($venda->precoVenda);
+        HistoricoController::adicionar("CANCELAMENTO", "Cancelamento da venda #$venda->id");
         FinancaController::cancelarVenda($venda->id, $venda->precoVenda);
 
         $venda->delete();
 
-       return redirect('/relatorio');
+        return redirect('/relatorio');
     }
 }

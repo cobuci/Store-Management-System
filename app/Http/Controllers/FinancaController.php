@@ -33,6 +33,7 @@ class FinancaController extends Controller
         $financa->descricao = $descricao;
         $financa->tipo = "CANCELAMENTO";
 
+        
         $financa->save();
     }
 
