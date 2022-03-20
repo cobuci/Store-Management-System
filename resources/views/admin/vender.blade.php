@@ -15,17 +15,17 @@
                             @csrf
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" style="margin-bottom: 15px;">
-                                    <select  class="form-select text-light bg-dark" id="categoria" 
+                                    <select class="form-select text-light bg-dark" id="categoria"
                                         style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                         name="categoria">
                                         <optgroup label="Categoria">
-                                            <option disabled selected value="null" > Categoria </option>
+                                            <option disabled selected value="null"> Categoria </option>
                                             @foreach (Categoria::listar() as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                             @endforeach
                                         </optgroup>
                                     </select>
-                                    <select class="form-select text-light bg-dark" id="produto" onchange="calcularValor()"
+                                    <select class="form-select text-light bg-dark" id="produto" onchange=""
                                         style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                         name="produto">
                                         <optgroup label="Produto">
@@ -34,11 +34,11 @@
                                     </select>
 
 
-                                    <input class="form-control" type="text" id="quantidade" required=""
-                                        onkeyup="calcularValor()" placeholder="Quantidade (*)" name="quantidade"
+                                    <input class="form-control" type="text" id="quantidade" required="" onkeyup=""
+                                        placeholder="Quantidade (*)" name="quantidade"
                                         style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
                                     <button class="btn btn-outline-light font-monospace shadow-sm" data-bs-toggle="tooltip"
-                                        id="adicionar" data-bss-tooltip="" data-bs-placement="bottom" type=""
+                                        onclick="" id="adicionar" data-bss-tooltip="" data-bs-placement="bottom" type=""
                                         style="border-radius: 10px;margin-top: 10px;width: 100%;"
                                         title="Adicionar">Adicionar</button>
                                     <button class="btn btn-outline-light font-monospace shadow-sm" data-bs-toggle="tooltip"
@@ -131,20 +131,44 @@
         <script>
             const calcularValor = () => {
                 let desconto = document.getElementById("desconto").value;
-                var produto = document.getElementById('produto');
-                var produtoAtual = produto.options[produto.selectedIndex];
+                // var produto = document.getElementById('produto');
+                // var produtoAtual = produto.options[produto.selectedIndex];
                 var total = document.getElementById('valorTotal');
 
-                var quantidade = document.getElementById('quantidade').value;
-                var valorProduto = produtoAtual.getAttribute("preco");
+                // var quantidade = document.getElementById('quantidade').value;
+                // var valorProduto = produtoAtual.getAttribute("preco");
 
+                // if (quantidade && quantidade > 0) {
+                //     var resultado = (quantidade * valorProduto) - desconto;
+                //     total.value = resultado.toFixed(2);
+                // }
 
-                if (quantidade && quantidade > 0) {
-                    var resultado = (quantidade * valorProduto) - desconto;
-                    total.value = resultado.toFixed(2);
-                }
+                var resultado = parseFloat(total.value) - (desconto);
+
+                total.value = resultado.toFixed(2);
 
             }
+
+            const calcularTotal = () => {
+                var total = document.getElementById('valorTotal');
+                resultado = 0;
+
+                Array.from(document.getElementsByClassName("item")).forEach(function(item) {
+                    resultado = parseFloat(resultado) + parseFloat(item.getAttribute("preco"))
+
+                });
+                total.value = resultado.toFixed(2);
+            }
+
+
+            const lista = document.querySelector("#lista");
+            const observer = new MutationObserver(function() {
+                calcularTotal();
+            });
+
+            observer.observe(lista, {
+                childList: true
+            });
         </script>
 
         <script>
@@ -154,12 +178,12 @@
 
                 let quantidade = $("#quantidade");
                 let produto = $("#produto");
-               
+
 
                 $("#adicionar").click(function(e) {
                     e.preventDefault();
-                    let precoAttr =  ($("#produto option:selected").attr('preco')) ;
-                    let quantAttr =  $("#quantidade").val() ;
+                    let precoAttr = ($("#produto option:selected").attr('preco'));
+                    let quantAttr = $("#quantidade").val();
 
                     if (quantidade.val() && produto.val()) {
                         let new_row_number = row_number - 1;
@@ -168,7 +192,7 @@
                             .find('ul li:first-child');
                         jQuery('<li>', {
                             id: 'product' + row_number,
-                            class: 'listaVenda',
+                            class: 'listaVenda item',
                             text: $("#quantidade").val() +
                                 " - " +
                                 $("#produto option:selected")
@@ -179,12 +203,12 @@
                                 " - " +
                                 $("#produto option:selected").attr('peso'),
                             produto: $("#produto option:selected").val(),
-                            preco: parseFloat(precoAttr) *parseFloat(quantAttr),
-                            quantidade:quantAttr,
+                            preco: parseFloat(precoAttr) * parseFloat(quantAttr),
+                            quantidade: quantAttr,
                         }).appendTo('#lista');
                         row_number++;
                     } else {
-                        console.log('oi')
+
                     }
                 });
 
