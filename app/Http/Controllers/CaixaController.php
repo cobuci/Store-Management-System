@@ -20,7 +20,7 @@ use WithPagination;
         $investimento = $caixa[1]->saldo;
         $ifood = $caixa[2]->saldo;
 
-        $financas = Financa::latest("id")->simplepaginate(10);
+        $financas = Financa::latest("id")->paginate(10);
 
 
         

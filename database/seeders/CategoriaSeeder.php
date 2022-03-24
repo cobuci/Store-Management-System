@@ -17,7 +17,7 @@ class CategoriaSeeder extends Seeder
     {
         
         DB::table('categorias')->insert([
-            'nome' => "Bebidas",
+            'nome' => "Água",
             'icone' => "local_drink",
             'classe' => "material-icons",
         ]);
@@ -66,6 +66,10 @@ class CategoriaSeeder extends Seeder
             'icone' => "",
             'classe' => "fas fa-barcode",
         ]);
-      
+        DB::table('categorias')->insert([
+            'nome' => "Bebidas",
+            'icone' => "",
+            'classe' => "fa-solid fa-bottle-droplet",
+        ]);
     }
 }

@@ -57,10 +57,19 @@
                             class="nav-link {{ Route::current()->getName() === 'admin.venderIfood' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
                             href="{{ route('admin.venderIfood') }}" title="iFood">IFOOD</a></li>
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.relatorio' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.relatorio') }}" title="Relatório">RELATÓRIO</a></li>
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" aria-expanded="false"
+                            data-bs-toggle="dropdown">RELATÓRIO</a>
+                        <div class="dropdown-menu dropdown-menu-dark">
+                            <a class="dropdown-item" href="{{ route('admin.relatorio') }}">Relatório</a>
+                            <a class="dropdown-item" href="{{ route('admin.relatorio.descontinuado') }}">Relatório -
+                                Descontinuado</a>
+                        </div>
+                    </li>
+
                     <li class="nav-item"><a
                             class="nav-link {{ Route::current()->getName() === 'admin.historico' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
@@ -81,7 +90,7 @@
     <header style="width: 100%;height: 1em;"></header>
 
     @yield('content')
-@livewireScripts
+    @livewireScripts
     <script src="{{ url(mix('admin/script.js')) }}"></script>
 
     <script src="{{ asset('admin/bootstrap.js') }}"></script>

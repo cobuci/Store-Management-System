@@ -9,23 +9,23 @@ use App\Models\Venda;
 
 class FinancaController extends Controller
 {
-    public static function adicionarVenda($produto, $valor, $quantidade)
+    public static function adicionarVenda($valor, $idVenda)
     {
-        $produto = Produto::find($produto);
+
         $financa = new Financa();
 
-        $descricao = "Venda de ($quantidade - $produto->nome - $produto->marca - $produto->peso)";
+        $descricao = "Nova Venda";
 
         $financa->valor = $valor;
         $financa->descricao = $descricao;
         $financa->tipo = "ENTRADA";
-
+        $financa->data = \Carbon\Carbon::now()->toDateTimeString();
         $financa->save();
     }
 
     public static function cancelarVenda($id, $valor)
     {
-      
+
         $financa = new Financa();
         $descricao = "Cancelamento da Venda #$id";
 
@@ -33,7 +33,7 @@ class FinancaController extends Controller
         $financa->descricao = $descricao;
         $financa->tipo = "CANCELAMENTO";
 
-        
+
         $financa->save();
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Categoria;
 use App\Http\Requests\StoreUpdateProduto;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -91,4 +92,19 @@ class ProdutoController extends Controller
         HistoricoController::adicionar("CADASTRO", "Cadastro do Produto $request->nome - $request->marca -($request->peso.$request->tipoPeso) ");
         return redirect('/estoque');
     }
+
+
+    
+    public static function findProduct($id)
+    {
+
+        $produto = DB::table('produtos')
+            ->where('id', '=', $id)            
+            ->get();
+
+        return $produto;
+    }
+
 }
+
+
