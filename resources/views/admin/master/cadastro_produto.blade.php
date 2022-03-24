@@ -23,8 +23,8 @@
     name="tipoPeso">
     <optgroup label="Unidade">
         <option value="">Peso</option>
-        <option value="L">Litros</option>
         <option value="ml">Mililitros</option>
+        <option value="L">Litros</option>        
         <option value="KG">Kg</option>
         <option value="g">Gramas</option>
         <option value="un">Unidade</option>

@@ -10,14 +10,13 @@
                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);border-style: none;border-color: var(--bs-purple);">
                     <div class="card-body shadow-sm"
                         style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
-                        <form id="personForm" name="personForm" method="post" action="/vender/loja"
+                        <form id="personForm" name="personForm" method="post" action="{{ route('admin.orders.store') }}"
                             data-url="{{ route('load_prod_cat') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" style="margin-bottom: 15px;">
                                     <select class="form-select text-light bg-dark" id="categoria"
-                                        style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                        name="categoria">
+                                        style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);">
                                         <optgroup label="Categoria">
                                             <option disabled selected value="null"> Categoria </option>
                                             @foreach (Categoria::listar() as $cat)
@@ -26,16 +25,15 @@
                                         </optgroup>
                                     </select>
                                     <select class="form-select text-light bg-dark" id="produto" onchange=""
-                                        style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                        name="produto">
+                                        style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);">
                                         <optgroup label="Produto">
                                             <option selected disabled value=""> Produto </option>
                                         </optgroup>
                                     </select>
 
 
-                                    <input class="form-control" type="text" id="quantidade" required="" onkeyup=""
-                                        placeholder="Quantidade (*)" name="quantidade"
+                                    <input class="form-control" type="text" id="quantidade"  onkeyup=""
+                                        placeholder="Quantidade (*)"
                                         style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
                                     <button class="btn btn-outline-light font-monospace shadow-sm" data-bs-toggle="tooltip"
                                         onclick="" id="adicionar" data-bss-tooltip="" data-bs-placement="bottom" type=""
@@ -48,18 +46,18 @@
                                 </div>
                                 <div class="col-sm-12 col-md-5"
                                     style="border-radius: 15px;padding-top: 10px;border: 2px dotted #8c61ff;margin-bottom: 15px;">
-                                    <ul class="list-unstyled" id="lista">
+                                    <ul class="list-unstyled ulProduto" id="lista">
 
                                     </ul>
                                 </div>
                                 <div class="col-sm-12 col-md-3" style="margin-bottom: 15px;">
-                                    <input class="form-control" type="text" id="desconto" onkeyup="calcularValor()"
+                                    <input class="form-control" type="text" id="desconto" onkeydown="calcularValor()"
                                         placeholder="Desconto (R$)" name="desconto"
                                         style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                         inputmode="numeric" />
-
+                                    <input type="hidden" id="quantidadeProdutos" name="quantidadeProdutos">
                                     <input class="form-control" type="text" id="valorTotal" required=""
-                                        placeholder="Valor Total" name="valorTotal"
+                                        placeholder="Valor Total"
                                         style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                         inputmode="numeric" readonly="" />
 
@@ -151,6 +149,9 @@
 
             const calcularTotal = () => {
                 var total = document.getElementById('valorTotal');
+                var qtdProdutos = document.getElementById('quantidadeProdutos');
+
+
                 resultado = 0;
 
                 Array.from(document.getElementsByClassName("item")).forEach(function(item) {
@@ -158,6 +159,7 @@
 
                 });
                 total.value = resultado.toFixed(2);
+                qtdProdutos.value = $(".ulProduto li").length;;
             }
 
 
@@ -202,27 +204,35 @@
                                 $("#produto option:selected").attr('marca') +
                                 " - " +
                                 $("#produto option:selected").attr('peso'),
-                            produto: $("#produto option:selected").val(),
                             preco: parseFloat(precoAttr) * parseFloat(quantAttr),
-                            quantidade: quantAttr,
-                        }).appendTo('#lista');
-                        row_number++;
-                    } else {
 
+                        }).appendTo('#lista');
+
+                        jQuery('<input>', {
+                            id: 'idProduto' + row_number,
+                            name: 'produto' + row_number,
+                            value: $("#produto option:selected").val(),
+                        }).attr('type', 'hidden').appendTo('#lista');
+
+                        jQuery('<input>', {
+                            id: 'quantidadeProduto' + row_number,
+                            name: 'quantidade' + row_number,
+                            value: quantAttr,
+                        }).attr('type', 'hidden').appendTo('#lista');
+                        row_number++;
                     }
                 });
 
 
-
                 $("#remover").click(function(e) {
-                    console.log(row_number)
                     e.preventDefault();
                     if (row_number > 1) {
                         $("#product" + (row_number - 1)).remove();
+                        $("#idProduto" + (row_number - 1)).remove();
                         row_number--;
 
+
                     }
-                    console.log(row_number)
                 });
             });
         </script>

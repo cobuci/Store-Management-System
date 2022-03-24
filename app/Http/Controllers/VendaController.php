@@ -16,9 +16,9 @@ class VendaController extends Controller
     public function index(Venda $venda)
     {
 
-        $venda = Venda::latest("id")->simplepaginate(10);
+        $venda = Venda::latest("id")->paginate(10);
 
-        return view('admin.relatorio', [
+        return view('admin.relatorioDescontinuado', [
             'venda' => $venda,
         ]);
     }
@@ -84,16 +84,16 @@ class VendaController extends Controller
 
         $venda->produto = $produto->nome;
         $venda->custo = $request->quantidade * $produto->custo;
-        $venda->formaPagamento = $request->pagamento;
-        $venda->created_at = \Carbon\Carbon::now()->toDateTimeString();;
+        $venda->formaPagamento = $request->pagamento;           ///////////////
+        $venda->created_at = \Carbon\Carbon::now()->toDateTimeString();
         $request->cliente != "null" ? $venda->id_cliente = $cliente->id : null;
         $request->cliente != "null" ? $venda->nomeCliente = $cliente->nome : null;
         $venda->quantidade = $request->quantidade;
-        $venda->precoVenda = $valorTotal;
+        $venda->precoVenda = $valorTotal;       ///////////////
         $venda->precoUnidade = $produto->custo;
         $venda->id_produto = $produto->id;
         $venda->marca = $produto->marca;
-        $venda->desconto = $request->desconto;
+        $venda->desconto = $request->desconto; ///////////////
 
         $venda->save();
 
@@ -102,6 +102,56 @@ class VendaController extends Controller
 
         return redirect('/relatorio');
     }
+
+    public static function vendaDescontinuada($order_id, $desconto, $formaPagamento, $cliente, $bonificacao, $idProduto, $quantidade)
+    {
+
+        $produto = Produto::find($idProduto);
+
+        $cliente = Cliente::find($cliente);
+
+
+        $venda = new Venda();
+
+        // CLIENTE
+        $cliente != null ? $venda->id_cliente = $cliente->id : null;
+        $cliente != null ? $venda->nomeCliente = $cliente->nome : null;
+
+
+
+        // Tratamento de valores
+        $valorVenda = $quantidade * $produto->venda;
+        $valorVenda -= $desconto;
+
+        $taxa = 1;
+        $formaPagamento == "Credito" ? $taxa = 0.9501 : null;
+        $formaPagamento == "Debito" ? $taxa = 0.98 : null;
+
+        $bonificacao == 1 ? $valorVenda = 0 : null;
+        $valorVenda = floatval($valorVenda) * $taxa;
+
+
+        $venda->created_at = \Carbon\Carbon::now()->toDateTimeString();
+        /// PAGAMENTO
+
+        $venda->custo = $quantidade * $produto->custo;
+        $venda->desconto = $desconto;
+        $venda->formaPagamento = $formaPagamento;
+        $venda->precoVenda = $valorVenda;
+
+
+        // Produto        
+        $venda->produto = $produto->nome;
+        $venda->precoUnidade = $produto->custo;
+        $venda->id_produto = $produto->id;
+        $venda->marca = $produto->marca;
+        $venda->quantidade = $quantidade;
+
+        $venda->order_id = $order_id;
+
+        $venda->save();
+    }
+
 
 
 

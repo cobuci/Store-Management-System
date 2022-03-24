@@ -12,8 +12,15 @@ use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
+use App\Http\Controllers\OrderController;
 
 Route::middleware('auth:sanctum')->group(function () {
+
+
+    Route::POST('/order/store', [OrderController::class, "store"])->name('admin.orders.store');
+
+    Route::delete('/relatorio/{id}', [OrderController::class, "destroy"])->name('order.destroy');
+
 
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
 
@@ -21,8 +28,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // Dados
 
     Route::get('/financas', [CaixaController::class, "index"])->name('admin.financas');
+    
 
-    Route::get('/relatorio', [VendaController::class, "index"])->name('admin.relatorio');
+    Route::get('/relatorio', [OrderController::class, "index"])->name('admin.relatorio');
+
+    
+    Route::get('/relatorio/descontinuado', [VendaController::class, "index"])->name('admin.relatorio.descontinuado');
+
 
     Route::get('/historico', [HistoricoController::class, "index"])->name('admin.historico');
 

@@ -106,7 +106,7 @@
                                             <tbody>
                                                 @foreach (Produto::listar() as $produto)
                                                     @if ($produto->id_categoria == $cat->id)
-                                                        <tr>
+                                                        <tr style="background: {{ $produto->quantidade <= 0 ? "indianred": null }};" >
                                                             <td>{{ $produto->id }}</td>
                                                             <td>{{ $produto->nome }}</td>
                                                             <td>{{ $produto->marca }}</td>

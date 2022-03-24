@@ -109,6 +109,7 @@ return [
         'Dashboard' => App\Http\Controllers\DashboardController::class,
         'Historico' => App\Http\Controllers\HistoricoController::class,
         'Venda' => App\Http\Controllers\VendaController::class,
+        'Order' => App\Http\Controllers\OrderController::class,
     ])->toArray(),
 
 ];
