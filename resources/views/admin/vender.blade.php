@@ -32,7 +32,7 @@
                                     </select>
 
 
-                                    <input class="form-control" type="text" id="quantidade"  onkeyup=""
+                                    <input class="form-control" type="text" id="quantidade" onkeyup=""
                                         placeholder="Quantidade (*)"
                                         style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
                                     <button class="btn btn-outline-light font-monospace shadow-sm" data-bs-toggle="tooltip"
@@ -184,6 +184,8 @@
 
                 $("#adicionar").click(function(e) {
                     e.preventDefault();
+
+
                     let precoAttr = ($("#produto option:selected").attr('preco'));
                     let quantAttr = $("#quantidade").val();
 
@@ -220,7 +222,10 @@
                             value: quantAttr,
                         }).attr('type', 'hidden').appendTo('#lista');
                         row_number++;
+
+
                     }
+                    $('#quantidade').val("");
                 });
 
 
