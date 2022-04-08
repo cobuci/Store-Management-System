@@ -82,12 +82,8 @@
     </div>
     <div class="container" style="margin-top: 20px">
         <div class="row">
-            <div class="col-12">
-                <span>
-                    {{ $financas->links() }}
-                </span>
-
-
+            <div class="col-12" >               
+                    {{ $financas->links() }}               
             </div>
         </div>
     </div>

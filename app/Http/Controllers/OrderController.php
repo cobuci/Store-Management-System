@@ -25,7 +25,7 @@ class OrderController extends Controller
     public function index(Sale $venda)
     {
 
-        $venda = Sale::latest("id")->paginate(10);
+        $venda = Sale::latest("id")->paginate(10)->onEachSide(1);
 
 
         return view('admin.relatorio', [

@@ -16,7 +16,7 @@ class VendaController extends Controller
     public function index(Venda $venda)
     {
 
-        $venda = Venda::latest("id")->paginate(10);
+        $venda = Venda::latest("id")->paginate(10)->onEachSide(1);
 
         return view('admin.relatorioDescontinuado', [
             'venda' => $venda,

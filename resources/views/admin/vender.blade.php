@@ -13,6 +13,16 @@
                         <form id="personForm" name="personForm" method="post" action="{{ route('admin.orders.store') }}"
                             data-url="{{ route('load_prod_cat') }}">
                             @csrf
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <svg width="24" height="24">
+                                </svg>
+                                <ul>
+                                    <li>Não utilizar o campo <strong>Desconto</strong> em vendas com multiplos itens.</li>
+                                  
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" style="margin-bottom: 15px;">
                                     <select class="form-select text-light bg-dark" id="categoria"

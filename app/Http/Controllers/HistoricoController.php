@@ -14,7 +14,7 @@ class HistoricoController extends Controller
 
     public static function listarHistorico()
     {
-        $historico = Historico::latest("id")->paginate(10);
+        $historico = Historico::latest("id")->paginate(10)->onEachSide(1);
         return $historico;
     }
 
