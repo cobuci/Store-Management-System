@@ -31,10 +31,10 @@ class VendaController extends Controller
 
         $produto->quantidade -= $request->quantidade;
 
-        $valorTotal = floatval($request->valorTotal);
+        $valorTotal = floatval($request->quantidade * $produto->venda);
         CaixaController::adicionarIfood($valorTotal);
         HistoricoController::adicionar("IFOOD", "VENDA de ($request->quantidade - $produto->nome)");
-        FinancaController::adicionarVenda($request->produto, $valorTotal, $request->quantidade);
+        FinancaController::adicionarVenda($valorTotal, $valorTotal, $request->quantidade);
 
         $venda = new Venda();
 
