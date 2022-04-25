@@ -76,5 +76,10 @@ class CategoriaSeeder extends Seeder
             'icone' => "",
             'classe' => "fa-solid fa-smoking",
         ]);
+        DB::table('categorias')->insert([
+            'nome' => "Gelo",
+            'icone' => "",
+            'classe' => "fa-solid fa-icicles",
+        ]);
     }
 }
