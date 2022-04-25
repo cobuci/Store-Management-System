@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-9">
                                 <h4 class="text-nowrap text-start"
-                                    style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Sales today
+                                    style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Daily Income
 
                                 </h4>
                             </div>
@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-9 text-nowrap">
                                 <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
-                                    Monthly sales<br>
+                                    Monthly Revenue<br>
                                 </h4>
                             </div>
                             <div class="col text-truncate">
@@ -99,8 +99,24 @@
         </div>
     </div>
     <div class="container">
-        
+        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
+            <div class="card-body text-center shadow-sm" style="height: 200px;">
+                <div class="row">
+                    <div class="col-9 text-nowrap">
+                        <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Monthly
+                            goal<br /></h4>
+                        <p class="text-start" style="margin-top: 16px;">R$ {{ Dashboard::salesMonth() }} / R$  {{ Dashboard::monthGoal() }}
+                        </p>
+                    </div>
+                    <div class="col text-truncate text-end"><i class="fa fa-google-wallet fs-1"></i></div>
+                </div>
+                <div class="progress" style="height: 50px;border-radius: 22px;font-size: 22px;">
+                    <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" aria-valuenow="80"
+                        aria-valuemin="0" aria-valuemax="100" style="width: {{ Dashboard::porcentagemGoal() }}%;"> {{ Dashboard::porcentagemGoal() }}%</div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
 
 @endsection

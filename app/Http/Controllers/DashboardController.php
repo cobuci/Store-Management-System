@@ -122,4 +122,25 @@ class DashboardController extends Controller
             return null;
         }
     }
+
+    public static function monthGoal()
+    {
+        $atual = DashboardController::salesMonth(1);
+        $anterior = DashboardController::salesMonth(2);
+
+        $goal =  number_format($anterior * 1.33, 2);
+
+        return $goal;
+    }
+
+    public static function porcentagemGoal()
+    {
+        $atual = DashboardController::salesMonth(1);
+        $anterior = DashboardController::salesMonth(2);
+
+        $goal =  $anterior * 1.33;
+        $porcentagem = ($atual / $goal) * 100;
+
+        return number_format($porcentagem,2);
+    }
 }

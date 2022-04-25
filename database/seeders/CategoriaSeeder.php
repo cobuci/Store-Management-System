@@ -71,5 +71,10 @@ class CategoriaSeeder extends Seeder
             'icone' => "",
             'classe' => "fa-solid fa-bottle-droplet",
         ]);
+        DB::table('categorias')->insert([
+            'nome' => "Narguile",
+            'icone' => "",
+            'classe' => "fa-solid fa-smoking",
+        ]);
     }
 }

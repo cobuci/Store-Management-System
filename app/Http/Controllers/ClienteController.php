@@ -29,7 +29,7 @@ class ClienteController extends Controller
     public static function listar()
     {
         $cli = new Cliente;
-        $cliente = $cli->get();
+        $cliente = $cli->orderBy('nome', 'asc')->get();
 
         return $cliente;
     }

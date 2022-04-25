@@ -33,5 +33,6 @@ class CaixaSeeder extends Seeder
             'descricao' => "Ifood",
             'saldo' => 0
         ]);
+       
     }
 }
