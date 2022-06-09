@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('precoUnidade', 10, 2);
             $table->string('peso');
             $table->integer('quantidade');
+            $table->integer('status_pagamento');
         });
 
 

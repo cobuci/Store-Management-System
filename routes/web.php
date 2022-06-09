@@ -21,6 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('/relatorio/{id}', [OrderController::class, "destroy"])->name('order.destroy');
 
+    Route::POST('/relatorio/{id}', [OrderController::class, "changeStatusOrder"])->name('order.status');
+
+
 
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
 
