@@ -26,11 +26,11 @@ class OrderController extends Controller
     {
 
         $venda = Sale::latest("id")->paginate(10)->onEachSide(1);
-
+        $unconfirmedSale = Sale::latest("id")->get();
 
         return view('admin.relatorio', [
             'venda' => $venda,
-
+            'unconfirmedSale' => $unconfirmedSale,
         ]);
     }
 
@@ -130,6 +130,14 @@ class OrderController extends Controller
     }
 
 
+    public static function changeStatusOrder($id)
+    {
+        $sale = Sale::find($id);
+
+        $sale->status_pagamento = 1;
+        $sale->save();
+        return redirect('/relatorio');
+    }
 
 
     public static function newSale($custo, $valorVenda, $desconto = 0, $formaPagamento, $clienteId, $idVenda, $bonificacao)
