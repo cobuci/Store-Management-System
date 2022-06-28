@@ -105,14 +105,39 @@
                     <div class="col-9 text-nowrap">
                         <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Monthly
                             goal<br /></h4>
-                        <p class="text-start" style="margin-top: 16px;">R$ {{ Dashboard::salesMonth() }} / R$  {{ Dashboard::monthGoal() }}
+                        <p class="text-start" style="margin-top: 16px;">R$ {{ Dashboard::salesMonth() }} / R$
+                            {{ Dashboard::monthGoal() }}
                         </p>
                     </div>
                     <div class="col text-truncate text-end"><i class="fa fa-google-wallet fs-1"></i></div>
                 </div>
                 <div class="progress" style="height: 50px;border-radius: 22px;font-size: 22px;">
                     <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" aria-valuenow="80"
-                        aria-valuemin="0" aria-valuemax="100" style="width: {{ Dashboard::porcentagemGoal() }}%;"> {{ Dashboard::porcentagemGoal() }}%</div>
+                        aria-valuemin="0" aria-valuemax="100" style="width: {{ Dashboard::porcentagemGoal() }}%;">
+                        {{ Dashboard::porcentagemGoal() }}%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-12" style="margin-bottom: 15px;">
+                <div class="card col-md-12 col-sm-12"
+                    style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
+                    <div class="card-body text-center shadow-sm" style="height: 300px;">
+                        <div class="row">
+                            <div class="col-9 text-nowrap">
+                                <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
+                                    Info<br></h4>
+                            </div>
+                            <div class="col text-truncate text-end"><i class="material-icons fs-1">info_outline</i></div>
+                        </div>
+                        <div class="col">
+                            <p class="text-start">Monthly daily average:<br> R$
+                                {{ Dashboard::dailyAvg() }}
+                        </div>
+                        <p class="text-start card-text">Previous months:<br> R$ {{ Dashboard::salesMonth(2) }} </p>
+                    </div>
                 </div>
             </div>
         </div>

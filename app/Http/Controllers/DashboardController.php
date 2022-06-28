@@ -33,10 +33,46 @@ class DashboardController extends Controller
             $vendas = $vendas[sizeof($vendas) - $data];
             $vendas = $vendas['capital'];
 
-            return $vendas;
+            return  $vendas;
         } else {
             return null;
         }
+    }
+
+    public static function dia($data = 1)
+    {
+
+        $vendas = DB::table('vendas')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day'),
+
+            )
+            ->groupby('year', 'month', 'day')
+            ->get();
+
+        $vendas = json_decode($vendas, true);
+        if (sizeof($vendas) > 1) {
+            $vendas = $vendas[sizeof($vendas) - $data];
+            $vendas = $vendas['day'];
+
+            return  $vendas;
+        } else {
+            return null;
+        }
+    }
+
+
+    public static function dailyAvg($data = 1)
+    {
+        $revenue = DashboardController::salesMonth();
+        $day = DashboardController::dia(1);
+
+        $average = $revenue / $day;
+        $average = number_format($average, 2);
+
+        return $average;
     }
 
     public static function salesMonth($data = 1)
@@ -141,6 +177,6 @@ class DashboardController extends Controller
         $goal =  $anterior * 1.33;
         $porcentagem = ($atual / $goal) * 100;
 
-        return number_format($porcentagem,2);
+        return number_format($porcentagem, 2);
     }
 }
