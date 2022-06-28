@@ -52,14 +52,68 @@ class DashboardController extends Controller
             ->groupby('year', 'month', 'day')
             ->get();
 
-        $vendas = json_decode($vendas, true);
+        $day = json_decode($vendas, true);
         if (sizeof($vendas) > 1) {
-            $vendas = $vendas[sizeof($vendas) - $data];
-            $vendas = $vendas['day'];
+            $day = $day[sizeof($vendas) - $data];
+            $day = $day['day'];
 
-            return  $vendas;
+            return  $day;
         } else {
             return null;
+        }
+    }
+
+    public static function month($data = 1)
+    {
+
+        $vendas = DB::table('vendas')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day'),
+
+            )
+            ->groupby('year', 'month')
+            ->get();
+
+        $month = json_decode($vendas, true);
+        if (sizeof($vendas) > 1) {
+            $month = $month[sizeof($vendas) - $data];
+            $month = $month['month'];
+
+            return  $month;
+        } else {
+            return null;
+        }
+    }
+
+    public static function verificarMes($mes)
+    {
+
+        if ($mes == 1) {
+            return "Janeiro";
+        } else if ($mes == 2) {
+            return "Fevereiro";
+        } else if ($mes == 3) {
+            return "Março";
+        } else if ($mes == 4) {
+            return "Abril";
+        } else if ($mes == 5) {
+            return "Maio";
+        } else if ($mes == 6) {
+            return "Junho";
+        } else if ($mes == 7) {
+            return "Julho";
+        } else if ($mes == 8) {
+            return "Agosto";
+        } else if ($mes == 9) {
+            return "Setembro";
+        } else if ($mes == 10) {
+            return "Outubro";
+        } else if ($mes == 11) {
+            return "Novembro";
+        } else if ($mes == 12) {
+            return "Dezembro";
         }
     }
 

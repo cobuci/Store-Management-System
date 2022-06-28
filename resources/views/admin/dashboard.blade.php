@@ -124,7 +124,7 @@
             <div class="col-12" style="margin-bottom: 15px;">
                 <div class="card col-md-12 col-sm-12"
                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
-                    <div class="card-body text-center shadow-sm" style="height: 300px;">
+                    <div class="card-body text-center shadow-sm" style="height: 330px;">
                         <div class="row">
                             <div class="col-9 text-nowrap">
                                 <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
@@ -136,7 +136,13 @@
                             <p class="text-start">Monthly daily average:<br> R$
                                 {{ Dashboard::dailyAvg() }}
                         </div>
-                        <p class="text-start card-text">Previous months:<br> R$ {{ Dashboard::salesMonth(2) }} </p>
+                        <p class="text-start card-text">Previous months: <br>
+                            @for ($i = 6; $i >1; $i--)
+                                <br>{{ Dashboard::verificarMes(Dashboard::month($i))}} - R$ {{ Dashboard::salesMonth($i) }}
+                              
+                            @endfor
+                            
+                        </p>
                     </div>
                 </div>
             </div>
