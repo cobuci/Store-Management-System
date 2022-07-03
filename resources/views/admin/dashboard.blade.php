@@ -12,7 +12,8 @@
                                 <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
                                     Balance<br></h4>
                             </div>
-                            <div class="col text-truncate text-center"><i class="material-icons fs-1">attach_money</i>
+                            <div class="col text-truncate text-center">
+                                <i class="material-icons fs-1">attach_money</i>
                             </div>
                         </div>
                         <p class="fs-2 text-start card-text">R$ {{ Caixa::saldo() }}<br></p>
