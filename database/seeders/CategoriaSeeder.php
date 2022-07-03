@@ -69,7 +69,7 @@ class CategoriaSeeder extends Seeder
         DB::table('categorias')->insert([
             'nome' => "Bebidas",
             'icone' => "",
-            'classe' => "fa-solid fa-bottle-droplet",
+            'classe' => "fa-solid fa-martini-glass",
         ]);
         DB::table('categorias')->insert([
             'nome' => "Narguile",
@@ -80,6 +80,11 @@ class CategoriaSeeder extends Seeder
             'nome' => "Gelo",
             'icone' => "",
             'classe' => "fa-solid fa-icicles",
+        ]);
+        DB::table('categorias')->insert([
+            'nome' => "Doces",
+            'icone' => "",
+            'classe' => "fa-solid fa-candy-cane",
         ]);
     }
 }
