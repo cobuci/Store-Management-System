@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Dashboard')
+<script src="{{ asset('chart.js/chart.js') }}"></script>
 @section('content')
     <div class="container">
         <div class="row">
@@ -120,12 +121,15 @@
             </div>
         </div>
     </div>
+
+
+
     <div class="container" style="margin-top: 20px;">
         <div class="row">
             <div class="col-12" style="margin-bottom: 15px;">
                 <div class="card col-md-12 col-sm-12"
                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
-                    <div class="card-body text-center shadow-sm" style="height: 330px;">
+                    <div class="card-body text-center shadow-sm" style="height: ;">
                         <div class="row">
                             <div class="col-9 text-nowrap">
                                 <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
@@ -138,11 +142,20 @@
                                 {{ Dashboard::dailyAvg() }}
                         </div>
                         <p class="text-start card-text">Previous months: <br>
-                            @for ($i = 6; $i >1; $i--)
-                                <br>{{ Dashboard::verificarMes(Dashboard::month($i))}} - R$ {{ Dashboard::salesMonth($i) }}
-                              
+
+                            {{-- CHART --}}
+                            <canvas id="myChart" width="100" height="50px"></canvas>
+
+                            {{-- DADOS --}}
+                            @for ($i = 7; $i > 0; $i--)                           
+
+                                <input type="hidden" id="{{ 'hiddeninput' . $i }}"
+                                    value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
+
+                                <input type="hidden" id="{{ 'hiddeninputValue' . $i }}"
+                                    value="{{ Dashboard::salesMonth($i) }}" />
                             @endfor
-                            
+
                         </p>
                     </div>
                 </div>
@@ -150,5 +163,57 @@
         </div>
     </div>
 
+    <script>
+        const labels = [];
+        const valores = [];
+        for (var i = 7; i > 0; i--) {
+            labels.push(document.getElementById('hiddeninput' + i).value);
+            valores.push(document.getElementById('hiddeninputValue' + i).value);
+        }
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Revenue in R$',
+                backgroundColor: '#72d584',
+                borderColor: 'rgb(255, 255, 255)',
+                data: valores,
+            }]
+        };
+        var delayed;
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 800 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        };
+    </script>
+    <script>
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
 
 @endsection
