@@ -41,7 +41,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Bootstrap](https://getbootstrap.com/)
 
 
-
+<br><br>
 ### Instalação
 
  * npm install
