@@ -1,6 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Dashboard')
-<script src="{{ asset('chart.js/chart.js') }}"></script>
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -162,7 +162,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ asset('chart.js/chart.js') }}"></script>
     <script>
         const labels = [];
         const valores = [];
