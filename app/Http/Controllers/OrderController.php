@@ -28,9 +28,19 @@ class OrderController extends Controller
         $venda = Sale::latest("id")->paginate(10)->onEachSide(1);
         $unconfirmedSale = Sale::latest("id")->get();
 
+        $total = 0;
+        foreach ($unconfirmedSale as $item) {
+            if ($item->status_pagamento == 0) {
+                $total = $total + $item->precoVenda;
+            }
+        }
+
+
+
         return view('admin.relatorio', [
             'venda' => $venda,
             'unconfirmedSale' => $unconfirmedSale,
+            'total' => $total,
         ]);
     }
 
