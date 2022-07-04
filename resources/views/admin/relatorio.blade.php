@@ -2,6 +2,7 @@
 @section('title', 'Relatório')
 @section('content')
 
+
     <div class="container">
         <h1 class="text-center text-light">Relatório de Vendas</h1>
     </div>
@@ -31,6 +32,8 @@
                                             <th>Valor (Venda)</th>
                                             <th>Cliente</th>
                                             <th></th>
+                                            
+                                            <th> TOTAL: {{ $total }}</th>
 
                                         </tr>
                                     </thead>
@@ -38,6 +41,7 @@
                                         @foreach ($unconfirmedSale as $item)
                                             @if ($item->status_pagamento == 0)
                                                 <tr>
+                                               
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->custo }}<br></td>
                                                     <td>{{ $item->precoVenda }}<br></td>
