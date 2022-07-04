@@ -40,6 +40,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Chart.js](https://www.chartjs.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
+
+
 ### Instalação
 
  * npm install
