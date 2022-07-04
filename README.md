@@ -8,6 +8,7 @@ Conteúdo
    * [Sobre](#Sobre)
    * [Features](#Features)
    * [Tecnologias](#Tecnologias)
+   * [Instalação](#Instalação)
    * [Autor](#Autor)
 <!--te-->
 <br><br>
@@ -39,8 +40,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Chart.js](https://www.chartjs.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
+### Instalação
 
+ * npm install
+ * composer install
+ * composer update
+ * cp .env.example .env
+ * php artisan key:generate
 
+  
+  
 <br><br>
 ### Autor
 ---
