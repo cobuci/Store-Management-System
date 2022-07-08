@@ -41,6 +41,7 @@
                             <a class="dropdown-item" href="{{ route('admin.clienteCadastro') }}">Cadastrar</a>
                         </div>
                     </li>
+                    
                     <li class="nav-item"><a
                             class="nav-link {{ Route::current()->getName() === 'admin.estoque' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
@@ -70,6 +71,14 @@
                         </div>
                     </li>
 
+
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Ferramentas</a>
+                        <div class="dropdown-menu dropdown-menu-dark">
+                            <a class="dropdown-item" href="{{ route('admin.ocpack') }}">Fardo</a>
+                            
+                        </div>
+                    </li>
                     <li class="nav-item"><a
                             class="nav-link {{ Route::current()->getName() === 'admin.historico' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"

@@ -12,6 +12,7 @@ use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
+use App\Http\Controllers\ocPackController;
 use App\Http\Controllers\OrderController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -26,6 +27,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
+
+
+    Route::get('/pack', [ocPackController::class, "index"])->name('admin.ocpack');
+    Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
+    Route::POST('/pack/close', [ocPackController::class, "openPack"])->name('admin.pack.close');
+
 
     Route::get('/dashboard', [DashboardController::class, "index"])->name('admin.dashboard');
     // Dados
