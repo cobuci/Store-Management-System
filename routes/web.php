@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/pack', [ocPackController::class, "index"])->name('admin.ocpack');
     Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
-    Route::POST('/pack/close', [ocPackController::class, "openPack"])->name('admin.pack.close');
+    Route::POST('/pack/close', [ocPackController::class, "closePack"])->name('admin.pack.close');
 
 
     Route::get('/dashboard', [DashboardController::class, "index"])->name('admin.dashboard');

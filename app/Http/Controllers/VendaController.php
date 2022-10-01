@@ -17,9 +17,11 @@ class VendaController extends Controller
     {
 
         $venda = Venda::latest("id")->paginate(10)->onEachSide(1);
+      
 
         return view('admin.relatorioDescontinuado', [
             'venda' => $venda,
+            
         ]);
     }
 

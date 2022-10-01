@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('nomeCliente')->nullable();
             $table->string('formaPagamento');
             $table->timestamps();
+            $table->string('status_pagamento');
         });
     }
 
