@@ -59,6 +59,7 @@ class ClienteController extends Controller
             return redirect()->back();
         } else {
             $totalSpent = 0;
+            $totalDebit = 0;
             $totalAgua = 0;
             foreach (ClienteController::comprasCliente($id) as $compra) {
                 $totalSpent += $compra->precoVenda;
@@ -66,13 +67,16 @@ class ClienteController extends Controller
                     $totalAgua += $compra->quantidade;
                 }
             }
-            return view('admin.perfilCliente', compact('cliente', 'totalSpent'));
+            foreach (ClienteController::unpaidPurchases($id) as $compra) {
+                $totalDebit += $compra->precoVenda;
+               
+            }
+            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit'));
         }
     }
 
     public static function comprasCliente($id)
     {
-
 
         $venda = DB::table('vendas')
             ->latest()
@@ -82,6 +86,20 @@ class ClienteController extends Controller
 
         return $venda;
     }
+
+    public static function unpaidPurchases($id)
+    {
+
+        $venda = DB::table('sales')
+            ->latest()
+            ->where('id_cliente', '=', $id)
+            ->where('status_pagamento' ,'=', "0")
+            ->get();
+
+
+        return $venda;
+    }
+
     public static function quantidadeAgua($id)
     {
 

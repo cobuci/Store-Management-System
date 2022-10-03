@@ -60,24 +60,36 @@
             </div>
             <div class="col" style="width: 100%;">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 10px;">
+                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
                         <div class="card"
                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 100px;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-3">Total Spent</span></div>
+                                    <div class="col"><span class="fs-5">Debit Balance</span></div>
+                                    <div class="col-auto text-end"><i class="material-icons fs-1">attach_money</i></div>
+                                </div>
+                                <h6 class="fs-5 text-muted card-subtitle mb-2">R$ {{ $totalDebit }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
+                        <div class="card"
+                            style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
+                            <div class="card-body" style="height: 100px;">
+                                <div class="row">
+                                    <div class="col"><span class="fs-5">Total Spent</span></div>
                                     <div class="col-auto text-end"><i class="material-icons fs-1">attach_money</i></div>
                                 </div>
                                 <h6 class="fs-5 text-muted card-subtitle mb-2">R$ {{ $totalSpent }}</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 10px;">
+                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
                         <div class="card"
                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 100px;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-3">Águas Compradas<br></span>
+                                    <div class="col"><span class="fs-5">Águas Compradas<br></span>
                                     </div>
                                     <div class="col-auto text-end"><i class="fas fa-glass-whiskey fs-1"></i></div>
                                 </div>
