@@ -14,7 +14,7 @@ class ClienteController extends Controller
     public function index(Cliente $cliente)
     {
 
-        $cliente = Cliente::paginate(9)->onEachSide(1);
+        $cliente = Cliente::orderBy('nome', 'asc')->paginate(12)->onEachSide(1);
 
         return view('admin.clientes', [
             'clientes' => $cliente,
