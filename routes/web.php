@@ -35,6 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/dashboard', [DashboardController::class, "index"])->name('admin.dashboard');
+
+    Route::POST('/dashboard/meta', [CaixaController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
 
     Route::get('/financas', [CaixaController::class, "index"])->name('admin.financas');

@@ -101,7 +101,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
+        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);" type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
             <div class="card-body text-center shadow-sm" style="height: 200px;">
                 <div class="row">
                     <div class="col-9 text-nowrap">
@@ -122,6 +122,32 @@
         </div>
     </div>
 
+    <!-- Modal Definir meta -->
+    <div class="modal fade" id="definirMeta" tabindex="-1" aria-labelledby="definirMeta" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="definirMeta">Definir Meta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/dashboard/meta">
+                        @csrf
+                        <b>Meta: </b> 
+                        <p></p>
+                        <input type="number" class="form-control" type="text" id="valor" name="valor" required
+                             step="any"
+                            style="background: rgba(255, 255, 255, 0);border-radius: 10px;" placeholder="Valor" />
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Definir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="container" style="margin-top: 20px;">

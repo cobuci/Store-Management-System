@@ -33,6 +33,12 @@ class CaixaSeeder extends Seeder
             'descricao' => "Ifood",
             'saldo' => 0
         ]);
+
+        DB::table('caixas')->insert([
+            'id' => 4,
+            'descricao' => "Meta",
+            'saldo' => 0
+        ]);
        
     }
 }

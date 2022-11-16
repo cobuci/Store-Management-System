@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Caixa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,7 @@ class DashboardController extends Controller
     }
 
 
+   
 
     public static function salesToday($data = 1)
     {
@@ -215,10 +217,7 @@ class DashboardController extends Controller
 
     public static function monthGoal()
     {
-        $atual = DashboardController::salesMonth(1);
-        $anterior = DashboardController::salesMonth(2);
-
-        $goal =  number_format($anterior * 1.33, 2);
+        $goal = CaixaController::meta();
 
         return $goal;
     }
@@ -226,9 +225,11 @@ class DashboardController extends Controller
     public static function porcentagemGoal()
     {
         $atual = DashboardController::salesMonth(1);
-        $anterior = DashboardController::salesMonth(2);
 
-        $goal =  $anterior * 1.33;
+
+        
+
+        $goal =  CaixaController::meta();
         $porcentagem = ($atual / $goal) * 100;
 
         return number_format($porcentagem, 2);

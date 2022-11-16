@@ -19,6 +19,7 @@ use WithPagination;
         $saldo = $caixa[0]->saldo;
         $investimento = $caixa[1]->saldo;
         $ifood = $caixa[2]->saldo;
+        $meta = $caixa[3]->meta;
 
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
 
@@ -30,6 +31,7 @@ use WithPagination;
             'investimento' => $investimento,
             'ifood' => $ifood,
             'financas' => $financas,
+            'meta' => $meta,
         ]);
     }
 
@@ -109,6 +111,17 @@ use WithPagination;
 
         return $saldo;
     }
+
+
+    public static function meta()
+    {
+        $caixa = new Caixa;
+        $caixa = $caixa->all();
+
+        $meta = $caixa[3]->saldo;
+
+        return $meta;
+    }
     ///////////////////////////////////////////////////////
 
     // Remover Saldos
@@ -156,6 +169,14 @@ use WithPagination;
         $saldo = Caixa::find(3);
         $saldo->saldo += $valorEntrada;
         $saldo->save();
+    }
+
+    public static function definirMeta(Request $request){
+        $saldo = Caixa::find(4);
+        $saldo->saldo = $request->valor;
+        $saldo->save();
+
+        return redirect('/dashboard');
     }
 
     //////////////////////////////////////////////////////
