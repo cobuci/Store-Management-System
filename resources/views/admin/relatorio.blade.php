@@ -141,7 +141,7 @@
         </div>
 
 
-        <!-- Modal Cancelar  -->
+      
         @foreach ($modalUnconfirmed as $item)
             <div class="modal fade" id="{{ 'mod' . $item->id }}" tabindex="-1"
                 aria-labelledby="{{ 'mod' . $item->id }}" aria-hidden="true">

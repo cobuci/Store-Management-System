@@ -44,7 +44,7 @@ class EntradaController extends Controller
       
         $produtos = $this->produto
             ->where('id_categoria', '=', $categoria_id)
-            ->orderBy('id', 'asc')
+            ->orderBy('nome', 'asc')
             ->get();
         return view('admin.master.ajax', ['produtos' => $produtos]);
     }

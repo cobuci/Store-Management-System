@@ -25,9 +25,9 @@ class OrderController extends Controller
     public function index(Sale $venda)
     {
 
-        $venda = Sale::latest("id")->paginate(10)->onEachSide(1);
+        $venda = Sale::latest("id")->paginate(20)->onEachSide(1);
         $unconfirmedSale = Sale::latest("id")->get();
-        $modalUnconfirmed = Sale::latest("id")->paginate(200);
+        $modalUnconfirmed = Sale::latest("id")->paginate(20);
 
         $total = 0;
 

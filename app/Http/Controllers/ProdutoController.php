@@ -59,7 +59,7 @@ class ProdutoController extends Controller
     public static function listar()
     {
         $prod = new Produto();
-        $produto = $prod->all();
+        $produto = $prod->orderBy('nome', 'asc')->get();
         return $produto;
     }
 
