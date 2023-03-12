@@ -173,7 +173,7 @@
                             <canvas id="myChart" width="100" height="50px"></canvas>
 
                             {{-- DADOS --}}
-                            @for ($i = 12; $i > 0; $i--)                           
+                            @for ($i = 13; $i > 0; $i--)                           
 
                                 <input type="hidden" id="{{ 'hiddeninput' . $i }}"
                                     value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
@@ -192,7 +192,7 @@
     <script>
         const labels = [];
         const valores = [];
-        for (var i = 12; i > 0; i--) {
+        for (var i = 13; i > 0; i--) {
             labels.push(document.getElementById('hiddeninput' + i).value);
             valores.push(document.getElementById('hiddeninputValue' + i).value);
         }
