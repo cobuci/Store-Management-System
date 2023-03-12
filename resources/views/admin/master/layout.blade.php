@@ -54,13 +54,7 @@
                             class="nav-link {{ Route::current()->getName() === 'admin.vender' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
                             href="{{ route('admin.vender') }}" title="Vender">VENDER</a></li>
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.venderIfood' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.venderIfood') }}" title="iFood">IFOOD</a></li>
-
-
-
+                   
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle nav-link" aria-expanded="false"
                             data-bs-toggle="dropdown">RELATÓRIO</a>
