@@ -41,7 +41,7 @@ class EntradaController extends Controller
         $dataForm = $request->all();
 
         $categoria_id = $dataForm['categoria'];
-      
+
         $produtos = $this->produto
             ->where('id_categoria', '=', $categoria_id)
             ->orderBy('nome', 'asc')
@@ -69,9 +69,9 @@ class EntradaController extends Controller
 
         if ($produto->id_categoria == 9) {
             $valorRemovido = 0;
-        }else{
-            
-        $valorRemovido = $request->quantidade * $request->custo;
+        } else {
+
+            $valorRemovido = $request->quantidade * $request->custo;
         }
 
         FinancaController::adicionarCompra($request->produto, $valorRemovido, $request->quantidade);

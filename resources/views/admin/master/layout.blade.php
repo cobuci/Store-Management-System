@@ -24,10 +24,20 @@
     <nav class="navbar navbar-dark navbar-expand-lg shadow-lg text-uppercase" id="mainNav"
         style="background-color: #3d3d3d;">
         <div class="container">
+
+            </button>
             <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 class="navbar-toggler text-white navbar-toggler-right text-uppercase rounded"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i
-                    class="fa fa-bars" style="color: #8C61FF;"></i></button>
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars" style="color: #8C61FF;"></i>
+
+            </button>
+
+            {{-- Botão shoppingList --}}
+            <a class="btn btn-outline-secondary" type="button" href="{{ route('admin.shoppinglist') }}"
+                style="background: rgba(13,110,253,0);width: 43px;border-color: rgb(0,0,0);">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a
@@ -41,7 +51,7 @@
                             <a class="dropdown-item" href="{{ route('admin.clienteCadastro') }}">Cadastrar</a>
                         </div>
                     </li>
-                    
+
                     <li class="nav-item"><a
                             class="nav-link {{ Route::current()->getName() === 'admin.estoque' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
@@ -54,7 +64,7 @@
                             class="nav-link {{ Route::current()->getName() === 'admin.vender' ? 'active' : '' }}"
                             data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
                             href="{{ route('admin.vender') }}" title="Vender">VENDER</a></li>
-                   
+
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle nav-link" aria-expanded="false"
                             data-bs-toggle="dropdown">RELATÓRIO</a>
@@ -67,10 +77,11 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Ferramentas</a>
+                        <a class="dropdown-toggle nav-link" aria-expanded="false"
+                            data-bs-toggle="dropdown">Ferramentas</a>
                         <div class="dropdown-menu dropdown-menu-dark">
                             <a class="dropdown-item" href="{{ route('admin.ocpack') }}">Fardo</a>
-                            
+
                         </div>
                     </li>
                     <li class="nav-item"><a
@@ -84,7 +95,8 @@
 
                     <button href="{{ route('logout') }}" @click.prevent="$root.submit();"
                         class="btn font-monospace link-light" data-bs-toggle="tooltip" data-bss-tooltip=""
-                        data-bs-placement="bottom" type="submit" style="background-color: #8C61FF;" title="Deslogar">Log
+                        data-bs-placement="bottom" type="submit" style="background-color: #8C61FF;"
+                        title="Deslogar">Log
                         Out</button>
                 </form>
             </div>

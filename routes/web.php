@@ -14,6 +14,7 @@ use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
 use App\Http\Controllers\ocPackController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShoppingListController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -28,6 +29,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
 
+
+  
+    Route::get('/shoppingList', [ShoppingListController::class, "index"])->name('admin.shoppinglist');
+
+    Route::POST('/shoppingList/add', [ShoppingListController::class, "entradaLista"])->name('admin.shoppinglist.add');
+
+    Route::delete('/shoppingList/{id}', [ShoppingListController::class, "destroy"])->name('order.shop.destroy');
+
+
+  
 
     Route::get('/pack', [ocPackController::class, "index"])->name('admin.ocpack');
     Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
