@@ -16,7 +16,7 @@ class DashboardController extends Controller
     }
 
 
-   
+
 
     public static function salesToday($data = 1)
     {
@@ -24,8 +24,7 @@ class DashboardController extends Controller
         $vendas = DB::table('vendas')
             ->select(
                 DB::raw('DATE(created_at) as date'),
-                DB::raw('count(*) as vendas_hoje'),
-                DB::raw('SUM(precoVenda) as capital')
+                DB::raw('SUM(precoVenda) as capital'),
             )
             ->groupBy('date')
             ->get();
@@ -35,11 +34,48 @@ class DashboardController extends Controller
             $vendas = $vendas[sizeof($vendas) - $data];
             $vendas = $vendas['capital'];
 
-            return  $vendas;
+            return $vendas;
         } else {
             return null;
         }
     }
+
+
+    public static function costToday($data = 1)
+    {
+
+        $custo = DB::table('vendas')
+            ->select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('SUM(custo) as custoVenda')
+            )
+            ->groupBy('date')
+            ->get();
+
+        $custo = json_decode($custo, true);
+        if (sizeof($custo) > 1) {
+            $custo = $custo[sizeof($custo) - $data];
+            $custo = $custo['custoVenda'];
+
+            return $custo;
+        } else {
+            return null;
+        }
+    }
+
+
+    public static function profit($data = 1)
+    {
+
+        $custo = DashboardController::costToday($data);
+        $venda =  DashboardController::salesToday($data);
+
+        $lucro = $venda - $custo;
+
+        return $lucro;
+    }
+
+
 
     public static function dia($data = 1)
     {
@@ -88,6 +124,8 @@ class DashboardController extends Controller
             return null;
         }
     }
+
+
 
     public static function verificarMes($mes)
     {
@@ -154,6 +192,43 @@ class DashboardController extends Controller
             return null;
         }
     }
+
+    public static function costMonth($data = 1)
+    {
+
+        $custo = DB::table('vendas')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
+                DB::raw('SUM(custo) as custo')
+            )
+            ->groupby('year', 'month')
+            ->get();
+
+        $custo = json_decode($custo, true);
+        if (sizeof($custo) > 1) {
+            $custo = $custo[sizeof($custo) - $data];
+            $custo = $custo['custo'];
+
+            return ($custo);
+        } else {
+            return null;
+        }
+    }
+
+
+    public static function profitMonth($data = 1)
+    {
+
+        $custo = DashboardController::costMonth($data);
+        $venda =  DashboardController::salesMonth($data);
+
+        $lucro = $venda - $custo;
+
+        return $lucro;
+    }
+
 
     public static function porcentagemVendasDiaria()
     {
@@ -227,7 +302,7 @@ class DashboardController extends Controller
         $atual = DashboardController::salesMonth(1);
 
 
-        
+
 
         $goal =  CaixaController::meta();
         $porcentagem = ($atual / $goal) * 100;

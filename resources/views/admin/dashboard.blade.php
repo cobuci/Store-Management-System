@@ -35,6 +35,7 @@
                             {{-- ICONE --}}
                         </div>
                         <p class="fs-2 text-start card-text" style="margin-bottom: 5px;">R$ {{ Dashboard::salesToday(1) }}
+                            <span class="text-success"> ( R$ {{ Dashboard::profit() }} ) </span>
                             <br>
                         </p>
                         <div class="row">
@@ -47,7 +48,8 @@
                                 </span>
 
                                 <span class="text-truncate" style="color: var(--bs-gray-500);margin-left: 10px;">
-                                    Last day: R$ {{ Dashboard::salesToday(2) }}
+                                    Last day: R$ {{ Dashboard::salesToday(2) }} <span class="text-success"> ( R$
+                                        {{ Dashboard::profit(2) }} ) </span>
                                 </span>
                             </div>
                             <div class="col text-end">
@@ -80,6 +82,7 @@
                             </div>
                         </div>
                         <p class="fs-2 text-start card-text" style="margin-bottom: 5px;">R$ {{ Dashboard::salesMonth() }}
+                            <span class="text-success"> ( R$ {{ Dashboard::profitMonth() }} ) </span>
                             <br>
                         </p>
                         <div class="col text-start">
@@ -91,7 +94,8 @@
                                 {{ Dashboard::porcentagemVendasMensais() }} %
                             </span>
                             <span class="text-truncate" style="color: var(--bs-gray-500);margin-left: 10px;">
-                                Last month: R$ {{ Dashboard::salesMonth(2) }}
+                                Last month: R$ {{ Dashboard::salesMonth(2) }} <span class="text-success"> ( R$
+                                    {{ Dashboard::profitMonth(2) }} ) </span>
                             </span>
                         </div>
                         <p class="fs-2 text-start card-text"><br></p>
@@ -101,7 +105,8 @@
         </div>
     </div>
     <div class="container">
-        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);" type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
+        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);"
+            type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
             <div class="card-body text-center shadow-sm" style="height: 200px;">
                 <div class="row">
                     <div class="col-9 text-nowrap">
@@ -133,11 +138,11 @@
                 <div class="modal-body">
                     <form method="POST" action="/dashboard/meta">
                         @csrf
-                        <b>Meta: </b> 
+                        <b>Meta: </b>
                         <p></p>
-                        <input type="number" class="form-control" type="text" id="valor" name="valor" required
-                             step="any"
-                            style="background: rgba(255, 255, 255, 0);border-radius: 10px;" placeholder="Valor" />
+                        <input type="number" class="form-control" type="text" id="valor" name="valor"
+                            required step="any" style="background: rgba(255, 255, 255, 0);border-radius: 10px;"
+                            placeholder="Valor" />
 
                 </div>
                 <div class="modal-footer">
@@ -173,13 +178,15 @@
                             <canvas id="myChart" width="100" height="50px"></canvas>
 
                             {{-- DADOS --}}
-                            @for ($i = 13; $i > 0; $i--)                           
-
+                            @for ($i = 13; $i > 0; $i--)
                                 <input type="hidden" id="{{ 'hiddeninput' . $i }}"
                                     value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
 
                                 <input type="hidden" id="{{ 'hiddeninputValue' . $i }}"
                                     value="{{ Dashboard::salesMonth($i) }}" />
+
+                                <input type="hidden" id="{{ 'hiddeninputProfit' . $i }}"
+                                    value="{{ Dashboard::profitMonth($i) }}" />
                             @endfor
 
                         </p>
@@ -192,18 +199,30 @@
     <script>
         const labels = [];
         const valores = [];
+        const profit = [];
         for (var i = 13; i > 0; i--) {
             labels.push(document.getElementById('hiddeninput' + i).value);
             valores.push(document.getElementById('hiddeninputValue' + i).value);
+            profit.push(document.getElementById('hiddeninputProfit' + i).value);
         }
 
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Revenue in R$',
-                backgroundColor: '#72d584',
+                label: 'Vendas em R$',
+                backgroundColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
                 borderColor: 'rgb(255, 255, 255)',
                 data: valores,
+                order: 1
+            }, {
+                type: 'line',   
+                label: 'Lucro em R$',            
+                data: profit,
+                fill: false,
+                borderColor: 'white'
             }]
         };
         var delayed;
@@ -211,7 +230,7 @@
             type: 'bar',
             data: data,
             options: {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 animation: {
                     onComplete: () => {
                         delayed = true;
@@ -225,11 +244,9 @@
                     },
                 },
                 scales: {
-                    x: {
-                        stacked: true,
-                    },
+
                     y: {
-                        stacked: true
+                        beginAtZero: true
                     }
                 }
             }
