@@ -14,8 +14,7 @@ class ClienteController extends Controller
     public function index(Cliente $cliente)
     {
 
-        $cliente = Cliente::orderBy('nome', 'asc')
-        
+        $cliente = Cliente::orderBy('nome', 'asc')        
         ->get();
 
         return view('admin.clientes', [
@@ -44,8 +43,7 @@ class ClienteController extends Controller
     {
      
         $cliente = Cliente::select('id','nome')
-        ->orderBy('nome', 'asc')
-        ->remember(300)
+        ->orderBy('nome', 'asc')      
         ->get();
 
         return $cliente;
