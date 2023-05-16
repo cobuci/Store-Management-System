@@ -14,11 +14,25 @@ class ClienteController extends Controller
     public function index(Cliente $cliente)
     {
 
-        $cliente = Cliente::orderBy('nome', 'asc')->paginate(12)->onEachSide(1);
+        $cliente = Cliente::orderBy('nome', 'asc')
+        
+        ->get();
 
         return view('admin.clientes', [
             'clientes' => $cliente,
         ]);
+    }
+
+    public function filtrar(Request $request)
+    {
+        $search = $request->input('search');
+        $dados = Cliente::select('id','nome','rua')->where('nome', 'LIKE', '%'.$search.'%')->get();
+
+        if ($request->ajax()) {
+            return view('admin.clientePartial', compact('dados'));
+        }        
+
+        return view('admin.clientePartial', compact('dados'));
     }
 
     public function cadastrar()
@@ -28,8 +42,11 @@ class ClienteController extends Controller
 
     public static function listar()
     {
-        $cli = new Cliente;
-        $cliente = $cli->orderBy('nome', 'asc')->get();
+     
+        $cliente = Cliente::select('id','nome')
+        ->orderBy('nome', 'asc')
+        ->remember(300)
+        ->get();
 
         return $cliente;
     }
@@ -69,7 +86,6 @@ class ClienteController extends Controller
             }
             foreach (ClienteController::unpaidPurchases($id) as $compra) {
                 $totalDebit += $compra->precoVenda;
-               
             }
             return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit'));
         }
@@ -93,7 +109,7 @@ class ClienteController extends Controller
         $venda = DB::table('sales')
             ->latest()
             ->where('id_cliente', '=', $id)
-            ->where('status_pagamento' ,'=', "0")
+            ->where('status_pagamento', '=', "0")
             ->get();
 
 
