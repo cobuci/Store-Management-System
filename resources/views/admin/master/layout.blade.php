@@ -2,113 +2,168 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
     <title>@yield('title')</title>
-    <meta property="og:type" content="">
-    <link rel="stylesheet" href="{{ asset('admin/bootstrap.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     @livewireStyles
-    <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="stylesheet" href="{{ asset('admin/app.css') }}">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
-    <script src="https://kit.fontawesome.com/a07ea4c2e1.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
     <script src="{{ asset('admin/jquery.js') }}"></script>
 </head>
 
-<body style="background-color: #8C61FF;font-family: Roboto, sans-serif;">
-    <nav class="navbar navbar-dark navbar-expand-lg shadow-lg text-uppercase" id="mainNav"
-        style="background-color: #3d3d3d;">
-        <div class="container">
+<body id="page-top">
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="{{ route('admin.home') }}">
+                    <span class="align-middle">Garagem 46</span>
+                </a>
 
-            </button>
-            <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                class="navbar-toggler text-white navbar-toggler-right text-uppercase rounded"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars" style="color: #8C61FF;"></i>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.home' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.home') }}">
+                            <i class="align-middle" data-feather="sliders"></i>
+                            <span class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">Clientes</li>
 
-            </button>
-
-            {{-- Botão shoppingList --}}
-            <a class="btn btn-outline-secondary" type="button" href="{{ route('admin.shoppinglist') }}"
-                style="background: rgba(13,110,253,0);width: 43px;border-color: rgb(0,0,0);">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </a>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.home' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.home') }}" title="Dashboard">dashboard</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown">Clientes</a>
-                        <div class="dropdown-menu dropdown-menu-dark">
-                            <a class="dropdown-item" href="{{ route('admin.cliente') }}">Clientes</a>
-                            <a class="dropdown-item" href="{{ route('admin.clienteCadastro') }}">Cadastrar</a>
-                        </div>
+                    <li class="sidebar-item  {{ Route::current()->getName() === 'admin.cliente' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.cliente') }}">
+                            <i class="align-middle" data-feather="user"></i>
+                            <span class="align-middle">Consultar</span>
+                        </a>
                     </li>
 
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.estoque' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.estoque') }}" title="Estoque">Estoque</a></li>
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.financas' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.financas') }}" title="Finanças">FINANÇAS</a></li>
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.vender' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.vender') }}" title="Vender">VENDER</a></li>
-
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle nav-link" aria-expanded="false"
-                            data-bs-toggle="dropdown">RELATÓRIO</a>
-                        <div class="dropdown-menu dropdown-menu-dark">
-                            <a class="dropdown-item" href="{{ route('admin.relatorio') }}">Relatório</a>
-                            <a class="dropdown-item" href="{{ route('admin.relatorio.descontinuado') }}">Relatório -
-                                Descontinuado</a>
-                        </div>
+                    <li
+                        class="sidebar-item  {{ Route::current()->getName() === 'admin.clienteCadastro' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.clienteCadastro') }}">
+                            <i class="align-middle" data-feather="user-plus"></i>
+                            <span class="align-middle">Cadastrar</span>
+                        </a>
                     </li>
 
+                    <li class="sidebar-header">Produtos</li>
 
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle nav-link" aria-expanded="false"
-                            data-bs-toggle="dropdown">Ferramentas</a>
-                        <div class="dropdown-menu dropdown-menu-dark">
-                            <a class="dropdown-item" href="{{ route('admin.ocpack') }}">Fardo</a>
-
-                        </div>
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.estoque' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.estoque') }}">
+                            <i class="align-middle" data-feather="archive"></i>
+                            <span class="align-middle">Estoque</span>
+                        </a>
                     </li>
-                    <li class="nav-item"><a
-                            class="nav-link {{ Route::current()->getName() === 'admin.historico' ? 'active' : '' }}"
-                            data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"
-                            href="{{ route('admin.historico') }}" title="Histórico">HISTÓRICO</a></li>
+
+                    <li class="sidebar-header">Financeiro</li>
+
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.financas' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.financas') }}">
+                            <i class="align-middle" data-feather="dollar-sign"></i>
+                            <span class="align-middle">Finanças</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.vender' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.vender') }}">
+                            <i class="align-middle" data-feather="shopping-cart"></i>
+                            <span class="align-middle">Vender</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.relatorio' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.relatorio') }}">
+                            <i class="align-middle" data-feather="trello"></i>
+                            <span class="align-middle">Relatório de Vendas</span>
+                        </a>
+                    </li>
+
+                    <li
+                        class="sidebar-item {{ Route::current()->getName() === 'admin.relatorio.descontinuado' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.relatorio.descontinuado') }}">
+                            <i class="align-middle" data-feather="trello"></i>
+                            <span class="align-middle">Relatório Descontinuado</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-header">Ferramentas</li>
+
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.ocpack' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.ocpack') }}">
+                            <i class="align-middle" data-feather="box"></i>
+                            <span class="align-middle">Fardo</span>
+                        </a>
+                    </li>
+
+                    <li
+                        class="sidebar-item {{ Route::current()->getName() === 'admin.shoppinglist' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.shoppinglist') }}">
+                            <i class="align-middle" data-feather="shopping-bag"></i>
+                            <span class="align-middle">Lista de Compras</span>
+                        </a>
+                    </li>
                 </ul>
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-
-                    <button href="{{ route('logout') }}" @click.prevent="$root.submit();"
-                        class="btn font-monospace link-light" data-bs-toggle="tooltip" data-bss-tooltip=""
-                        data-bs-placement="bottom" type="submit" style="background-color: #8C61FF;"
-                        title="Deslogar">Log
-                        Out</button>
-                </form>
             </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                                data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                data-bs-toggle="dropdown">
+                                <img src="" class="avatar img-fluid rounded me-1" />
+                                <span class="text-dark">{{ Auth::user()->name }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="{{ route('admin.historico') }}">
+                                    <i class="align-middle me-1" data-feather="pie-chart"></i>
+                                    Analytics
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    @csrf
+                                    <button href="{{ route('logout') }}" @click.prevent="$root.submit();"
+                                        class="dropdown-item" type="submit" title="Deslogar">Logout</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    @yield('content')
+
+                    <a class="scroll-to-top rounded" href="#page-top">
+                        <i class="align-end" data-feather="box"></i>
+                    </a>
+                </div>
+            </main>
         </div>
-    </nav>
-    <header style="width: 100%;height: 1em;"></header>
-
-    @yield('content')
-    @livewireScripts
-    <script src="{{ url(mix('admin/script.js')) }}"></script>
-
-    <script src="{{ asset('admin/bootstrap.js') }}"></script>
+    </div>
+    <script src="{{ asset('admin/app2.js') }}"></script>
+    <script src="{{ asset('admin/jquery.js') }}"></script>
 
 </body>
 
