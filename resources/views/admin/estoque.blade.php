@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Estoque')
+@section('page-name', 'Estoque')
 @section('content')
 
     <h1 class="text-center text-light">Estoque</h1>

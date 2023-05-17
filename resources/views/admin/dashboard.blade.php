@@ -1,131 +1,138 @@
 @extends('admin.master.layout')
 @section('title', 'Dashboard')
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4" style="margin-bottom: 15px;">
-                <div class="card col-md-12 col-sm-12"
-                    style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
-                    <div class="card-body text-center shadow-sm" style="height: 150px;">
-                        <div class="row">
-                            <div class="col-9 text-nowrap">
-                                <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
-                                    Balance<br></h4>
-                            </div>
-                            <div class="col text-truncate text-center">
-                                <i class="material-icons fs-1">attach_money</i>
-                            </div>
-                        </div>
-                        <p class="fs-2 text-start card-text">R$ {{ Caixa::saldo() }}<br></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" style="margin-bottom: 15px;">
-                <div class="card col-md-12 col-sm-12"
-                    style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);height: 100%;">
-                    <div class="card-body text-center shadow-sm" style="height: 150px;">
-                        <div class="row">
-                            <div class="col-9">
-                                <h4 class="text-nowrap text-start"
-                                    style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Daily Income
-
-                                </h4>
-                            </div>
-                            {{-- ICONE --}}
-                        </div>
-                        <p class="fs-2 text-start card-text" style="margin-bottom: 5px;">R$ {{ Dashboard::salesToday(1) }}
-                            <span class="text-success"> ( R$ {{ Dashboard::profit() }} ) </span>
-                            <br>
-                        </p>
-                        <div class="row">
-                            <div class="col text-nowrap text-start">
-                                <span
-                                    class="badge  {{ Dashboard::porcentagemVendasDiaria() > 0 ? 'bg-success' : 'bg-danger' }} ">
-                                    <i class="fa {{ Dashboard::porcentagemVendasDiaria() > 0 ? 'fa-arrow-up' : 'fa-arrow-down' }}"
-                                        style="margin-right: 5px;"></i>
-                                    {{ Dashboard::porcentagemVendasDiaria() }} %
-                                </span>
-
-                                <span class="text-truncate" style="color: var(--bs-gray-500);margin-left: 10px;">
-                                    Last day: R$ {{ Dashboard::salesToday(2) }} <span class="text-success"> ( R$
-                                        {{ Dashboard::profit(2) }} ) </span>
-                                </span>
-                            </div>
-                            <div class="col text-end">
-                                <span class="text-truncate"
-                                    style="color: var(--bs-gray-500);margin-left: 10px;">{{ Dashboard::ultimoDiaVenda() }}<br>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" style="margin-bottom: 15px;">
-                <div class="card col-md-12 col-sm-12"
-                    style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);height: 100%;">
-                    <div class="card-body text-center shadow-sm" style="height: 150px;">
-                        <div class="row">
-                            <div class="col-9 text-nowrap">
-                                <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
-                                    Monthly Revenue<br>
-                                </h4>
-                            </div>
-                            <div class="col text-truncate">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
-                                    fill="none" class="fs-1">
-                                    <path
-                                        d="M7 12L10 9L13 12L17 8M8 21L12 17L16 21M3 4H21M4 4H20V16C20 16.5523 19.5523 17 19 17H5C4.44772 17 4 16.5523 4 16V4Z"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <p class="fs-2 text-start card-text" style="margin-bottom: 5px;">R$ {{ Dashboard::salesMonth() }}
-                            <span class="text-success"> ( R$ {{ Dashboard::profitMonth() }} ) </span>
-                            <br>
-                        </p>
-                        <div class="col text-start">
-                            <span
-                                class="badge {{ Dashboard::porcentagemVendasMensais() > 0 ? 'bg-success' : 'bg-danger' }}">
-                                <i class="fa   {{ Dashboard::porcentagemVendasMensais() > 0 ? 'fa-arrow-up' : 'fa-arrow-down' }} "
-                                    style="margin-right: 5px;">
-                                </i>
-                                {{ Dashboard::porcentagemVendasMensais() }} %
-                            </span>
-                            <span class="text-truncate" style="color: var(--bs-gray-500);margin-left: 10px;">
-                                Last month: R$ {{ Dashboard::salesMonth(2) }} <span class="text-success"> ( R$
-                                    {{ Dashboard::profitMonth(2) }} ) </span>
-                            </span>
-                        </div>
-                        <p class="fs-2 text-start card-text"><br></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="card col-md-12 col-sm-12" style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);"
-            type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
-            <div class="card-body text-center shadow-sm" style="height: 200px;">
+    <div class="row">
+        <div class="d-flex">
+            <div class="w-100">
                 <div class="row">
-                    <div class="col-9 text-nowrap">
-                        <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">Monthly
-                            goal<br /></h4>
-                        <p class="text-start" style="margin-top: 16px;">R$ {{ Dashboard::salesMonth() }} / R$
-                            {{ Dashboard::monthGoal() }}
-                        </p>
+                    <!-- Balance Revenue -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Balance</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">R$ {{ Caixa::saldo() }}</h1>
+                                <br>
+                                <div class="mb-0">
+                                 
+                                    <p class="text-muted"> Média diária ({{ Dashboard::verificarMes(Dashboard::month(1))}}) : R$ {{ Dashboard::dailyAvg() }}                                     
+                                    </p>
+                                </div>                           
+                               
+                            </div>
+                        </div>
                     </div>
-                    <div class="col text-truncate text-end"><i class="fa fa-google-wallet fs-1"></i></div>
-                </div>
-                <div class="progress" style="height: 50px;border-radius: 22px;font-size: 22px;">
-                    <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" aria-valuenow="80"
-                        aria-valuemin="0" aria-valuemax="100" style="width: {{ Dashboard::porcentagemGoal() }}%;">
-                        {{ Dashboard::porcentagemGoal() }}%</div>
+                    <!-- Daily Income -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Daily Income</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3 ">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-auto">R$ {{ Dashboard::salesToday(1) }}</div> <span
+                                            class="text-success"> R$ {{ Dashboard::profit() }}
+                                        </span>
+                                    </div>
+                                </h1>
+                                <div class="mb-0">
+                                    <span
+                                        class=" {{ Dashboard::porcentagemVendasDiaria() > 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ Dashboard::porcentagemVendasDiaria() }} %
+                                    </span>
+                                    <p class="text-muted"> Last day: R$ {{ Dashboard::salesToday(2) }}
+                                        <span class="text-success"> (R$ {{ Dashboard::profit(2) }} )
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Monthly Revenue -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Monthly Revenue</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-auto">R$
+                                            {{ Dashboard::salesMonth() }}
+                                        </div>
+                                        <span class="text-success">
+                                            R$ {{ Dashboard::profitMonth() }}
+                                        </span>
+                                    </div>
+                                </h1>
+                                <div class="mb-0">
+                                    <span
+                                        class="{{ Dashboard::porcentagemVendasMensais() > 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ Dashboard::porcentagemVendasMensais() }} %
+                                    </span>
+                                    <p class="text-muted"> Last month: R$
+                                        {{ Dashboard::salesMonth(2) }}
+                                        <span class="text-success"> (R$
+                                            {{ Dashboard::profitMonth(2) }})
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Meta -->
+                    <div class="col-md-12">
+                        <div class="card"  type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title"> Monthly goal </h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">R$ {{ Dashboard::salesMonth() }} / R$ {{ Dashboard::monthGoal() }}
+                                </h1>
+                                <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                    aria-valuemax="100"style="height: 50px">
+                                    <div class="progress-bar bg-danger" style="width: {{ Dashboard::porcentagemGoal() }}%">
+                                        {{ Dashboard::porcentagemGoal() }}%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --- -->
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Modal Definir meta -->
     <div class="modal fade" id="definirMeta" tabindex="-1" aria-labelledby="definirMeta" aria-hidden="true">
@@ -155,108 +162,112 @@
     </div>
 
 
-    <div class="container" style="margin-top: 20px;">
-        <div class="row">
-            <div class="col-12" style="margin-bottom: 15px;">
-                <div class="card col-md-12 col-sm-12"
-                    style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);">
-                    <div class="card-body text-center shadow-sm" style="height: ;">
-                        <div class="row">
-                            <div class="col-9 text-nowrap">
-                                <h4 class="text-start" style="font-family: Roboto, sans-serif;color: rgb(171,171,171);">
-                                    Info<br></h4>
-                            </div>
-                            <div class="col text-truncate text-end"><i class="material-icons fs-1">info_outline</i></div>
-                        </div>
-                        <div class="col">
-                            <p class="text-start">Monthly daily average:<br> R$
-                                {{ Dashboard::dailyAvg() }}
-                        </div>
-                        <p class="text-start card-text">Previous months: <br>
-
-                            {{-- CHART --}}
-                            <canvas id="myChart" width="100" height="50px"></canvas>
-
-                            {{-- DADOS --}}
-                            @for ($i = 13; $i > 0; $i--)
-                                <input type="hidden" id="{{ 'hiddeninput' . $i }}"
-                                    value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
-
-                                <input type="hidden" id="{{ 'hiddeninputValue' . $i }}"
-                                    value="{{ Dashboard::salesMonth($i) }}" />
-
-                                <input type="hidden" id="{{ 'hiddeninputProfit' . $i }}"
-                                    value="{{ Dashboard::profitMonth($i) }}" />
-                            @endfor
-
-                        </p>
+    {{-- CHART --}}
+    <div class="row">
+        <div class="">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Recent Movement</h5>                   
+                </div>
+                <div class="card-body py-3">
+                    <div class="chart chart-sm">
+                        <canvas id="chartjs-dashboard-line"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{{ asset('chart.js/chart.js') }}"></script>
-    <script>
+
+
+    
+    {{-- DADOS --}}
+    @for ($i = $mesesGrafico; $i > 0; $i--)
+        <input type="hidden" id="{{ 'hiddeninput' . $i }}" value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
+
+        <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ Dashboard::salesMonth($i) }}" />
+
+        <input type="hidden" id="{{ 'hiddeninputProfit' . $i }}" value="{{ Dashboard::profitMonth($i) }}" />
+    @endfor
+
+@endsection
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document
+            .getElementById("chartjs-dashboard-line")
+            .getContext("2d");
+        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+        gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");
+
+        // var gradientGreen = ctx.createLinearGradient(0, 0, 0, 225);
+        // gradient.addColorStop(0, "rgba(193, 243, 219, 1)");
+        // gradient.addColorStop(1, "rgba(193, 243, 219, 1)");
+
         const labels = [];
         const valores = [];
         const profit = [];
-        for (var i = 13; i > 0; i--) {
+        for (var i = {{ $mesesGrafico }}; i > 0; i--) {
             labels.push(document.getElementById('hiddeninput' + i).value);
             valores.push(document.getElementById('hiddeninputValue' + i).value);
             profit.push(document.getElementById('hiddeninputProfit' + i).value);
         }
-
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'Vendas em R$',
-                backgroundColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderColor: 'rgb(255, 255, 255)',
-                data: valores,
-                order: 1
-            }, {
-                type: 'line',   
-                label: 'Lucro em R$',            
-                data: profit,
-                fill: false,
-                borderColor: 'white'
-            }]
-        };
-        var delayed;
-        const config = {
-            type: 'bar',
-            data: data,
+        // Line chart
+        new Chart(document.getElementById("chartjs-dashboard-line"), {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Vendas (R$)",
+                    fill: true,
+                    backgroundColor: gradient,
+                    borderColor: window.theme.primary,
+                    data: valores,
+                },
+                {
+                   
+                    label: "Lucro (R$)",
+                    fill: true,
+                    backgroundColor: "gradient",
+                    borderColor: "rgba(0, 147, 14, 1)",
+                    data: profit,
+                },
+            ],
+            },
             options: {
-                indexAxis: 'x',
-                animation: {
-                    onComplete: () => {
-                        delayed = true;
-                    },
-                    delay: (context) => {
-                        let delay = 0;
-                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                            delay = context.dataIndex * 800 + context.datasetIndex * 100;
-                        }
-                        return delay;
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                tooltips: {
+                    intersect: false,
+                },
+                hover: {
+                    intersect: true,
+                },
+                plugins: {
+                    filler: {
+                        propagate: false,
                     },
                 },
                 scales: {
-
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        };
-    </script>
-    <script>
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-    </script>
-
-@endsection
+                    xAxes: [{
+                        reverse: true,
+                        gridLines: {
+                            color: "rgba(0,0,0,0.0)",
+                        },
+                    }, ],
+                    yAxes: [{                       
+                        display: true,
+                        borderDash: [33, 3],
+                        gridLines: {
+                            color: "rgba(0,0,0,0.3)",
+                        },
+                    }, ],
+                },
+                
+            },
+        });
+    });
+</script>

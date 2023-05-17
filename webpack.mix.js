@@ -23,6 +23,16 @@ if (mix.inProduction()) {
 
 mix.copy('node_modules/chart.js/dist/chart.js', 'public/chart.js/chart.js');
 
+mix.styles([
+    'resources/css/app2.css'
+], 'public/admin/app.css');
+
+mix.styles([
+    'resources/css/sb-admin-2.min.css'
+], 'public/admin/sb.css');
+
+
+mix.js('resources/js/app2.js', 'public/admin/app2.js');
 mix
     .sass(
         "node_modules/bootstrap/scss/bootstrap.scss",

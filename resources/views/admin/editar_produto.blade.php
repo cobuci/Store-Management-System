@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Editar Produto')
+@section('page-name', 'Editar Produto')
 @section('content')
     <div class="container">
         <h1 class="text-center text-light">Editando o produto #{{$produto->id}}-{{$produto->nome}}</h1>

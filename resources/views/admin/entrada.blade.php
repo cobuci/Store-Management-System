@@ -1,6 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Entrada Produto')
-
+@section('page-name', 'Entrada Produto')
 @section('content')
     <div class="container">
         <h1 class="text-center text-light">Entrada em Estoque</h1>

@@ -11,8 +11,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $mesesGrafico = 17;
 
-        return view('admin.dashboard');
+
+        return view('admin.dashboard',[
+            'mesesGrafico' =>$mesesGrafico,
+        ]);
     }
 
 

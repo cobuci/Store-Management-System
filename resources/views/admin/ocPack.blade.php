@@ -1,6 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Dashboard')
-
+@section('page-name', 'Fardo (abrir / fechar)')
 @section('content')
 
     {{-- ABRIR FARDO --}}
@@ -13,16 +13,7 @@
                     <div
                         class="card-body shadow-sm"style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
                         <form method="post"action="{{ route('admin.pack.open') }}">
-                            @csrf
-                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                <svg width="24" height="24">
-                                </svg>
-                                <ul>
-                                    <li>Atentar-se ao campo <strong>Quantidade</strong>.</li>
-                                </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                </button>
-                            </div>
+                            @csrf                            
                             <div class="row justify-content-center">
                                 <div class="col-12" style="margin-bottom: 15px;">
                                     <p>De</p>

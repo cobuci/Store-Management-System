@@ -1,5 +1,7 @@
 @extends('admin.master.layout')
 @section('title', 'Relatório')
+@section('page-name', 'Relatório')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
 
@@ -31,8 +33,7 @@
                                             <th>Valor (Custo)</th>
                                             <th>Valor (Venda)</th>
                                             <th>Cliente</th>
-                                            <th></th>
-                                            
+                                            <th></th>                                            
                                             <th> TOTAL: {{ $total }}</th>
 
                                         </tr>
@@ -172,9 +173,8 @@
             </div>
 
 
-
-            <div class="modal fade" role="dialog" tabindex="-1" id="{{ 'modDetail' . $item->id }}" style="">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade" tabindex="-1" id="{{ 'modDetail' . $item->id }}"  aria-hidden="true">
+                <div class="modal-dialog">
                     <div class="modal-content"
                         style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
                         <div class="modal-header text-light"

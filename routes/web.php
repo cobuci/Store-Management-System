@@ -107,6 +107,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cliente/store', [ClienteController::class, "store"])->name('admin.cliente.store');
     Route::get('/cliente/{id}', [ClienteController::class, "show"])->name('admin.cliente.perfil');
 
+    Route::get('/filtrarCliente', [ClienteController::class, "filtrar"])->name('filtrar.cliente');
+
+
     /////////////////////////////////////
 
     Route::get('/cadastrar', function () {

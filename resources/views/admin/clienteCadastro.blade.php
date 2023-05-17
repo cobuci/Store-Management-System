@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Cadastrar Cliente')
+@section('page-name', 'Cadastrar Cliente')
 @section('content')
     <div class="container">
 
