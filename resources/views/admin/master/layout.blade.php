@@ -131,13 +131,13 @@
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
-                                <img src="" class="avatar img-fluid rounded me-1" />
+                                <img src="{{ asset('images/nina1.png') }}" class="avatar img-fluid rounded me-1" />
                                 <span class="text-dark">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('admin.historico') }}">
                                     <i class="align-middle me-1" data-feather="pie-chart"></i>
-                                    Analytics
+                                    Histórico
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <form method="POST" action="{{ route('logout') }}" x-data>
@@ -152,11 +152,17 @@
             </nav>
 
             <main class="content">
-                <div class="container-fluid p-0">
+                <div class="container-fluid p-0 ">
+                    
+                    
+					<div class="mb-3">
+						<h1 class="h3 d-inline align-middle">@yield('page-name')</h1>						
+					</div>
+
                     @yield('content')
 
-                    <a class="scroll-to-top rounded" href="#page-top">
-                        <i class="align-end" data-feather="box"></i>
+                    <a class="scroll-to-top rounded " href="#page-top">
+                        <i class="align-end" data-feather="chevrons-up"></i>
                     </a>
                 </div>
             </main>

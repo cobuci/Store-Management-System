@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Clientes')
+@section('page-name', 'Clientes')
 @section('content')
 
     <h1 class="text-center text-light">Clientes</h1>
@@ -12,7 +13,7 @@
         </div>
 
         <table class="table tabela-dados">
-            
+
             <thead>
                 <tr>
                     <th scope="col">#</th>

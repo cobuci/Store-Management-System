@@ -27,6 +27,11 @@ mix.styles([
     'resources/css/app2.css'
 ], 'public/admin/app.css');
 
+mix.styles([
+    'resources/css/sb-admin-2.min.css'
+], 'public/admin/sb.css');
+
+
 mix.js('resources/js/app2.js', 'public/admin/app2.js');
 mix
     .sass(

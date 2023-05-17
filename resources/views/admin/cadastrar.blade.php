@@ -1,9 +1,10 @@
 @extends('admin.master.layout')
 @section('title', 'Cadastrar Produto')
+@section('page-name', 'Cadastrar Produto')
 @section('content')
     <div class="container">
         <h1 class="text-center text-light">Cadastrar Produto</h1>
-        <div class="row" style="margin-bottom: 10px; margin-top: 20px">
+        <div class="row" style="margin-bottom: 10px;">
             <div class="col-sm-12 col-md-6 offset-md-3" style="border-style: none">
                 <div class="card bg-light shadow-lg col-md-12 col-sm-12"
                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238, 238, 238);border-style: none;border-color: var(--bs-purple);">

@@ -1,5 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Lista de Compras')
+@section('page-name', 'Lista de Compras')
 @section('content')
     <div class="container">
         <h1 class="text-center text-light">Lista de Compras</h1>
