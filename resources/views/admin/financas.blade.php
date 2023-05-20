@@ -4,15 +4,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
-    <div class="container">
-        <h1 class="text-center text-light">Finanças</h1>
+    <div class="container">        
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-sm-12 col-md-4 col-md-4 col-sm-12" style="margin-top: 20px">
                 <div class="card col-md-12 col-sm-12"
                     style="border-radius: 22px;background: {{ $saldo <= 0 ? '#9e2828' : '#006b54' }};color: rgb(238, 238, 238);">
                     <div class="card-body text-center shadow-sm" style="height: 100px">
-                        <h4 class="card-title">Saldo<br /></h4>
-                        <p class="card-text">R$ {{ $saldo }}<br /></p>
+                        <h4 class="card-title">Saldo</h4>
+                        <h3 class="text-light">R$ {{ $saldo }}</h3>
                     </div>
                 </div>
             </div>
@@ -21,7 +20,7 @@
                     style="border-radius: 22px;background: {{ $ifood <= 0 ? '#9e2828' : '#006b54' }};color: rgb(238, 238, 238);">
                     <div class="card-body text-center shadow-sm" style="height: 100px">
                         <h4 class="card-title">iFood</h4>
-                        <p class="card-text">R$ {{ $ifood }}<br /></p>
+                        <h3 class="text-light">R$  {{ $ifood }}</h3>
                     </div>
                 </div>
             </div>
@@ -30,7 +29,7 @@
                     style="border-radius: 22px;background: {{ $investimento <= 0 ? '#9e2828' : '#006b54' }} ;color: rgb(238, 238, 238);">
                     <div class="card-body text-center shadow-sm" style="height: 100px">
                         <h4 class="card-title">Investimento<br /></h4>
-                        <p class="card-text">R$ {{ $investimento }}<br /></p>
+                        <h3 class="text-light">R$  {{ $investimento }}</h3>
                     </div>
                 </div>
             </div>

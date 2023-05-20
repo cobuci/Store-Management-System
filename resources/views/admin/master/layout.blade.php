@@ -19,6 +19,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script src="{{ url(mix('admin/script.js')) }}"></script>
 
     <script src="{{ asset('admin/jquery.js') }}"></script>
 </head>
@@ -115,7 +116,7 @@
             </div>
         </nav>
 
-        <div class="main">
+        <div class="main" style="background-color: #e2ebff">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
@@ -151,7 +152,7 @@
                 </div>
             </nav>
 
-            <main class="content">
+            <main class="content ">
                 <div class="container-fluid p-0 ">
                     
                     

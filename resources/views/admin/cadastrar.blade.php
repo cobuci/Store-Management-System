@@ -2,8 +2,7 @@
 @section('title', 'Cadastrar Produto')
 @section('page-name', 'Cadastrar Produto')
 @section('content')
-    <div class="container">
-        <h1 class="text-center text-light">Cadastrar Produto</h1>
+    <div class="container">    
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-sm-12 col-md-6 offset-md-3" style="border-style: none">
                 <div class="card bg-light shadow-lg col-md-12 col-sm-12"

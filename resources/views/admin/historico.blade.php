@@ -2,10 +2,6 @@
 @section('title', 'Histórico')
 @section('content')
 
-
-    <div class="container">
-        <h1 class="text-center text-light">Histórico</h1>
-    </div>
     <div class="container" style="margin-top: 15px">
         <div class="row" style="padding-right: 16px; padding-left: 16px">
             <div class="col-12"

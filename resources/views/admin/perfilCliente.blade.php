@@ -1,11 +1,12 @@
 @extends('admin.master.layout')
 @section('title', 'Perfil')
+
 @section('content')
 
 
 
     <div class="container">
-        <h1 class="text-center text-light">{{ '#' . $cliente->id . ' - ' . $cliente->nome }}</h1>
+        <h1 class="text-center text-dark">{{ '#' . $cliente->id . ' - ' . $cliente->nome }}</h1>
         <div class="row" style="margin-top:20px; margin-bottom: 10px;">
             <div class="col-sm-12 col-md-4 col-sm-12" style="margin-bottom: 10px;">
                 <div class="card col-md-12 col-sm-12"
@@ -13,7 +14,7 @@
                     <div class="card-body shadow-sm">
                         <iframe allowfullscreen="" frameborder="0"
                             src="https://cdn.bootstrapstudio.io/placeholders/map.html" width="100%" height="450"
-                            style="width: 100%;height: 200px;">
+                            style="width: 100%;height: 180px;">
                         </iframe>
                         {{-- Formulario --}}
                         <form>
@@ -65,10 +66,10 @@
                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 100px;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-5">Debit Balance</span></div>
-                                    <div class="col-auto text-end"><i class="material-icons fs-1">attach_money</i></div>
+                                    <div class="col"><span class="fs-3">Debit Balance</span></div>
+                                    <div class="col-auto text-light"><i class="material-icons fs-1">attach_money</i></div>
                                 </div>
-                                <h6 class="fs-5 text-muted card-subtitle mb-2">R$ {{ $totalDebit }}</h6>
+                                <h6 class="fs-4 text-light card-subtitle mb-2">R$ {{ $totalDebit }}</h6>
                             </div>
                         </div>
                     </div>
@@ -77,10 +78,10 @@
                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 100px;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-5">Total Spent</span></div>
+                                    <div class="col"><span class="fs-3">Total Spent</span></div>
                                     <div class="col-auto text-end"><i class="material-icons fs-1">attach_money</i></div>
                                 </div>
-                                <h6 class="fs-5 text-muted card-subtitle mb-2">R$ {{ $totalSpent }}</h6>
+                                <h6 class="fs-4 text-light card-subtitle mb-2">R$ {{ $totalSpent }}</h6>
                             </div>
                         </div>
                     </div>
@@ -89,11 +90,11 @@
                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 100px;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-5">Águas Compradas<br></span>
+                                    <div class="col"><span class="fs-3 mb-5">Águas Compradas<br></span>
                                     </div>
-                                    <div class="col-auto text-end"><i class="fas fa-glass-whiskey fs-1"></i></div>
+                                    <div class="col-auto text-light"><i class="fas fa-glass-whiskey fs-1"></i></div>
                                 </div>
-                                <h6 class="fs-5 text-muted card-subtitle mb-2">
+                                <h6 class="fs-4 text-light card-subtitle mb-3">
                                     {{ Cliente::quantidadeAgua($cliente->id) }}</h6>
                             </div>
                         </div>

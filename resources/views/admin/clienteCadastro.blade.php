@@ -2,9 +2,7 @@
 @section('title', 'Cadastrar Cliente')
 @section('page-name', 'Cadastrar Cliente')
 @section('content')
-    <div class="container">
-
-        <h1 class="text-center text-light">Cadastrar Cliente</h1>
+    <div class="container">     
         <div class="row" style="margin-bottom: 10px; margin-top: 20px">
             <div class="col-sm-12 col-md-6 offset-md-3" style="border-style: none">
                 <div class="card bg-light shadow-lg col-md-12 col-sm-12"

@@ -5,13 +5,15 @@
 
     {{-- ABRIR FARDO --}}
     <div class="container">
-        <h1 class="text-center text-light">Abrir Fardo</h1>
+      
         <div class="row" style="margin-bottom: 10px;margin-top: 20px;">
             <div class="col-sm-12 col-md-4 offset-md-4" style="border-style: none;">
+                
                 <div
                     class="card bg-light shadow-lg col-md-12 col-sm-12"style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);border-style: none;border-color: var(--bs-purple);">
                     <div
                         class="card-body shadow-sm"style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
+                        <h1 class="text-center text-light">Abrir Fardo</h1>
                         <form method="post"action="{{ route('admin.pack.open') }}">
                             @csrf                            
                             <div class="row justify-content-center">
@@ -63,13 +65,14 @@
     {{-- FECHAR FARDO --}}
 
     <div class="container" style="margin-top: 20px;">
-        <h1 class="text-center text-light">Fechar Fardo</h1>
+    
         <div class="row" style="margin-bottom: 10px;margin-top: 20px;">
             <div class="col-sm-12 col-md-4 offset-md-4" style="border-style: none;">
                 <div class="card bg-light shadow-lg col-md-12 col-sm-12"
                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);border-style: none;border-color: var(--bs-purple);">
                     <div class="card-body shadow-sm"
                         style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
+                        <h1 class="text-center text-light">Fechar Fardo</h1>
                         <form method="post"action="{{ route('admin.pack.close') }}">
                             @csrf
                             <div class="row justify-content-center">

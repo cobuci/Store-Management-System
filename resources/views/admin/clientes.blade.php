@@ -3,17 +3,13 @@
 @section('page-name', 'Clientes')
 @section('content')
 
-    <h1 class="text-center text-light">Clientes</h1>
-
-
     <div class="row" style="margin-bottom: 10px">
 
-        <div class="form-group">
+      
             <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
-        </div>
+     
 
-        <table class="table tabela-dados">
-
+        <table class="table tabela-dados bg-light">
             <thead>
                 <tr>
                     <th scope="col">#</th>

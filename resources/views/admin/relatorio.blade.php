@@ -4,12 +4,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
-
-    <div class="container">
-        <h1 class="text-center text-light">Relatório de Vendas</h1>
-    </div>
-
-    <div class="container" style="margin-top: 15px">
         <div class="col-12 col-sm-12 col-md-12">
             <div class="font-monospace text-truncate">
                 <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1"
@@ -23,31 +17,30 @@
                     </span>A Pagar
                 </a>
                 <div class="collapse col-md-12" id="collapse-1">
-                    <div class="card">
+                    <div class="card ">
                         <div class="card-body" style="padding: 0px;">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-sm">
+                            <div class="table-responsive ">
+                                <table class="table table-striped table-sm table-bordered">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>#</th>
                                             <th>Valor (Custo)</th>
                                             <th>Valor (Venda)</th>
                                             <th>Cliente</th>
-                                            <th></th>                                            
-                                            <th> TOTAL: {{ $total }}</th>
+                                            <th>Data</th>                                            
+                                            <th>TOTAL: {{ $total }}</th>
 
                                         </tr>
                                     </thead>
                                     <tbody class="text-truncate text-dark">
                                         @foreach ($unconfirmedSale as $item)
                                             @if ($item->status_pagamento == 0)
-                                                <tr>
-                                               
+                                                <tr>                                               
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->custo }}<br></td>
                                                     <td>{{ $item->precoVenda }}<br></td>
                                                     <td>{{ $item->nomeCliente }}<br></td>
-                                                    <td>{{ $item->data }}<br></td>
+                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/yy')  }}<br></td>
                                                     <td class="text-center">
                                                         <form method="post"  action="{{ route('order.status', $item->id) }}">
                                                         
@@ -87,9 +80,9 @@
                 </a>
                 <div class="collapse show col-md-12" id="collapse-2">
                     <div class="card">
-                        <div class="card-body" style="padding: 0px;">
+                        <div class="card-body " style="padding: 0px;">
                             <div class="table-responsive">
-                                <table class="table table-striped table-sm">
+                                <table class="table table-striped table-sm table-bordered">
                                     <thead class="text-dark">
                                         <tr>
                                             <th>#</th>
@@ -262,7 +255,7 @@
 
                     </div>
                 </div>
-            </div>
+         
         @endforeach
 
     @endsection
