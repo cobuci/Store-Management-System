@@ -4,7 +4,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
-    <div class="container">        
+    
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-sm-12 col-md-4 col-md-4 col-sm-12" style="margin-top: 20px">
                 <div class="card col-md-12 col-sm-12"
@@ -34,8 +34,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container" style="margin-top: 15px">
+  
+ 
         <div class="row" style="padding-right: 16px; padding-left: 16px">
             <div class="col-12"
                 style="background: rgba(255, 255, 255, 0.7);color: var(--bs-gray-900);border-radius: 10px;">
@@ -80,15 +80,15 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container" style="margin-top: 20px">
+  
+    <div class="" style="margin-top: 20px">
         <div class="row">
             <div class="col-12" >               
                     {{ $financas->links() }}               
             </div>
         </div>
     </div>
-    <div class="container">
+   
         {{-- Investimento --}}
         <div class="row" style="margin-bottom: 10px; margin-top: 30px">
             {{-- Adicionar --}}
@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>
-    </div>
+  
 
     <!-- Modal Ifood Resgate -->
     <div class="modal fade" id="resgateIfood" tabindex="-1" aria-labelledby="resgateIfood" aria-hidden="true">
