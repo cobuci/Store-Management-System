@@ -1,12 +1,14 @@
 {
-    "/js/app.js": "/js/app.js?id=c7309e5c4aeed615b358bc7464c2ec72",
+    "/js/app.js": "/js/app.js?id=83c04b0313ac3a19e4d2f8f519cb787f",
+    "/admin/select2.js": "/admin/select2.js?id=865000276847e4d8bc72f2c45dd8ede7",
     "/admin/app2.js": "/admin/app2.js?id=2fb2c9c861de3e974c9d3f7d91d84b06",
     "/css/app.css": "/css/app.css?id=a2dee8e2fc38ee63044bd4d8c5e2469b",
-    "/admin/bootstrap.css": "/admin/bootstrap.css?id=689cc1edc6dc502012a09a5c4ed4fbde",
+    "/admin/bootstrap.css": "/admin/bootstrap.css?id=c9e294d1fa07a2a351b87730f50443eb",
     "/chart.js/chart.js": "/chart.js/chart.js?id=ac79c2f05fed78309687e5a7dac633e5",
-    "/admin/app.css": "/admin/app.css?id=0c740eb09123467c778f27259ce7eeab",
-    "/admin/sb.css": "/admin/sb.css?id=7cca79145912f40c859e2406e6f19d2f",
+    "/admin/app.css": "/admin/app.css?id=a75df15f309a2ed4db4c2b85d7eedbb8",
+    "/admin/sb.css": "/admin/sb.css?id=74c4b86c353791a9b6e4e1d06bdc0384",
+    "/admin/select2.css": "/admin/select2.css?id=e71c39430469a3eea74514a2b48f6536",
     "/admin/jquery.js": "/admin/jquery.js?id=bce53304d5d3438acfa5fcfae816769f",
-    "/admin/bootstrap.js": "/admin/bootstrap.js?id=01a034c34cb9c1d2f062af8def13ecb7",
+    "/admin/bootstrap.js": "/admin/bootstrap.js?id=57a985a5376d69aeb76bda8cdedc9ad1",
     "/admin/script.js": "/admin/script.js?id=488f594023f3a5bfad4d5c862ec6fd3e"
 }

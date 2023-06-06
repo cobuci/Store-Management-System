@@ -82,10 +82,10 @@
                                     <option value="1">Sim</option>
                                 </optgroup>
                             </select>
-                            <select class="form-select text-light bg-dark" id="cliente"
+                            <select class="form-control select2 text-light bg-dark" id="cliente"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="cliente">
-                                <optgroup label="Cliente">
+                                <optgroup label="">
                                     <option value="null"> Cliente </option>
                                     @foreach (Cliente::listar() as $cliente)
                                         <option value="{{ $cliente->id }}">#{{ $cliente->id }} -
@@ -94,6 +94,8 @@
                                     @endforeach
                                 </optgroup>
                             </select>
+
+                           
                             <button class="btn btn-outline-light shadow-sm float-end" data-bs-toggle="tooltip"
                                 data-bss-tooltip="" data-bs-placement="bottom" type="submit"
                                 style="border-radius: 10px; margin-top: 10px" title="Cadastrar">
@@ -106,6 +108,17 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+
+                 theme: "classic"
+            });
+            
+        });
+    </script>
 
 
 

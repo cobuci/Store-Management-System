@@ -31,6 +31,11 @@ mix.styles([
     'resources/css/sb-admin-2.min.css'
 ], 'public/admin/sb.css');
 
+mix.styles([
+    'node_modules/select2/dist/css/select2.min.css'
+], 'public/admin/select2.css');
+
+mix.js('node_modules/select2/dist/js/select2.min.js', 'public/admin/select2.js');
 
 mix.js('resources/js/app2.js', 'public/admin/app2.js');
 mix

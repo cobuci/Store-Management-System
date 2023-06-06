@@ -30,7 +30,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
 
 
-  
+
+
+
+    Route::get('/searchCustomer', [ClienteController::class, "search"])->name('customer.search');
+
+
     Route::get('/shoppingList', [ShoppingListController::class, "index"])->name('admin.shoppinglist');
 
     Route::POST('/shoppingList/add', [ShoppingListController::class, "entradaLista"])->name('admin.shoppinglist.add');
@@ -38,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/shoppingList/{id}', [ShoppingListController::class, "destroy"])->name('order.shop.destroy');
 
 
-  
+
 
     Route::get('/pack', [ocPackController::class, "index"])->name('admin.ocpack');
     Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
@@ -51,11 +56,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Dados
 
     Route::get('/financas', [CaixaController::class, "index"])->name('admin.financas');
-    
+
 
     Route::get('/relatorio', [OrderController::class, "index"])->name('admin.relatorio');
 
-    
+
     Route::get('/relatorio/descontinuado', [VendaController::class, "index"])->name('admin.relatorio.descontinuado');
 
 

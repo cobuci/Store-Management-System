@@ -10,6 +10,9 @@
 
     @livewireStyles
 
+    <link href="{{ asset('admin/select2.css') }}" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -171,6 +174,7 @@
     </div>
     <script src="{{ asset('admin/app2.js') }}"></script>
     <script src="{{ asset('admin/jquery.js') }}"></script>
+    
 
 </body>
 

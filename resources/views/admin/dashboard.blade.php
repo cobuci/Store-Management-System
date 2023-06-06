@@ -8,8 +8,8 @@
                 <div class="row">
                     <!-- Balance Revenue -->
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card"  style="height: 90%">
+                            <div class="card-body" >
                                 <div class="row">
                                     <div class="col mt-0">
                                         <h5 class="card-title">Balance</h5>

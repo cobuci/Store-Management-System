@@ -34,6 +34,15 @@ class ClienteController extends Controller
         return view('admin.clientePartial', compact('dados'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+        $clientes = Cliente::where('nome', 'LIKE', "%$query%")->get();
+
+        return response()->json($clientes);
+    }
+
+
     public function cadastrar()
     {
         return view('admin.clienteCadastro');
