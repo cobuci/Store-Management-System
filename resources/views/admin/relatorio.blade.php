@@ -19,8 +19,11 @@
             <div class="collapse col-md-12" id="collapse-1">
                 <div class="card ">
                     <div class="card-body" style="padding: 0px;">
-                        <div class="table-responsive ">
-                            <table class="table table-striped table-sm table-bordered">
+
+                        <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm table-bordered tabela-dados">
                                 <thead class="text-dark">
                                     <tr>
                                         <th>#</th>
@@ -32,7 +35,7 @@
 
                                     </tr>
                                 </thead>
-                                <tbody class="text-truncate text-dark">
+                                <tbody class="text-truncate text-dark ">
                                     @foreach ($unconfirmedSale as $item)
                                         @if ($item->status_pagamento == 0)
                                             <tr>
@@ -257,4 +260,33 @@
         </div>
     @endforeach
 
+
+
 @endsection
+
+
+<script src="{{ asset('admin/jquery.js') }}"></script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#search-input').on('input', function() {
+            var searchValue = $(this).val();
+
+            $.ajax({
+                url: '{{ route('filtrar.cliente.relatorio') }}',
+                type: 'GET',
+                data: {
+                    search: searchValue
+                },
+                success: function(response) {
+                    $('.tabela-dados').html(response);
+                },
+                error: function(xhr) {
+                    // Tratar erros, se necessário
+                }
+            });
+        });
+    });
+</script>

@@ -114,6 +114,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/filtrarCliente', [ClienteController::class, "filtrar"])->name('filtrar.cliente');
 
+    Route::get('/filtrarClienteRelatorio', [OrderController::class, "filtrarRelatorio"])->name('filtrar.cliente.relatorio');
 
     /////////////////////////////////////
 

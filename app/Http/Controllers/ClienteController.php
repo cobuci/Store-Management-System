@@ -34,6 +34,7 @@ class ClienteController extends Controller
         return view('admin.clientePartial', compact('dados'));
     }
 
+    
     public function search(Request $request)
     {
         $query = $request->input('search');

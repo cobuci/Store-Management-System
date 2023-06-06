@@ -22,6 +22,8 @@ class OrderController extends Controller
         $this->order = $order;
     }
 
+
+    
     public function index(Sale $venda)
     {
 
@@ -46,6 +48,25 @@ class OrderController extends Controller
             'total' => $total,
         ]);
     }
+
+
+    
+    public function filtrarRelatorio(Request $request)
+    {
+        $search = $request->input('search');
+        $dados = DB::table('sales')        
+        ->where('nomeCliente', 'LIKE', '%'.$search.'%')
+        ->where('status_pagamento', '=', '0')   
+        ->orderByDesc('created_at')     
+        ->get();
+
+        if ($request->ajax()) {
+            return view('admin.clientePartialRelatorio', compact('dados'));
+        }        
+
+        return view('admin.clientePartialRelatorio', compact('dados'));
+    }
+
 
 
     public static function findOrder($id)
