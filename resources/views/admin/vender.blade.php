@@ -10,6 +10,7 @@
             style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);border-style: none;border-color: var(--bs-purple);">
             <div class="card-body shadow-sm"
                 style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
+                <h1 class="text-center text-light"> {{ date('d / m / Y') }}</h1>
                 <form id="personForm" name="personForm" method="post" action="{{ route('admin.orders.store') }}"
                     data-url="{{ route('load_prod_cat') }}">
                     @csrf
@@ -82,7 +83,7 @@
                                     <option value="1">Sim</option>
                                 </optgroup>
                             </select>
-                            <select class="form-control select2 text-light bg-dark" id="cliente"
+                            <select class="form-control select2 text-light bg-dark" id="cliente" style="width: 100%"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                 name="cliente">
                                 <optgroup label="">
@@ -94,7 +95,6 @@
                                     @endforeach
                                 </optgroup>
                             </select>
-
                            
                             <button class="btn btn-outline-light shadow-sm float-end" data-bs-toggle="tooltip"
                                 data-bss-tooltip="" data-bs-placement="bottom" type="submit"
