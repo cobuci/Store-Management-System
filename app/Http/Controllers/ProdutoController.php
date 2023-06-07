@@ -63,6 +63,13 @@ class ProdutoController extends Controller
         return $produto;
     }
 
+    
+    public static function listarUltimos()
+    {
+       
+        $produto = Produto::orderBy('id', 'desc')->take(5)->get();
+        return $produto;
+    }
 
     public static function removerEstoque($id, $quantidade)
     {

@@ -44,16 +44,44 @@
                                             <th>Produto</th>
                                             <th>Marca</th>
                                             <th>Peso</th>
+                                            <th>Preço Custo</th>
+                                            <th>Preço Venda (LUCRO)</th>
+                                            <th>Quantidade</th>
+                                            <th>Validade</th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
+                                    </thead>
                                     <tbody>
-                                        </thead>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach (Produto::listarUltimos() as $produto)
+                                          
+                                                <tr
+                                                    style="background: {{ $produto->quantidade <= 0 ? 'indianred' : null }};">
+                                                    <td>{{ $produto->id }}</td>
+                                                    <td>{{ $produto->nome }}</td>
+                                                    <td>{{ $produto->marca }}</td>
+                                                    <td>{{ $produto->peso }}</td>
+                                                    <td>{{ $produto->custo }}</td>
+                                                    <td>{{ $produto->venda }}</td>
+                                                    <td>{{ $produto->quantidade }}</td>
+                                                    <td>{{ $produto->validade }}</td>
+                                                    <td>
+                                                        <a href="{{ route('admin.produto.editar', $produto->id) }}"
+                                                            class="btn btn-outline-primary col-12" type="submit">
+                                                            Editar
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-outline-danger col-12" type="button"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#apagarProduto{{ $produto->id }}">
+                                                            Apagar
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                          
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
