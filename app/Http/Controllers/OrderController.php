@@ -18,18 +18,17 @@ class OrderController extends Controller
     public function __construct(Produto $produto, Order $order)
     {
 
-        $this->produto = $produto;
-        $this->order = $order;
     }
 
 
-    
+
     public function index(Sale $venda)
     {
 
-        $venda = Sale::latest("id")->paginate(20)->onEachSide(1);
-        $unconfirmedSale = Sale::latest("id")->get();
-        $modalUnconfirmed = Sale::latest("id")->paginate(20);
+        $venda = Sale::latest("id")->where('status_pagamento', 'LIKE', '1')->paginate(10)->onEachSide(1);
+        $unconfirmedSale = Sale::latest("id")->where('status_pagamento', 'LIKE', '0')->get();
+
+        $modalArray = $unconfirmedSale->concat($venda);
 
         $total = 0;
 
@@ -44,25 +43,25 @@ class OrderController extends Controller
         return view('admin.relatorio', [
             'venda' => $venda,
             'unconfirmedSale' => $unconfirmedSale,
-            'modalUnconfirmed' => $modalUnconfirmed,
             'total' => $total,
+            'modalArray' => $modalArray,
         ]);
     }
 
 
-    
+
     public function filtrarRelatorio(Request $request)
     {
         $search = $request->input('search');
-        $dados = DB::table('sales')        
-        ->where('nomeCliente', 'LIKE', '%'.$search.'%')
-        ->where('status_pagamento', '=', '0')   
-        ->orderByDesc('created_at')     
-        ->get();
+        $dados = DB::table('sales')
+            ->where('nomeCliente', 'LIKE', '%' . $search . '%')
+            ->where('status_pagamento', '=', '0')
+            ->orderByDesc('created_at')
+            ->get();
 
         if ($request->ajax()) {
             return view('admin.clientePartialRelatorio', compact('dados'));
-        }        
+        }
 
         return view('admin.clientePartialRelatorio', compact('dados'));
     }

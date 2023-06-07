@@ -98,8 +98,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-truncate text-dark">
-                                    @foreach ($venda as $item)
-                                        @if ($item->status_pagamento == 1)
+                                    @foreach ($venda as $item)                                       
                                             <tr>
                                                 <td>{{ $item->id }}</td>
                                                 <td>R$ {{ $item->custo }}<br></td>
@@ -113,8 +112,7 @@
                                                         data-bs-target="#{{ 'modDetail' . $item->id }}">Detalhes
                                                     </button>
                                                 </td>
-                                            </tr>
-                                        @endif
+                                            </tr>                                        
                                     @endforeach
                                 </tbody>
                             </table>
@@ -137,9 +135,10 @@
         </div>
     </div>
 
+   
 
 
-    @foreach ($modalUnconfirmed as $item)
+    @foreach ($modalArray as $item)
         <div class="modal fade" id="{{ 'mod' . $item->id }}" tabindex="-1" aria-labelledby="{{ 'mod' . $item->id }}"
             aria-hidden="true">
             <div class="modal-dialog">
