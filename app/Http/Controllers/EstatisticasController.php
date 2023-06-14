@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EstatisticasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-        $dados = $this->productType();
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $dados = $this->productType($startDate, $endDate);
 
 
         return view('admin.estatisticas', [
@@ -21,8 +25,14 @@ class EstatisticasController extends Controller
 
 
 
-    public static function productType($data = 1)
+    public static function productType($startDate, $endDate)
     {
+        if (empty($startDate)) {
+            $startDate = '2020-01-01';
+        }    
+        if (empty($endDate)) {
+            $endDate = Carbon::now()->toDateString();
+        }
         $vendas = DB::table('vendas')
             ->select(
                 'id_produto',
@@ -30,6 +40,8 @@ class EstatisticasController extends Controller
                 DB::raw('sum(custo) as total_custo'),
                 DB::raw('sum(precoVenda) as total_venda'),
             )
+            ->whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $endDate)
             ->groupBy('id_produto')
             ->get();
 
