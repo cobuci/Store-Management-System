@@ -8,8 +8,8 @@
                 <div class="row">
                     <!-- Balance Revenue -->
                     <div class="col-md-4">
-                        <div class="card"  style="height: 90%">
-                            <div class="card-body" >
+                        <div class="card" style="height: 90%">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
                                         <h5 class="card-title">Balance</h5>
@@ -23,11 +23,12 @@
                                 <h1 class="mt-1 mb-3">R$ {{ Caixa::saldo() }}</h1>
                                 <br>
                                 <div class="mb-0">
-                                 
-                                    <p class="text-muted"> Média diária ({{ Dashboard::verificarMes(Dashboard::month(1))}}) : R$ {{ Dashboard::dailyAvg() }}                                     
+
+                                    <p class="text-muted"> Média diária ({{ Dashboard::verificarMes(Dashboard::month(1)) }})
+                                        : R$ {{ Dashboard::dailyAvg() }}
                                     </p>
-                                </div>                           
-                               
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -105,7 +106,7 @@
                     </div>
                     <!-- Meta -->
                     <div class="col-md-12">
-                        <div class="card"  type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
+                        <div class="card" type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
@@ -128,6 +129,7 @@
                         </div>
                     </div>
                     <!-- --- -->
+
                 </div>
             </div>
         </div>
@@ -167,7 +169,7 @@
         <div class="">
             <div class="card flex-fill w-100">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Recent Movement</h5>                   
+                    <h5 class="card-title mb-0">Recent Movement</h5>
                 </div>
                 <div class="card-body py-3">
                     <div class="chart chart-sm">
@@ -179,10 +181,11 @@
     </div>
 
 
-    
+
     {{-- DADOS --}}
     @for ($i = $mesesGrafico; $i > 0; $i--)
-        <input type="hidden" id="{{ 'hiddeninput' . $i }}" value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
+        <input type="hidden" id="{{ 'hiddeninput' . $i }}"
+            value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
 
         <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ Dashboard::salesMonth($i) }}" />
 
@@ -219,21 +222,21 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: "Vendas (R$)",
-                    fill: true,
-                    backgroundColor: gradient,
-                    borderColor: window.theme.primary,
-                    data: valores,
-                },
-                {
-                   
-                    label: "Lucro (R$)",
-                    fill: true,
-                    backgroundColor: "gradient",
-                    borderColor: "rgba(0, 147, 14, 1)",
-                    data: profit,
-                },
-            ],
+                        label: "Vendas (R$)",
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: window.theme.primary,
+                        data: valores,
+                    },
+                    {
+
+                        label: "Lucro (R$)",
+                        fill: true,
+                        backgroundColor: "gradient",
+                        borderColor: "rgba(0, 147, 14, 1)",
+                        data: profit,
+                    },
+                ],
             },
             options: {
                 maintainAspectRatio: false,
@@ -258,7 +261,7 @@
                             color: "rgba(0,0,0,0.0)",
                         },
                     }, ],
-                    yAxes: [{                       
+                    yAxes: [{
                         display: true,
                         borderDash: [33, 3],
                         gridLines: {
@@ -266,7 +269,7 @@
                         },
                     }, ],
                 },
-                
+
             },
         });
     });

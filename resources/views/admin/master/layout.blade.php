@@ -107,12 +107,21 @@
                             <span class="align-middle">Fardo</span>
                         </a>
                     </li>
+                    
 
                     <li
                         class="sidebar-item {{ Route::current()->getName() === 'admin.shoppinglist' ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.shoppinglist') }}">
                             <i class="align-middle" data-feather="shopping-bag"></i>
                             <span class="align-middle">Lista de Compras</span>
+                        </a>
+                    </li>
+
+                    
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.estatisticas' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.estatisticas') }}">
+                            <i class="align-middle" data-feather="activity"></i>
+                            <span class="align-middle">Estatisticas</span>
                         </a>
                     </li>
                 </ul>

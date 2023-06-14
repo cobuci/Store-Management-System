@@ -10,6 +10,7 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendaController;
 use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\EstatisticasController;
 use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
 use App\Http\Controllers\ocPackController;
@@ -30,7 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/', [DashboardController::class, "index"])->name('admin.home');
 
 
+    // Estatisticas
 
+    
+    Route::get('/estatisticas', [EstatisticasController::class, "index"])->name('admin.estatisticas');
 
 
     Route::get('/searchCustomer', [ClienteController::class, "search"])->name('customer.search');
