@@ -57,6 +57,7 @@ class EstatisticasController extends Controller
             ->whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)
             ->groupBy('id_produto')
+            ->orderBy('total_vendas', 'desc')
             ->get();
         return array($vendas);
     }
