@@ -26,39 +26,6 @@ class VendaController extends Controller
     }
 
 
-    public function vendaIfood(VendaProduto $request)
-    {
-
-        $produto = Produto::find($request->produto);
-
-        $produto->quantidade -= $request->quantidade;
-
-        $valorTotal = floatval($request->quantidade * $produto->venda);
-        CaixaController::adicionarIfood($valorTotal);
-        HistoricoController::adicionar("IFOOD", "VENDA de ($request->quantidade - $produto->nome)");
-        FinancaController::adicionarVenda($valorTotal, $valorTotal, $request->quantidade);
-
-        $venda = new Venda();
-
-        $venda->produto = $produto->nome;
-        $venda->custo = $request->quantidade * $produto->custo;
-        $venda->formaPagamento = "Ifood";
-        $venda->created_at = \Carbon\Carbon::now()->toDateTimeString();
-        $venda->quantidade = $request->quantidade;
-        $venda->precoVenda = $valorTotal;
-        $venda->precoUnidade = $produto->custo;
-        $venda->desconto = $request->desconto;
-        $venda->marca = $produto->marca;
-        $venda->id_produto = $produto->id;
-
-        $venda->save();
-
-        $produto->quantidade == 0 ? $produto->custo = 0 : null;
-        $produto->save();
-
-        return redirect('/relatorio');
-    }
-
     public function vendaLoja(VendaProduto $request)
     {
 
@@ -163,7 +130,7 @@ class VendaController extends Controller
         $venda = Venda::find($id);
 
         ProdutoController::adicionarEstoque($venda->id_produto, $venda->quantidade);
-        $venda->formaPagamento != "Ifood" ?  CaixaController::removerSaldo($venda->precoVenda) : CaixaController::removerIfood($venda->precoVenda);
+         CaixaController::removerSaldo($venda->precoVenda);
         HistoricoController::adicionar("CANCELAMENTO", "Cancelamento da venda #$venda->id");
         FinancaController::cancelarVenda($venda->id, $venda->precoVenda);
 

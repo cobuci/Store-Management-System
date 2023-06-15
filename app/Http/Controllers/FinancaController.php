@@ -102,12 +102,7 @@ class FinancaController extends Controller
             $financa->delete();
         }
 
-        if ($financa->tipo == "IFOOD") {
-
-            CaixaController::removerSaldo($financa->valor);
-            CaixaController::adicionarIfood($financa->valor);
-            $financa->delete();
-        }
+       
 
         return redirect('/financas');
     }

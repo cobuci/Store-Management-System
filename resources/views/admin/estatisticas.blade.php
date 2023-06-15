@@ -1,4 +1,5 @@
 @extends('admin.master.layout')
+
 @section('title', 'Estatisticas')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
@@ -18,6 +19,31 @@
     </form>
 
 
+    <div class="row">
+        <div class="col-12">
+            <div class="font-monospace text-truncate">
+                <a class="btn text-start col-12"
+                    style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;">
+                    <span class="float-start" style="margin-right: 10px">
+                        <i class="fa fa-history text-center text-white" style="width: 30px; height: 30px"></i>
+                    </span>Informações</a>
+                <div class=" col-12">
+                    <div class="card">
+                        <div class="card-body" style="padding: 15px">
+                            <h3>Periodo: </h3>
+                            <h4> {{ $startDate->format('d/m/Y') }} á {{ $endDate->format('d/m/Y') }}</h4>
+                            <h3>Total Custo: </h3>
+                            <h4>R$ {{  number_format($totalCusto, 2, ',', '.')  }}</h4>
+                            <h3>Total Venda: </h3>
+                            <h4>R$ {{  number_format($totalVenda, 2, ',', '.') }}</h4>
+                            <h3>Lucro: </h3>
+                            <h4>R$ {{  number_format($totalLucro, 2, ',', '.')  }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="d-flex">

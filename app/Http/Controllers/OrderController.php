@@ -17,7 +17,6 @@ class OrderController extends Controller
 
     public function __construct(Produto $produto, Order $order)
     {
-
     }
 
 
@@ -143,9 +142,9 @@ class OrderController extends Controller
 
 
         // Retirar saldo
-        $sale->formaPagamento != "Ifood" ?
-            CaixaController::removerSaldo($sale->precoVenda) :
-            CaixaController::removerIfood($sale->precoVenda);
+
+        CaixaController::removerSaldo($sale->precoVenda);
+
 
         Order::where('order_id', $sale->order_id)->delete();
         Venda::where('order_id', $sale->order_id)->delete();

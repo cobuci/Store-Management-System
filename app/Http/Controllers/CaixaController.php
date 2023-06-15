@@ -17,8 +17,7 @@ use WithPagination;
         $caixa = $caixa->all();
 
         $saldo = $caixa[0]->saldo;
-        $investimento = $caixa[1]->saldo;
-        $ifood = $caixa[2]->saldo;
+        $investimento = $caixa[1]->saldo;      
         $meta = $caixa[3]->meta;
 
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
@@ -28,8 +27,7 @@ use WithPagination;
 
         return view('admin.financas', [
             'saldo' => $saldo,
-            'investimento' => $investimento,
-            'ifood' => $ifood,
+            'investimento' => $investimento,            
             'financas' => $financas,
             'meta' => $meta,
         ]);
@@ -139,12 +137,7 @@ use WithPagination;
         $saldo->save();
     }
 
-    public static function removerIfood($valorEntrada)
-    {
-        $saldo = Caixa::find(3);
-        $saldo->saldo -= $valorEntrada;
-        $saldo->save();
-    }
+  
     ///////////////////////////////////////////////////////
 
     // Adicionar Saldos
@@ -164,12 +157,7 @@ use WithPagination;
         $saldo->save();
     }
 
-    public static function adicionarIfood($valorEntrada)
-    {
-        $saldo = Caixa::find(3);
-        $saldo->saldo += $valorEntrada;
-        $saldo->save();
-    }
+   
 
     public static function definirMeta(Request $request){
         $saldo = Caixa::find(4);
@@ -180,14 +168,5 @@ use WithPagination;
     }
 
     //////////////////////////////////////////////////////
-    public static function resgateIfood(Request $request)
-    {
-        CaixaController::removerIfood($request->valor);
-        CaixaController::adicionarSaldo($request->valor);
-
-        HistoricoController::adicionar("RESGATE", "Resgate de R$ $request->valor");
-        FinancaController::resgateInvestimento($request->valor, "Resgate Ifood", \Carbon\Carbon::now()->toDateTimeString(),"IFOOD");
-
-        return redirect('/financas');
-    }
+    
 }

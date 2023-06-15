@@ -27,12 +27,7 @@ class CaixaSeeder extends Seeder
             'descricao' => "Investimento",
             'saldo' => 0,
         ]);
-
-        DB::table('caixas')->insert([
-            'id' => 3,
-            'descricao' => "Ifood",
-            'saldo' => 0
-        ]);
+      
 
         DB::table('caixas')->insert([
             'id' => 4,

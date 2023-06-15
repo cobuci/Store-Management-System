@@ -75,7 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::POST('/investimento/remover', [InvestimentoController::class, "remover"])->name('admin.investimento.remove');
 
 
-    Route::POST('/caixa/resgateifood', [CaixaController::class, "resgateIfood"])->name('admin.resgate.ifood');
 
     Route::delete('/financa/{id}', [FinancaController::class, "destroy"])->name('financa.destroy');
 
@@ -101,8 +100,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::POST('/cadastrarproduto', [ProdutoController::class, "store"])->name('admin.cadastrarProduto');
 
     // Venda
-    Route::POST('/vender/ifood', [VendaController::class, "vendaIfood"])->name('admin.venda.ifood');
-
     Route::POST('/vender/loja', [VendaController::class, "vendaLoja"])->name('admin.venda.loja');
 
 
@@ -131,7 +128,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return view('admin.vender');
     })->name('admin.vender');
 
-    Route::get('/venderIfood', function () {
-        return view('admin.venderIfood');
-    })->name('admin.venderIfood');
+   
 });
