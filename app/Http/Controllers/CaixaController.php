@@ -11,23 +11,23 @@ use Livewire\WithPagination;
 
 class CaixaController extends Controller
 {
-use WithPagination;
+    use WithPagination;
     public function index(Caixa $caixa)
     {
         $caixa = $caixa->all();
 
         $saldo = $caixa[0]->saldo;
-        $investimento = $caixa[1]->saldo;      
-        $meta = $caixa[3]->meta;
+        $investimento = $caixa[1]->saldo;
+        $meta = $caixa[2]->meta;
 
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
 
 
-        
+
 
         return view('admin.financas', [
             'saldo' => $saldo,
-            'investimento' => $investimento,            
+            'investimento' => $investimento,
             'financas' => $financas,
             'meta' => $meta,
         ]);
@@ -116,7 +116,7 @@ use WithPagination;
         $caixa = new Caixa;
         $caixa = $caixa->all();
 
-        $meta = $caixa[3]->saldo;
+        $meta = $caixa[2]->saldo;
 
         return $meta;
     }
@@ -137,7 +137,7 @@ use WithPagination;
         $saldo->save();
     }
 
-  
+
     ///////////////////////////////////////////////////////
 
     // Adicionar Saldos
@@ -157,9 +157,10 @@ use WithPagination;
         $saldo->save();
     }
 
-   
 
-    public static function definirMeta(Request $request){
+
+    public static function definirMeta(Request $request)
+    {
         $saldo = Caixa::find(4);
         $saldo->saldo = $request->valor;
         $saldo->save();
@@ -168,5 +169,5 @@ use WithPagination;
     }
 
     //////////////////////////////////////////////////////
-    
+
 }

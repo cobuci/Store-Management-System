@@ -15,10 +15,14 @@ use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
 use App\Http\Controllers\ocPackController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShoppingListController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
+
+
+    Route::get('/settings', [SettingsController::class, "index"])->name('admin.settings');
 
     Route::POST('/order/store', [OrderController::class, "store"])->name('admin.orders.store');
 
