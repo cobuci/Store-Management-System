@@ -32,7 +32,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{ route('admin.home') }}">
-                    <span class="align-middle">Garagem 46</span>
+                    <span class="align-middle">{{  Settings::listarSettings()[0]->valor }}</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -151,6 +151,10 @@
                                 <a class="dropdown-item" href="{{ route('admin.historico') }}">
                                     <i class="align-middle me-1" data-feather="pie-chart"></i>
                                     Histórico
+                                </a>
+                                <a class="dropdown-item" href="{{ route('admin.settings') }}">
+                                    <i class="align-middle me-1" data-feather="settings"></i>
+                                    Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <form method="POST" action="{{ route('logout') }}" x-data>

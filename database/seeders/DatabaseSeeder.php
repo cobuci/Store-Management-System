@@ -19,10 +19,14 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-        // SALDO
-        CaixaSeeder::class,
-        // CATEGORIA    
-        CategoriaSeeder::class,
+
+            SettingsSeeder::class,
+
+            UserSeeder::class,
+            // SALDO
+            CaixaSeeder::class,
+            // CATEGORIA    
+            CategoriaSeeder::class,
         ]);
     }
 }

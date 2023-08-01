@@ -42,6 +42,14 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 
 <br><br>
+### Requisitos
+
+ * php ^8.1 
+ * composer
+ * node / npm
+
+
+<br><br>
 ### Instalação
 
  * npm install
@@ -49,7 +57,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
  * composer update
  * cp .env.example .env
  * php artisan key:generate
-
+ * php artisan migrate
+ * php artisan db:seed
   
   
 <br><br>

@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caixa;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
 
-    public function index()
+    public function index(Settings $settings)
     {
-        $mesesGrafico = 17;
-       
+        $settings = $settings->all();
+
+
+        $mesesGrafico = $settings[1]->valor;
+
 
         return view('admin.dashboard', [
             'mesesGrafico' => $mesesGrafico
-           
+
         ]);
     }
 
@@ -40,8 +44,13 @@ class DashboardController extends Controller
             $vendas = $vendas['capital'];
 
             return $vendas;
+        } else if (sizeof($vendas) == 1) {
+            $vendas = $vendas[0];
+            $vendas = $vendas['capital'];
+
+            return $vendas;
         } else {
-            return null;
+            return $vendas = 0;
         }
     }
 
@@ -60,6 +69,11 @@ class DashboardController extends Controller
         $custo = json_decode($custo, true);
         if (sizeof($custo) > 1) {
             $custo = $custo[sizeof($custo) - $data];
+            $custo = $custo['custoVenda'];
+
+            return $custo;
+        } else if (sizeof($custo) == 1) {
+            $custo = $custo[0];
             $custo = $custo['custoVenda'];
 
             return $custo;
@@ -92,12 +106,17 @@ class DashboardController extends Controller
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day'),
 
             )
-            ->groupby('year', 'month', 'day')
+            ->groupBy('year', 'month', 'day')
             ->get();
 
         $day = json_decode($vendas, true);
         if (sizeof($vendas) > 1) {
             $day = $day[sizeof($vendas) - $data];
+            $day = $day['day'];
+
+            return  $day;
+        } else if (sizeof($vendas) == 1) {
+            $day = $day[0];
             $day = $day['day'];
 
             return  $day;
@@ -116,7 +135,7 @@ class DashboardController extends Controller
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day'),
 
             )
-            ->groupby('year', 'month')
+            ->groupBy('year', 'month')
             ->get();
 
         $month = json_decode($vendas, true);
@@ -168,8 +187,13 @@ class DashboardController extends Controller
         $revenue = DashboardController::salesMonth();
         $day = DashboardController::dia(1);
 
-        $average = $revenue / $day;
-        $average = number_format($average, 2);
+        try {
+            $average = $revenue / $day;
+            $average = number_format($average, 2);
+        } catch (\DivisionByZeroError $e) {
+            $average = $revenue;
+        }
+
 
         return $average;
     }
@@ -184,7 +208,7 @@ class DashboardController extends Controller
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
                 DB::raw('SUM(precoVenda) as capital')
             )
-            ->groupby('year', 'month')
+            ->groupBy('year', 'month')
             ->get();
 
         $vendas = json_decode($vendas, true);
@@ -193,8 +217,13 @@ class DashboardController extends Controller
             $vendas = $vendas['capital'];
 
             return ($vendas);
+        } else if (sizeof($vendas) == 1) {
+            $vendas = $vendas[0];
+            $vendas = $vendas['capital'];
+
+            return ($vendas);
         } else {
-            return null;
+            return $vendas = 0;
         }
     }
 
@@ -208,12 +237,17 @@ class DashboardController extends Controller
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
                 DB::raw('SUM(custo) as custo')
             )
-            ->groupby('year', 'month')
+            ->groupBy('year', 'month')
             ->get();
 
         $custo = json_decode($custo, true);
         if (sizeof($custo) > 1) {
             $custo = $custo[sizeof($custo) - $data];
+            $custo = $custo['custo'];
+
+            return ($custo);
+        } else if (sizeof($custo) == 1) {
+            $custo = $custo[0];
             $custo = $custo['custo'];
 
             return ($custo);
@@ -305,12 +339,15 @@ class DashboardController extends Controller
     public static function porcentagemGoal()
     {
         $atual = DashboardController::salesMonth(1);
-
-
-
-
         $goal =  CaixaController::meta();
-        $porcentagem = ($atual / $goal) * 100;
+
+        try {
+            $porcentagem = ($atual / $goal) * 100;
+        } catch (\DivisionByZeroError $e) {
+            $porcentagem = 0;
+        }
+
+
 
         return number_format($porcentagem, 2);
     }
