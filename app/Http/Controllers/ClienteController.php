@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\StoreUpdateCliente;
+use App\Models\Settings;
 use App\Models\Venda;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,8 @@ class ClienteController extends Controller
     public function index(Cliente $cliente)
     {
 
-        $cliente = Cliente::orderBy('nome', 'asc')        
-        ->get();
+        $cliente = Cliente::orderBy('nome', 'asc')
+            ->get();
 
         return view('admin.clientes', [
             'clientes' => $cliente,
@@ -25,16 +26,16 @@ class ClienteController extends Controller
     public function filtrar(Request $request)
     {
         $search = $request->input('search');
-        $dados = Cliente::select('id','nome','rua')->where('nome', 'LIKE', '%'.$search.'%')->get();
+        $dados = Cliente::select('id', 'nome', 'rua')->where('nome', 'LIKE', '%' . $search . '%')->get();
 
         if ($request->ajax()) {
             return view('admin.clientePartial', compact('dados'));
-        }        
+        }
 
         return view('admin.clientePartial', compact('dados'));
     }
 
-    
+
     public function search(Request $request)
     {
         $query = $request->input('search');
@@ -51,10 +52,10 @@ class ClienteController extends Controller
 
     public static function listar()
     {
-     
-        $cliente = Cliente::select('id','nome')
-        ->orderBy('nome', 'asc')      
-        ->get();
+
+        $cliente = Cliente::select('id', 'nome')
+            ->orderBy('nome', 'asc')
+            ->get();
 
         return $cliente;
     }
@@ -129,7 +130,7 @@ class ClienteController extends Controller
 
         $aguas = DB::table('vendas')
             ->where('id_cliente', '=', $id)
-            ->where('id_produto', '=', 2)
+            ->where('id_produto', '=', SettingsController::listarSettings()[2]->valor)
             ->select(DB::raw('SUM(quantidade) as quantidade'))
             ->get();
 
@@ -138,5 +139,14 @@ class ClienteController extends Controller
 
 
         return ($aguas);
+    }
+
+    public function destroy($id)
+    {
+        $cliente = Cliente::find($id);
+
+        $cliente->delete();
+
+        return redirect('/cliente');
     }
 }

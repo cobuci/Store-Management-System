@@ -1,6 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Perfil')
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
 
@@ -19,38 +19,41 @@
                         {{-- Formulario --}}
                         <form>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control" type="text"
+                                <input class="form-control text-light" type="text"
                                     style="margin-bottom: 10px;width: 60%;margin-right: 10px;background: rgba(255,255,255,0);"
                                     placeholder="Name" name="nome" value="{{ $cliente->nome }}">
-                                <input class="form-control" type="text"
+                                <input class="form-control text-light" type="text"
                                     style="margin-bottom: 10px;width: 40%;background: rgba(255,255,255,0);"
                                     placeholder="Tel" name="telefone" value="{{ $cliente->telefone }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control" type="text"
+                                <input class="form-control text-light" type="text"
                                     style="margin-bottom: 10px;width: 100%;background: rgba(255,255,255,0);"
                                     placeholder="E-mail" name="email" value="{{ $cliente->email }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control" type="text" id="cep"
+                                <input class="form-control text-light" type="text" id="cep"
                                     style="margin-bottom: 10px;width: 30%;background: rgba(255,255,255,0);margin-right: 10px;"
                                     placeholder="Zip" name="cep" value="{{ $cliente->cep }}">
-                                <input class="form-control" type="text" id="rua"
+                                <input class="form-control text-light" type="text" id="rua"
                                     style="margin-bottom: 10px;width: 70%;background: rgba(255,255,255,0);"
                                     placeholder="Address" name="logradouro" value="{{ $cliente->rua }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control" type="text"
+                                <input class="form-control text-light" type="text"
                                     style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);margin-right: 10px;"
                                     placeholder="N / AP" name="numero" value="{{ $cliente->numero }}">
-                                <input class="form-control" type="text" id="bairro"
+                                <input class="form-control text-light" type="text" id="bairro"
                                     style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);"
                                     placeholder="Bairro" name="bairro" value="{{ $cliente->bairro }}">
                             </div>
                             <div class="d-xl-flex d-xxl-flex justify-content-xl-end justify-content-xxl-end">
-                                <button class="btn btn-outline-danger shadow-sm" data-bs-toggle="tooltip"
-                                    data-bss-tooltip="" data-bs-placement="bottom" type="submit"
-                                    style="border-radius: 10px;margin-right: 15px;" title="Deletar cliente">Apagar</button>
+
+                                <button class="btn btn-outline-danger shadow-sm" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modalApagar" style="border-radius: 10px;margin-right: 15px;"
+                                    title="Deletar cliente">Apagar</button>
+
+
                                 <button class="btn btn-outline-light shadow-sm" data-bs-toggle="tooltip" data-bss-tooltip=""
                                     data-bs-placement="bottom" type="submit" style="border-radius: 10px;"
                                     title="Salvar alterações">Salvar</button>
@@ -149,6 +152,49 @@
         </div>
     </div>
 
+    {{-- Modal Apagar Cliente --}}
+    <div class="modal fade" tabindex="-1" id="modalApagar" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"
+                style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
+                <div class="modal-header text-light"
+                    style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
+                    <h4 class="modal-title  text-light">
+                        Confirmar exclusão
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body font-monospace" style="background: #3d3d3d;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-12 text-nowrap text-light"
+                                style="border-radius: 9px;padding-top: 15px;border-width: 2px;border-color: #8c61ff;">
+                                <p>
+                                    Nome: {{ $cliente->nome }}
+                                </p>
+                                <p>
+                                    Débito total: R$ {{ $totalDebit }}
+                                </p>
+                                <p>
+                                    Total Gasto: R$ {{ $totalSpent }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" action="{{ route('cliente.destroy', $cliente->id) }}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {
             function limpa_formulário_cep() {
@@ -195,7 +241,6 @@
                 }
             });
         });
-
     </script>
 
 @endsection
