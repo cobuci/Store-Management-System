@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\StoreUpdateCliente;
+use App\Models\Settings;
 use App\Models\Venda;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,8 @@ class ClienteController extends Controller
     public function index(Cliente $cliente)
     {
 
-        $cliente = Cliente::orderBy('nome', 'asc')        
-        ->get();
+        $cliente = Cliente::orderBy('nome', 'asc')
+            ->get();
 
         return view('admin.clientes', [
             'clientes' => $cliente,
@@ -25,16 +26,16 @@ class ClienteController extends Controller
     public function filtrar(Request $request)
     {
         $search = $request->input('search');
-        $dados = Cliente::select('id','nome','rua')->where('nome', 'LIKE', '%'.$search.'%')->get();
+        $dados = Cliente::select('id', 'nome', 'rua')->where('nome', 'LIKE', '%' . $search . '%')->get();
 
         if ($request->ajax()) {
             return view('admin.clientePartial', compact('dados'));
-        }        
+        }
 
         return view('admin.clientePartial', compact('dados'));
     }
 
-    
+
     public function search(Request $request)
     {
         $query = $request->input('search');
@@ -51,10 +52,10 @@ class ClienteController extends Controller
 
     public static function listar()
     {
-     
-        $cliente = Cliente::select('id','nome')
-        ->orderBy('nome', 'asc')      
-        ->get();
+
+        $cliente = Cliente::select('id', 'nome')
+            ->orderBy('nome', 'asc')
+            ->get();
 
         return $cliente;
     }
@@ -95,8 +96,47 @@ class ClienteController extends Controller
             foreach (ClienteController::unpaidPurchases($id) as $compra) {
                 $totalDebit += $compra->precoVenda;
             }
-            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit'));
+
+            $apiGoogle = env('GOOGLE_API_KEY');
+
+            $resultadoMapa = ClienteController::buscarClienteMapa($cliente->id);
+            $latitude = $resultadoMapa[0];        
+            $longitude = $resultadoMapa[1];        
+            
+            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit','apiGoogle','latitude','longitude'));
         }
+    }
+
+    
+    public static function buscarClienteMapa($id){
+        $cliente = Cliente::find($id);
+        $apiGoogle = env('GOOGLE_API_KEY');
+        if ($cliente->rua) {
+            $endereco = $cliente->rua . ','. $cliente->numero .','. $cliente->bairro;
+        }else{
+            $endereco = "São Paulo";
+        }       
+        
+        // Formatação do endereço para a URL da API
+        $endereco_formatado = urlencode($endereco);
+        
+               
+        // URL da API do Google Maps Geocoding
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$endereco_formatado}&key={$apiGoogle}";
+        
+        // Fazendo a requisição à API
+        $response = file_get_contents($url);
+        
+        // Decodificando a resposta JSON
+        $data = json_decode($response);      
+
+        
+        if ($data->status === 'OK') {
+            $latitude = $data->results[0]->geometry->location->lat;
+            $longitude = $data->results[0]->geometry->location->lng;    
+        } 
+
+        return [$latitude,$longitude];
     }
 
     public static function comprasCliente($id)
@@ -129,7 +169,7 @@ class ClienteController extends Controller
 
         $aguas = DB::table('vendas')
             ->where('id_cliente', '=', $id)
-            ->where('id_produto', '=', 2)
+            ->where('id_produto', '=', SettingsController::listarSettings()[2]->valor)
             ->select(DB::raw('SUM(quantidade) as quantidade'))
             ->get();
 
@@ -139,4 +179,25 @@ class ClienteController extends Controller
 
         return ($aguas);
     }
+
+    public function destroy($id)
+    {
+        $cliente = Cliente::find($id);
+
+        $cliente->delete();
+
+        return redirect('/cliente');
+    }
+
+    public function put($id, StoreUpdateCliente $request)
+    {
+        $cliente = Cliente::find($id);
+
+        $data = $request->only('nome', 'email', 'telefone', 'sexo', 'cep', 'rua','numero','bairro');        
+
+        $cliente->update($data);
+       
+        return redirect('/cliente/{$id}');
+    }
+
 }

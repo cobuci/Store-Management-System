@@ -25,5 +25,11 @@ class SettingsSeeder extends Seeder
             'descricao' => "Quantidade de meses mostrado no grafico da dashboard",
             'valor' => 0,
         ]);
+
+        DB::table('settings')->insert([
+
+            'descricao' => "Id da agua",
+            'valor' => 2,
+        ]);
     }
 }
