@@ -96,8 +96,47 @@ class ClienteController extends Controller
             foreach (ClienteController::unpaidPurchases($id) as $compra) {
                 $totalDebit += $compra->precoVenda;
             }
-            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit'));
+
+            $apiGoogle = env('GOOGLE_API_KEY');
+
+            $resultadoMapa = ClienteController::buscarClienteMapa($cliente->id);
+            $latitude = $resultadoMapa[0];        
+            $longitude = $resultadoMapa[1];        
+            
+            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit','apiGoogle','latitude','longitude'));
         }
+    }
+
+    
+    public static function buscarClienteMapa($id){
+        $cliente = Cliente::find($id);
+        $apiGoogle = env('GOOGLE_API_KEY');
+        if ($cliente->rua) {
+            $endereco = $cliente->rua . ','. $cliente->numero .','. $cliente->bairro;
+        }else{
+            $endereco = "São Paulo";
+        }       
+        
+        // Formatação do endereço para a URL da API
+        $endereco_formatado = urlencode($endereco);
+        
+               
+        // URL da API do Google Maps Geocoding
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$endereco_formatado}&key={$apiGoogle}";
+        
+        // Fazendo a requisição à API
+        $response = file_get_contents($url);
+        
+        // Decodificando a resposta JSON
+        $data = json_decode($response);      
+
+        
+        if ($data->status === 'OK') {
+            $latitude = $data->results[0]->geometry->location->lat;
+            $longitude = $data->results[0]->geometry->location->lng;    
+        } 
+
+        return [$latitude,$longitude];
     }
 
     public static function comprasCliente($id)
@@ -149,4 +188,16 @@ class ClienteController extends Controller
 
         return redirect('/cliente');
     }
+
+    public function put($id, StoreUpdateCliente $request)
+    {
+        $cliente = Cliente::find($id);
+
+        $data = $request->only('nome', 'email', 'telefone', 'sexo', 'cep', 'rua','numero','bairro');        
+
+        $cliente->update($data);
+       
+        return redirect('/cliente/{$id}');
+    }
+
 }
