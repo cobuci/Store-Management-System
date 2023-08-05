@@ -98,21 +98,21 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-truncate text-dark">
-                                    @foreach ($venda as $item)                                       
-                                            <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>R$ {{ $item->custo }}<br></td>
-                                                <td>R$ {{ $item->precoVenda }}<br></td>
-                                                <td>R$ {{ $item->precoVenda - $item->custo }}<br></td>
-                                                <td>{{ $item->nomeCliente }}<br></td>
-                                                <td>{{ $item->data }}<br></td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        style="margin-right: 10px;" data-bs-toggle="modal"
-                                                        data-bs-target="#{{ 'modDetail' . $item->id }}">Detalhes
-                                                    </button>
-                                                </td>
-                                            </tr>                                        
+                                    @foreach ($venda as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>R$ {{ $item->custo }}<br></td>
+                                            <td>R$ {{ $item->precoVenda }}<br></td>
+                                            <td>R$ {{ $item->precoVenda - $item->custo }}<br></td>
+                                            <td>{{ $item->nomeCliente }}<br></td>
+                                            <td>{{ $item->data }}<br></td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-primary" type="button"
+                                                    style="margin-right: 10px;" data-bs-toggle="modal"
+                                                    data-bs-target="#{{ 'modDetail' . $item->id }}">Detalhes
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-   
+
 
 
     @foreach ($modalArray as $item)
@@ -173,8 +173,8 @@
                     style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
                     <div class="modal-header text-light"
                         style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
-                        <h4 class="modal-title  text-light">#{{ $item->id }}</h4><button type="button" class="btn-close"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h4 class="modal-title  text-light">#{{ $item->id }}</h4><button type="button"
+                            class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body font-monospace" style="background: #3d3d3d;">
                         <div class="container">
@@ -219,7 +219,8 @@
                             <div class="row">
                                 <div class="col-12 col-md-12 text-nowrap text-light"
                                     style="border-radius: 9px;border-top-left-radius: 0;border-top-right-radius: 0;border-width: 2px;border-color: #8c61ff;">
-                                    <h2 class="text-uppercase text-center  text-light" style="margin-bottom: 16px;">Produtos
+                                    <h2 class="text-uppercase text-center  text-light" style="margin-bottom: 16px;">
+                                        Produtos
                                     </h2>
                                     <ul class="list-unstyled">
                                         @foreach (Order::findOrder($item->order_id) as $prod)
@@ -237,7 +238,8 @@
                         </div>
                         <div class="col-12 col-md-12 text-nowrap text-light"
                             style="border-radius: 9px;border-width: 2px;border-color: #8c61ff;">
-                            <h2 class="text-uppercase text-center text-light" style="margin-bottom: 16px;">Informações</h2>
+                            <h2 class="text-uppercase text-center text-light" style="margin-bottom: 16px;">Informações
+                            </h2>
                             <p>Cliente:<span class="float-end"> {{ $item->nomeCliente }}</span></p>
                             <hr>
                             <p>Forma de Pagamento:<span class="float-end">{{ $item->formaPagamento }}</span></p>
@@ -249,6 +251,10 @@
 
                     <div class="modal-footer"
                         style="background: #262626;border-bottom-right-radius: 15px;border-bottom-left-radius: 15px;">
+                        <div class="ms-auto">
+                            <a href="{{ route('invoice', $item->id) }}" class="btn btn-outline-primary"
+                                type="button">Download</a>
+                        </div>
                         <button class="btn btn-outline-light" type="button" data-bs-dismiss="modal">Fechar</button>
                         <button class="btn btn-danger" type="button" data-bs-toggle="modal"
                             data-bs-target="#{{ 'mod' . $item->id }}">Cancelar</button>

@@ -13,6 +13,7 @@ use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\EstatisticasController;
 use App\Http\Controllers\FinancaController;
 use App\Http\Controllers\InvestimentoController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ocPackController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SettingsController;
@@ -20,6 +21,9 @@ use App\Http\Controllers\ShoppingListController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
+
+
+    Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
 
 
     Route::get('/settings', [SettingsController::class, "index"])->name('admin.settings');
