@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.3.2 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -167,6 +167,8 @@ optgroup,
 select,
 textarea {
   font-family: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
   font-size: 100%; /* 1 */
   font-weight: inherit; /* 1 */
   line-height: inherit; /* 1 */
@@ -301,6 +303,13 @@ ul,
 menu {
   list-style: none;
   margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+dialog {
   padding: 0;
 }
 
@@ -1087,9 +1096,16 @@ select {
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
+.m-0 {
+  margin: 0px;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .my-5 {
   margin-top: 1.25rem;
@@ -1116,6 +1132,9 @@ select {
 .mb-0 {
   margin-bottom: 0px;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1132,12 +1151,10 @@ select {
   margin-bottom: 1.5rem;
 }
 .me-1 {
-  -webkit-margin-end: 0.25rem;
-          margin-inline-end: 0.25rem;
+  margin-inline-end: 0.25rem;
 }
 .me-2 {
-  -webkit-margin-end: 0.5rem;
-          margin-inline-end: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -1162,6 +1179,9 @@ select {
 }
 .mr-3 {
   margin-right: 0.75rem;
+}
+.ms-auto {
+  margin-inline-start: auto;
 }
 .mt-0 {
   margin-top: 0px;
