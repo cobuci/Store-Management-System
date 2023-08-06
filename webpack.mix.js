@@ -32,10 +32,15 @@ mix.styles([
 ], 'public/admin/sb.css');
 
 mix.styles([
-    'node_modules/select2/dist/css/select2.min.css'
+    'node_modules/select2/dist/css/select2.min.css' 
 ], 'public/admin/select2.css');
 
 mix.js('node_modules/select2/dist/js/select2.min.js', 'public/admin/select2.js');
+
+
+mix.js('node_modules/html2canvas/dist/html2canvas.js', 'public/admin/html2canvas.js');
+
+
 
 mix.js('resources/js/app2.js', 'public/admin/app2.js');
 mix

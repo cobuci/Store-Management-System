@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <script src="{{ asset('admin/html2canvas.js') }}"></script>
 
 
     <title>invoice - Garagem 46</title>
@@ -35,23 +36,23 @@
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
         integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <div class="container">
+    <div class="container" id='divToSave'>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="invoice-title">
-                            
+
                             <div class="mb-4">
                                 <h2 class="mb-1 text-muted">Garagem 46</h2>
-                            </div>                           
+                            </div>
                         </div>
                         <hr class="my-4">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Cliente:</h5>
-                                    <h5 class="font-size-15 mb-2"> {{ $sale->nomeCliente }}</h5>                                    
+                                    <h5 class="font-size-15 mb-2"> {{ $sale->nomeCliente }}</h5>
                                 </div>
                             </div>
 
@@ -64,7 +65,7 @@
                                     <div class="mt-4">
                                         <h5 class="font-size-15 mb-1">Data:</h5>
                                         <p> {{ \Carbon\Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
 
@@ -85,45 +86,87 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($orders as $order)
-                                        <tr>
-                                            <th scope="row">{{ $numeroItem++}}</th>
-                                            <td>
-                                                <div>
-                                                    <h5 class="text-truncate font-size-14 mb-1"> {{ ucwords($order->produto ) }}</h5>
-                                                    <p class="text-muted mb-0">{{ ($order->peso ) }}, {{ ($order->marca ) }}</p>
-                                                </div>
-                                            </td>
-                                            <td>R$ {{ ($order->precoUnidade ) }}</td>
-                                            <td>{{ ($order->quantidade ) }}</td>
-                                            <td class="text-end">R$ {{ ($order->quantidade * $order->precoUnidade ) }}</td>
-                                        </tr>
-                                       @endforeach
+                                            <tr>
+                                                <th scope="row">{{ $numeroItem++ }}</th>
+                                                <td>
+                                                    <div>
+                                                        <h5 class="text-truncate font-size-14 mb-1">
+                                                            {{ ucwords($order->produto) }}</h5>
+                                                        <p class="text-muted mb-0">{{ $order->peso }},
+                                                            {{ $order->marca }}</p>
+                                                    </div>
+                                                </td>
+                                                <td>R$ {{ $order->precoUnidade }}</td>
+                                                <td>{{ $order->quantidade }}</td>
+                                                <td class="text-end">R$
+                                                    {{ $order->quantidade * $order->precoUnidade }}</td>
+                                            </tr>
+                                        @endforeach
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Desconto :</th>
-                                            <td class="border-0 text-end"> {{ $sale->desconto}}</td>
+                                            <td class="border-0 text-end"> {{ $sale->desconto }}</td>
                                         </tr>
-                                       
+
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">Total: </th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">R$ {{ $sale->precoVenda}}</h4>
+                                                <h4 class="m-0 fw-semibold">R$ {{ $sale->precoVenda }}</h4>
                                             </td>
                                         </tr>
 
                                     </tbody>
                                 </table>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div style="float: right; margin-top: 10px;">
+       
+            <a  class="btn btn-danger" href="{{ route('admin.relatorio') }}">Voltar</a>
+            <button id="saveButton" class="btn btn-primary">Download</button>
    
+
+    </div>
+   
+
+
+
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript"></script>
+
+
+
 </body>
+
+<script>
+    document.getElementById("saveButton").addEventListener("click", function() {
+        const divToSave = document.getElementById("divToSave");
+
+        // Salva o tamanho original da div
+        const originalWidth = divToSave.style.width;
+        const originalHeight = divToSave.style.height;
+
+        // Define o tamanho para o modo web (1024x768 pixels)
+        divToSave.style.width = "1024px";
+        divToSave.style.height = "768px";
+
+        html2canvas(divToSave).then(function(canvas) {
+            // Restaura o tamanho original da div
+            divToSave.style.width = originalWidth;
+            divToSave.style.height = originalHeight;
+
+            // Cria um link para download da imagem
+            const link = document.createElement("a");
+            link.download = @json($sale->id) + ".png";
+            link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            link.click();
+        });
+    });
+</script>
 
 </html>
