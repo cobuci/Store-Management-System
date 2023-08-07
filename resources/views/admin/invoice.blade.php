@@ -36,10 +36,10 @@
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
         integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <div class="container" id='divToSave'>
-        <div class="row">
+    <div class="container">
+        <div class="row" >
             <div class="col-lg-12">
-                <div class="card">
+                <div  id='divToSave' class="card" >
                     <div class="card-body">
                         <div class="invoice-title">
 
@@ -81,7 +81,7 @@
                                             <th>Produto</th>
                                             <th>Preço (un.)</th>
                                             <th>Quantidade</th>
-                                            <th class="text-end" style="width: 120px;">Total</th>
+                                            <th class="text-end" style="">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,15 +123,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div style="float: right; margin-top: 10px;">
+        <div style="float: right; margin-top: 10px;">
        
             <a  class="btn btn-danger" href="{{ route('admin.relatorio') }}">Voltar</a>
-            <button id="saveButton" class="btn btn-primary">Download</button>
-   
+            <button id="saveButton" class="btn btn-primary">Download</button> 
 
     </div>
-   
+    </div>
+ 
 
 
 
@@ -153,7 +152,7 @@
 
         // Define o tamanho para o modo web (1024x768 pixels)
         divToSave.style.width = "1024px";
-        divToSave.style.height = "768px";
+        divToSave.style.height = "100%";
 
         html2canvas(divToSave).then(function(canvas) {
             // Restaura o tamanho original da div
