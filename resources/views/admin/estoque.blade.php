@@ -20,6 +20,15 @@
         </div>
     </div>
 
+    <div class="alert alert-primary d-flex align-items-center" role="alert">
+       <symbol id="info-fill" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+        <div>
+            An example alert with an icon
+        </div>
+    </div>
+
     {{-- Ultimos Produtos --}}
 
     <div class="row">
@@ -54,33 +63,30 @@
                                     </thead>
                                     <tbody>
                                         @foreach (Produto::listarUltimos() as $produto)
-                                          
-                                                <tr
-                                                    style="background: {{ $produto->quantidade <= 0 ? 'indianred' : null }};">
-                                                    <td>{{ $produto->id }}</td>
-                                                    <td>{{ $produto->nome }}</td>
-                                                    <td>{{ $produto->marca }}</td>
-                                                    <td>{{ $produto->peso }}</td>
-                                                    <td>{{ $produto->custo }}</td>
-                                                    <td>{{ $produto->venda }}</td>
-                                                    <td>{{ $produto->quantidade }}</td>
-                                                    <td>{{ $produto->validade }}</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.produto.editar', $produto->id) }}"
-                                                            class="btn btn-outline-primary col-12" type="submit">
-                                                            Editar
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-outline-danger col-12" type="button"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#apagarProduto{{ $produto->id }}">
-                                                            Apagar
-                                                        </button>
+                                            <tr style="background: {{ $produto->quantidade <= 0 ? 'indianred' : null }};">
+                                                <td>{{ $produto->id }}</td>
+                                                <td>{{ $produto->nome }}</td>
+                                                <td>{{ $produto->marca }}</td>
+                                                <td>{{ $produto->peso }}</td>
+                                                <td>{{ $produto->custo }}</td>
+                                                <td>{{ $produto->venda }}</td>
+                                                <td>{{ $produto->quantidade }}</td>
+                                                <td>{{ $produto->validade }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.produto.editar', $produto->id) }}"
+                                                        class="btn btn-outline-primary col-12" type="submit">
+                                                        Editar
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-danger col-12" type="button"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#apagarProduto{{ $produto->id }}">
+                                                        Apagar
+                                                    </button>
 
-                                                    </td>
-                                                </tr>
-                                          
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
