@@ -253,7 +253,7 @@
                         style="background: #262626;border-bottom-right-radius: 15px;border-bottom-left-radius: 15px;">
                         <div class="ms-auto">
                             <a href="{{ route('invoice', $item->id) }}" class="btn btn-outline-primary"
-                                type="button">Download</a>
+                                type="button">Recibo</a>
                         </div>
                         <button class="btn btn-outline-light" type="button" data-bs-dismiss="modal">Fechar</button>
                         <button class="btn btn-danger" type="button" data-bs-toggle="modal"
