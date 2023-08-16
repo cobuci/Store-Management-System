@@ -12,6 +12,11 @@ class EstatisticasController extends Controller
     public function index(Request $request)
     {
 
+        // Alerta Estoque
+        $categoriasPermitidas = ['1', '2', '3', '4', '5', '6', '13', '15']; 
+        $quantidadeEstoqueAlerta = 20; // Menor ou igual - Possui em estoque
+        $quantidadeVendidaAlerta = 10; // Maior ou igual - Foram vendidos 
+
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
@@ -34,6 +39,9 @@ class EstatisticasController extends Controller
             'totalCusto' => $totalCusto->value('total'),
             'totalVenda' => $totalVenda->value('total'),
             'totalLucro' => $totalLucro,
+            'categoriasPermitidas' =>$categoriasPermitidas,
+            'quantidadeEstoqueAlerta' => $quantidadeEstoqueAlerta,
+            'quantidadeVendidaAlerta' => $quantidadeVendidaAlerta,
         ]);
     }
 

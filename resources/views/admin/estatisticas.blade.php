@@ -4,6 +4,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
+
     <form action="/estatisticas" method="GET">
         <div class="row align-items-center">
             <div class="col-sm-6 col-md-4">
@@ -14,9 +15,16 @@
             </div>
             <div class="col">
                 <button type="submit" class="btn btn-outline-dark shadow-sm">Buscar</button>
+                <button class="btn btn-danger" id="alertButton">Alertas</button>
             </div>
         </div>
     </form>
+    
+    
+
+    <div id="alertas">
+        @include('admin.master.alertaEstoque')
+    </div>
 
 
     <div class="row">
@@ -33,11 +41,11 @@
                             <h3>Periodo: </h3>
                             <h4> {{ $startDate->format('d/m/Y') }} á {{ $endDate->format('d/m/Y') }}</h4>
                             <h3>Total Custo: </h3>
-                            <h4>R$ {{  number_format($totalCusto, 2, ',', '.')  }}</h4>
+                            <h4>R$ {{ number_format($totalCusto, 2, ',', '.') }}</h4>
                             <h3>Total Venda: </h3>
-                            <h4>R$ {{  number_format($totalVenda, 2, ',', '.') }}</h4>
+                            <h4>R$ {{ number_format($totalVenda, 2, ',', '.') }}</h4>
                             <h3>Lucro: </h3>
-                            <h4>R$ {{  number_format($totalLucro, 2, ',', '.')  }}</h4>
+                            <h4>R$ {{ number_format($totalLucro, 2, ',', '.') }}</h4>
                         </div>
                     </div>
                 </div>
@@ -117,4 +125,12 @@
             </div>
         </div>
     </div>
+
+<script>
+    $(document).ready(function() {
+        $("#alertButton").click(function() {
+            $("#alertas").toggle();
+        });
+    });
+</script>
 @endsection

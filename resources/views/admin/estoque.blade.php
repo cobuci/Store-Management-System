@@ -20,6 +20,8 @@
         </div>
     </div>
 
+ 
+
     {{-- Ultimos Produtos --}}
 
     <div class="row">
@@ -54,33 +56,30 @@
                                     </thead>
                                     <tbody>
                                         @foreach (Produto::listarUltimos() as $produto)
-                                          
-                                                <tr
-                                                    style="background: {{ $produto->quantidade <= 0 ? 'indianred' : null }};">
-                                                    <td>{{ $produto->id }}</td>
-                                                    <td>{{ $produto->nome }}</td>
-                                                    <td>{{ $produto->marca }}</td>
-                                                    <td>{{ $produto->peso }}</td>
-                                                    <td>{{ $produto->custo }}</td>
-                                                    <td>{{ $produto->venda }}</td>
-                                                    <td>{{ $produto->quantidade }}</td>
-                                                    <td>{{ $produto->validade }}</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.produto.editar', $produto->id) }}"
-                                                            class="btn btn-outline-primary col-12" type="submit">
-                                                            Editar
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-outline-danger col-12" type="button"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#apagarProduto{{ $produto->id }}">
-                                                            Apagar
-                                                        </button>
+                                            <tr style="background: {{ $produto->quantidade <= 0 ? 'indianred' : null }};">
+                                                <td>{{ $produto->id }}</td>
+                                                <td>{{ $produto->nome }}</td>
+                                                <td>{{ $produto->marca }}</td>
+                                                <td>{{ $produto->peso }}</td>
+                                                <td>{{ $produto->custo }}</td>
+                                                <td>{{ $produto->venda }}</td>
+                                                <td>{{ $produto->quantidade }}</td>
+                                                <td>{{ $produto->validade }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.produto.editar', $produto->id) }}"
+                                                        class="btn btn-outline-primary col-12" type="submit">
+                                                        Editar
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-outline-danger col-12" type="button"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#apagarProduto{{ $produto->id }}">
+                                                        Apagar
+                                                    </button>
 
-                                                    </td>
-                                                </tr>
-                                          
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
