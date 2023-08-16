@@ -1,5 +1,5 @@
 @extends('admin.master.layout')
-
+@section('page-name', $startDate->format('d/m/Y') . ' - ' . $endDate->format('d/m/Y'))
 @section('title', 'Estatisticas')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
@@ -7,6 +7,7 @@
 
     <form action="/estatisticas" method="GET">
         <div class="row align-items-center">
+
             <div class="col-sm-6 col-md-4">
                 <input type="date" name="start_date" id="start_date" class="form-control" type="date" />
             </div>
@@ -19,10 +20,31 @@
             </div>
         </div>
     </form>
-    
-    
+
+
 
     <div id="alertas">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Atenção !</h4>
+                    Os Alertas são calculados com base no período informado.
+                    <p>É levado em conta a quantidade vendida no período informado. </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-danger" role="alert">
+                    Estoque ira durar menos de 7 dias
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-warning" role="alert">
+                    Estoque ira durar de 7 á 14 dias
+                </div>
+            </div>
+
+        </div>
+
         @include('admin.master.alertaEstoque')
     </div>
 
@@ -126,11 +148,11 @@
         </div>
     </div>
 
-<script>
-    $(document).ready(function() {
-        $("#alertButton").click(function() {
-            $("#alertas").toggle();
+    <script>
+        $(document).ready(function() {
+            $("#alertButton").click(function() {
+                $("#alertas").toggle();
+            });
         });
-    });
-</script>
+    </script>
 @endsection

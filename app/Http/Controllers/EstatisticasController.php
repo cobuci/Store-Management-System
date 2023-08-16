@@ -13,9 +13,8 @@ class EstatisticasController extends Controller
     {
 
         // Alerta Estoque
-        $categoriasPermitidas = ['1', '2', '3', '4', '5', '6', '13', '15']; 
-        $quantidadeEstoqueAlerta = 20; // Menor ou igual - Possui em estoque
-        $quantidadeVendidaAlerta = 10; // Maior ou igual - Foram vendidos 
+        $categoriasPermitidas = [1, 2, 3, 4, 5, 6, 7, 8, 11, 13, 14, 15,16 ,17, 18];
+
 
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -39,12 +38,14 @@ class EstatisticasController extends Controller
             'totalCusto' => $totalCusto->value('total'),
             'totalVenda' => $totalVenda->value('total'),
             'totalLucro' => $totalLucro,
-            'categoriasPermitidas' =>$categoriasPermitidas,
-            'quantidadeEstoqueAlerta' => $quantidadeEstoqueAlerta,
-            'quantidadeVendidaAlerta' => $quantidadeVendidaAlerta,
+            'categoriasPermitidas' => $categoriasPermitidas,
         ]);
     }
 
+    public static function estoqueAlerta($qtdVendida, $dias)
+    {
+        return round((($qtdVendida / $dias) * 14));
+    }
 
 
     public static function productType($startDate, $endDate)
@@ -89,7 +90,7 @@ class EstatisticasController extends Controller
         return ($custo);
     }
 
-    
+
     public static function vendaTotal($startDate, $endDate)
     {
         if (empty($startDate)) {
