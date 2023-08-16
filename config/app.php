@@ -111,6 +111,7 @@ return [
         'Settings' => App\Http\Controllers\SettingsController::class,
         'Venda' => App\Http\Controllers\VendaController::class,
         'Order' => App\Http\Controllers\OrderController::class,
+        'Estatisticas' => App\Http\Controllers\EstatisticasController::class,
     ])->toArray(),
 
 ];
