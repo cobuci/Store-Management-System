@@ -20,8 +20,6 @@
         </div>
     </div>
 
- 
-
     {{-- Ultimos Produtos --}}
 
     <div class="row">
@@ -166,10 +164,6 @@
         </div>
     @endforeach
 
-
-
-
-
     {{-- FIM LISTAGEM --}}
 
     <div class="row font-monospace text-center text-light justify-content-center align-items-center"
@@ -220,7 +214,5 @@
         </div>
     @endforeach
 
-    <!-- Modal Editar -->
-
 @endsection
-<!-- JavaScript Bundle with Popper -->
+
