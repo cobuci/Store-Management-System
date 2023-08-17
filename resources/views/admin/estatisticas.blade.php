@@ -32,17 +32,6 @@
                     <p>É levado em conta a quantidade vendida no período informado. </p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="alert alert-danger" role="alert">
-                    Estoque ira durar menos de 7 dias
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="alert alert-warning" role="alert">
-                    Estoque ira durar de 7 á 14 dias
-                </div>
-            </div>
-
         </div>
 
         @include('admin.master.alertaEstoque')
