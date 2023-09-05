@@ -14,9 +14,7 @@ class DashboardController extends Controller
     {
         $settings = $settings->all();
 
-
-        $mesesGrafico = $settings[1]->valor;
-
+        $mesesGrafico = $settings[0]->valor;
 
         return view('admin.dashboard', [
             'mesesGrafico' => $mesesGrafico
@@ -153,32 +151,22 @@ class DashboardController extends Controller
 
     public static function verificarMes($mes)
     {
+        $nomesDosMeses = [
+            1 => "Janeiro",
+            2 => "Fevereiro",
+            3 => "Março",
+            4 => "Abril",
+            5 => "Maio",
+            6 => "Junho",
+            7 => "Julho",
+            8 => "Agosto",
+            9 => "Setembro",
+            10 => "Outubro",
+            11 => "Novembro",
+            12 => "Dezembro",
+        ];
 
-        if ($mes == 1) {
-            return "Janeiro";
-        } else if ($mes == 2) {
-            return "Fevereiro";
-        } else if ($mes == 3) {
-            return "Março";
-        } else if ($mes == 4) {
-            return "Abril";
-        } else if ($mes == 5) {
-            return "Maio";
-        } else if ($mes == 6) {
-            return "Junho";
-        } else if ($mes == 7) {
-            return "Julho";
-        } else if ($mes == 8) {
-            return "Agosto";
-        } else if ($mes == 9) {
-            return "Setembro";
-        } else if ($mes == 10) {
-            return "Outubro";
-        } else if ($mes == 11) {
-            return "Novembro";
-        } else if ($mes == 12) {
-            return "Dezembro";
-        }
+        return $nomesDosMeses[$mes] ?? 'Mês inválido';
     }
 
 
@@ -211,20 +199,16 @@ class DashboardController extends Controller
             ->groupBy('year', 'month')
             ->get();
 
-        $vendas = json_decode($vendas, true);
-        if (sizeof($vendas) > 1) {
-            $vendas = $vendas[sizeof($vendas) - $data];
-            $vendas = $vendas['capital'];
-
-            return ($vendas);
-        } else if (sizeof($vendas) == 1) {
-            $vendas = $vendas[0];
-            $vendas = $vendas['capital'];
-
-            return ($vendas);
+        if (count($vendas) > $data) {
+            $vendas = $vendas[count($vendas) - $data];
+            $vendas = $vendas->capital;
+        } elseif (count($vendas) == 1) {
+            $vendas = $vendas[0]->capital;
         } else {
-            return $vendas = 0;
+            $vendas = 0;
         }
+
+        return $vendas;
     }
 
     public static function costMonth($data = 1)
@@ -241,19 +225,17 @@ class DashboardController extends Controller
             ->get();
 
         $custo = json_decode($custo, true);
-        if (sizeof($custo) > 1) {
+        
+        if (sizeof($custo) > $data) {
             $custo = $custo[sizeof($custo) - $data];
             $custo = $custo['custo'];
-
-            return ($custo);
-        } else if (sizeof($custo) == 1) {
-            $custo = $custo[0];
-            $custo = $custo['custo'];
-
-            return ($custo);
+        } elseif (sizeof($custo) == 1) {
+            $custo = $custo[0]['custo'];
         } else {
-            return null;
+            $custo = null;
         }
+
+        return $custo;
     }
 
 
