@@ -23,8 +23,7 @@
                                 <h1 class="mt-1 mb-3">R$ {{ Caixa::saldo() }}</h1>
                                 <br>
                                 <div class="mb-0">
-
-                                    <p class="text-muted"> Média diária ({{ Dashboard::verificarMes(Dashboard::month(1)) }})
+                                    <p class="text-muted"> Daily average ({{ Dashboard::checkMonth(Dashboard::month(1)) }})
                                         : R$ {{ Dashboard::dailyAvg() }}
                                     </p>
                                 </div>
@@ -55,8 +54,8 @@
                                 </h1>
                                 <div class="mb-0">
                                     <span
-                                        class=" {{ Dashboard::porcentagemVendasDiaria() > 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ Dashboard::porcentagemVendasDiaria() }} %
+                                        class=" {{ Dashboard::percentDailySales() > 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ Dashboard::percentDailySales() }} %
                                     </span>
                                     <p class="text-muted"> Last day: R$ {{ Dashboard::salesToday(2) }}
                                         <span class="text-success"> (R$ {{ Dashboard::profit(2) }} )
@@ -122,14 +121,12 @@
                                 </h1>
                                 <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0"
                                     aria-valuemax="100"style="height: 50px">
-                                    <div class="progress-bar bg-danger" style="width: {{ Dashboard::porcentagemGoal() }}%">
-                                        {{ Dashboard::porcentagemGoal() }}%</div>
+                                    <div class="progress-bar bg-danger" style="width: {{ Dashboard::goalPercentage() }}%">
+                                        {{ Dashboard::goalPercentage() }}%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- --- -->
-
                 </div>
             </div>
         </div>
@@ -149,8 +146,8 @@
                         @csrf
                         <b>Meta: </b>
                         <p></p>
-                        <input type="number" class="form-control" type="text" id="valor" name="valor"
-                            required step="any" style="background: rgba(255, 255, 255, 0);border-radius: 10px;"
+                        <input type="number" class="form-control" type="text" id="valor" name="valor" required
+                            step="any" style="background: rgba(255, 255, 255, 0);border-radius: 10px;"
                             placeholder="Valor" />
 
                 </div>
@@ -183,9 +180,9 @@
 
 
     {{-- DADOS --}}
-    @for ($i = $mesesGrafico; $i > 0; $i--)
+    @for ($i = $monthsChart; $i > 0; $i--)
         <input type="hidden" id="{{ 'hiddeninput' . $i }}"
-            value="{{ Dashboard::verificarMes(Dashboard::month($i)) }}" />
+            value="{{ Dashboard::checkMonth(Dashboard::month($i)) }}" />
 
         <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ Dashboard::salesMonth($i) }}" />
 
@@ -202,16 +199,12 @@
             .getContext("2d");
         var gradient = ctx.createLinearGradient(0, 0, 0, 225);
         gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");
-
-        // var gradientGreen = ctx.createLinearGradient(0, 0, 0, 225);
-        // gradient.addColorStop(0, "rgba(193, 243, 219, 1)");
-        // gradient.addColorStop(1, "rgba(193, 243, 219, 1)");
+        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");    
 
         const labels = [];
         const valores = [];
         const profit = [];
-        for (var i = {{ $mesesGrafico }}; i > 0; i--) {
+        for (var i = {{ $monthsChart }}; i > 0; i--) {
             labels.push(document.getElementById('hiddeninput' + i).value);
             valores.push(document.getElementById('hiddeninputValue' + i).value);
             profit.push(document.getElementById('hiddeninputProfit' + i).value);

@@ -6,43 +6,31 @@ return [
 
   
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Laravel'),  
 
-   
+    'env' => env('APP_ENV', 'production'),   
 
-    'env' => env('APP_ENV', 'production'),
-
-   
-
-    'debug' => (bool) env('APP_DEBUG', false),
-
-   
+    'debug' => (bool) env('APP_DEBUG', false),   
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL'),  
 
-  
-
-    'timezone' => 'America/Sao_Paulo',
-
-   
+    'timezone' => 'America/Sao_Paulo',   
 
     'locale' => 'pt-br',
 
-
+ 
 
     'fallback_locale' => 'en',
 
-
-
     'faker_locale' => 'en_US',
-
 
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
+    
   
     'providers' => [
 
