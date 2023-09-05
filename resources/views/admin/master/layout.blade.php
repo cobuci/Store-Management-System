@@ -68,6 +68,20 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.cadastrar' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.cadastrar') }}">
+                            <i class="align-middle" data-feather="plus-square"></i>
+                            <span class="align-middle">Cadastrar</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.entrada' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.entrada') }}">
+                            <i class="align-middle" data-feather="plus-circle"></i>
+                            <span class="align-middle">Adicionar</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-header">Financeiro</li>
 
                     <li class="sidebar-item {{ Route::current()->getName() === 'admin.financas' ? 'active' : '' }}">
