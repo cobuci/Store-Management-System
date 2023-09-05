@@ -169,7 +169,7 @@ class ClienteController extends Controller
 
         $aguas = DB::table('vendas')
             ->where('id_cliente', '=', $id)
-            ->where('id_produto', '=', SettingsController::listarSettings()[2]->valor)
+            ->where('id_produto', '=', SettingsController::listarSettings()[1]->valor)
             ->select(DB::raw('SUM(quantidade) as quantidade'))
             ->get();
 

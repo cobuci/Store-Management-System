@@ -1,0 +1,6 @@
+{
+    "monthsChart": {
+        "value": 12,
+        "description": "Quantidade de meses que mostrará no grafico da Dashboard "
+    }
+}

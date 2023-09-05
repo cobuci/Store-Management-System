@@ -32,7 +32,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{ route('admin.home') }}">
-                    <span class="align-middle">{{  Settings::listarSettings()[0]->valor }}</span>
+                    <span class="align-middle">{{ env('APP_NAME') }}</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -107,7 +107,7 @@
                             <span class="align-middle">Fardo</span>
                         </a>
                     </li>
-                    
+
 
                     <li
                         class="sidebar-item {{ Route::current()->getName() === 'admin.shoppinglist' ? 'active' : '' }}">
@@ -117,8 +117,9 @@
                         </a>
                     </li>
 
-                    
-                    <li class="sidebar-item {{ Route::current()->getName() === 'admin.estatisticas' ? 'active' : '' }}">
+
+                    <li
+                        class="sidebar-item {{ Route::current()->getName() === 'admin.estatisticas' ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.estatisticas') }}">
                             <i class="align-middle" data-feather="activity"></i>
                             <span class="align-middle">Estatisticas</span>
@@ -170,11 +171,11 @@
 
             <main class="content ">
                 <div class="container-fluid p-0 ">
-                    
-                    
-					<div class="mb-3">
-						<h1 class="h3 d-inline align-middle">@yield('page-name')</h1>						
-					</div>
+
+
+                    <div class="mb-3">
+                        <h1 class="h3 d-inline align-middle">@yield('page-name')</h1>
+                    </div>
 
                     @yield('content')
 
@@ -187,7 +188,7 @@
     </div>
     <script src="{{ asset('admin/app2.js') }}"></script>
     <script src="{{ asset('admin/jquery.js') }}"></script>
-    
+
 
 </body>
 

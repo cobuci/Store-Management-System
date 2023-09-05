@@ -16,14 +16,15 @@
             </div>
             <div class="col">
                 <button type="submit" class="btn btn-outline-dark shadow-sm">Buscar</button>
-                <button class="btn btn-danger" id="alertButton">Alertas</button>
+                <a class="btn btn-danger" onclick="showAlert()">Alertas</a>
             </div>
         </div>
     </form>
-
+  
 
 
     <div id="alertas">
+
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-success" role="alert">
@@ -138,10 +139,9 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $("#alertButton").click(function() {
-                $("#alertas").toggle();
-            });
-        });
+        const showAlert = () => {
+            $("#alertas").toggle();
+
+        }
     </script>
 @endsection
