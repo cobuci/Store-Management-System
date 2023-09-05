@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
-use Illuminate\Database\Eloquent\Model;
+
 use App\Http\Requests\StoreUpdateCliente;
-use App\Models\Settings;
-use App\Models\Venda;
+
 use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
@@ -167,9 +166,12 @@ class ClienteController extends Controller
     public static function quantidadeAgua($id)
     {
 
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+        $waterAmount = $getConfig->water->value;
+
         $aguas = DB::table('vendas')
             ->where('id_cliente', '=', $id)
-            ->where('id_produto', '=', SettingsController::listarSettings()[1]->valor)
+            ->where('id_produto', '=', $waterAmount)
             ->select(DB::raw('SUM(quantidade) as quantidade'))
             ->get();
 

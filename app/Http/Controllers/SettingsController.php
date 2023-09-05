@@ -10,14 +10,5 @@ class SettingsController extends Controller
     public function index()
     {      
         return view('admin.settings');
-    }
-
-    public static function listarSettings(){
-
-      
-        $setting = Settings::first("id")->get();
-       
-
-        return $setting;
-    }
+    }   
 }

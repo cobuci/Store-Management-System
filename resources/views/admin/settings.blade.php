@@ -14,13 +14,7 @@
 
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-
-                            @foreach (Settings::listarSettings() as $list)
-                                <div>
-                                    {{ $list->descricao }} -
-                                    {{ $list->valor }}
-                                </div>
-                            @endforeach
+                        
                         </div>
                     </div>
 

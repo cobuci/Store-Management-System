@@ -149,7 +149,6 @@
                                                             data-bs-target="#apagarProduto{{ $produto->id }}">
                                                             Apagar
                                                         </button>
-
                                                     </td>
                                                 </tr>
                                             @endif
@@ -167,20 +166,11 @@
     {{-- FIM LISTAGEM --}}
 
     <div class="row font-monospace text-center text-light justify-content-center align-items-center"
-        style="height: 50px;background: #3d3d3d;border-radius: 10px;margin-right: 2px;margin-left: 2px;margin-bottom: 10px;margin-top: 20px;">
-        <div class="col-4" style="background: #3d3d3d;border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-            <a href="{{ route('admin.cadastrar') }}">
-                <button class="btn btn-warning" type="button">Cadastrar</button>
-            </a>
-        </div>
-        <div class="col-4" style="background: #3d3d3d">
+        style="height: 50px;background: #3d3d3d;border-radius: 2px;margin-right: 1px;margin-left: 1px;margin-bottom: 10px;">
 
+        <div class="col-12" style="background: #3d3d3d">
         </div>
-        <div class="col-4 text-center"
-            style="background: #3d3d3d;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-            <a href="{{ route('admin.entrada') }}">
-                <button class="btn btn-success" type="button">Adicionar</button> </a>
-        </div>
+
     </div>
 
 
@@ -215,4 +205,3 @@
     @endforeach
 
 @endsection
-
