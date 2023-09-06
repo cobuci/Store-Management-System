@@ -44,7 +44,7 @@
                         <div class="invoice-title">
 
                             <div class="mb-4">
-                                <h2 class="mb-1 text-muted">Garagem 46</h2>
+                                <h2 class="mb-1 text-muted">{{ENV('app_name')}}</h2>
                             </div>
                         </div>
                         <hr class="my-4">

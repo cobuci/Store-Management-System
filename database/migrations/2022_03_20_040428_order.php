@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('product_id')->nullable();
             $table->string('produto');
             $table->string('marca')->nullable();
+            $table->decimal('custoUnidade', 10, 2);
             $table->decimal('precoUnidade', 10, 2);
             $table->string('peso');
             $table->integer('quantidade');

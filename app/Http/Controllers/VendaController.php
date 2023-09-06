@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VendaProduto;
-use Illuminate\Http\Request;
 use App\Models\Venda;
 use App\Models\Produto;
 use App\Models\Cliente;
-use Illuminate\Support\Facades\DB;
+
 use Livewire\WithPagination;
 
 class VendaController extends Controller
@@ -93,8 +92,14 @@ class VendaController extends Controller
         $valorVenda -= $desconto;
 
         $taxa = 1;
-        $formaPagamento == "Credito" ? $taxa = 0.9501 : null;
-        $formaPagamento == "Debito" ? $taxa = 0.98 : null;
+
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+
+        $creditFee = $getConfig->cardFee->credit;
+        $debitFee = $getConfig->cardFee->debit;
+
+        $formaPagamento == "Credito" ? $taxa = $creditFee : null;
+        $formaPagamento == "Debito" ? $taxa = $debitFee : null;
 
         $bonificacao == 1 ? $valorVenda = 0 : null;
         $valorVenda = floatval($valorVenda) * $taxa;
