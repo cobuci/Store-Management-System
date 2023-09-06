@@ -152,7 +152,7 @@ class OrderController extends Controller
         FinancaController::cancelarVenda($sale->id, $sale->precoVenda);
 
         $sale->delete();
-        return redirect('/estoque');
+        return redirect('/relatorio');
     }
 
     public function deleteVenda($id)

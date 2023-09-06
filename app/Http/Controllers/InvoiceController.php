@@ -21,7 +21,6 @@ class InvoiceController extends Controller
 
             $numeroItem = 1;
 
-
             return view('admin.invoice', compact('sale', 'orders', 'numeroItem'));
         }
     }
