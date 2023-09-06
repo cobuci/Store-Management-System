@@ -6,5 +6,8 @@
     "water":{
         "value": 2,
         "description": "ID da agua para mostrar no perfil do cliente"
+    },
+    "alertCategory": {
+        "categoryId": [1, 2, 3, 4, 5, 6, 7, 8, 11, 13, 14, 15,16 ,17, 18]
     }
 }

@@ -12,8 +12,8 @@ class EstatisticasController extends Controller
     public function index(Request $request)
     {
 
-        // Alerta Estoque
-        $categoriasPermitidas = [1, 2, 3, 4, 5, 6, 7, 8, 11, 13, 14, 15,16 ,17, 18];
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+        $categoriasPermitidas = $getConfig->alertCategory->categoryId;
 
 
         $startDate = $request->input('start_date');

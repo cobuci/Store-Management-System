@@ -7,7 +7,7 @@
 
     <form action="/estatisticas" method="GET">
         <div class="row align-items-center">
-
+              
             <div class="col-sm-6 col-md-4">
                 <input type="date" name="start_date" id="start_date" class="form-control" type="date" />
             </div>
