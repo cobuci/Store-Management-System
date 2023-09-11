@@ -47,13 +47,13 @@ class DashboardController extends Controller
         $sales = DB::table('sales')
             ->select(
                 DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(precoVenda) as capital'),
+                DB::raw('SUM(price) as total_price'),
             )
             ->groupBy('date')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->capital ?? $sales = 0;
+        $sales = $sales[$date]->total_price ?? $sales = 0;
 
         return $sales;
     }
@@ -64,13 +64,13 @@ class DashboardController extends Controller
         $sales = DB::table('sales')
             ->select(
                 DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(custo) as custoVenda')
+                DB::raw('SUM(cost) as cost')
             )
             ->groupBy('date')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->custoVenda ?? $sales = 0;
+        $sales = $sales[$date]->cost ?? $sales = 0;
 
         return $sales;
     }
@@ -172,13 +172,13 @@ class DashboardController extends Controller
                 DB::raw('count(id) as `data`'),
                 DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
-                DB::raw('SUM(precoVenda) as capital')
+                DB::raw('SUM(price) as total_price')
             )
             ->groupBy('year', 'month')
             ->orderBy('id', 'desc')
             ->get();
 
-        $result = $sales[$date]->capital ?? $result = null;
+        $result = $sales[$date]->total_price ?? $result = null;
 
 
         return $result;
@@ -192,14 +192,14 @@ class DashboardController extends Controller
                 DB::raw('count(id) as `data`'),
                 DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
                 DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
-                DB::raw('SUM(custo) as custo')
+                DB::raw('SUM(cost) as cost')
             )
             ->groupBy('year', 'month')
             ->orderBy('created_at', 'desc')
             ->get();
 
 
-        $sales = $sales[$date]->custo ?? $sales = 0;
+        $sales = $sales[$date]->cost ?? $sales = 0;
 
 
         return $sales;

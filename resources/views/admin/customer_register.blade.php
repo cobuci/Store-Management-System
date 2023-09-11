@@ -10,7 +10,7 @@
                     <div class="card-body shadow-sm"
                         style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255, 255, 255, 0);">
                         @include('admin.master.alertaErro')
-                        <form method="post" action="/cliente/store">
+                        <form method="post" action=" {{ route('admin.customer.store')}}">
                             @csrf
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86)">
                                 Dados

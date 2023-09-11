@@ -15,13 +15,6 @@ class VendaController extends Controller
     public function index(Venda $venda)
     {
 
-        $venda = Venda::latest("id")->paginate(10)->onEachSide(1);
-      
-
-        return view('admin.relatorioDescontinuado', [
-            'venda' => $venda,
-            
-        ]);
     }
 
 
@@ -32,7 +25,7 @@ class VendaController extends Controller
 
         $cliente = Cliente::find($request->cliente);
 
-        $produto->quantidade -= $request->quantidade;
+        $produto->amount -= $request->amount;
 
         $taxa = 1;
         $request->pagamento == "Credito" ? $taxa = 0.9501 : null;
@@ -44,8 +37,8 @@ class VendaController extends Controller
 
 
         CaixaController::adicionarSaldo($valorTotal);
-        HistoricoController::adicionar("VENDA", "VENDA de ($request->quantidade - $produto->nome)");
-        FinancaController::adicionarVenda($request->produto, $valorTotal, $request->quantidade);
+        HistoricoController::adicionar("VENDA", "VENDA de ($request->amount - $produto->nome)");
+        FinancaController::adicionarVenda($request->produto, $valorTotal, $request->amount);
 
 
         $venda = new Venda();

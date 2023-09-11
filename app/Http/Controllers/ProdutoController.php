@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Produto;
-use App\Models\Categoria;
 use App\Http\Requests\StoreUpdateProduto;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
@@ -14,14 +13,7 @@ class ProdutoController extends Controller
 
     public function index()
     {
-        return view('admin.cadastrar');
-    }
-
-    public function editar($id)
-    {
-
-        $produto = Produto::find($id);
-        return view('admin.editar_produto', compact('produto'));
+        return view('admin.product_register');
     }
 
 
@@ -30,15 +22,16 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
 
-        $data = $request->only('nome', 'marca', 'quantidade', 'validade', 'custo', 'venda');
-        $request->peso != null ? $data['peso'] = $request->peso . $request->tipoPeso : null;
+        $request = $request->all();
 
-        $data['id_categoria'] = $request->categoria;
-        $produto->update($data);
+        $request['weight'] != null ? $request['weight'] = $request['weight'] . $request['weight_type'] :  $request['weight'] = $produto->weight;
 
-        HistoricoController::adicionar("EDIÇÃO", "O Produto '$produto->nome - $produto->peso - $produto->marca' Foi editado");
 
-        return view('admin.estoque');
+        $history = "Edição do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $produto->weight . ")";
+
+        HistoricoController::adicionar("EDIÇÃO", $history);
+        $produto->update($request);
+        return  redirect()->route('admin.estoque');
     }
 
     public function destroy($id)
@@ -48,70 +41,65 @@ class ProdutoController extends Controller
         } else {
             $produto->delete();
 
-            HistoricoController::adicionar("APAGAR", "O Produto $produto->nome - $produto->marca foi excluido ");
+            HistoricoController::adicionar("APAGAR", "O Produto $produto->name -  $produto->weight - $produto->brand foi excluido ");
 
             return redirect()->route('admin.estoque');
         }
     }
 
 
-
     public static function listar()
     {
         $prod = new Produto();
-        $produto = $prod->orderBy('nome', 'asc')->get();
+        $produto = $prod->orderBy('name', 'asc')->get();
         return $produto;
     }
 
-    
+
     public static function listarUltimos()
     {
-       
+
         $produto = Produto::orderBy('id', 'desc')->take(5)->get();
         return $produto;
     }
 
-    public static function removerEstoque($id, $quantidade)
+    public static function removerEstoque($id, $amount)
     {
         $produto = Produto::find($id);
-        $produto->quantidade -= $quantidade;
+        $produto->amount -= $amount;
         $produto->save();
     }
 
-    public static function adicionarEstoque($id, $quantidade)
+    public static function adicionarEstoque($id, $amount)
     {
         $produto = Produto::find($id);
-        $produto->quantidade += $quantidade;
+        $produto->amount += $amount;
         $produto->save();
     }
 
-    public function store(StoreUpdateProduto $request)
+    public function store(Request $request)
     {
 
-        $produto = new Produto();
+        $request = $request->all();
 
-        $produto->nome = $request->nome;
-        $produto->marca = $request->marca;
-        $produto->peso = $request->peso . $request->tipoPeso;
-        $produto->id_categoria = $request->categoria;
-        $produto->save();
+        $request['weight'] = $request['weight'] . $request['weight_type'];
 
-        HistoricoController::adicionar("CADASTRO", "Cadastro do Produto $request->nome - $request->marca -($request->peso.$request->tipoPeso) ");
+        Produto::create($request);
+
+        $history = "Cadastro do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $request['weight'] . ")";
+
+        HistoricoController::adicionar("CADASTRO", $history);
         return redirect('/estoque');
     }
 
 
-    
+
     public static function findProduct($id)
     {
-
         $produto = DB::table('produtos')
-            ->where('id', '=', $id)            
+            ->where('id', '=', $id)
             ->get();
 
         return $produto;
     }
-
 }
-
-

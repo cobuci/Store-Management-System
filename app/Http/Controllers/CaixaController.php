@@ -23,8 +23,6 @@ class CaixaController extends Controller
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
 
 
-
-
         return view('admin.financas', [
             'saldo' => $saldo,
             'investimento' => $investimento,
@@ -53,13 +51,18 @@ class CaixaController extends Controller
 
     public static function valorCusto()
     {
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+
+        $skipCat = $getConfig->stockSkipCategories;
+
+
         $prod = new Produto();
         $produto = $prod->all();
         $valorCusto = 0;
 
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorCusto += ($produto->custo * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorCusto += ($produto->cost * $produto->amount);
             }
         }
         return number_format($valorCusto, 2);
@@ -67,14 +70,20 @@ class CaixaController extends Controller
 
     public static function valorVenda()
     {
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+
+        $skipCat = $getConfig->stockSkipCategories;
+
+    
 
         $prod = new Produto();
         $produto = $prod->all();
         $valorVenda = 0;
 
+
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorVenda += ($produto->venda * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorVenda += ($produto->sale * $produto->amount);
             }
         }
         return number_format($valorVenda, 2);
@@ -82,6 +91,10 @@ class CaixaController extends Controller
 
     public static function valorLucro()
     {
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+
+        $skipCat = $getConfig->stockSkipCategories;
+
 
         $prod = new Produto();
         $produto = $prod->all();
@@ -89,9 +102,9 @@ class CaixaController extends Controller
         $valorCusto = 0;
 
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorCusto += ($produto->custo * $produto->quantidade);
-                $valorVenda += ($produto->venda * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorCusto += ($produto->cost * $produto->amount);
+                $valorVenda += ($produto->sale * $produto->amount);
             }
         }
 

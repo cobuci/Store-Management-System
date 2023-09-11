@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('marca')->nullable();
-            $table->string('peso');
-            $table->decimal('custo', 10, 2);
-            $table->decimal('venda', 10, 2)->nullable();
-            $table->integer('quantidade');
-            $table->date('validade')->nullable();
-            $table->integer('id_categoria');
+            $table->string('name');
+            $table->string('brand')->nullable();
+            $table->string('weight');
+            $table->decimal('cost', 10, 2);
+            $table->decimal('sale', 10, 2)->nullable();
+            $table->integer('amount');
+            $table->date('expiration_date')->nullable();
+            $table->integer('category_id');
         });
     }
 

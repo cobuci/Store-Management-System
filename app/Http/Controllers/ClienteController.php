@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 
 use App\Http\Requests\StoreUpdateCliente;
-
+use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
@@ -17,7 +17,7 @@ class ClienteController extends Controller
         $cliente = Cliente::orderBy('nome', 'asc')
             ->get();
 
-        return view('admin.clientes', [
+        return view('admin.customer', [
             'clientes' => $cliente,
         ]);
     }
@@ -28,10 +28,10 @@ class ClienteController extends Controller
         $dados = Cliente::select('id', 'nome', 'rua')->where('nome', 'LIKE', '%' . $search . '%')->get();
 
         if ($request->ajax()) {
-            return view('admin.clientePartial', compact('dados'));
+            return view('admin.customer_partial', compact('dados'));
         }
 
-        return view('admin.clientePartial', compact('dados'));
+        return view('admin.customer_partial', compact('dados'));
     }
 
 
@@ -46,7 +46,7 @@ class ClienteController extends Controller
 
     public function cadastrar()
     {
-        return view('admin.clienteCadastro');
+        return view('admin.customer_register');
     }
 
     public static function listar()
@@ -75,7 +75,7 @@ class ClienteController extends Controller
 
         $cliente->save();
 
-        return redirect('/cliente');
+        return  redirect()->route('admin.customer');
     }
 
     public function show($id)
@@ -86,14 +86,15 @@ class ClienteController extends Controller
             $totalSpent = 0;
             $totalDebit = 0;
             $totalAgua = 0;
-            foreach (ClienteController::comprasCliente($id) as $compra) {
-                $totalSpent += $compra->precoVenda;
-                if ($compra->produto = "") {
-                    $totalAgua += $compra->quantidade;
+            $all_purchases =  Sale::latest("id")->where('customer_id', 'LIKE', $id)->get();;
+            foreach (ClienteController::comprasCliente($id) as $order) {
+                $totalSpent += $order->price;
+                if ($order->product = "") {
+                    $totalAgua += $order->amount;
                 }
             }
-            foreach (ClienteController::unpaidPurchases($id) as $compra) {
-                $totalDebit += $compra->precoVenda;
+            foreach (ClienteController::unpaidPurchases($id) as $order) {
+                $totalDebit += $order->price;
             }
 
             $apiGoogle = env('GOOGLE_API_KEY');
@@ -102,7 +103,7 @@ class ClienteController extends Controller
             $latitude = $resultadoMapa[0];        
             $longitude = $resultadoMapa[1];        
             
-            return view('admin.perfilCliente', compact('cliente', 'totalSpent', 'totalDebit','apiGoogle','latitude','longitude'));
+            return view('admin.customer_profile', compact('cliente', 'totalSpent', 'totalDebit','apiGoogle','latitude','longitude','all_purchases'));
         }
     }
 
@@ -141,9 +142,9 @@ class ClienteController extends Controller
     public static function comprasCliente($id)
     {
 
-        $venda = DB::table('vendas')
+        $venda = DB::table('sales')
             ->latest()
-            ->where('id_cliente', '=', $id)
+            ->where('customer_id', '=', $id)
             ->get();
 
 
@@ -155,8 +156,8 @@ class ClienteController extends Controller
 
         $venda = DB::table('sales')
             ->latest()
-            ->where('id_cliente', '=', $id)
-            ->where('status_pagamento', '=', "0")
+            ->where('customer_id', '=', $id)
+            ->where('payment_status', '=', "0")
             ->get();
 
 
@@ -188,7 +189,7 @@ class ClienteController extends Controller
 
         $cliente->delete();
 
-        return redirect('/cliente');
+        return  redirect()->route('admin.customer');
     }
 
     public function put($id, StoreUpdateCliente $request)
@@ -198,7 +199,7 @@ class ClienteController extends Controller
         $data = $request->only('nome', 'email', 'telefone', 'sexo', 'cep', 'rua','numero','bairro');        
 
         $cliente->update($data);
-       
+        
         return redirect('/cliente/{$id}');
     }
 

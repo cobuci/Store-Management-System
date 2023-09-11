@@ -44,16 +44,16 @@
                     </li>
                     <li class="sidebar-header">Clientes</li>
 
-                    <li class="sidebar-item  {{ Route::current()->getName() === 'admin.cliente' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('admin.cliente') }}">
+                    <li class="sidebar-item  {{ Route::current()->getName() === 'admin.customer' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.customer') }}">
                             <i class="align-middle" data-feather="user"></i>
                             <span class="align-middle">Consultar</span>
                         </a>
                     </li>
 
                     <li
-                        class="sidebar-item  {{ Route::current()->getName() === 'admin.clienteCadastro' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('admin.clienteCadastro') }}">
+                        class="sidebar-item  {{ Route::current()->getName() === 'admin.customer.register' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.customer.register') }}">
                             <i class="align-middle" data-feather="user-plus"></i>
                             <span class="align-middle">Cadastrar</span>
                         </a>
@@ -105,13 +105,6 @@
                         </a>
                     </li>
 
-                    <li
-                        class="sidebar-item {{ Route::current()->getName() === 'admin.relatorio.descontinuado' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('admin.relatorio.descontinuado') }}">
-                            <i class="align-middle" data-feather="trello"></i>
-                            <span class="align-middle">Relatório Descontinuado</span>
-                        </a>
-                    </li>
 
                     <li class="sidebar-header">Ferramentas</li>
 

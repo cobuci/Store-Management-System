@@ -24,35 +24,34 @@ class StoreUpdateProduto extends FormRequest
     public function rules()
     {
         $rules = [
-            'nome' => [
+            'name' => [             
+                'string',
+            ],
+            'brand' => [
                 'nullable',
                 'string',
             ],
-            'marca' => [
+            'weight' => [
                 'nullable',
                 'string',
             ],
-            'peso' => [
-                'nullable',
-                'string',
-            ],
-            'id_categoria' => [
+            'category_id' => [
                 'nullable',
                 'integer',
             ],
-            'custo' => [
+            'cost' => [
                 'nullable',
                 'regex:/^\d+(\.\d{1,2})?$/',
             ],
-            'venda' => [
+            'sale' => [
                 'nullable',
                 'regex:/^\d+(\.\d{1,2})?$/',
             ],
-            'quantidade' => [
+            'amount' => [
                 'nullable',
                 'integer',
             ],
-            'validade' => [
+            'expiration_date' => [
                 'nullable',
                 'date',
             ],

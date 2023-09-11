@@ -13,5 +13,6 @@
     "cardFee": {
         "debit": 0.98,
         "credit": 0.9501
-    }
+    },
+    "stockSkipCategories": [9]
 }

@@ -73,8 +73,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/relatorio', [OrderController::class, "index"])->name('admin.relatorio');
 
 
-    Route::get('/relatorio/descontinuado', [VendaController::class, "index"])->name('admin.relatorio.descontinuado');
-
 
     Route::get('/historico', [HistoricoController::class, "index"])->name('admin.historico');
 
@@ -89,9 +87,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Produto
     Route::get('/load_prod_cat', [EntradaController::class, "load"])->name('load_prod_cat');
 
-    Route::get('/produto/{id}/editar', [ProdutoController::class, "editar"])->name('admin.produto.editar');
-    Route::delete('/produto/{id}', [ProdutoController::class, "destroy"])->name('produto.destroy');
-    Route::put('/produto/{id}', [ProdutoController::class, "put"])->name('produto.editar');
+
+    Route::delete('/produto/{id}', [ProdutoController::class, "destroy"])->name('product.destroy');
+    Route::put('/produto/{id}', [ProdutoController::class, "put"])->name('product.edit');
 
     // Estoque
     //GET
@@ -105,7 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //POST
     Route::POST('/entradaestoque', [EntradaController::class, "entradaProdutos"])->name('admin.entradaestoque');
 
-    Route::POST('/cadastrarproduto', [ProdutoController::class, "store"])->name('admin.cadastrarProduto');
+    Route::POST('/cadastrarproduto', [ProdutoController::class, "store"])->name('admin.product.new');
 
     // Venda
     Route::POST('/vender/loja', [VendaController::class, "vendaLoja"])->name('admin.venda.loja');
@@ -115,25 +113,22 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Clientes
 
-    Route::get('/cliente', [ClienteController::class, "index"])->name('admin.cliente');
+    Route::get('/customer', [ClienteController::class, "index"])->name('admin.customer');
 
-    Route::get('/clienteCadastro', [ClienteController::class, "cadastrar"])->name('admin.clienteCadastro');
-    Route::post('/cliente/store', [ClienteController::class, "store"])->name('admin.cliente.store');
+    Route::get('/customer/register', [ClienteController::class, "cadastrar"])->name('admin.customer.register');
+    Route::post('/customer/store', [ClienteController::class, "store"])->name('admin.customer.store');
     Route::get('/cliente/{id}', [ClienteController::class, "show"])->name('admin.cliente.perfil');
 
-    Route::get('/filtrarCliente', [ClienteController::class, "filtrar"])->name('filtrar.cliente');
+    Route::get('/customer/filter', [ClienteController::class, "filtrar"])->name('customer.filter');
 
-    Route::get('/filtrarClienteRelatorio', [OrderController::class, "filtrarRelatorio"])->name('filtrar.cliente.relatorio');
+    Route::get('/customer/filter/report', [OrderController::class, "filtrarRelatorio"])->name('customer.report');
 
     Route::delete('/cliente/{id}', [ClienteController::class, "destroy"])->name('cliente.destroy');
     Route::put('/cliente/{id}', [ClienteController::class, "put"])->name('cliente.editar');
 
     /////////////////////////////////////
 
-    Route::get('/cadastrar', function () {
-        return view('admin.cadastrar');
-    })->name('admin.cadastrar');
-
+   
 
     Route::get('/vender', function () {
         return view('admin.vender');

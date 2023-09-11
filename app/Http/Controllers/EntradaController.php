@@ -32,19 +32,19 @@ class EntradaController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
-        return view('admin.entrada', ['categorias' => $categorias, 'produtos' => $produtos]);
+        return view('admin.product_add', ['categorias' => $categorias, 'produtos' => $produtos]);
     }
 
     public function load(Request $request)
     {
 
-        $dataForm = $request->all();
+        $request = $request->all();
 
-        $categoria_id = $dataForm['categoria'];
+        $categoria_id = $request['categoria'];
 
         $produtos = $this->produto
-            ->where('id_categoria', '=', $categoria_id)
-            ->orderBy('nome', 'asc')
+            ->where('category_id', '=', $categoria_id)
+            ->orderBy('name', 'asc')
             ->get();
         return view('admin.master.ajax', ['produtos' => $produtos]);
     }
@@ -52,49 +52,49 @@ class EntradaController extends Controller
     public function entradaProdutos(Request $request)
     {
 
-        $produto = Produto::find($request->produto);
+        $product = Produto::find($request->product);
 
-        $produto->quantidade += $request->quantidade;
+        $product->amount += $request->amount;
 
-        $custo = EntradaController::custoMedio($request->produto, $request->custo, $request->quantidade);
+        $cost = EntradaController::custoMedio($request->product, $request->cost, $request->amount);
 
-        $request->custo != 0 ? $produto->custo = $custo : null;
+        $request->cost != 0 ? $product->cost = $cost : null;
 
 
-        $request->venda != null ? $produto->venda = $request->venda : null;
-        $produto->validade = $request->validade;
-        $produto->save();
+        $request->sale != null ? $product->sale = $request->sale : null;
+        $product->expiration_date = $request->expiration_date;
+        $product->save();
 
-        $valorRemovido = $request->quantidade * $request->custo;
+        $valorRemovido = $request->amount * $request->cost;
 
-        if ($produto->id_categoria == 9) {
+        if ($product->category_id == 9) {
             $valorRemovido = 0;
         } else {
 
-            $valorRemovido = $request->quantidade * $request->custo;
+            $valorRemovido = $request->amount * $request->cost;
         }
 
-        FinancaController::adicionarCompra($request->produto, $valorRemovido, $request->quantidade);
+        FinancaController::adicionarCompra($request->product, $valorRemovido, $request->amount);
         CaixaController::removerSaldo($valorRemovido);
-        HistoricoController::adicionar("ENTRADA", "Compra de ($request->quantidade - $produto->nome )");
+        HistoricoController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
 
         return redirect('/estoque');
     }
 
-    public static function custoMedio($id, $custo, $quantidadeEntrada)
+    public static function custoMedio($id, $cost, $quantidadeEntrada)
     {
 
         $produto = Produto::find($id);
 
-        $quantidadeFinal = $quantidadeEntrada + $produto->quantidade;
+        $quantidadeFinal = $quantidadeEntrada + $produto->amount;
 
-        if ($custo > 0) {
-            $custoMedio = (($quantidadeEntrada * $custo) + ($produto->custo * $produto->quantidade)) / $quantidadeFinal;
-            $produto->custo > 0 ? $custo = $custoMedio : null;
+        if ($cost > 0) {
+            $custoMedio = (($quantidadeEntrada * $cost) + ($produto->cost * $produto->amount)) / $quantidadeFinal;
+            $produto->cost > 0 ? $cost = $custoMedio : null;
         } else {
-            $custo = $produto->custo;
+            $cost = $produto->cost;
         }
 
-        return $custo;
+        return $cost;
     }
 }

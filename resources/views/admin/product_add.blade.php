@@ -14,7 +14,7 @@
                             @csrf
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86); margin-bottom: 10px">Dados
                             </h4>
-                            <select class="form-select text-light bg-dark" id="categoria" name="categoria"
+                            <select class="form-select text-light bg-dark" id="category_id" name="category_id"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);">
                                 <optgroup label="Categoria">
                                     <option disabled selected value=""> Categoria </option>
@@ -23,36 +23,36 @@
                                     @endforeach
                                 </optgroup>
                             </select>
-                            <select class="form-select text-light bg-dark" id="produto" name="produto"
+                            <select class="form-select text-light bg-dark" id="product" name="product"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color: rgb(0, 0, 0);">
                                 <optgroup label="Produto">
                                     <option disabled selected value=""> Produto </option>
                                 </optgroup>
                             </select>
-                            <input class="form-control" type="text" id="quantidade" required=""
-                                onkeyup="insere(),calcularValorQuantidade()" placeholder="Quantidade (*)" name="quantidade"
+                            <input class="form-control" type="text" id="amount" required=""
+                                onkeyup="insere(),calcularValorQuantidade()" placeholder="Quantidade (*)" name="amount"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <input class="form-control" id="validade" type="date"
+                            <input class="form-control" id="expiration_date" type="date"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-gray-300);border-radius: 10px;border-color: var(--bs-gray-600);"
-                                name="validade" />
+                                name="expiration_date" />
                             <h4 class="text-center"
                                 style="color: rgba(246, 247, 248, 0.86);margin-top: 10px;margin-bottom: 10px;">
                                 Valores
                             </h4>
-                            <input class="form-control" type="text" id="custo" required=""
-                                onkeyup="insere(),mudarValorTotal()" placeholder="Custo Unitário (*)" name="custo"
+                            <input class="form-control" type="text" id="cost" required=""
+                                onkeyup="insere(),mudarValorTotal()" placeholder="Custo Unitário (*)" name="cost"
                                 style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <input class="form-control" type="text" id="valorCustoTotal" required=""
-                                onkeyup="insere(),mudarValorUnitario()" placeholder="Custo Total" name="valorCustoTotal"
+                            <input class="form-control" type="text" id="cost_total" required=""
+                                onkeyup="insere(),mudarValorUnitario()" placeholder="Custo Total" name="cost_total"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <input class="form-control" type="text" id="venda" onkeyup="insere()"
-                                placeholder="Valor de Venda" name="venda"
+                            <input class="form-control" type="text" id="sale" onkeyup="insere()"
+                                placeholder="Valor de Venda" name="sale"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <p class="font-monospace text-center" id="lucro"></p>
+                            <p class="font-monospace text-center" id="profit"></p>
                             <div class="text-center">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" onclick="valorRadio()" id="radio1"
@@ -84,7 +84,7 @@
    
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#categoria").change(function() {
+            $("#category_id").change(function() {
                 const url = $('#personForm').attr("data-url");
                 categoria = $(this).val();
                 $.ajax({
@@ -93,7 +93,7 @@
                         'categoria': categoria,
                     },
                     success: function(data) {
-                        $("#produto").html(data);
+                        $("#product").html(data);
                     }
                 });
             });

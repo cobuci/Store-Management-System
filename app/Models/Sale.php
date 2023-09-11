@@ -12,7 +12,19 @@ class Sale extends Model
         return $this->hasMany(Order::class, 'order_id', 'order_id');
     }
 
+    protected $fillable = [
+        'order_id',
+        'cost',
+        'discount',
+        'price',
+        'customer_id',
+        'customer_name',
+        'payment_method',        
+    ];
+
+
+
     use HasFactory;
-    public $timestamps = false;
+    public $timestamps = true;
 
 }

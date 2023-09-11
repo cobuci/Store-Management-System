@@ -10,14 +10,14 @@
                     <div class="card-body shadow-sm"
                         style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255, 255, 255, 0);">
                         @include('admin.master.alertaErro')
-                        <form method="post" action="/cadastrarproduto">
+                        <form method="post" action=" {{ route('admin.product.new')}}">
                             @csrf
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86)">
                                 Dados
                             </h4>
-                            <select class="form-select text-light bg-dark" id="categoria" required
+                            <select class="form-select text-light bg-dark" id="category_id" required
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                name="categoria">
+                                name="category_id">
                                 <optgroup label="Categoria">
                                     <option disabled selected value="">Categoria</option>
                                     @foreach (Categoria::listar() as $cat)
@@ -25,19 +25,19 @@
                                     @endforeach
                                 </optgroup>
                             </select>
-                            <input class="form-control " type="text" id="nome" placeholder="Nome (*)"
-                                name="nome" required
+                            <input class="form-control " type="text" id="name" placeholder="Nome (*)"
+                                name="name" required
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);" />
-                            <input class="form-control" type="text" id="marca"  placeholder="Marca" name="marca"
+                            <input class="form-control" type="text" id="brand"  placeholder="Marca" name="brand"
                                 style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"
                                  />
-                            <input class="form-control" type="text" id="peso"  placeholder="Unidade (*)" required
-                                name="peso"
+                            <input class="form-control" type="text" id="weight"  placeholder="Unidade (*)" required
+                                name="weight"
                                 style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                 inputmode="numeric" />
-                            <select class="form-select text-light bg-dark"  id="tipoPeso"
+                            <select class="form-select text-light bg-dark"  id="weight_type"
                                 style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                name="tipoPeso">
+                                name="weight_type">
                                 <optgroup label="Unidade">
                                     <option value="ml">Mililitros</option>
                                     <option value="L">Litros</option>

@@ -5,9 +5,9 @@
 
     <div class="row" style="margin-bottom: 10px">
 
-      
-            <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
-     
+
+        <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
+
 
         <table class="table tabela-dados bg-light">
             <thead>
@@ -51,7 +51,7 @@
             var searchValue = $(this).val();
 
             $.ajax({
-                url: '{{ route('filtrar.cliente') }}',
+                url: '{{ route('customer.filter') }}',
                 type: 'GET',
                 data: {
                     search: searchValue

@@ -37,15 +37,15 @@ class FinancaController extends Controller
         $financa->save();
     }
 
-    public static function adicionarCompra($produto, $valor, $quantidade)
+    public static function adicionarCompra($produto, $sale, $amount)
     {
         $produto = Produto::find($produto);
         $financa = new Financa();
 
-        $descricao = "Compra de ($quantidade - $produto->nome - $produto->marca - $produto->peso)";
+        $descricao = "Compra de ($amount - $produto->name - $produto->brand - $produto->weight)";
         $financa->id_produto = $produto->id;
-        $financa->quantidade = $quantidade;
-        $financa->valor = $valor;
+        $financa->quantidade = $amount;
+        $financa->valor = $sale;
         $financa->descricao = $descricao;
         $financa->tipo = "SAIDA";
 
