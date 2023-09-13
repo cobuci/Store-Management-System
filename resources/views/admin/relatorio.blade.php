@@ -23,7 +23,7 @@
                         <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-sm table-bordered tabela-dados">
+                            <table class="table table-striped table-sm table-bordered tabela-data">
                                 <thead class="text-dark">
                                     <tr>
                                         <th>#</th>
@@ -40,9 +40,9 @@
                                         @if ($item->status_pagamento == 0)
                                             <tr>
                                                 <td>{{ $item->id }}</td>
-                                                <td>{{ $item->custo }}<br></td>
-                                                <td>{{ $item->precoVenda }}<br></td>
-                                                <td>{{ $item->nomeCliente }}<br></td>
+                                                <td>{{ $item->cost }}<br></td>
+                                                <td>{{ $item->price }}<br></td>
+                                                <td>{{ $item->customer_name }}<br></td>
                                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/yy') }}<br>
                                                 </td>
                                                 <td class="text-center">
@@ -93,7 +93,7 @@
                                         <th>Valor (Venda)</th>
                                         <th>Lucro</th>
                                         <th>Cliente</th>
-                                        <th></th>
+                                        <th>Data</th>
 
                                     </tr>
                                 </thead>
@@ -101,11 +101,11 @@
                                     @foreach ($venda as $item)
                                         <tr>
                                             <td>{{ $item->id }}</td>
-                                            <td>R$ {{ $item->custo }}<br></td>
-                                            <td>R$ {{ $item->precoVenda }}<br></td>
-                                            <td>R$ {{ $item->precoVenda - $item->custo }}<br></td>
-                                            <td>{{ $item->nomeCliente }}<br></td>
-                                            <td>{{ $item->data }}<br></td>
+                                            <td>R$ {{ $item->cost }}<br></td>
+                                            <td>R$ {{ $item->price }}<br></td>
+                                            <td>R$ {{ $item->price - $item->cost }}<br></td>
+                                            <td>{{ $item->customer_name }}<br></td>
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/yy') }}<br></td>
                                             <td class="text-center">
                                                 <button class="btn btn-outline-primary" type="button"
                                                     style="margin-right: 10px;" data-bs-toggle="modal"
@@ -153,9 +153,9 @@
                             @method('DELETE')
                             @csrf
                             <br>
-                            Preço: R${{ $item->precoVenda }}
+                            Preço: R${{ $item->price }}
                             <br>
-                            Cliente: {{ $item->nomeCliente }}
+                            Cliente: {{ $item->customer_name }}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -185,7 +185,7 @@
                                     </h2>
                                     <p>
                                         <span class="float-end">
-                                            R$ {{ $item->custo }}
+                                            R$ {{ $item->cost }}
                                         </span>
                                         Custo:
                                     </p>
@@ -193,21 +193,21 @@
                                     <p>
                                         Desconto:
                                         <span class="float-end">
-                                            R$ {{ $item->desconto == null ? '0.00' : $item->desconto }}
+                                            R$ {{ $item->discount == null ? '0.00' : $item->discount }}
                                         </span>
                                     </p>
                                     <hr>
                                     <p>
                                         Venda:
                                         <span class="float-end">
-                                            R$ {{ $item->precoVenda }}
+                                            R$ {{ $item->price }}
                                         </span>
                                     </p>
                                     <hr>
                                     <p>
                                         Lucro:
                                         <span class="float-end">
-                                            R$ {{ $item->precoVenda - $item->custo }}
+                                            R$ {{ $item->price - $item->cost }}
                                         </span>
                                     </p>
                                     <hr>
@@ -227,8 +227,8 @@
                                             <li
                                                 style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
 
-                                                {{ $prod->quantidade }}x - {{ $prod->produto }}
-                                                {{ $prod->marca }} ({{ $prod->peso }})
+                                                {{ $prod->amount }}x - {{ $prod->product_name }}
+                                                {{ $prod->product_brand }} ({{ $prod->weight }})
                                             </li>
                                         @endforeach
                                     </ul>
@@ -240,9 +240,9 @@
                             style="border-radius: 9px;border-width: 2px;border-color: #8c61ff;">
                             <h2 class="text-uppercase text-center text-light" style="margin-bottom: 16px;">Informações
                             </h2>
-                            <p>Cliente:<span class="float-end"> {{ $item->nomeCliente }}</span></p>
+                            <p>Cliente:<span class="float-end"> {{ $item->customer_name }}</span></p>
                             <hr>
-                            <p>Forma de Pagamento:<span class="float-end">{{ $item->formaPagamento }}</span></p>
+                            <p>Forma de Pagamento:<span class="float-end">{{ $item->payment_method }}</span></p>
                             <hr>
                             <p>Data:<span class="float-end">{{ $item->created_at }}</span></p>
                             <ul class="list-unstyled"></ul>
@@ -280,13 +280,13 @@
             var searchValue = $(this).val();
 
             $.ajax({
-                url: '{{ route('filtrar.cliente.relatorio') }}',
+                url: '{{ route('customer.report') }}',
                 type: 'GET',
                 data: {
                     search: searchValue
                 },
                 success: function(response) {
-                    $('.tabela-dados').html(response);
+                    $('.tabela-data').html(response);
                 },
                 error: function(xhr) {
                     // Tratar erros, se necessário

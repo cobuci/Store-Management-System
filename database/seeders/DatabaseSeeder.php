@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             // SALDO
             CaixaSeeder::class,
-            // CATEGORIA    
-            CategoriaSeeder::class,
+            // CATEGORIA
+            CategorizeSeeder::class,
         ]);
     }
 }

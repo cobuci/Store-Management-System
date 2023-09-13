@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Caixa;
 use App\Models\Financa;
-use App\Models\Produto;
+use App\Models\Product;
 use Livewire\WithPagination;
 
 class CaixaController extends Controller
@@ -21,8 +21,6 @@ class CaixaController extends Controller
         $meta = $caixa[2]->meta;
 
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
-
-
 
 
         return view('admin.financas', [
@@ -44,8 +42,7 @@ class CaixaController extends Controller
 
             $porcentagemLucro = number_format($porcentagemLucro, 1);
 
-            $lucro = "R$ " .  number_format($lucro, 2) . " ($operador $porcentagemLucro%)";
-            return $lucro;
+            return "R$ " .  number_format($lucro, 2) . " ($operador $porcentagemLucro%)";
         } else {
             return "-";
         }
@@ -53,13 +50,18 @@ class CaixaController extends Controller
 
     public static function valorCusto()
     {
-        $prod = new Produto();
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
+
+        $skipCat = $getConfig->stockSkipCategories;
+
+
+        $prod = new Product();
         $produto = $prod->all();
         $valorCusto = 0;
 
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorCusto += ($produto->custo * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorCusto += ($produto->cost * $produto->amount);
             }
         }
         return number_format($valorCusto, 2);
@@ -67,14 +69,20 @@ class CaixaController extends Controller
 
     public static function valorVenda()
     {
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
-        $prod = new Produto();
+        $skipCat = $getConfig->stockSkipCategories;
+
+
+
+        $prod = new Product();
         $produto = $prod->all();
         $valorVenda = 0;
 
+
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorVenda += ($produto->venda * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorVenda += ($produto->sale * $produto->amount);
             }
         }
         return number_format($valorVenda, 2);
@@ -82,16 +90,20 @@ class CaixaController extends Controller
 
     public static function valorLucro()
     {
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
-        $prod = new Produto();
+        $skipCat = $getConfig->stockSkipCategories;
+
+
+        $prod = new Product();
         $produto = $prod->all();
         $valorVenda = 0;
         $valorCusto = 0;
 
         foreach ($produto as $produto) {
-            if ($produto->id_categoria != 9) {
-                $valorCusto += ($produto->custo * $produto->quantidade);
-                $valorVenda += ($produto->venda * $produto->quantidade);
+            if (!in_array($produto->category_id, $skipCat)) {
+                $valorCusto += ($produto->cost * $produto->amount);
+                $valorVenda += ($produto->sale * $produto->amount);
             }
         }
 
@@ -105,9 +117,7 @@ class CaixaController extends Controller
         $caixa = new Caixa;
         $caixa = $caixa->all();
 
-        $saldo = $caixa[0]->saldo;
-
-        return $saldo;
+        return $caixa[0]->saldo;
     }
 
 
@@ -116,9 +126,7 @@ class CaixaController extends Controller
         $caixa = new Caixa;
         $caixa = $caixa->all();
 
-        $meta = $caixa[2]->saldo;
-
-        return $meta;
+        return $caixa[2]->saldo;
     }
     ///////////////////////////////////////////////////////
 

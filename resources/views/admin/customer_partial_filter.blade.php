@@ -8,13 +8,13 @@
         <th>TOTAL: </th>
     </tr>
 </thead>
-@foreach ($dados as $item)
+@foreach ($data as $item)
     <tbody  class="text-truncate text-dark ">
         <tr>
             <td>{{ $item->id }}</td>
-            <td>{{ $item->custo }}<br></td>
-            <td>{{ $item->precoVenda }}<br></td>
-            <td>{{ $item->nomeCliente }}<br></td>
+            <td>{{ $item->cost }}<br></td>
+            <td>{{ $item->price }}<br></td>
+            <td>{{ $item->customer_name }}<br></td>
             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/yy') }}<br>
             </td>
             <td class="text-center ">

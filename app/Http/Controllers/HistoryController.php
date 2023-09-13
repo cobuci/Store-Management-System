@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Historico;
 
-class HistoricoController extends Controller
+class HistoryController extends Controller
 {
     public function index()
     {
@@ -14,8 +14,7 @@ class HistoricoController extends Controller
 
     public static function listarHistorico()
     {
-        $historico = Historico::latest("id")->paginate(10)->onEachSide(1);
-        return $historico;
+        return Historico::latest("id")->paginate(10)->onEachSide(1);
     }
 
     public static function adicionar($tipo, $descricao)
@@ -24,7 +23,7 @@ class HistoricoController extends Controller
         $historico = new Historico();
 
         $historico->tipo = $tipo;
-        $historico->descricao = $descricao;       
+        $historico->descricao = $descricao;
 
         $historico->save();
     }

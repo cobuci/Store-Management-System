@@ -2,45 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Customer;
 use App\Models\Order;
-use App\Models\Produto;
+use App\Models\Product;
 use App\Models\Sale;
-use App\Models\Venda;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class OrderController extends Controller
 {
 
-    public function __construct(Produto $produto, Order $order)
+    public function __construct(Product $produto, Order $order)
     {
     }
 
-
-
-    public function index(Sale $venda)
+    public function index(Sale $sale)
     {
 
-        $venda = Sale::latest("id")->where('status_pagamento', 'LIKE', '1')->paginate(10)->onEachSide(1);
-        $unconfirmedSale = Sale::latest("id")->where('status_pagamento', 'LIKE', '0')->get();
+        $sale = Sale::latest("id")->where('payment_status', 'LIKE', '1')->paginate(10)->onEachSide(1);
+        $unconfirmedSale = Sale::latest("id")->where('payment_status', 'LIKE', '0')->get();
 
-        $modalArray = $unconfirmedSale->concat($venda);
+        $modalArray = $unconfirmedSale->concat($sale);
 
         $total = 0;
 
         foreach ($unconfirmedSale as $item) {
-            if ($item->status_pagamento == 0) {
-                $total = $total + $item->precoVenda;
+            if ($item->payment_status == 0) {
+                $total = $total + $item->price;
             }
         }
 
-
-
         return view('admin.relatorio', [
-            'venda' => $venda,
+            'venda' => $sale,
             'unconfirmedSale' => $unconfirmedSale,
             'total' => $total,
             'modalArray' => $modalArray,
@@ -53,16 +47,16 @@ class OrderController extends Controller
     {
         $search = $request->input('search');
         $dados = DB::table('sales')
-            ->where('nomeCliente', 'LIKE', '%' . $search . '%')
-            ->where('status_pagamento', '=', '0')
+            ->where('customer_name', 'LIKE', '%' . $search . '%')
+            ->where('payment_status', '=', '0')
             ->orderByDesc('created_at')
             ->get();
 
         if ($request->ajax()) {
-            return view('admin.clientePartialRelatorio', compact('dados'));
+            return view('admin.customer_partial_filter', compact('dados'));
         }
 
-        return view('admin.clientePartialRelatorio', compact('dados'));
+        return view('admin.customer_partial_filter', compact('dados'));
     }
 
 
@@ -70,56 +64,54 @@ class OrderController extends Controller
     public static function findOrder($id)
     {
 
-        $order = DB::table('orders')
+        return DB::table('orders')
             ->where('order_id', '=', $id)
             ->get();
-
-        return $order;
     }
 
     public function store(Request $request)
     {
 
-        $produtos = [];
-        $quantidade = [];
+        $products = [];
+        $amount = [];
+        $idSale = uniqid('', true);
 
-        $qtdItens = $request->quantidadeProdutos;
-
+        $n_items = $request->item_amount;
 
         $arrayRequest = $request->all();
-        $desconto = $request->desconto;
-        $formaPagamento = $request->pagamento;
-        $cliente = $request->cliente;
-        $bonificacao = $request->bonificacao;
 
-        for ($i = 0; $i < $qtdItens; $i++) {
-            array_push($produtos, $arrayRequest['produto' . ($i + 1)]);
-            array_push($quantidade, $arrayRequest['quantidade' . ($i + 1)]);
+        for ($i = 0; $i < $n_items; $i++) {
+            $products[] = $arrayRequest['product' . ($i + 1)];
+            $amount[] = $arrayRequest['amount' . ($i + 1)];
         }
 
+        $cost = 0;
+        $sale_price = 0;
 
-        $custo = 0;
-        $valorVenda = 0;
-
-        $idVenda = uniqid();
+        $paramsOrder = new stdClass();
+        foreach ($products as $key => $product_id) {
 
 
+            $product = Product::find($product_id);
+            $amount_input = $amount[$key];
 
-        foreach ($produtos as $key => $productId) {
+            $cost += $product->cost * $amount_input;
+            $sale_price += $product->sale * $amount_input;
 
-            $produto = Produto::find($productId);
-            $qtdEntrada = $quantidade[$key];
+            $paramsOrder->order_id = $idSale;
+            $paramsOrder->product_id = $product_id;
+            $paramsOrder->amount = $amount_input;
 
-            $custo += $produto->custo * $qtdEntrada;
-            $valorVenda += $produto->venda * $qtdEntrada;
+            ProductController::removerEstoque($product_id,  $amount_input);
+            OrderController::newOrder($paramsOrder);
 
-            ProdutoController::removerEstoque($productId,  $qtdEntrada);
-            OrderController::newOrder($idVenda, $productId, $qtdEntrada);
-
-            VendaController::vendaDescontinuada($idVenda, $desconto, $formaPagamento, $cliente, $bonificacao, $productId, $qtdEntrada);
         }
 
-        OrderController::newSale($custo, $valorVenda, $desconto, $formaPagamento, $cliente, $idVenda, $bonificacao);
+        $request['cost'] = $cost;
+        $request['order_id'] = $idSale;
+        $request['price'] = $sale_price;
+
+        OrderController::newSale($request->all());
 
         return redirect('/relatorio');
     }
@@ -136,29 +128,19 @@ class OrderController extends Controller
         $order = json_decode($order, true);
         foreach ($order as $key => $value) {
 
-            ProdutoController::adicionarEstoque($value['product_id'], $value['quantidade']);
+            ProductController::adicionarEstoque($value['product_id'], $value['amount']);
         }
-
-
-
         // Retirar saldo
 
-        CaixaController::removerSaldo($sale->precoVenda);
-
+        CaixaController::removerSaldo($sale->price);
 
         Order::where('order_id', $sale->order_id)->delete();
-        Venda::where('order_id', $sale->order_id)->delete();
-        HistoricoController::adicionar("CANCELAMENTO", "Cancelamento da venda #$sale->id");
-        FinancaController::cancelarVenda($sale->id, $sale->precoVenda);
+
+        HistoryController::adicionar("CANCELAMENTO", "Cancelamento da venda #$sale->id");
+        FinancaController::cancelarVenda($sale->id, $sale->price);
 
         $sale->delete();
         return redirect('/relatorio');
-    }
-
-    public function deleteVenda($id)
-    {
-        $venda = Venda::find($id);
-        $venda->delete();
     }
 
 
@@ -166,72 +148,59 @@ class OrderController extends Controller
     {
         $sale = Sale::find($id);
 
-        $sale->status_pagamento = 1;
+        $sale->payment_status = 1;
         $sale->save();
         return redirect('/relatorio');
     }
 
 
-    public static function newSale($custo, $valorVenda, $desconto = 0, $formaPagamento, $clienteId, $idVenda, $bonificacao)
+    public static function newSale($params)
     {
 
+        $customer = Customer::find($params['customer_id']);
 
-        $cliente = Cliente::find($clienteId);
-
-        $venda = new Sale();
-
-        // CLIENTE
-        $cliente != null ? $venda->id_cliente = $cliente->id : null;
-        $cliente != null ? $venda->nomeCliente = $cliente->nome : null;
+        //CLIENTE
+        $params['customer_id'] != "null" ? $params['customer_id'] = $customer->id : null;
+        $params['customer_id']  != "null" ? $params['customer_name'] = $customer->name : null;
 
         // Tratamento de valores
-        $valorVenda -= $desconto;
+        $valorVenda = $params['price'] -= $params['discount'];
 
-        $taxa = 1;
-        $formaPagamento == "Credito" ? $taxa = 0.9501 : null;
-        $formaPagamento == "Debito" ? $taxa = 0.98 : null;
+        $fee = 1;
 
-        $bonificacao == 1 ? $valorVenda = 0 : null;
-        $valorVenda = floatval($valorVenda) * $taxa;
-        /// PAGAMENTO
+        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
-        $venda->custo = $custo;
+        $creditFee = $getConfig->cardFee->credit;
+        $debitFee = $getConfig->cardFee->debit;
 
-        $venda->order_id = $idVenda;
-        $venda->desconto = $desconto;
-        $venda->formaPagamento = $formaPagamento;
-        $venda->precoVenda = $valorVenda;
+        $params['payment_method'] == "Credito" ? $fee = $creditFee : null;
+        $params['payment_method'] == "Debito" ? $fee = $debitFee : null;
 
+        $params['bonificacao'] == 1 ? $valorVenda = 0 : null;
+        $params['price'] =  floatval($valorVenda) * $fee;
 
-        /// DATA
-        $venda->created_at = \Carbon\Carbon::now()->toDateTimeString();
+        Sale::create($params);
 
-
-        $venda->save();
-
-        CaixaController::adicionarSaldo($valorVenda);
-        FinancaController::adicionarVenda($valorVenda, $idVenda);
-        HistoricoController::adicionar("VENDA", "Nova venda realizada ");
+        CaixaController::adicionarSaldo($params['price']);
+        FinancaController::adicionarVenda($params['price'], $params['order_id']);
+        HistoryController::adicionar("VENDA", "Nova venda realizada ");
     }
 
 
-    public function newOrder($orderId, $productId, $quantity)
+    public function newOrder($params)
     {
+        $params = get_object_vars($params);
+
+        $product = Product::find($params['product_id']);
+
+        $params['unit_cost'] = $product->cost;
+        $params['product_name'] = $product->name;
+        $params['product_brand'] = $product->brand;
+        $params['unit_price'] = $product->sale;
+        $params['weight'] = $product->weight;
 
 
-        $produto = Produto::find($productId);
-        $order = new Order();
+        Order::create($params);
 
-        $order->order_id = $orderId;
-        $order->quantidade = $quantity;
-
-        $order->product_id = $productId;
-
-        $order->produto = $produto->nome;
-        $order->marca = $produto->marca;
-        $order->precoUnidade = $produto->venda;
-        $order->peso = $produto->peso;
-
-        $order->save();
     }
 }

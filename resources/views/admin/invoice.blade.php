@@ -44,7 +44,7 @@
                         <div class="invoice-title">
 
                             <div class="mb-4">
-                                <h2 class="mb-1 text-muted">Garagem 46</h2>
+                                <h2 class="mb-1 text-muted">{{ENV('app_name')}}</h2>
                             </div>
                         </div>
                         <hr class="my-4">
@@ -52,7 +52,7 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Cliente:</h5>
-                                    <h5 class="font-size-15 mb-2"> {{ $sale->nomeCliente }}</h5>
+                                    <h5 class="font-size-15 mb-2"> {{ $sale->customer_name }}</h5>
                                 </div>
                             </div>
 
@@ -87,31 +87,31 @@
                                     <tbody>
                                         @foreach ($orders as $order)
                                             <tr>
-                                                <th scope="row">{{ $numeroItem++ }}</th>
+                                                <th scope="row">{{ $itemN++ }}</th>
                                                 <td>
                                                     <div>
                                                         <h5 class="text-truncate font-size-14 mb-1">
-                                                            {{ ucwords($order->produto) }}</h5>
-                                                        <p class="text-muted mb-0">{{ $order->peso }},
-                                                            {{ $order->marca }}</p>
+                                                            {{ ucwords($order->product_name) }}</h5>
+                                                        <p class="text-muted mb-0">{{ $order->weight }},
+                                                            {{ $order->product_brand }}</p>
                                                     </div>
                                                 </td>
-                                                <td>R$ {{ $order->precoUnidade }}</td>
-                                                <td>{{ $order->quantidade }}</td>
+                                                <td>R$ {{ $order->unit_price }}</td>
+                                                <td>{{ $order->amount }}</td>
                                                 <td class="text-end">R$
-                                                    {{ $order->quantidade * $order->precoUnidade }}</td>
+                                                    {{ $order->amount * $order->unit_price }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">
                                                 Desconto :</th>
-                                            <td class="border-0 text-end"> {{ $sale->desconto }}</td>
+                                            <td class="border-0 text-end"> {{ $sale->discount }}</td>
                                         </tr>
 
                                         <tr>
                                             <th scope="row" colspan="4" class="border-0 text-end">Total: </th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">R$ {{ $sale->precoVenda }}</h4>
+                                                <h4 class="m-0 fw-semibold">R$ {{ $sale->price }}</h4>
                                             </td>
                                         </tr>
 

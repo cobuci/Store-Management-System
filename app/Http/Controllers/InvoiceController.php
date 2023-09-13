@@ -19,9 +19,9 @@ class InvoiceController extends Controller
 
             $orders = $sale->orders;
 
-            $numeroItem = 1;
+            $itemN = 1;
 
-            return view('admin.invoice', compact('sale', 'orders', 'numeroItem'));
+            return view('admin.invoice', compact('sale', 'orders', 'itemN'));
         }
     }
 }

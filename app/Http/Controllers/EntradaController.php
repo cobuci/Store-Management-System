@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Historico;
-use App\Models\Produto;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Categoria;
+use App\Models\Category;
 
 class EntradaController extends Controller
 {
 
-    public function __construct(Categoria $categoria, Produto $produto)
+    public function __construct(Category $category, Product $products)
     {
-        $this->categoria = $categoria;
-        $this->produto = $produto;
+        $this->category = $category;
+        $this->product = $products;
     }
 
 
@@ -24,27 +24,26 @@ class EntradaController extends Controller
 
     public function index()
     {
-        $categorias = $this->categoria
-            ->orderBy('id', 'asc')
+        $categories = $this->category
+            ->orderBy('id')
             ->get();
-        $produtos = $this->produto
+        $products = $this->product
             ->where('id', '=', 0)
-            ->orderBy('id', 'asc')
+            ->orderBy('id')
             ->get();
 
-        return view('admin.entrada', ['categorias' => $categorias, 'produtos' => $produtos]);
+        return view('admin.product_add', ['categories' => $categories, 'products' => $products]);
     }
 
     public function load(Request $request)
     {
+        $request = $request->all();
 
-        $dataForm = $request->all();
+        $categoria_id = $request['categoria'];
 
-        $categoria_id = $dataForm['categoria'];
-
-        $produtos = $this->produto
-            ->where('id_categoria', '=', $categoria_id)
-            ->orderBy('nome', 'asc')
+        $produtos = $this->product
+            ->where('category_id', '=', $categoria_id)
+            ->orderBy('name')
             ->get();
         return view('admin.master.ajax', ['produtos' => $produtos]);
     }
@@ -52,49 +51,49 @@ class EntradaController extends Controller
     public function entradaProdutos(Request $request)
     {
 
-        $produto = Produto::find($request->produto);
+        $product = Product::find($request->product);
 
-        $produto->quantidade += $request->quantidade;
+        $product->amount += $request->amount;
 
-        $custo = EntradaController::custoMedio($request->produto, $request->custo, $request->quantidade);
+        $cost = EntradaController::custoMedio($request->product, $request->cost, $request->amount);
 
-        $request->custo != 0 ? $produto->custo = $custo : null;
+        $request->cost != 0 ? $product->cost = $cost : null;
 
 
-        $request->venda != null ? $produto->venda = $request->venda : null;
-        $produto->validade = $request->validade;
-        $produto->save();
+        $request->sale != null ? $product->sale = $request->sale : null;
+        $product->expiration_date = $request->expiration_date;
+        $product->save();
 
-        $valorRemovido = $request->quantidade * $request->custo;
+        $valorRemovido = $request->amount * $request->cost;
 
-        if ($produto->id_categoria == 9) {
+        if ($product->category_id == 9) {
             $valorRemovido = 0;
         } else {
 
-            $valorRemovido = $request->quantidade * $request->custo;
+            $valorRemovido = $request->amount * $request->cost;
         }
 
-        FinancaController::adicionarCompra($request->produto, $valorRemovido, $request->quantidade);
+        FinancaController::adicionarCompra($request->product, $valorRemovido, $request->amount);
         CaixaController::removerSaldo($valorRemovido);
-        HistoricoController::adicionar("ENTRADA", "Compra de ($request->quantidade - $produto->nome )");
+        HistoryController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
 
         return redirect('/estoque');
     }
 
-    public static function custoMedio($id, $custo, $quantidadeEntrada)
+    public static function custoMedio($id, $cost, $quantidadeEntrada)
     {
 
-        $produto = Produto::find($id);
+        $product = Product::find($id);
 
-        $quantidadeFinal = $quantidadeEntrada + $produto->quantidade;
+        $final_amount = $quantidadeEntrada + $product->amount;
 
-        if ($custo > 0) {
-            $custoMedio = (($quantidadeEntrada * $custo) + ($produto->custo * $produto->quantidade)) / $quantidadeFinal;
-            $produto->custo > 0 ? $custo = $custoMedio : null;
+        if ($cost > 0) {
+            $cost_average = (($quantidadeEntrada * $cost) + ($product->cost * $product->amount)) / $final_amount;
+            $product->cost > 0 ? $cost = $cost_average : null;
         } else {
-            $custo = $produto->custo;
+            $cost = $product->cost;
         }
 
-        return $custo;
+        return $cost;
     }
 }

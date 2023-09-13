@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Produto;
+use App\Models\Product;
 
 class ocPackController extends Controller
 {
@@ -16,17 +16,17 @@ class ocPackController extends Controller
     public function openPack(Request $request)
     {
 
-        $selecPack = Produto::find($request->selectedPack);
+        $selecPack = Product::find($request->selectedPack);
         $selecPack->quantidade -= $request->qtProd;
 
-        $prodTarg = Produto::find($request->prodTarget);
+        $prodTarg = Product::find($request->prodTarget);
         $prodTarg->quantidade += $request->qtProdTarget;
 
         $prodTarg->save();
         $selecPack->save();
 
 
-        HistoricoController::adicionar("PACK", "Trocou $request->qtProd caixas de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget un. de $prodTarg->marca ($prodTarg->peso)");
+        HistoryController::adicionar("PACK", "Trocou $request->qtProd caixas de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget un. de $prodTarg->marca ($prodTarg->peso)");
 
         return redirect('/historico');
     }
@@ -34,17 +34,17 @@ class ocPackController extends Controller
     public function closePack(Request $request)
     {
 
-        $selecPack = Produto::find($request->selectedPack);
+        $selecPack = Product::find($request->selectedPack);
         $selecPack->quantidade -= $request->qtProd;
 
-        $prodTarg = Produto::find($request->prodTarget);
+        $prodTarg = Product::find($request->prodTarget);
         $prodTarg->quantidade += $request->qtProdTarget;
 
         $prodTarg->save();
         $selecPack->save();
 
 
-        HistoricoController::adicionar("PACK", "Trocou $request->qtProd un. de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget caixas de $prodTarg->marca ($prodTarg->peso) ");
+        HistoryController::adicionar("PACK", "Trocou $request->qtProd un. de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget caixas de $prodTarg->marca ($prodTarg->peso) ");
 
 
         return redirect('/historico');

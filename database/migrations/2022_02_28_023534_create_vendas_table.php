@@ -20,16 +20,16 @@ return new class extends Migration
             $table->string('produto');
             $table->string('marca')->nullable();
             $table->integer('quantidade');
-            $table->decimal('custo', 10, 2);
-            $table->decimal('precoUnidade', 10, 2);
-            $table->decimal('desconto', 10, 2)->default(0)->nullable();
-            $table->decimal('precoVenda', 10, 2);
+            $table->decimal('custo', 10);
+            $table->decimal('precoUnidade', 10);
+            $table->decimal('desconto', 10)->default(0)->nullable();
+            $table->decimal('precoVenda', 10);
             $table->string('peso');
             $table->integer('id_cliente')->nullable();
             $table->string('nomeCliente')->nullable();
             $table->string('formaPagamento');
             $table->timestamps();
-            
+
         });
     }
 

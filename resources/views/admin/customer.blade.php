@@ -5,11 +5,11 @@
 
     <div class="row" style="margin-bottom: 10px">
 
-      
-            <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
-     
 
-        <table class="table tabela-dados bg-light">
+        <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
+
+
+        <table class="table tabela-data bg-light">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -22,8 +22,8 @@
                 <tbody>
                     <tr>
                         <th scope="row">{{ $cliente->id }}</th>
-                        <td>{{ $cliente->nome }}</td>
-                        <td> {{ $cliente->rua }} , {{ $cliente->numero }}</td>
+                        <td>{{ $cliente->name }}</td>
+                        <td> {{ $cliente->street }} , {{ $cliente->number }}</td>
                         <td>
                             <a href="{{ route('admin.cliente.perfil', $cliente->id) }}"
                                 class="btn btn-outline-dark shadow-sm" data-bs-toggle="tooltip" data-bss-tooltip=""
@@ -51,13 +51,13 @@
             var searchValue = $(this).val();
 
             $.ajax({
-                url: '{{ route('filtrar.cliente') }}',
+                url: '{{ route('customer.filter') }}',
                 type: 'GET',
                 data: {
                     search: searchValue
                 },
                 success: function(response) {
-                    $('.tabela-dados').html(response);
+                    $('.tabela-data').html(response);
                 },
                 error: function(xhr) {
                     // Tratar erros, se necessário

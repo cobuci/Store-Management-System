@@ -23,7 +23,7 @@
                                 <h1 class="mt-1 mb-3">R$ {{ Caixa::saldo() }}</h1>
                                 <br>
                                 <div class="mb-0">
-                                    <p class="text-muted"> Daily average ({{ Dashboard::checkMonth(Dashboard::month(1)) }})
+                                    <p class="text-muted"> Daily average ({{ Dashboard::checkMonth(Dashboard::month()) }})
                                         : R$ {{ Dashboard::dailyAvg() }}
                                     </p>
                                 </div>
@@ -47,7 +47,7 @@
                                 </div>
                                 <h1 class="mt-1 mb-3 ">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-auto">R$ {{ Dashboard::salesToday(1) }}</div> <span
+                                        <div class="col-sm-12 col-md-auto">R$ {{ Dashboard::salesToday() }}</div> <span
                                             class="text-success"> R$ {{ Dashboard::profit() }}
                                         </span>
                                     </div>
@@ -57,8 +57,8 @@
                                         class=" {{ Dashboard::percentDailySales() > 0 ? 'text-success' : 'text-danger' }}">
                                         {{ Dashboard::percentDailySales() }} %
                                     </span>
-                                    <p class="text-muted"> Last day: R$ {{ Dashboard::salesToday(2) }}
-                                        <span class="text-success"> (R$ {{ Dashboard::profit(2) }} )
+                                    <p class="text-muted"> Last day: R$ {{ Dashboard::salesToday(1) }}
+                                        <span class="text-success"> (R$ {{ Dashboard::profit(1) }} )
                                     </p>
                                 </div>
                             </div>
@@ -90,13 +90,13 @@
                                 </h1>
                                 <div class="mb-0">
                                     <span
-                                        class="{{ Dashboard::porcentagemVendasMensais() > 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ Dashboard::porcentagemVendasMensais() }} %
+                                        class="{{ Dashboard::percentageSalesMonthly() > 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ Dashboard::percentageSalesMonthly() }} %
                                     </span>
                                     <p class="text-muted"> Last month: R$
-                                        {{ Dashboard::salesMonth(2) }}
+                                        {{ Dashboard::salesMonth(1) }}
                                         <span class="text-success"> (R$
-                                            {{ Dashboard::profitMonth(2) }})
+                                            {{ Dashboard::profitMonth(1) }})
                                         </span>
                                     </p>
                                 </div>
@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">R$ {{ Dashboard::salesMonth() }} / R$ {{ Dashboard::monthGoal() }}
+                                <h1 class="mt-1 mb-3">R$ {{ Dashboard::salesMonth() }} / R$ {{ $goal }}
                                 </h1>
                                 <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0"
                                     aria-valuemax="100"style="height: 50px">
@@ -180,7 +180,7 @@
 
 
     {{-- DADOS --}}
-    @for ($i = $monthsChart; $i > 0; $i--)
+    @for ($i = $monthsChart; $i >= 0; $i--)
         <input type="hidden" id="{{ 'hiddeninput' . $i }}"
             value="{{ Dashboard::checkMonth(Dashboard::month($i)) }}" />
 
@@ -199,12 +199,12 @@
             .getContext("2d");
         var gradient = ctx.createLinearGradient(0, 0, 0, 225);
         gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");    
+        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");
 
         const labels = [];
         const valores = [];
         const profit = [];
-        for (var i = {{ $monthsChart }}; i > 0; i--) {
+        for (var i = {{ $monthsChart }}; i >= 0; i--) {
             labels.push(document.getElementById('hiddeninput' + i).value);
             valores.push(document.getElementById('hiddeninputValue' + i).value);
             profit.push(document.getElementById('hiddeninputProfit' + i).value);
