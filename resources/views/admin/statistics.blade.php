@@ -114,11 +114,11 @@
                                                             <td>{{ Product::findProduct($prod->product_id)->pluck('weight')->implode(', ') }}
                                                             </td>
 
-                                                            <td>{{ $prod->total_vendas }}</td>
+                                                            <td>{{ $prod->total_amount }}</td>
 
-                                                            <td>R$ {{ $prod->total_custo }}</td>
-                                                            <td>R$ {{ $prod->total_venda }}</td>
-                                                            <td>R$ {{ $prod->total_venda - $prod->total_custo }}
+                                                            <td>R$ {{ $prod->total_cost }}</td>
+                                                            <td>R$ {{ $prod->total_sale }}</td>
+                                                            <td>R$ {{ $prod->total_sale - $prod->total_cost }}
                                                             </td>
                                                         </tr>
                                                     @endif

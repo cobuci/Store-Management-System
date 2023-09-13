@@ -43,20 +43,20 @@ class OrderController extends Controller
 
 
 
-    public function filtrarRelatorio(Request $request)
+    public function filterReport(Request $request)
     {
         $search = $request->input('search');
-        $dados = DB::table('sales')
+        $data = DB::table('sales')
             ->where('customer_name', 'LIKE', '%' . $search . '%')
             ->where('payment_status', '=', '0')
             ->orderByDesc('created_at')
             ->get();
 
         if ($request->ajax()) {
-            return view('admin.customer_partial_filter', compact('dados'));
+            return view('admin.customer_partial_filter', compact('data'));
         }
 
-        return view('admin.customer_partial_filter', compact('dados'));
+        return view('admin.customer_partial_filter', compact('data'));
     }
 
 
@@ -165,9 +165,7 @@ class OrderController extends Controller
 
         // Tratamento de valores
         $valorVenda = $params['price'] -= $params['discount'];
-
         $fee = 1;
-
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
         $creditFee = $getConfig->cardFee->credit;

@@ -21,8 +21,8 @@ class StatisticsController extends Controller
 
         $data = $this->productType($startDate, $endDate);
 
-        $cost_total =  $this->custoTotal($startDate, $endDate);
-        $sale_total =  $this->vendaTotal($startDate, $endDate);
+        $cost_total =  $this->costTotal($startDate, $endDate);
+        $sale_total =  $this->salesTotal($startDate, $endDate);
         $profit_total = $sale_total->value('total') -  $cost_total->value('total');
 
         if (empty($startDate)) {
@@ -58,24 +58,22 @@ class StatisticsController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $vendas = DB::table('orders')
+        return DB::table('orders')
             ->join('sales', 'orders.order_id', '=', 'sales.order_id') // Junção entre as tabelas orders e sales
             ->select(
                 'orders.product_id',
-                DB::raw('sum(orders.amount) as total_vendas'),
-                DB::raw('sum(orders.unit_cost  * orders.amount) as total_custo'),
-                DB::raw('sum(orders.unit_price * orders.amount) as total_venda')
+                DB::raw('sum(orders.amount) as total_amount'),
+                DB::raw('sum(orders.unit_cost  * orders.amount) as total_cost'),
+                DB::raw('sum(orders.unit_price * orders.amount) as total_sale')
             )
             ->whereDate('sales.created_at', '>=', $startDate) // Use sales.created_at em vez de orders.created_at
             ->whereDate('sales.created_at', '<=', $endDate)   // Use sales.created_at em vez de orders.created_at
             ->groupBy('orders.product_id')
-            ->orderBy('total_vendas', 'desc')
+            ->orderBy('total_amount', 'desc')
             ->get();
-
-        return $vendas;
     }
 
-    public function custoTotal($startDate, $endDate)
+    public function costTotal($startDate, $endDate)
     {
         if (empty($startDate)) {
             $startDate = '2020-01-01';
@@ -83,18 +81,18 @@ class StatisticsController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $custo = DB::table('sales')
+        $cost = DB::table('sales')
             ->select(
                 DB::raw('sum(cost) as total')
             )
             ->whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)
             ->get();
-        return ($custo);
+        return ($cost);
     }
 
 
-    public function vendaTotal($startDate, $endDate)
+    public function salesTotal($startDate, $endDate)
     {
         if (empty($startDate)) {
             $startDate = '2020-01-01';
@@ -102,7 +100,7 @@ class StatisticsController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $venda = DB::table('sales')
+        $sales = DB::table('sales')
             ->select(
 
                 DB::raw('sum(price) as total')
@@ -110,6 +108,6 @@ class StatisticsController extends Controller
             ->whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)
             ->get();
-        return ($venda);
+        return ($sales);
     }
 }

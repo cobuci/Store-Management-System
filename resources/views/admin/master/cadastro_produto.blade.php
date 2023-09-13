@@ -7,7 +7,7 @@
         @endforeach
     </optgroup>
 </select>
-<input class="form-control" type="text" id="nome" placeholder="Nome (*)" value="{{ $produto->nome }}" name="nome"
+<input class="form-control" type="text" id="nome" placeholder="Nome (*)" value="{{ $product->nome }}" name="nome"
        style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"/>
 <input class="form-control" type="text" id="marca" placeholder="Marca" name="marca"
        style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"

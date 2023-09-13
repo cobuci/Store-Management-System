@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-4">
                                 <input class="form-control" type="text" id="quantidadeEntrada" required=""
-                                    placeholder="Produto" name="produto"
+                                    placeholder="Produto" name="product"
                                     style="background: rgba(255,255,255,0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255,255,255,0.17);">
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -53,7 +53,7 @@
                                                 </button>
 
                                             </form>
-                                        </span> {{ $list->quantidade }} - {{ $list->produto }} - R$ {{ $list->custo }}
+                                        </span> {{ $list->quantidade }} - {{ $list->product }} - R$ {{ $list->custo }}
                                         (un.)
                                     </li>
                                 </ul>

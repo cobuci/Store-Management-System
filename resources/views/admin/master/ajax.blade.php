@@ -1,6 +1,6 @@
-@foreach ($produtos as $produto)
-    <option value="{{ $produto->id }}" sale="{{ $produto->sale }}" nome="{{ $produto->name }}"
-        weight="{{ $produto->weight }}" brand="{{ $produto->brand }}">
-        #{{ $produto->id . ' - ' . $produto->name . ' - ' . $produto->brand . ' ( ' . $produto->weight . ' ) ' . '-' . $produto->amount }}
+@foreach ($produtos as $product)
+    <option value="{{ $product->id }}" sale="{{ $product->sale }}" nome="{{ $product->name }}"
+        weight="{{ $product->weight }}" brand="{{ $product->brand }}">
+        #{{ $product->id . ' - ' . $product->name . ' - ' . $product->brand . ' ( ' . $product->weight . ' ) ' . '-' . $product->amount }}
     </option>
 @endforeach

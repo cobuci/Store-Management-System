@@ -121,7 +121,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/customer/filter', [CustomerController::class, "filtrar"])->name('customer.filter');
 
-    Route::get('/customer/filter/report', [OrderController::class, "filtrarRelatorio"])->name('customer.report');
+    Route::get('/customer/filter/report', [OrderController::class, "filterReport"])->name('customer.report');
 
     Route::delete('/cliente/{id}', [CustomerController::class, "destroy"])->name('cliente.destroy');
     Route::put('/cliente/{id}', [CustomerController::class, "put"])->name('cliente.editar');
