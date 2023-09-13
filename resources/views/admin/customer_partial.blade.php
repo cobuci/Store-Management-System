@@ -6,12 +6,12 @@
         <th scope="col">Opções</th>
     </tr>
 </thead>
-@foreach ($dados as $cliente)
+@foreach ($data as $cliente)
     <tbody>
         <tr>
             <th scope="row">{{ $cliente->id }}</th>
-            <td>{{ $cliente->nome }}</td>
-            <td> {{ $cliente->rua }} , {{ $cliente->numero }}</td>
+            <td>{{ $cliente->name }}</td>
+            <td> {{ $cliente->street }} , {{ $cliente->number }}</td>
 
             <td>
                 <a href="{{ route('admin.cliente.perfil', $cliente->id) }}" class="btn btn-outline-dark shadow-sm"

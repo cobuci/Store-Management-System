@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Financa;
-use App\Models\Produto;
+use App\Models\Product;
 use App\Models\Venda;
 
 class FinancaController extends Controller
@@ -12,44 +12,44 @@ class FinancaController extends Controller
     public static function adicionarVenda($valor, $idVenda)
     {
 
-        $financa = new Financa();
+        $finance = new Financa();
 
-        $descricao = "Nova Venda";
+        $descriptor = "Nova Venda";
 
-        $financa->valor = $valor;
-        $financa->descricao = $descricao;
-        $financa->tipo = "ENTRADA";
-        $financa->data = \Carbon\Carbon::now()->toDateTimeString();
-        $financa->save();
+        $finance->valor = $valor;
+        $finance->descricao = $descriptor;
+        $finance->tipo = "ENTRADA";
+        $finance->data = \Carbon\Carbon::now()->toDateTimeString();
+        $finance->save();
     }
 
     public static function cancelarVenda($id, $valor)
     {
 
-        $financa = new Financa();
-        $descricao = "Cancelamento da Venda #$id";
+        $finance = new Financa();
+        $descriptor = "Cancelamento da Venda #$id";
 
-        $financa->valor = $valor;
-        $financa->descricao = $descricao;
-        $financa->tipo = "CANCELAMENTO";
+        $finance->valor = $valor;
+        $finance->descricao = $descriptor;
+        $finance->tipo = "CANCELAMENTO";
 
 
-        $financa->save();
+        $finance->save();
     }
 
-    public static function adicionarCompra($produto, $sale, $amount)
+    public static function adicionarCompra($product, $sale, $amount)
     {
-        $produto = Produto::find($produto);
-        $financa = new Financa();
+        $product = Product::find($product);
+        $finance = new Financa();
 
-        $descricao = "Compra de ($amount - $produto->name - $produto->brand - $produto->weight)";
-        $financa->id_produto = $produto->id;
-        $financa->quantidade = $amount;
-        $financa->valor = $sale;
-        $financa->descricao = $descricao;
-        $financa->tipo = "SAIDA";
+        $descriptor = "Compra de ($amount - $product->name - $product->brand - $product->weight)";
+        $finance->id_produto = $product->id;
+        $finance->quantidade = $amount;
+        $finance->valor = $sale;
+        $finance->descricao = $descriptor;
+        $finance->tipo = "SAIDA";
 
-        $financa->save();
+        $finance->save();
     }
 
     public static function adicionarInvestimento($valor, $descricao, $data)
@@ -82,7 +82,7 @@ class FinancaController extends Controller
 
         if ($financa->tipo == "SAIDA") {
             if ($financa->id_produto != 0) {
-                ProdutoController::removerEstoque($financa->id_produto, $financa->quantidade);
+                ProductController::removerEstoque($financa->id_produto, $financa->quantidade);
             }
             CaixaController::adicionarSaldo($financa->valor);
             $financa->delete();
@@ -102,7 +102,7 @@ class FinancaController extends Controller
             $financa->delete();
         }
 
-       
+
 
         return redirect('/financas');
     }

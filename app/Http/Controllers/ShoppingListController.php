@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ShoppingList;
-use Illuminate\Support\Facades\DB;
+
 
 class ShoppingListController extends Controller
 {
@@ -25,13 +25,10 @@ class ShoppingListController extends Controller
     public function entradaLista(Request $request)
     {
 
-        $entrada = new ShoppingList();
 
-        $entrada->produto = $request->produto;
-        $entrada->quantidade = $request->quantidade;
-        $entrada->custo = $request->custo;
+        ShoppingList::create($request->all());
 
-        $entrada->save();
+
         return redirect('/shoppingList');
     }
 
@@ -39,16 +36,16 @@ class ShoppingListController extends Controller
     public function calcularTotal()
     {
 
-        $produtos = ShoppingList::select('quantidade', 'custo')
+        $products = ShoppingList::select('quantidade', 'custo')
             ->get();
         $total = 0;
 
-        foreach ($produtos as $produto) {
+        foreach ($products as $produto) {
             $total += ($produto->custo * $produto->quantidade);
         }
 
 
-        return number_format($total, 2);;
+        return number_format($total, 2);
     }
 
 

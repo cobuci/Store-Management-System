@@ -4,23 +4,21 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
-  
 
-    'name' => env('APP_NAME', 'Laravel'),  
 
-    'env' => env('APP_ENV', 'production'),   
+    'name' => env('APP_NAME', 'Laravel'),
 
-    'debug' => (bool) env('APP_DEBUG', false),   
+    'env' => env('APP_ENV', 'production'),
+
+    'debug' => (bool) env('APP_DEBUG', false),
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL'),  
+    'asset_url' => env('ASSET_URL'),
 
-    'timezone' => 'America/Sao_Paulo',   
+    'timezone' => 'America/Sao_Paulo',
 
     'locale' => 'pt-br',
-
- 
 
     'fallback_locale' => 'en',
 
@@ -30,8 +28,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    
-  
+
+
     'providers' => [
 
         /*
@@ -91,15 +89,14 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Helper' => App\Helpers\Helper::class,
         'Caixa' => App\Http\Controllers\CaixaController::class,
-        'Produto' => App\Http\Controllers\ProdutoController::class,
-        'Categoria' => App\Http\Controllers\CategoriaController::class,
-        'Cliente' => App\Http\Controllers\ClienteController::class,
+        'Product' => App\Http\Controllers\ProductController::class,
+        'Category' => App\Http\Controllers\CategoryController::class,
+        'Customer' => App\Http\Controllers\CustomerController::class,
         'Dashboard' => App\Http\Controllers\DashboardController::class,
-        'Historico' => App\Http\Controllers\HistoricoController::class,
+        'History' => App\Http\Controllers\HistoryController::class,
         'Settings' => App\Http\Controllers\SettingsController::class,
-        'Venda' => App\Http\Controllers\VendaController::class,
         'Order' => App\Http\Controllers\OrderController::class,
-        'Estatisticas' => App\Http\Controllers\EstatisticasController::class,
+        'Statistics' => App\Http\Controllers\StatisticsController::class,
     ])->toArray(),
 
 ];

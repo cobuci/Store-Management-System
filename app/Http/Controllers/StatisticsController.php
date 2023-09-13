@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class EstatisticasController extends Controller
+class StatisticsController extends Controller
 {
     public function index(Request $request)
     {
 
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-        $categoriasPermitidas = $getConfig->alertCategory->categoryId;
+        $allowed_categories = $getConfig->alertCategory->categoryId;
 
 
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $dados = $this->productType($startDate, $endDate);
+        $data = $this->productType($startDate, $endDate);
 
-        $totalCusto =  $this->custoTotal($startDate, $endDate);
-        $totalVenda =  $this->vendaTotal($startDate, $endDate);
-        $totalLucro = $totalVenda->value('total') -  $totalCusto->value('total');
+        $cost_total =  $this->custoTotal($startDate, $endDate);
+        $sale_total =  $this->vendaTotal($startDate, $endDate);
+        $profit_total = $sale_total->value('total') -  $cost_total->value('total');
 
         if (empty($startDate)) {
             $startDate = '2020-01-01';
@@ -31,19 +31,21 @@ class EstatisticasController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        return view('admin.estatisticas', [
-            'dados' => $dados,
+
+        return view('admin.statistics', [
+            'data' => $data,
             'startDate' => Carbon::parse($startDate),
             'endDate' => Carbon::parse($endDate),
-            'totalCusto' => $totalCusto->value('total'),
-            'totalVenda' => $totalVenda->value('total'),
-            'totalLucro' => $totalLucro,
-            'categoriasPermitidas' => $categoriasPermitidas,
+            'cost_total' => $cost_total->value('total'),
+            'sale_total' => $sale_total->value('total'),
+            'profit_total' => $profit_total,
+            'allowed_categories' => $allowed_categories,
         ]);
     }
 
     public static function estoqueAlerta($qtdVendida, $dias)
     {
+        $dias == 0 && $dias = 1;
         return round((($qtdVendida / $dias) * 14));
     }
 
@@ -56,22 +58,24 @@ class EstatisticasController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $vendas = DB::table('vendas')
+        $vendas = DB::table('orders')
+            ->join('sales', 'orders.order_id', '=', 'sales.order_id') // Junção entre as tabelas orders e sales
             ->select(
-                'id_produto',
-                DB::raw('sum(quantidade) as total_vendas'),
-                DB::raw('sum(custo) as total_custo'),
-                DB::raw('sum(precoVenda) as total_venda'),
+                'orders.product_id',
+                DB::raw('sum(orders.amount) as total_vendas'),
+                DB::raw('sum(orders.unit_cost  * orders.amount) as total_custo'),
+                DB::raw('sum(orders.unit_price * orders.amount) as total_venda')
             )
-            ->whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate)
-            ->groupBy('id_produto')
+            ->whereDate('sales.created_at', '>=', $startDate) // Use sales.created_at em vez de orders.created_at
+            ->whereDate('sales.created_at', '<=', $endDate)   // Use sales.created_at em vez de orders.created_at
+            ->groupBy('orders.product_id')
             ->orderBy('total_vendas', 'desc')
             ->get();
-        return array($vendas);
+
+        return $vendas;
     }
 
-    public static function custoTotal($startDate, $endDate)
+    public function custoTotal($startDate, $endDate)
     {
         if (empty($startDate)) {
             $startDate = '2020-01-01';
@@ -79,10 +83,9 @@ class EstatisticasController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $custo = DB::table('vendas')
+        $custo = DB::table('sales')
             ->select(
-
-                DB::raw('sum(custo) as total')
+                DB::raw('sum(cost) as total')
             )
             ->whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)
@@ -91,7 +94,7 @@ class EstatisticasController extends Controller
     }
 
 
-    public static function vendaTotal($startDate, $endDate)
+    public function vendaTotal($startDate, $endDate)
     {
         if (empty($startDate)) {
             $startDate = '2020-01-01';
@@ -99,10 +102,10 @@ class EstatisticasController extends Controller
         if (empty($endDate)) {
             $endDate = Carbon::now()->toDateString();
         }
-        $venda = DB::table('vendas')
+        $venda = DB::table('sales')
             ->select(
 
-                DB::raw('sum(precoVenda) as total')
+                DB::raw('sum(price) as total')
             )
             ->whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Historico;
-use App\Models\Produto;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Categoria;
+use App\Models\Category;
 
 class EntradaController extends Controller
 {
 
-    public function __construct(Categoria $categoria, Produto $produto)
+    public function __construct(Category $category, Product $products)
     {
-        $this->categoria = $categoria;
-        $this->produto = $produto;
+        $this->category = $category;
+        $this->product = $products;
     }
 
 
@@ -24,27 +24,26 @@ class EntradaController extends Controller
 
     public function index()
     {
-        $categorias = $this->categoria
-            ->orderBy('id', 'asc')
+        $categories = $this->category
+            ->orderBy('id')
             ->get();
-        $produtos = $this->produto
+        $products = $this->product
             ->where('id', '=', 0)
-            ->orderBy('id', 'asc')
+            ->orderBy('id')
             ->get();
 
-        return view('admin.product_add', ['categorias' => $categorias, 'produtos' => $produtos]);
+        return view('admin.product_add', ['categories' => $categories, 'products' => $products]);
     }
 
     public function load(Request $request)
     {
-
         $request = $request->all();
 
         $categoria_id = $request['categoria'];
 
-        $produtos = $this->produto
+        $produtos = $this->product
             ->where('category_id', '=', $categoria_id)
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->get();
         return view('admin.master.ajax', ['produtos' => $produtos]);
     }
@@ -52,7 +51,7 @@ class EntradaController extends Controller
     public function entradaProdutos(Request $request)
     {
 
-        $product = Produto::find($request->product);
+        $product = Product::find($request->product);
 
         $product->amount += $request->amount;
 
@@ -76,7 +75,7 @@ class EntradaController extends Controller
 
         FinancaController::adicionarCompra($request->product, $valorRemovido, $request->amount);
         CaixaController::removerSaldo($valorRemovido);
-        HistoricoController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
+        HistoryController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
 
         return redirect('/estoque');
     }
@@ -84,15 +83,15 @@ class EntradaController extends Controller
     public static function custoMedio($id, $cost, $quantidadeEntrada)
     {
 
-        $produto = Produto::find($id);
+        $product = Product::find($id);
 
-        $quantidadeFinal = $quantidadeEntrada + $produto->amount;
+        $final_amount = $quantidadeEntrada + $product->amount;
 
         if ($cost > 0) {
-            $custoMedio = (($quantidadeEntrada * $cost) + ($produto->cost * $produto->amount)) / $quantidadeFinal;
-            $produto->cost > 0 ? $cost = $custoMedio : null;
+            $cost_average = (($quantidadeEntrada * $cost) + ($product->cost * $product->amount)) / $final_amount;
+            $product->cost > 0 ? $cost = $cost_average : null;
         } else {
-            $cost = $produto->cost;
+            $cost = $product->cost;
         }
 
         return $cost;

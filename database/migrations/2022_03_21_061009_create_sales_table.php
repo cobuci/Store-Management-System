@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
-            $table->decimal('cost', 10, 2);
-            $table->decimal('discount', 10, 2)->default(0)->nullable();
-            $table->decimal('price', 10, 2);
+            $table->decimal('cost', 10);
+            $table->decimal('discount', 10)->default(0)->nullable();
+            $table->decimal('price', 10);
             $table->integer('customer_id')->nullable();
             $table->string('customer_name')->nullable();
-            $table->string('payment_method');           
+            $table->string('payment_method');
             $table->string('payment_status')->default(0)->nullable();
             $table->timestamps();
         });

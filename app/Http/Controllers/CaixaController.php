@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Caixa;
 use App\Models\Financa;
-use App\Models\Produto;
+use App\Models\Product;
 use Livewire\WithPagination;
 
 class CaixaController extends Controller
@@ -42,8 +42,7 @@ class CaixaController extends Controller
 
             $porcentagemLucro = number_format($porcentagemLucro, 1);
 
-            $lucro = "R$ " .  number_format($lucro, 2) . " ($operador $porcentagemLucro%)";
-            return $lucro;
+            return "R$ " .  number_format($lucro, 2) . " ($operador $porcentagemLucro%)";
         } else {
             return "-";
         }
@@ -56,7 +55,7 @@ class CaixaController extends Controller
         $skipCat = $getConfig->stockSkipCategories;
 
 
-        $prod = new Produto();
+        $prod = new Product();
         $produto = $prod->all();
         $valorCusto = 0;
 
@@ -74,9 +73,9 @@ class CaixaController extends Controller
 
         $skipCat = $getConfig->stockSkipCategories;
 
-    
 
-        $prod = new Produto();
+
+        $prod = new Product();
         $produto = $prod->all();
         $valorVenda = 0;
 
@@ -96,7 +95,7 @@ class CaixaController extends Controller
         $skipCat = $getConfig->stockSkipCategories;
 
 
-        $prod = new Produto();
+        $prod = new Product();
         $produto = $prod->all();
         $valorVenda = 0;
         $valorCusto = 0;
@@ -118,9 +117,7 @@ class CaixaController extends Controller
         $caixa = new Caixa;
         $caixa = $caixa->all();
 
-        $saldo = $caixa[0]->saldo;
-
-        return $saldo;
+        return $caixa[0]->saldo;
     }
 
 
@@ -129,9 +126,7 @@ class CaixaController extends Controller
         $caixa = new Caixa;
         $caixa = $caixa->all();
 
-        $meta = $caixa[2]->saldo;
-
-        return $meta;
+        return $caixa[2]->saldo;
     }
     ///////////////////////////////////////////////////////
 

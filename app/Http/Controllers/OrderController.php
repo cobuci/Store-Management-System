@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Customer;
 use App\Models\Order;
-use App\Models\Produto;
+use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ use stdClass;
 class OrderController extends Controller
 {
 
-    public function __construct(Produto $produto, Order $order)
+    public function __construct(Product $produto, Order $order)
     {
     }
 
@@ -64,11 +64,9 @@ class OrderController extends Controller
     public static function findOrder($id)
     {
 
-        $order = DB::table('orders')
+        return DB::table('orders')
             ->where('order_id', '=', $id)
             ->get();
-
-        return $order;
     }
 
     public function store(Request $request)
@@ -83,18 +81,18 @@ class OrderController extends Controller
         $arrayRequest = $request->all();
 
         for ($i = 0; $i < $n_items; $i++) {
-            array_push($products, $arrayRequest['product' . ($i + 1)]);
-            array_push($amount, $arrayRequest['amount' . ($i + 1)]);
+            $products[] = $arrayRequest['product' . ($i + 1)];
+            $amount[] = $arrayRequest['amount' . ($i + 1)];
         }
 
         $cost = 0;
-        $sale_price = 0;      
-       
+        $sale_price = 0;
+
         $paramsOrder = new stdClass();
         foreach ($products as $key => $product_id) {
-           
 
-            $product = Produto::find($product_id);
+
+            $product = Product::find($product_id);
             $amount_input = $amount[$key];
 
             $cost += $product->cost * $amount_input;
@@ -103,12 +101,12 @@ class OrderController extends Controller
             $paramsOrder->order_id = $idSale;
             $paramsOrder->product_id = $product_id;
             $paramsOrder->amount = $amount_input;
-         
-            ProdutoController::removerEstoque($product_id,  $amount_input);
+
+            ProductController::removerEstoque($product_id,  $amount_input);
             OrderController::newOrder($paramsOrder);
-    
+
         }
-       
+
         $request['cost'] = $cost;
         $request['order_id'] = $idSale;
         $request['price'] = $sale_price;
@@ -130,7 +128,7 @@ class OrderController extends Controller
         $order = json_decode($order, true);
         foreach ($order as $key => $value) {
 
-            ProdutoController::adicionarEstoque($value['product_id'], $value['amount']);
+            ProductController::adicionarEstoque($value['product_id'], $value['amount']);
         }
         // Retirar saldo
 
@@ -138,7 +136,7 @@ class OrderController extends Controller
 
         Order::where('order_id', $sale->order_id)->delete();
 
-        HistoricoController::adicionar("CANCELAMENTO", "Cancelamento da venda #$sale->id");
+        HistoryController::adicionar("CANCELAMENTO", "Cancelamento da venda #$sale->id");
         FinancaController::cancelarVenda($sale->id, $sale->price);
 
         $sale->delete();
@@ -159,11 +157,11 @@ class OrderController extends Controller
     public static function newSale($params)
     {
 
-        $customer = Cliente::find($params['customer_id']);
+        $customer = Customer::find($params['customer_id']);
 
         //CLIENTE
         $params['customer_id'] != "null" ? $params['customer_id'] = $customer->id : null;
-        $params['customer_id']  != "null" ? $params['customer_name'] = $customer->nome : null;
+        $params['customer_id']  != "null" ? $params['customer_name'] = $customer->name : null;
 
         // Tratamento de valores
         $valorVenda = $params['price'] -= $params['discount'];
@@ -185,23 +183,23 @@ class OrderController extends Controller
 
         CaixaController::adicionarSaldo($params['price']);
         FinancaController::adicionarVenda($params['price'], $params['order_id']);
-        HistoricoController::adicionar("VENDA", "Nova venda realizada ");
+        HistoryController::adicionar("VENDA", "Nova venda realizada ");
     }
 
 
     public function newOrder($params)
-    {       
+    {
         $params = get_object_vars($params);
 
-        $product = Produto::find($params['product_id']);
-           
+        $product = Product::find($params['product_id']);
+
         $params['unit_cost'] = $product->cost;
         $params['product_name'] = $product->name;
         $params['product_brand'] = $product->brand;
         $params['unit_price'] = $product->sale;
         $params['weight'] = $product->weight;
 
-        
+
         Order::create($params);
 
     }

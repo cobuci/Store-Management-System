@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('brand')->nullable();
             $table->string('weight');
-            $table->decimal('cost', 10, 2);
-            $table->decimal('sale', 10, 2)->nullable();
+            $table->decimal('cost', 10);
+            $table->decimal('sale', 10)->nullable();
             $table->integer('amount');
             $table->date('expiration_date')->nullable();
             $table->integer('category_id');
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('products');
     }
 };

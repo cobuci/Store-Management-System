@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateProduto extends FormRequest
+class StoreUpdateProduct extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class StoreUpdateProduto extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'name' => [             
+        return [
+            'name' => [
                 'string',
             ],
             'brand' => [
@@ -56,9 +56,6 @@ class StoreUpdateProduto extends FormRequest
                 'date',
             ],
         ];
-
-       
-        return $rules;
     }
 
 }

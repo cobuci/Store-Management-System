@@ -8,7 +8,7 @@
         <th>TOTAL: </th>
     </tr>
 </thead>
-@foreach ($dados as $item)
+@foreach ($data as $item)
     <tbody  class="text-truncate text-dark ">
         <tr>
             <td>{{ $item->id }}</td>

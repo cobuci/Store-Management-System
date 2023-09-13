@@ -23,7 +23,7 @@
                         <input class="form-control" type="text" id="search-input" name="search" placeholder="Pesquisar">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-sm table-bordered tabela-dados">
+                            <table class="table table-striped table-sm table-bordered tabela-data">
                                 <thead class="text-dark">
                                     <tr>
                                         <th>#</th>
@@ -286,7 +286,7 @@
                     search: searchValue
                 },
                 success: function(response) {
-                    $('.tabela-dados').html(response);
+                    $('.tabela-data').html(response);
                 },
                 error: function(xhr) {
                     // Tratar erros, se necessário

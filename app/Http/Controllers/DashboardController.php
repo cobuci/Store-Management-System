@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DivisionByZeroError;
 use Illuminate\Support\Facades\DB;
 
 
@@ -36,9 +37,7 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->day ?? $sales = 0;
-
-        return $sales;
+        return $sales[$date]->day ?? $sales = 0;
     }
 
     // Mostra o total em R$ vendido no ultimo dia registrado ,dado o número de dias a olhar para trás (o padrão é 0).
@@ -53,9 +52,7 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->total_price ?? $sales = 0;
-
-        return $sales;
+        return $sales[$date]->total_price ?? $sales = 0;
     }
 
     // Mostra o custo total do que foi vendido em R$ no ultimo dia registrado
@@ -70,9 +67,7 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->cost ?? $sales = 0;
-
-        return $sales;
+        return $sales[$date]->cost ?? $sales = 0;
     }
 
     // Retorna a média diaria do Mês
@@ -84,7 +79,7 @@ class DashboardController extends Controller
         try {
             $average = $revenue / $day;
             $average = number_format($average, 2);
-        } catch (\DivisionByZeroError $e) {
+        } catch (DivisionByZeroError $e) {
             $average = $revenue;
         }
 
@@ -97,9 +92,7 @@ class DashboardController extends Controller
         $cost = DashboardController::costToday($date);
         $sale =  DashboardController::salesToday($date);
 
-        $profit = $sale - $cost;
-
-        return $profit;
+        return $sale - $cost;
     }
 
     // Retorna o valor em % de vendas em relação ao dia anterior
@@ -113,9 +106,7 @@ class DashboardController extends Controller
 
             $amount = ($amount / abs($yesterday)) * 100;
 
-            $amount = number_format($amount, 2);
-
-            return $amount;
+            return number_format($amount, 2);
         } else {
             return 0;
         }
@@ -137,9 +128,7 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $sales = $sales[$date]->month ?? $sales = 0;
-
-        return $sales;
+        return $sales[$date]->month ?? $sales = 0;
     }
 
     // Retorna o nome do Mês de acordo com o valor informado
@@ -178,10 +167,7 @@ class DashboardController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        $result = $sales[$date]->total_price ?? $result = null;
-
-
-        return $result;
+        return $sales[$date]->total_price ?? $result = null;
     }
 
     // Retorna o custo total no Mês informado
@@ -199,10 +185,7 @@ class DashboardController extends Controller
             ->get();
 
 
-        $sales = $sales[$date]->cost ?? $sales = 0;
-
-
-        return $sales;
+        return $sales[$date]->cost ?? $sales = 0;
     }
 
     // Retorna o Lucro do mês informado
@@ -211,9 +194,7 @@ class DashboardController extends Controller
         $cost = DashboardController::costMonth($date);
         $sale =  DashboardController::salesMonth($date);
 
-        $profit = $sale - $cost;
-
-        return $profit;
+        return $sale - $cost;
     }
 
     // Retorna o valor em % de vendas em relação ao Mês anterior
@@ -225,9 +206,7 @@ class DashboardController extends Controller
         if ($previousMonth) {
             $amount = $currentMonth - $previousMonth;
             $amount = ($amount / abs($previousMonth)) * 100;
-            $amount = number_format($amount, 2);
-
-            return $amount;
+            return number_format($amount, 2);
         } else {
             return null;
         }
@@ -243,7 +222,7 @@ class DashboardController extends Controller
 
         try {
             $percentage = ($current / $goal) * 100;
-        } catch (\DivisionByZeroError $e) {
+        } catch (DivisionByZeroError $e) {
             $percentage = 0;
         }
 

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('financas', function (Blueprint $table) {
             $table->id();
-            $table->decimal('valor',10,2);
+            $table->decimal('valor',10);
             $table->integer('id_produto');
             $table->integer('quantidade');
             $table->string('descricao');
-            $table->string('tipo');         
-            $table->timestamp('data');                  
+            $table->string('tipo');
+            $table->timestamp('data');
         });
     }
 
