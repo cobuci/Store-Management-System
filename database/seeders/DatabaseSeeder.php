@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Financa;
+use App\Models\Product;
+use Database\Factories\CustomerFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,12 +24,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             SettingsSeeder::class,
-
             UserSeeder::class,
-            // SALDO
             CaixaSeeder::class,
-            // CATEGORIA
             CategorizeSeeder::class,
         ]);
+
+        Customer::factory(count: 100)->create();
+        Product::factory(count: 200)->create();
     }
 }

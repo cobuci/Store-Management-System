@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        @include('admin.master.alertaEstoque')
+        @include('admin.master.alert_inventory')
     </div>
 
 
@@ -68,7 +68,7 @@
         <div class="d-flex">
             <div class="w-100">
                 {{-- LISTAGEM --}}
-                @foreach (Category::listar() as $cat)
+                @foreach (Category::show() as $cat)
                     <div class="col-12 col-sm-12 col-md-12">
                         <div class="font-monospace text-truncate">
                             <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false"

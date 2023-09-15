@@ -1,108 +1,78 @@
-const mudarValorUnitario = () => {
-    let custo = document.getElementById("cost");
-    let custoTotal = parseFloat(
+const changeUnitValue = () => {
+    const cost = document.getElementById("cost");
+    const cost_total = parseFloat(
         document.getElementById("cost_total").value
     );
-    let quantidade = document.getElementById("amount").value;
+    const amount = document.getElementById("amount").value;
 
-    let resultado = custoTotal / quantidade;
+    const result = cost_total / amount;
 
-    custo.value = resultado.toFixed(2);
+    cost.value = result.toFixed(2);
 };
 
-function mudarValorTotal() {
-    let custo = parseFloat(document.getElementById("cost").value);
-    let custoTotal = document.getElementById("cost_total");
-    let quantidade = document.getElementById("amount").value;
+function changeTotalValue() {
+    const cost = parseFloat(document.getElementById("cost").value);
+    const cost_total = document.getElementById("cost_total");
+    const amount = document.getElementById("amount").value;
 
-    let resultado = custo * quantidade;
+    let result = cost * amount;
 
-    custoTotal.value = resultado.toFixed(2);
-}
-
-function calcularValorQuantidade() {
-    mudarValorTotal();
+    cost_total.value = result.toFixed(2);
 }
 
 function valorRadio() {
     radioCalculo();
-
     insere();
 }
 
 const insere = () => {
-    var custo = parseFloat(document.getElementById("cost").value);
-    var valorVenda = document.getElementById("sale").value;
-    var lucro = document.getElementById("profit");
+    const cost = parseFloat(document.getElementById("cost").value);
+    const sale_value = parseFloat(document.getElementById("sale").value);
+    const profit = document.getElementById("profit");
 
-    valorLucro = valorVenda - custo;
+    const profit_value = sale_value - cost;
+    const result = (profit_value / sale_value) * 100;
 
-    calculo = valorLucro / valorVenda;
-    calculo = calculo * 100;
-
-    if (calculo >= 0) {
-        lucro.innerHTML = " + " + calculo.toFixed(2) + "%";
-    } else {
-        lucro.innerHTML = "";
-    }
+    profit.textContent = result >= 0 ? `+ ${result.toFixed(2)}%` : "";
 };
 
+
 const radioCalculo = () => {
-    var valorVenda = document.getElementById("sale");
-    var radioBtn25 = document.getElementById("radio1");
-    var radioBtn50 = document.getElementById("radio2");
-    var radioBtn75 = document.getElementById("radio3");
-    var radioBtn100 = document.getElementById("radio4");
+    const sale_price = document.getElementById("sale");
+    const radioBtn25 = document.getElementById("radio1");
+    const radioBtn50 = document.getElementById("radio2");
+    const radioBtn75 = document.getElementById("radio3");
+    const radioBtn100 = document.getElementById("radio4");
+    const cost = parseFloat(document.getElementById("cost").value);
 
-    if (radioBtn25.checked) {
-        var custo = document.getElementById("cost").value;
-        if (custo != 0) {
-            var custo = document.getElementById("cost").value;
-            if (custo != 0) {
-                porcentagem = 25;
-                z = 100;
-                x = parseFloat(porcentagem / z);
-                y = 1 - x;
+    if (cost !== 0) {
+        let percent, z, x, y, result;
 
-                resultadoCalc = custo / y;
-                valorVenda.value = resultadoCalc.toFixed(2);
-            }
+        switch (true) {
+            case radioBtn25.checked:
+                percent = 25;
+                break;
+            case radioBtn50.checked:
+                percent = 50;
+                break;
+            case radioBtn75.checked:
+                percent = 75;
+                break;
+            case radioBtn100.checked:
+                percent = 90;
+                break;
+            default:
+
+                break;
         }
-    } else if (radioBtn50.checked) {
-        var custo = document.getElementById("cost").value;
 
-        if (custo != 0) {
-            porcentagem = 50;
+        if (percent !== undefined) {
             z = 100;
-            x = parseFloat(porcentagem / z);
+            x = parseFloat(percent / z);
             y = 1 - x;
 
-            resultadoCalc = custo / y;
-            valorVenda.value = resultadoCalc.toFixed(2);
-        }
-    } else if (radioBtn75.checked) {
-        var custo = document.getElementById("cost").value;
-
-        if (custo != 0) {
-            porcentagem = 75;
-            z = 100;
-            x = parseFloat(porcentagem / z);
-            y = 1 - x;
-
-            resultadoCalc = custo / y;
-            valorVenda.value = resultadoCalc.toFixed(2);
-        }
-    } else if (radioBtn100.checked) {
-        var custo = document.getElementById("cost").value;
-
-        if (custo != 0) {
-            porcentagem = 90;
-            z = 100;
-            x = parseFloat(porcentagem / z);
-            y = 1 - x;
-
-            resultadoCalc = custo / y;
-            valorVenda.value = resultadoCalc.toFixed(2);
+            result = cost / y;
+            sale_price.value = result.toFixed(2);
         }
     }
 };

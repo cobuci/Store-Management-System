@@ -19,7 +19,7 @@
                                     style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);">
                                 <optgroup label="Categoria">
                                     <option disabled selected value="null"> Categoria</option>
-                                    @foreach (Category::listar() as $cat)
+                                    @foreach (Category::show() as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                     @endforeach
                                 </optgroup>
@@ -88,9 +88,9 @@
                                     name="customer_id">
                                 <optgroup label="">
                                     <option value="null"> Cliente</option>
-                                    @foreach (Customer::listar() as $cliente)
-                                        <option value="{{ $cliente->id }}">#{{ $cliente->id }} -
-                                            {{ $cliente->name }}
+                                    @foreach (Customer::listar() as $customer)
+                                        <option value="{{ $customer->id }}">#{{ $customer->id }} -
+                                            {{ $customer->name }}
                                         </option>
                                     @endforeach
                                 </optgroup>

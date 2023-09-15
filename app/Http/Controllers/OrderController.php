@@ -33,7 +33,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('admin.relatorio', [
+        return view('admin.reports', [
             'venda' => $sale,
             'unconfirmedSale' => $unconfirmedSale,
             'total' => $total,
@@ -53,10 +53,10 @@ class OrderController extends Controller
             ->get();
 
         if ($request->ajax()) {
-            return view('admin.customer_partial_filter', compact('data'));
+            return view('admin.reports_customer_filter', compact('data'));
         }
 
-        return view('admin.customer_partial_filter', compact('data'));
+        return view('admin.reports_customer_filter', compact('data'));
     }
 
 
@@ -113,7 +113,7 @@ class OrderController extends Controller
 
         OrderController::newSale($request->all());
 
-        return redirect('/relatorio');
+        return redirect()->route('admin.reports');
     }
 
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
         $order = json_decode($order, true);
         foreach ($order as $key => $value) {
 
-            ProductController::adicionarEstoque($value['product_id'], $value['amount']);
+            ProductController::addStock($value['product_id'], $value['amount']);
         }
         // Retirar saldo
 
@@ -140,7 +140,7 @@ class OrderController extends Controller
         FinancaController::cancelarVenda($sale->id, $sale->price);
 
         $sale->delete();
-        return redirect('/relatorio');
+        return back();
     }
 
 
@@ -150,7 +150,7 @@ class OrderController extends Controller
 
         $sale->payment_status = 1;
         $sale->save();
-        return redirect('/relatorio');
+        return back();
     }
 
 

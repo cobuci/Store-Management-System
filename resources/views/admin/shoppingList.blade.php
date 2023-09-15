@@ -10,23 +10,23 @@
                 style="border-radius: 22px;background: #3d3d3d;color: rgb(238,238,238);border-style: none;border-color: var(--bs-purple);">
                 <div class="card-body shadow-sm"
                     style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255,255,255,0);">
-                    <form method="post" action="/shoppingList/add">
+                    <form method="post" action="{{ route('admin.shoppinglist.add') }}">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12 col-md-4">
-                                <input class="form-control" type="text" id="quantidadeEntrada" required=""
+                                <input class="form-control" type="text" id="product" required=""
                                     placeholder="Produto" name="product"
                                     style="background: rgba(255,255,255,0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255,255,255,0.17);">
                             </div>
                             <div class="col-sm-6 col-md-3">
-                                <input class="form-control" type="text" id="quantidadeEntrada-2" required=""
-                                    placeholder="Quantidade (*)" name="quantidade"
+                                <input class="form-control" type="text" id="amount" required=""
+                                    placeholder="Quantidade (*)" name="amount"
                                     style="background: rgba(255,255,255,0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255,255,255,0.17);"
                                     inputmode="numeric">
                             </div>
                             <div class="col-sm-6 col-md-3">
-                                <input class="form-control" type="text" id="quantidadeEntrada-1" required=""
-                                    placeholder="Valor (un.)" name="custo"
+                                <input class="form-control" type="text" id="cost" required=""
+                                    placeholder="Valor (un.)" name="cost"
                                     style="background: rgba(255,255,255,0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255,255,255,0.17);"
                                     inputmode="numeric">
                             </div>
@@ -53,7 +53,7 @@
                                                 </button>
 
                                             </form>
-                                        </span> {{ $list->quantidade }} - {{ $list->product }} - R$ {{ $list->custo }}
+                                        </span> {{ $list->amount }} - {{ $list->product }} - R$ {{ $list->cost }}
                                         (un.)
                                     </li>
                                 </ul>
