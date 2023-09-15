@@ -124,13 +124,13 @@
             </div>
         </div>
         <div style="float: right; margin-top: 10px;">
-       
-            <a  class="btn btn-danger" href="{{ route('admin.relatorio') }}">Voltar</a>
-            <button id="saveButton" class="btn btn-primary">Download</button> 
+
+            <a  class="btn btn-danger" href="{{ route('admin.reports') }}">Voltar</a>
+            <button id="saveButton" class="btn btn-primary">Download</button>
 
     </div>
     </div>
- 
+
 
 
 
