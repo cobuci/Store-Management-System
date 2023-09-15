@@ -6,15 +6,15 @@
         <th scope="col">Opções</th>
     </tr>
 </thead>
-@foreach ($data as $cliente)
+@foreach ($customers as $customer)
     <tbody>
         <tr>
-            <th scope="row">{{ $cliente->id }}</th>
-            <td>{{ $cliente->name }}</td>
-            <td> {{ $cliente->street }} , {{ $cliente->number }}</td>
+            <th scope="row">{{ $customer->id }}</th>
+            <td>{{ $customer->name }}</td>
+            <td> {{ $customer->street }} , {{ $customer->number }}</td>
 
             <td>
-                <a href="{{ route('admin.cliente.perfil', $cliente->id) }}" class="btn btn-outline-dark shadow-sm"
+                <a href="{{ route('admin.customer.profile', $customer->id) }}" class="btn btn-outline-dark shadow-sm"
                     data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" type="submit"
                     style="border-radius: 10px" title="Verificar">
                     Verificar
