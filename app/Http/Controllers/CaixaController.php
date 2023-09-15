@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Caixa;
 use App\Models\Financa;
 use App\Models\Product;
-use Livewire\WithPagination;
 
 class CaixaController extends Controller
 {
-    use WithPagination;
+
+
     public function index(Caixa $caixa)
     {
         $caixa = $caixa->all();
@@ -22,7 +21,6 @@ class CaixaController extends Controller
 
         $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
 
-
         return view('admin.financas', [
             'saldo' => $saldo,
             'investimento' => $investimento,
@@ -30,87 +28,6 @@ class CaixaController extends Controller
             'meta' => $meta,
         ]);
     }
-
-    public static function calcularLucro($precoVenda, $custoVenda)
-    {
-        if ($precoVenda > 0 && $custoVenda > 0) {
-            $lucro = $precoVenda - $custoVenda;
-            $porcentagemLucro = $lucro / $precoVenda;
-            $porcentagemLucro = $porcentagemLucro * 100;
-
-            $porcentagemLucro > 0 ? $operador = "+" : $operador = "";
-
-            $porcentagemLucro = number_format($porcentagemLucro, 1);
-
-            return "R$ " .  number_format($lucro, 2) . " ($operador $porcentagemLucro%)";
-        } else {
-            return "-";
-        }
-    }
-
-    public static function valorCusto()
-    {
-        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-
-        $skipCat = $getConfig->stockSkipCategories;
-
-
-        $prod = new Product();
-        $produto = $prod->all();
-        $valorCusto = 0;
-
-        foreach ($produto as $produto) {
-            if (!in_array($produto->category_id, $skipCat)) {
-                $valorCusto += ($produto->cost * $produto->amount);
-            }
-        }
-        return number_format($valorCusto, 2);
-    }
-
-    public static function valorVenda()
-    {
-        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-
-        $skipCat = $getConfig->stockSkipCategories;
-
-
-
-        $prod = new Product();
-        $produto = $prod->all();
-        $valorVenda = 0;
-
-
-        foreach ($produto as $produto) {
-            if (!in_array($produto->category_id, $skipCat)) {
-                $valorVenda += ($produto->sale * $produto->amount);
-            }
-        }
-        return number_format($valorVenda, 2);
-    }
-
-    public static function valorLucro()
-    {
-        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-
-        $skipCat = $getConfig->stockSkipCategories;
-
-
-        $prod = new Product();
-        $produto = $prod->all();
-        $valorVenda = 0;
-        $valorCusto = 0;
-
-        foreach ($produto as $produto) {
-            if (!in_array($produto->category_id, $skipCat)) {
-                $valorCusto += ($produto->cost * $produto->amount);
-                $valorVenda += ($produto->sale * $produto->amount);
-            }
-        }
-
-        $lucro = ($valorVenda - $valorCusto);
-        return number_format($lucro, 2);
-    }
-
 
     public static function saldo()
     {
@@ -128,7 +45,7 @@ class CaixaController extends Controller
 
         return $caixa[2]->saldo;
     }
-    ///////////////////////////////////////////////////////
+
 
     // Remover Saldos
     public static function removerSaldo($valorEntrada)
@@ -145,18 +62,12 @@ class CaixaController extends Controller
         $saldo->save();
     }
 
-
-    ///////////////////////////////////////////////////////
-
-    // Adicionar Saldos
     public static function adicionarSaldo($valorEntrada)
     {
-
         $saldo = Caixa::find(1);
         $saldo->saldo += $valorEntrada;
         $saldo->save();
     }
-
     public static function adicionarInvestimento($valorEntrada)
     {
 
@@ -164,9 +75,6 @@ class CaixaController extends Controller
         $saldo->saldo += $valorEntrada;
         $saldo->save();
     }
-
-
-
     public static function definirMeta(Request $request)
     {
         $saldo = Caixa::find(4);
@@ -175,7 +83,5 @@ class CaixaController extends Controller
 
         return redirect('/dashboard');
     }
-
-    //////////////////////////////////////////////////////
 
 }
