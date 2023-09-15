@@ -31,20 +31,16 @@ class ProductController extends Controller
 
         HistoryController::adicionar("EDIÇÃO", $history);
         $product->update($request);
-        return  redirect()->route('admin.estoque');
+        return  redirect()->route('admin.inventory');
     }
 
     public function destroy($id)
     {
-        if (!$produto = Product::find($id)) {
-            return redirect()->route('admin.estoque');
-        } else {
-            $produto->delete();
-
-            HistoryController::adicionar("APAGAR", "O Produto $produto->name -  $produto->weight - $produto->brand foi excluido ");
-
-            return redirect()->route('admin.estoque');
+        if ($product = Product::find($id)) {
+            $product->delete();
+            HistoryController::adicionar("APAGAR", "O Produto $product->name -  $product->weight - $product->brand foi excluido ");
         }
+        return redirect()->route('admin.inventory');
     }
 
 
@@ -54,13 +50,6 @@ class ProductController extends Controller
         return $prod->orderBy('name')->get();
     }
 
-
-    public static function listarUltimos()
-    {
-
-        return Product::orderBy('id', 'desc')->take(5)->get();
-    }
-
     public static function removerEstoque($id, $amount)
     {
         $produto = Product::find($id);
@@ -68,16 +57,15 @@ class ProductController extends Controller
         $produto->save();
     }
 
-    public static function adicionarEstoque($id, $amount)
+    public static function addStock($id, $amount)
     {
-        $produto = Product::find($id);
-        $produto->amount += $amount;
-        $produto->save();
+        $product = Product::find($id);
+        $product->amount += $amount;
+        $product->save();
     }
 
     public function store(Request $request)
     {
-
         $request = $request->all();
 
         $request['weight'] = $request['weight'] . $request['weight_type'];
