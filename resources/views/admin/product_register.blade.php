@@ -1,6 +1,7 @@
 @extends('admin.master.layout')
 @section('title', 'Cadastrar Produto')
 @section('page-name', 'Cadastrar Produto')
+
 @section('content')
     <div class="container">
         <div class="row" style="margin-bottom: 10px;">

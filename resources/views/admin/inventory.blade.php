@@ -1,8 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Estoque')
 @section('page-name', 'Estoque')
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 @section('content')
     <div class="" style="margin-bottom: 20px">
         <div class="row row-cols-3 font-monospace fs-6 text-center text-light justify-content-center align-items-center"

@@ -1,7 +1,7 @@
 @extends('admin.master.layout')
 @section('title', 'Relatório')
 @section('page-name', 'Relatório')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
 @section('content')
 
     <div class="col-12 col-sm-12 col-md-12">
@@ -9,7 +9,7 @@
             <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1"
                href="#collapse-1" role="button"
                style="border-radius: 10px 10px 0 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
-                    class="float-end">
+                        class="float-end">
                     <i class="fa fa-chevron-down text-white"></i>
                 </span>
                 <span class="float-start" style="margin-right: 10px;">
@@ -76,7 +76,7 @@
             <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-2"
                href="#collapse-2" role="button"
                style="border-radius: 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
-                    class="float-end">
+                        class="float-end">
                     <i class="fa fa-chevron-down text-white"></i>
                 </span>
                 <span class="float-start" style="margin-right: 10px;"><i class="fa fa-check text-center text-white"
@@ -128,8 +128,8 @@
         <div class="row">
             <div class="col">
                 <nav
-                    class="border rounded-pill shadow d-xl-flex justify-content-center align-items-center align-content-center align-self-center justify-content-xl-center align-items-xl-center"
-                    style="background: rgba(248, 249, 250, 0.21)">
+                        class="border rounded-pill shadow d-xl-flex justify-content-center align-items-center align-content-center align-self-center justify-content-xl-center align-items-xl-center"
+                        style="background: rgba(248, 249, 250, 0.21)">
                     <ul class="pagination">
                         {{ $venda->links() }}
                     </ul>
@@ -216,7 +216,7 @@
                                         </span>
                                     </p>
                                     <hr>
-                                    <ul class="list-unstyled"></ul>
+                                    <ul class="item-unstyled"></ul>
                                 </div>
                             </div>
                         </div>
@@ -227,10 +227,10 @@
                                     <h2 class="text-uppercase text-center  text-light" style="margin-bottom: 16px;">
                                         Produtos
                                     </h2>
-                                    <ul class="list-unstyled">
+                                    <ul class="item-unstyled">
                                         @foreach (Order::findOrder($item->order_id) as $prod)
                                             <li
-                                                style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
+                                                    style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
 
                                                 {{ $prod->amount }}x - {{ $prod->product_name }}
                                                 {{ $prod->product_brand }} ({{ $prod->weight }})
@@ -250,7 +250,7 @@
                             <p>Forma de Pagamento:<span class="float-end">{{ $item->payment_method }}</span></p>
                             <hr>
                             <p>Data:<span class="float-end">{{ $item->created_at }}</span></p>
-                            <ul class="list-unstyled"></ul>
+                            <ul class="item-unstyled"></ul>
                         </div>
                     </div>
 
@@ -271,29 +271,24 @@
         </div>
     @endforeach
 
-@endsection
-
-
-<script src="{{ asset('admin/jquery.js') }}"></script>
-
-
-<script>
-    $(document).ready(function () {
-        $('#search-input').on('input', function () {
-            const searchValue = $(this).val();
-            $.ajax({
-                url: '{{ route('customer.report') }}',
-                type: 'GET',
-                data: {
-                    search: searchValue
-                },
-                success: function (response) {
-                    $('.tabela-data').html(response);
-                },
-                error: function (xhr) {
-                    // Tratar erros, se necessário
-                }
+    <script type="module">
+        $(document).ready(function () {
+            $('#search-input').on('input', function () {
+                const searchValue = $(this).val();
+                $.ajax({
+                    url: '{{ route('customer.report') }}',
+                    type: 'GET',
+                    data: {
+                        search: searchValue
+                    },
+                    success: function (response) {
+                        $('.tabela-data').html(response);
+                    },
+                    error: function (xhr) {
+                        // Tratar erros, se necessário
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+@endsection

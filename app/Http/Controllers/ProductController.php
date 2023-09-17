@@ -75,7 +75,7 @@ class ProductController extends Controller
         $history = "Cadastro do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $request['weight'] . ")";
 
         HistoryController::adicionar("CADASTRO", $history);
-        return redirect('/estoque');
+        return redirect()->route('admin.inventory');
     }
 
 
