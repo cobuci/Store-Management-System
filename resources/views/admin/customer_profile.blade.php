@@ -1,6 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Perfil')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
 @section('content')
 
     <div class="container">
@@ -322,7 +322,7 @@
                                                 </span>
                                             </p>
                                             <hr>
-                                            <ul class="list-unstyled"></ul>
+                                            <ul class="item-unstyled"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -334,7 +334,7 @@
                                                 style="margin-bottom: 16px;">
                                                 Produtos
                                             </h2>
-                                            <ul class="list-unstyled">
+                                            <ul class="item-unstyled">
                                                 @foreach (Order::findOrder($item->order_id) as $prod)
                                                     <li
                                                         style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
@@ -358,7 +358,7 @@
                                     <p>Forma de Pagamento:<span class="float-end">{{ $item->payment_method }}</span></p>
                                     <hr>
                                     <p>Data:<span class="float-end">{{ $item->created_at }}</span></p>
-                                    <ul class="list-unstyled"></ul>
+                                    <ul class="item-unstyled"></ul>
                                 </div>
                             </div>
 
@@ -429,7 +429,7 @@
                 </div>
             </div>
 
-            <script>
+            <script type="module">
                 $(document).ready(function () {
                     function cleanFormZip() {
 
@@ -501,9 +501,6 @@
             </script>
 
 
-            @php
-
-                @endphp
 
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 

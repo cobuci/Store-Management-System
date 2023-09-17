@@ -40,13 +40,10 @@
         </table>
     </div>
 
-@endsection
 
 
-<script src="{{ asset('admin/jquery.js') }}"></script>
 
-
-<script>
+<script type="module">
     $(document).ready(function () {
         $('#search-input').on('input', function () {
             const searchValue = $(this).val();
@@ -67,3 +64,4 @@
         });
     });
 </script>
+@endsection
