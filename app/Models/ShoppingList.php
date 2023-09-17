@@ -15,6 +15,4 @@ class ShoppingList extends Model
 
     ];
 
-    public $timestamps = false;
-    use HasFactory;
 }

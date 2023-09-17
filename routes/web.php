@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::get('/shoppingList', [ShoppingListController::class, "index"])->name('admin.shoppinglist');
+    Route::get('/shoppingList', \App\Livewire\ShoppingList::class)->name('admin.shoppinglist');
 
     Route::POST('/shoppingList/add', [ShoppingListController::class, "entradaLista"])->name('admin.shoppinglist.add');
 
