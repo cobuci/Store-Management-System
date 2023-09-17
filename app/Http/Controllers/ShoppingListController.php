@@ -24,38 +24,32 @@ class ShoppingListController extends Controller
 
     public function entradaLista(Request $request)
     {
-
-
         ShoppingList::create($request->all());
 
-
-        return redirect('/shoppingList');
+        return back();
     }
 
 
     public function calcularTotal()
     {
-
-        $products = ShoppingList::select('quantidade', 'custo')
+        $products = ShoppingList::select('amount', 'cost')
             ->get();
         $total = 0;
 
-        foreach ($products as $produto) {
-            $total += ($produto->custo * $produto->quantidade);
+        foreach ($products as $product) {
+            $total += ($product->cost * $product->amount);
         }
-
 
         return number_format($total, 2);
     }
 
 
-
     public function destroy($id)
     {
-        if (!$produto = ShoppingList::find($id)) {
+        if (!$product = ShoppingList::find($id)) {
             return redirect('/shoppingList');
         } else {
-            $produto->delete();
+            $product->delete();
 
             return redirect('/shoppingList');
         }

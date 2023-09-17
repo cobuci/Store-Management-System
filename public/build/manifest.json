@@ -1,0 +1,22 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-ee37181d.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-40b1e01b.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/product_add_page.js": {
+    "file": "assets/product_add_page-92cd1c7d.js",
+    "isEntry": true,
+    "src": "resources/js/product_add_page.js"
+  },
+  "resources/js/sale_page.js": {
+    "file": "assets/sale_page-97896229.js",
+    "isEntry": true,
+    "src": "resources/js/sale_page.js"
+  }
+}

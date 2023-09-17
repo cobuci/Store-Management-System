@@ -12,13 +12,13 @@
 
             @foreach ($data as $prod)
                 @php
-                    $produto = Product::findProduct($prod->product_id);
+                    $product = Product::findProduct($prod->product_id);
                     $periodo = $startDate->diffInDays($endDate);
-                    $estatisticasAlerta = Statistics::estoqueAlerta($prod->total_vendas, $periodo);
+                    $estatisticasAlerta = Statistics::estoqueAlerta($prod->total_amount, $periodo);
                 @endphp
                 <tbody>
-                @if (in_array($produto->pluck('category_id')->implode(', '), $allowed_categories))
-                    @if ($produto->pluck('amount')->implode(', ') < $estatisticasAlerta * 0.5)
+                @if (in_array($product->pluck('category_id')->implode(', '), $allowed_categories))
+                    @if ($product->pluck('amount')->implode(', ') < $estatisticasAlerta * 0.5)
                         <tr>
                             <td>
                                 <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -30,20 +30,20 @@
                                     <div>
                                         <h4 class="alert-heading">
                                             {!! '<strong>' .
-                                                $produto->pluck('name')->implode(', ') .
+                                                $product->pluck('name')->implode(', ') .
                                                 ' ' .
-                                                $produto->pluck('brand')->implode(', ') .
+                                                $product->pluck('brand')->implode(', ') .
                                                 ' ' .
-                                                $produto->pluck('weight')->implode(', ') .
+                                                $product->pluck('weight')->implode(', ') .
                                                 '</strong>' !!}
                                         </h4>
                                         {!! 'Quantidade em Estoque: ' .
-                                            $produto->pluck('amount')->implode(', ') .
+                                            $product->pluck('amount')->implode(', ') .
                                             '<p>Quantidade vendida no periodo de ' .
                                             $periodo .
                                             ' Dias: ' .
                                             '<strong>' .
-                                            $prod->total_vendas .
+                                            $prod->total_amount .
                                             '</strong>' !!}
                                     </div>
                                 </div>
@@ -69,15 +69,15 @@
 
             @foreach ($data as $prod)
                 @php
-                    $produto = Product::findProduct($prod->product_id);
+                    $product = Product::findProduct($prod->product_id);
                     $periodo = $startDate->diffInDays($endDate);
-                    $estatisticasAlerta = Statistics::estoqueAlerta($prod->total_vendas, $periodo);
+                    $estatisticasAlerta = Statistics::estoqueAlerta($prod->total_amount, $periodo);
                 @endphp
                 <tbody>
-                @if (in_array($produto->pluck('category_id')->implode(', '), $allowed_categories))
+                @if (in_array($product->pluck('category_id')->implode(', '), $allowed_categories))
                     @if (
-                        $produto->pluck('amount')->implode(', ') <= $estatisticasAlerta &&
-                            $produto->pluck('amount')->implode(', ') > $estatisticasAlerta * 0.5)
+                        $product->pluck('amount')->implode(', ') <= $estatisticasAlerta &&
+                            $product->pluck('amount')->implode(', ') > $estatisticasAlerta * 0.5)
                         <tr>
                             <td>
                                 <div class="alert alert-warning d-flex align-items-center" role="alert">
@@ -89,20 +89,20 @@
                                     <div>
                                         <h4 class="alert-heading">
                                             {!! '<strong>' .
-                                                $produto->pluck('name')->implode(', ') .
+                                                $product->pluck('name')->implode(', ') .
                                                 ' ' .
-                                                $produto->pluck('brand')->implode(', ') .
+                                                $product->pluck('brand')->implode(', ') .
                                                 ' ' .
-                                                $produto->pluck('weight')->implode(', ') .
+                                                $product->pluck('weight')->implode(', ') .
                                                 '</strong>' !!}
                                         </h4>
                                         {!! 'Quantidade em Estoque: ' .
-                                            $produto->pluck('amount')->implode(', ') .
+                                            $product->pluck('amount')->implode(', ') .
                                             '<p>Quantidade vendida no periodo de ' .
                                             $periodo .
                                             ' Dias: ' .
                                             '<strong>' .
-                                            $prod->total_vendas .
+                                            $prod->total_amount .
                                             '</strong>' !!}
                                     </div>
                                 </div>

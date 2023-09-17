@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <script src="{{ asset('admin/html2canvas.js') }}"></script>
 
-
+    @vite(['resources/css/bs.css','node_modules/html2canvas/dist/html2canvas.js'])
     <title>invoice - Garagem 46</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
+
+    <style>
         body {
             margin-top: 20px;
             background-color: #eee;
@@ -34,116 +30,111 @@
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <div class="container">
-        <div class="row" >
-            <div class="col-lg-12">
-                <div  id='divToSave' class="card" >
-                    <div class="card-body">
-                        <div class="invoice-title">
 
-                            <div class="mb-4">
-                                <h2 class="mb-1 text-muted">{{ENV('app_name')}}</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id='divToSave' class="card">
+                <div class="card-body">
+                    <div class="invoice-title">
+
+                        <div class="mb-4">
+                            <h2 class="mb-1 text-muted">{{ENV('app_name')}}</h2>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="text-muted">
+                                <h5 class="font-size-16 mb-3">Cliente:</h5>
+                                <h5 class="font-size-15 mb-2"> {{ $sale->customer_name }}</h5>
                             </div>
                         </div>
-                        <hr class="my-4">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="text-muted">
-                                    <h5 class="font-size-16 mb-3">Cliente:</h5>
-                                    <h5 class="font-size-15 mb-2"> {{ $sale->customer_name }}</h5>
+
+                        <div class="col-sm-6">
+                            <div class="text-muted text-sm-end">
+                                <div>
+                                    <h5 class="font-size-15 mb-1">Order No:</h5>
+                                    <p># {{ $sale->id }}</p>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Data:</h5>
+                                    <p> {{ \Carbon\Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="text-muted text-sm-end">
-                                    <div>
-                                        <h5 class="font-size-15 mb-1">Order No:</h5>
-                                        <p># {{ $sale->id }}</p>
-                                    </div>
-                                    <div class="mt-4">
-                                        <h5 class="font-size-15 mb-1">Data:</h5>
-                                        <p> {{ \Carbon\Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <div class="py-2">
-                            <h5 class="font-size-15">Resumo da Compra</h5>
-                            <div class="table-responsive">
-                                <table class="table align-middle table-nowrap table-centered mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 70px;">No.</th>
-                                            <th>Produto</th>
-                                            <th>Preço (un.)</th>
-                                            <th>Quantidade</th>
-                                            <th class="text-end" style="">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($orders as $order)
-                                            <tr>
-                                                <th scope="row">{{ $itemN++ }}</th>
-                                                <td>
-                                                    <div>
-                                                        <h5 class="text-truncate font-size-14 mb-1">
-                                                            {{ ucwords($order->product_name) }}</h5>
-                                                        <p class="text-muted mb-0">{{ $order->weight }},
-                                                            {{ $order->product_brand }}</p>
-                                                    </div>
-                                                </td>
-                                                <td>R$ {{ $order->unit_price }}</td>
-                                                <td>{{ $order->amount }}</td>
-                                                <td class="text-end">R$
-                                                    {{ $order->amount * $order->unit_price }}</td>
-                                            </tr>
-                                        @endforeach
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                                Desconto :</th>
-                                            <td class="border-0 text-end"> {{ $sale->discount }}</td>
-                                        </tr>
+                    </div>
 
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">Total: </th>
-                                            <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">R$ {{ $sale->price }}</h4>
-                                            </td>
-                                        </tr>
+                    <div class="py-2">
+                        <h5 class="font-size-15">Resumo da Compra</h5>
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap table-centered mb-0">
+                                <thead>
+                                <tr>
+                                    <th style="width: 70px;">No.</th>
+                                    <th>Produto</th>
+                                    <th>Preço (un.)</th>
+                                    <th>Quantidade</th>
+                                    <th class="text-end" style="">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($orders as $order)
+                                    <tr>
+                                        <th scope="row">{{ $itemN++ }}</th>
+                                        <td>
+                                            <div>
+                                                <h5 class="text-truncate font-size-14 mb-1">
+                                                    {{ ucwords($order->product_name) }}</h5>
+                                                <p class="text-muted mb-0">{{ $order->weight }},
+                                                    {{ $order->product_brand }}</p>
+                                            </div>
+                                        </td>
+                                        <td>R$ {{ $order->unit_price }}</td>
+                                        <td>{{ $order->amount }}</td>
+                                        <td class="text-end">R$
+                                            {{ $order->amount * $order->unit_price }}</td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <th scope="row" colspan="4" class="border-0 text-end">
+                                        Desconto :
+                                    </th>
+                                    <td class="border-0 text-end"> {{ $sale->discount }}</td>
+                                </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                <tr>
+                                    <th scope="row" colspan="4" class="border-0 text-end">Total:</th>
+                                    <td class="border-0 text-end">
+                                        <h4 class="m-0 fw-semibold">R$ {{ $sale->price }}</h4>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="float: right; margin-top: 10px;">
-       
-            <a  class="btn btn-danger" href="{{ route('admin.relatorio') }}">Voltar</a>
-            <button id="saveButton" class="btn btn-primary">Download</button> 
+    </div>
+    <div style="float: right; margin-top: 10px;">
+
+        <a class="btn btn-danger" href="{{ url()->previous() }}">Voltar</a>
+        <button id="saveButton" class="btn btn-primary">Download</button>
 
     </div>
-    </div>
- 
+</div>
 
 
-
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript"></script>
-
+<script type="text/javascript"></script>
 
 
 </body>
 
 <script>
-    document.getElementById("saveButton").addEventListener("click", function() {
+    document.getElementById("saveButton").addEventListener("click", function () {
         const divToSave = document.getElementById("divToSave");
 
         // Salva o tamanho original da div
@@ -154,18 +145,17 @@
         divToSave.style.width = "1024px";
         divToSave.style.height = "100%";
 
-        html2canvas(divToSave).then(function(canvas) {
+        html2canvas(divToSave).then(function (canvas) {
             // Restaura o tamanho original da div
             divToSave.style.width = originalWidth;
             divToSave.style.height = originalHeight;
 
             // Cria um link para download da imagem
             const link = document.createElement("a");
-            link.download = @json($sale->id) + ".png";
+            link.download = @json($sale->id) +".png";
             link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
             link.click();
         });
     });
 </script>
 
-</html>

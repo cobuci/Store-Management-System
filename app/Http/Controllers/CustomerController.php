@@ -11,26 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
-    public function index(Customer $customers)
+    public function index()
     {
         $customers = Customer::orderBy('name')
             ->get();
 
-        return view('admin.customer', [
-            'clientes' => $customers,
-        ]);
+        return view('admin.customer', compact('customers'));
     }
 
-    public function filtrar(Request $request)
+    public function filter(Request $request)
     {
         $search = $request->input('search');
-        $data = Customer::select('id', 'name', 'street')->where('name', 'LIKE', '%' . $search . '%')->get();
+        $customers = Customer::select('id', 'name', 'street')->where('name', 'LIKE', '%' . $search . '%')->get();
 
         if ($request->ajax()) {
-            return view('admin.customer_partial', compact('data'));
+            return view('admin.customer_filter', compact('customers'));
         }
 
-        return view('admin.customer_partial', compact('data'));
+        return view('admin.customer_filter', compact('customers'));
     }
 
 
@@ -43,7 +41,7 @@ class CustomerController extends Controller
     }
 
 
-    public function cadastrar()
+    public function register()
     {
         return view('admin.customer_register');
     }
@@ -63,18 +61,16 @@ class CustomerController extends Controller
 
     public function show($id)
     {
-        if (!$cliente = Customer::find($id)) {
+
+        if (!$customer = Customer::find($id)) {
             return redirect()->back();
         } else {
             $totalSpent = 0;
             $totalDebit = 0;
-            $totalAgua = 0;
+
             $all_purchases = Sale::latest("id")->where('customer_id', 'LIKE', $id)->get();
             foreach (CustomerController::customerPurchases($id) as $order) {
                 $totalSpent += $order->price;
-                if ($order->product = "") {
-                    $totalAgua += $order->amount;
-                }
             }
             foreach (CustomerController::unpaidPurchases($id) as $order) {
                 $totalDebit += $order->price;
@@ -82,11 +78,12 @@ class CustomerController extends Controller
 
             $apiGoogle = env('GOOGLE_API_KEY');
 
-            $result = CustomerController::searchCustomerAddress($cliente->id);
+            $result = CustomerController::searchCustomerAddress($customer->id);
             $latitude = $result[0];
             $longitude = $result[1];
+            $water_amount = self::waterAmount($id);
 
-            return view('admin.customer_profile', compact('cliente', 'totalSpent', 'totalDebit', 'apiGoogle', 'latitude', 'longitude', 'all_purchases'));
+            return view('admin.customer_profile', compact('customer', 'totalSpent', 'totalDebit', 'apiGoogle', 'latitude', 'longitude', 'all_purchases', 'water_amount'));
         }
     }
 
@@ -136,23 +133,29 @@ class CustomerController extends Controller
             ->get();
     }
 
-    public static function quantidadeAgua($id)
+    public static function waterAmount($id)
     {
 
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-        $waterAmount = $getConfig->water->value;
+        $water_id = $getConfig->water->value;
 
-        $aguas = DB::table('vendas')
-            ->where('id_cliente', '=', $id)
-            ->where('id_produto', '=', $waterAmount)
-            ->select(DB::raw('SUM(quantidade) as quantidade'))
+
+
+        $water = DB::table('orders')
+            ->join('sales', 'orders.order_id', '=', 'sales.order_id')
+            ->where('sales.customer_id', '=', $id)
+            ->where('orders.product_id', '=', $water_id)
+            ->select(
+                'orders.product_id',
+                DB::raw('sum(orders.amount) as water_amount'),
+
+            )
             ->get();
+        $water = json_decode($water, true);
+        $water = $water[0]['water_amount'];
 
-        $aguas = json_decode($aguas, true);
-        $aguas = $aguas[0]['quantidade'];
 
-
-        return ($aguas);
+        return ($water);
     }
 
     public function destroy($id)
@@ -170,7 +173,7 @@ class CustomerController extends Controller
 
         $customer->update($request->all());
 
-        return redirect('/cliente/{$id}');
+        return back();
     }
 
 }

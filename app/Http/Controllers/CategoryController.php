@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
 
 
-    public static function listar()
+    public static function show()
     {
         $cat = new Category;
         return $cat->all();

@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingList extends Model
 {
-    public $timestamps = false;
-    use HasFactory;
+    protected $fillable = [
+        'product',
+        'cost',
+        'amount',
+        'fee',
+
+    ];
+
 }

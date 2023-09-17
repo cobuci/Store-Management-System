@@ -1,10 +1,10 @@
 @extends('admin.master.layout')
 @section('title', 'Perfil')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
 @section('content')
 
     <div class="container">
-        <h1 class="text-center text-dark">{{ '#' . $cliente->id . ' - ' . $cliente->name }}</h1>
+        <h1 class="text-center text-dark">{{ '#' . $customer->id . ' - ' . $customer->name }}</h1>
         <div class="row" style="margin-top:20px; margin-bottom: 10px;">
             <div class="col-sm-12 col-md-4 col-sm-12" style="margin-bottom: 10px;">
                 <div class="card col-md-12 col-sm-12"
@@ -12,43 +12,43 @@
                     <div class="card-body shadow-sm">
                         <div style="height: 26em; margin-bottom: 20px;" id="map"></div>
                         {{-- Formulario --}}
-                        <form method="post" action=" {{ route('cliente.editar', $cliente->id) }}">
+                        <form method="post" action=" {{ route('customer.edit', $customer->id) }}">
                             @method('PUT')
                             @csrf
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
                                 <input class="form-control text-light" type="text"
                                        style="margin-bottom: 10px;width: 60%;margin-right: 10px;background: rgba(255,255,255,0);"
-                                       placeholder="Name" name="name" value="{{ $cliente->name }}">
+                                       placeholder="Name" name="name" value="{{ $customer->name }}">
                                 <input class="form-control text-light" type="text"
                                        style="margin-bottom: 10px;width: 40%;background: rgba(255,255,255,0);"
-                                       placeholder="Tel" name="phone" value="{{ $cliente->phone }}">
+                                       placeholder="Tel" name="phone" value="{{ $customer->phone }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
                                 <input class="form-control text-light" type="email"
                                        style="margin-bottom: 10px;width: 100%;background: rgba(255,255,255,0);"
-                                       placeholder="E-mail" name="email" value="{{ $cliente->email }}">
+                                       placeholder="E-mail" name="email" value="{{ $customer->email }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
                                 <input class="form-control text-light" type="text" id="zipcode"
                                        style="margin-bottom: 10px;width: 30%;background: rgba(255,255,255,0);margin-right: 10px;"
-                                       placeholder="Zip" name="zipcode" value="{{ $cliente->zipcode }}">
+                                       placeholder="Zip" name="zipcode" value="{{ $customer->zipcode }}">
                                 <input class="form-control text-light" type="text" id="street"
                                        style="margin-bottom: 10px;width: 70%;background: rgba(255,255,255,0);"
-                                       placeholder="Address" name="street" value="{{ $cliente->street }}">
+                                       placeholder="Address" name="street" value="{{ $customer->street }}">
                             </div>
                             <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
                                 <input class="form-control text-light" type="text"
                                        style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);margin-right: 10px;"
-                                       placeholder="N / AP" name="number" value="{{ $cliente->number }}">
+                                       placeholder="N / AP" name="number" value="{{ $customer->number }}">
                                 <input class="form-control text-light" type="text" id="district"
                                        style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);"
-                                       placeholder="Bairro" name="district" value="{{ $cliente->district }}">
+                                       placeholder="Bairro" name="district" value="{{ $customer->district }}">
                             </div>
                             <div class="d-xl-flex d-xxl-flex justify-content-xl-end justify-content-xxl-end">
 
                                 <button class="btn btn-outline-danger shadow-sm" type="button" data-bs-toggle="modal"
                                         data-bs-target="#modalApagar" style="border-radius: 10px;margin-right: 15px;"
-                                        title="Deletar cliente">Apagar
+                                        title="Deletar customer">Apagar
                                 </button>
 
 
@@ -69,11 +69,16 @@
                              style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 10em;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-3">Debit Balance</span></div>
-                                    <div class="col-auto text-light"><i class="material-icons fs-1">attach_money</i>
+                                    <div class="col">
+                                        <span class="fs-3">A pagar</span>
                                     </div>
+                                    <div class="col-auto text-light">
+                                        <i class="fas fa-hand-holding-dollar fs-1"></i></div>
                                 </div>
-                                <h6 class="fs-4 text-light card-subtitle mb-2">R$ {{ $totalDebit }}</h6>
+                                <div class="row">
+                                    <h6 class="fs-4 text-light  mb-2 ">R$ {{ $totalDebit }}</h6>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -82,10 +87,16 @@
                              style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 10em;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-3">Total Spent</span></div>
-                                    <div class="col-auto text-end"><i class="material-icons fs-1">attach_money</i></div>
+                                    <div class="col">
+                                        <span class="fs-3">Total gasto</span>
+                                    </div>
+                                    <div class="col-auto text-light">
+                                        <i class="fas fa-money-bill-trend-up fs-1"></i></div>
                                 </div>
-                                <h6 class="fs-4 text-light card-subtitle mb-2">R$ {{ $totalSpent }}</h6>
+                                <div class="row">
+                                    <h6 class="fs-4 text-light  mb-2 ">R$ {{ $totalSpent }}</h6>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -94,12 +105,15 @@
                              style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
                             <div class="card-body" style="height: 10em;">
                                 <div class="row">
-                                    <div class="col"><span class="fs-3 mb-5">Águas Compradas<br></span>
+                                    <div class="col">
+                                        <span class="fs-4 mb-5">Águas Compradas</span>
                                     </div>
-                                    <div class="col-auto text-light"><i class="fas fa-glass-whiskey fs-1"></i></div>
+                                    <div class="col-auto text-light">
+                                        <i class="fas fa-glass-whiskey fs-1"></i>
+                                    </div>
                                 </div>
                                 <h6 class="fs-4 text-light card-subtitle mb-3">
-                                    {{ Customer::quantidadeAgua($cliente->id) }}</h6>
+                                    {{ $water_amount }}</h6>
                             </div>
                         </div>
                     </div>
@@ -109,7 +123,7 @@
                         <div class="font-monospace text-truncate">
                             <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false"
                                aria-controls="collapse-1" href="#collapse-1" role="button"
-                               style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
+                               style="border-radius: 10px 10px 0 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
                                     class="float-end">
                                     <i class="fa fa-chevron-down text-white"></i>
                                 </span>
@@ -121,7 +135,7 @@
                         </div>
                         <div class="collapse col-md-12" id="collapse-1">
                             <div class="card ">
-                                <div class="card-body" style="padding: 0px;">
+                                <div class="card-body" style="padding: 0;">
 
                                     <div class="table-responsive">
                                         <table class="table table-striped table-sm table-bordered tabela-data">
@@ -174,7 +188,7 @@
                         <div class="font-monospace text-truncate">
                             <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="true"
                                aria-controls="collapse-2" href="#collapse-2" role="button"
-                               style="border-radius: 0px;border-top-left-radius: 0;border-top-right-radius: 0;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
+                               style="border-radius: 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
                                     class="float-end">
                                     <i class="fa fa-chevron-down text-white"></i>
                                 </span>
@@ -185,7 +199,7 @@
                             </a>
                             <div class="collapse show col-md-12" id="collapse-2">
                                 <div class="card">
-                                    <div class="card-body " style="padding: 0px;">
+                                    <div class="card-body " style="padding: 0;">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-sm table-bordered">
                                                 <thead class="text-dark">
@@ -243,17 +257,18 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="{{ route('order.destroy', $item->id) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <br>
-                                    Preço: R${{ $item->price }}
-                                    <br>
-                                    Cliente: {{ $item->customer_name }}
+
+                                <br>
+                                Preço: R${{ $item->price }}
+                                <br>
+                                Cliente: {{ $item->customer_name }}
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">Cancelar</button>
+                                <form method="POST" action="{{ route('order.destroy', $item->id) }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Cancelar</button>
                                 </form>
                             </div>
                         </div>
@@ -307,19 +322,19 @@
                                                 </span>
                                             </p>
                                             <hr>
-                                            <ul class="list-unstyled"></ul>
+                                            <ul class="item-unstyled"></ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12 col-md-12 text-nowrap text-light"
-                                             style="border-radius: 9px;border-top-left-radius: 0;border-top-right-radius: 0;border-width: 2px;border-color: #8c61ff;">
+                                             style="border-radius: 0 0 9px 9px;border-width: 2px;border-color: #8c61ff;">
                                             <h2 class="text-uppercase text-center  text-light"
                                                 style="margin-bottom: 16px;">
                                                 Produtos
                                             </h2>
-                                            <ul class="list-unstyled">
+                                            <ul class="item-unstyled">
                                                 @foreach (Order::findOrder($item->order_id) as $prod)
                                                     <li
                                                         style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
@@ -343,7 +358,7 @@
                                     <p>Forma de Pagamento:<span class="float-end">{{ $item->payment_method }}</span></p>
                                     <hr>
                                     <p>Data:<span class="float-end">{{ $item->created_at }}</span></p>
-                                    <ul class="list-unstyled"></ul>
+                                    <ul class="item-unstyled"></ul>
                                 </div>
                             </div>
 
@@ -387,10 +402,10 @@
                                     <div class="col-12 col-md-12 text-nowrap text-light"
                                          style="border-radius: 9px;padding-top: 15px;border-width: 2px;border-color: #8c61ff;">
                                         <p>
-                                            Nome: {{ $cliente->name }}
+                                            Nome: {{ $customer->name }}
                                         </p>
                                         <p>
-                                            Débito total: R$ {{ $totalDebit }}
+                                            A pagar: R$ {{ $totalDebit }}
                                         </p>
                                         <p>
                                             Total Gasto: R$ {{ $totalSpent }}
@@ -401,7 +416,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <form method="POST" action="{{ route('cliente.destroy', $cliente->id) }}">
+                            <form method="POST" action="{{ route('customer.destroy', $customer->id) }}">
                                 @method('DELETE')
                                 @csrf
                                 <button type="button" class="btn btn-secondary"
@@ -414,7 +429,7 @@
                 </div>
             </div>
 
-            <script>
+            <script type="module">
                 $(document).ready(function () {
                     function cleanFormZip() {
 
@@ -425,8 +440,8 @@
                     //Quando o campo cep perde o foco.
                     $("#zipcode").blur(function () {
                         const zip = $(this).val().replace(/\D/g, '');
-                        if (zip != "") {
-                            var validacep = /^[0-9]{8}$/;
+                        if (zip !== "") {
+                            const validacep = /^[0-9]{8}$/;
                             if (validacep.test(zip)) {
                                 $("#street").val("...");
                                 $("#district").val("...");
@@ -436,14 +451,12 @@
 
                                         $("#street").val(data.logradouro);
                                         $("#district").val(data.bairro);
-                                    }
-                                    else {
+                                    } else {
                                         cleanFormZip();
                                         alert("CEP não encontrado.");
                                     }
                                 });
-                            }
-                            else {
+                            } else {
                                 cleanFormZip();
                                 alert("Formato de CEP inválido.");
                             }
@@ -457,14 +470,14 @@
 
             <script>
                 (g => {
-                    var h, a, k, p = "The Google Maps JavaScript API",
+                    let h, a, k, p = "The Google Maps JavaScript API",
                         c = "google",
                         l = "importLibrary",
                         q = "__ib__",
                         m = document,
                         b = window;
                     b = b[c] || (b[c] = {});
-                    var d = b.maps || (b.maps = {}),
+                    const d = b.maps || (b.maps = {}),
                         r = new Set,
                         e = new URLSearchParams,
                         u = () => h || (h = new Promise(async (f, n) => {
@@ -488,9 +501,6 @@
             </script>
 
 
-            @php
-
-                @endphp
 
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
@@ -520,7 +530,6 @@
                         mapId: "DEMO_MAP_ID",
                     });
 
-                    // The marker, positioned at Uluru
                     const marker = new AdvancedMarkerView({
                         map: map,
                         position: position,

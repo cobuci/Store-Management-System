@@ -1,6 +1,7 @@
 @extends('admin.master.layout')
 @section('title', 'Cadastrar Produto')
 @section('page-name', 'Cadastrar Produto')
+
 @section('content')
     <div class="container">
         <div class="row" style="margin-bottom: 10px;">
@@ -15,26 +16,31 @@
                             <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86)">
                                 Dados
                             </h4>
+                            <label for="category_id">Categoria</label>
                             <select class="form-select text-light bg-dark" id="category_id" required
                                     style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                     name="category_id">
                                 <optgroup label="Categoria">
                                     <option disabled selected value="">Categoria</option>
-                                    @foreach (Category::listar() as $cat)
+                                    @foreach (Category::show() as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                     @endforeach
                                 </optgroup>
                             </select>
+                            <label for="name">Nome</label>
                             <input class="form-control " type="text" id="name" placeholder="Nome (*)"
                                    name="name" required
                                    style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"/>
+                            <label for="brand">Marca</label>
                             <input class="form-control" type="text" id="brand" placeholder="Marca" name="brand"
                                    style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"
                             />
+                            <label for="weight">Peso</label>
                             <input class="form-control" type="text" id="weight" placeholder="Unidade (*)" required
                                    name="weight"
                                    style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                    inputmode="numeric"/>
+                            <label for="weight_type">Tipo do peso</label>
                             <select class="form-select text-light bg-dark" id="weight_type"
                                     style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
                                     name="weight_type">

@@ -33,7 +33,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('admin.relatorio', [
+        return view('admin.reports', [
             'venda' => $sale,
             'unconfirmedSale' => $unconfirmedSale,
             'total' => $total,
@@ -43,20 +43,20 @@ class OrderController extends Controller
 
 
 
-    public function filtrarRelatorio(Request $request)
+    public function filterReport(Request $request)
     {
         $search = $request->input('search');
-        $dados = DB::table('sales')
+        $data = DB::table('sales')
             ->where('customer_name', 'LIKE', '%' . $search . '%')
             ->where('payment_status', '=', '0')
             ->orderByDesc('created_at')
             ->get();
 
         if ($request->ajax()) {
-            return view('admin.customer_partial_filter', compact('dados'));
+            return view('admin.reports_customer_filter', compact('data'));
         }
 
-        return view('admin.customer_partial_filter', compact('dados'));
+        return view('admin.reports_customer_filter', compact('data'));
     }
 
 
@@ -113,7 +113,7 @@ class OrderController extends Controller
 
         OrderController::newSale($request->all());
 
-        return redirect('/relatorio');
+        return redirect()->route('admin.reports');
     }
 
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
         $order = json_decode($order, true);
         foreach ($order as $key => $value) {
 
-            ProductController::adicionarEstoque($value['product_id'], $value['amount']);
+            ProductController::addStock($value['product_id'], $value['amount']);
         }
         // Retirar saldo
 
@@ -140,7 +140,7 @@ class OrderController extends Controller
         FinancaController::cancelarVenda($sale->id, $sale->price);
 
         $sale->delete();
-        return redirect('/relatorio');
+        return back();
     }
 
 
@@ -150,7 +150,7 @@ class OrderController extends Controller
 
         $sale->payment_status = 1;
         $sale->save();
-        return redirect('/relatorio');
+        return back();
     }
 
 
@@ -165,9 +165,7 @@ class OrderController extends Controller
 
         // Tratamento de valores
         $valorVenda = $params['price'] -= $params['discount'];
-
         $fee = 1;
-
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
         $creditFee = $getConfig->cardFee->credit;

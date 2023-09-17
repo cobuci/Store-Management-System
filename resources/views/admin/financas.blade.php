@@ -1,7 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Finanças')
 @section('page-name', 'Finanças')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
 @section('content')
 
 

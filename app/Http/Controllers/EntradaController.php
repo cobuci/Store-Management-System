@@ -77,7 +77,7 @@ class EntradaController extends Controller
         CaixaController::removerSaldo($valorRemovido);
         HistoryController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
 
-        return redirect('/estoque');
+        return redirect()->route('admin.inventory');
     }
 
     public static function custoMedio($id, $cost, $quantidadeEntrada)
