@@ -12,7 +12,7 @@ class ShoppingList extends Model
         'cost',
         'amount',
         'fee',
-
+        'final_price',
     ];
 
 }

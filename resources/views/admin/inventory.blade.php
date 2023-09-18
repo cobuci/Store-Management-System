@@ -22,16 +22,15 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="font-monospace text-truncate">
-                <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false"
-                   aria-controls="#collUltimos" href="#collUltimos" role="button"
+            <div class="font-monospace text-truncate" x-data="{ expanded: false }">
+                <a class="btn text-start col-12" @click="expanded = ! expanded"
                    style="border-radius: 10px 10px 0 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;">
                     <span class="float-end">
                         <i class="fa fa-chevron-down text-white"></i></span>
                     <span class="float-start" style="margin-right: 10px">
                         <i class="fa fa-history text-center text-white" style="width: 30px; height: 30px"></i>
                     </span>Últimos Produtos Cadastrados</a>
-                <div class="collapse col-12" id="collUltimos">
+                <div class="col-12" x-show="expanded" x-collapse.duration.1000ms>
                     <div class="card">
                         <div class="card-body" style="padding: 0">
                             <div class="table-responsive">
@@ -90,9 +89,8 @@
     {{-- LISTAGEM --}}
     @foreach ($categories as $cat)
         <div class="col-12 col-sm-12 col-md-12">
-            <div class="font-monospace text-truncate">
-                <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false"
-                   aria-controls="#{{ 'key' . $cat->id }}" href="#{{ 'key' . $cat->id }}" role="button"
+            <div class="font-monospace text-truncate" x-data="{ expanded: false }">
+                <a class="btn text-start col-12" @click="expanded = ! expanded"
                    style="border-radius: 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;">
                     <span class="float-end">
                         <i class="fa fa-chevron-down text-white"></i>
@@ -103,7 +101,7 @@
                     </span>
                     {{ $cat->nome }}
                 </a>
-                <div class="collapse col-md-12" id="{{ 'key' . $cat->id }}">
+                <div class=" col-md-12" x-show="expanded" x-collapse.duration.1000ms>
                     <div class="card">
                         <div class="card-body" style="padding: 0">
                             <div class="table-responsive">
@@ -232,7 +230,7 @@
                                             name="category_id">
                                         <optgroup label="Categoria">
                                             <option value="{{ $product->category_id }}">Categoria</option>
-                                            @foreach (Category::show() as $cat)
+                                            @foreach ($categories as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
                                             @endforeach
                                         </optgroup>

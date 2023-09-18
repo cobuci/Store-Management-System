@@ -39,6 +39,12 @@
                                    style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
                                    inputmode="numeric"/>
                             <label for="expiration_date">Validade</label>
+                            <x-datetime-picker
+                                    without-timezone
+                                    label="Appointment Date"
+                                    placeholder="Appointment Date"
+                                    wire:model="withoutTimezone"
+                            />
                             <input class="form-control" id="expiration_date" type="date"
                                    style="background: rgba(255, 255, 255, 0);color: var(--bs-gray-300);border-radius: 10px;border-color: var(--bs-gray-600);"
                                    name="expiration_date"/>
