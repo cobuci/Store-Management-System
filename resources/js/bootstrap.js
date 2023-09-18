@@ -1,13 +1,13 @@
-import _ from 'lodash';
+import _ from "lodash";
 window._ = _;
 
-import $ from 'jquery';
+import $ from "jquery";
 window.$ = $;
 
-import * as Popper from '@popperjs/core'
-window.Popper = Popper
+import * as Popper from "@popperjs/core";
+window.Popper = Popper;
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

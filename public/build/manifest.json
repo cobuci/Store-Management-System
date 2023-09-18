@@ -1,11 +1,30 @@
 {
+  "__commonjsHelpers-725317a4.js": {
+    "file": "assets/_commonjsHelpers-725317a4.js"
+  },
+  "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry": {
+    "file": "assets/html2canvas-ea482e0d.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-ee37181d.css",
+    "file": "assets/app-aae3010f.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/bs.css": {
+    "file": "assets/bs-82c87407.css",
+    "isEntry": true,
+    "src": "resources/css/bs.css"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-40b1e01b.js",
+    "file": "assets/app-4de4e56f.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
     "isEntry": true,
     "src": "resources/js/app.js"
   },

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('product');
             $table->decimal('cost', 10);
             $table->integer('amount');
+            $table->integer('fee');
+            $table->decimal('final_price', 10);
             $table->timestamps();
         });
     }

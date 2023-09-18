@@ -9,6 +9,7 @@
 
     @livewireStyles
     <wireui:scripts />
+  
     @vite(['resources/js/app.js',  'resources/css/app.css' ])
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
@@ -21,7 +22,7 @@
 <body id="page-top">
 
 @section('content')
-
+    {{ $slot }}
 @endsection
 
 
