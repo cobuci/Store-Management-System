@@ -1,4 +1,4 @@
-
+<script src="https://unpkg.com/feather-icons"></script>
 <div class="flex items-stretch">
     <!-- Sidenav -->
     <nav id="sidebar"
@@ -148,24 +148,21 @@
             </li>
         </ul>
     </nav>
-    <div class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da] !pl-[240px] " id="content">
-        <header class=" bg-red-700 w-full ">
-            <nav class="px-7 py-3 drop-shadow-lg ">
+    <div class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da] !pl-[240px]" id="content">
+        <header class="bg-white w-full drop-shadow-lg  ">
+
+            <nav class="px-7 py-3 ">
 
                 {{-- Hamburger--}}
-                <button class="bg-green-500  " data-te-sidenav-toggle-ref data-te-target="#sidebar" aria-controls="#sidebar"
+                <button data-te-sidenav-toggle-ref data-te-target="#sidebar" aria-controls="#sidebar"
                         aria-haspopup="true">
-                    <svg viewBox="0 0 100 80" width="30" height="40">
-                        <rect width="100" height="10"></rect>
-                        <rect y="30" width="80" height="10"></rect>
-                        <rect y="60" width="70" height="10"></rect>
-                    </svg>
+                    <i data-feather="menu" class=""></i>
                 </button>
                 {{-- Menu --}}
-                <div class="float-right row-start-3 bg-blue-600 w-auto z-[1036] ">
+                <div class="float-right">
                     <x-dropdown >
                         <x-slot name="trigger">
-                            <x-button label="Options" primary />
+                            <i data-feather="settings" class="w-auto h-auto"></i>
                         </x-slot>
 
                         <x-dropdown.header label="Settings">
@@ -185,8 +182,12 @@
             </nav>
         </header>
 
-        <div class="flex p-12 text-start">
+        <div class="flex p-12 justify-center">
             @yield('content')
         </div>
     </div>
 </div>
+
+<script>
+    feather.replace()
+</script>
