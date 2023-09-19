@@ -80,14 +80,8 @@ class ShoppingList extends Component
         $this->notification()->success(
             title: 'Produto adicionado a lista',
             description: "Você adicionou $this->amount $this->product à lista."
-
         );
         $this->reset();
     }
 
-    public function mount(): void
-    {
-
-
-    }
 }
