@@ -1,6 +1,6 @@
 @section('title', 'Lista de Compras')
 
-<div class="flex flex-wrap bg-white/[.80] px-6 py-6 h-auto w-auto items-center justify-center drop-shadow-xl">
+<div class="flex flex-wrap bg-white/[.80] px-6 py-6 h-auto w-auto items-center justify-center drop-shadow-xl z-1">
     <x-notifications position="top-center"/>
     <div class="flex-1">
         <x-input class="" icon="shopping-bag" label="Produto" placeholder="Produto" name="product"

@@ -39,7 +39,7 @@ class ShoppingList extends Component
     public function delete(string $id): void
     {
 
-      Shopping::find($id)?->delete();
+        Shopping::find($id)?->delete();
     }
 
 
@@ -63,9 +63,9 @@ class ShoppingList extends Component
     {
         $this->validate();
 
-        $this->fee == null ? $fee =  0: $fee = $this->fee;
+        $this->fee == null ? $this->fee = 0 : null;
         $cost = $this->cost;
-
+        $fee = $this->fee;
         $final_price = $cost + ($cost * ($fee / 100));
 
         Shopping::updateOrCreate([
@@ -81,7 +81,8 @@ class ShoppingList extends Component
             title: 'Produto adicionado a lista',
             description: "Você adicionou $this->amount $this->product à lista."
 
-        );$this->reset();
+        );
+        $this->reset();
     }
 
     public function mount(): void
