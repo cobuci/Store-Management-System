@@ -3,7 +3,7 @@
 
     <h1 class="grid justify-items-center font-bold text-2xl mb-6"> Lista de Compras</h1>
     <div
-        class="flex flex-wrap bg-white/[.80] px-6 py-6 h-auto w-auto max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
+        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
         <x-notifications position="top-center"/>
         <div class="flex-1">
             <x-input class="" icon="shopping-bag" label="Produto" placeholder="Produto" name="product"
@@ -33,7 +33,8 @@
             <ul class="grid w-[100%] gap-4 sm:grid-cols-1 md:grid-cols-2">
 
                 @foreach ($list as $item)
-                    <li class="grid-span-1 h-18 min-w-fit  bg-white p-3 shadow-lg" wire:click="delete({{$item->id}})">
+                    <li class="grid-span-1 h-18 min-w-fit  bg-white dark:bg-gray-900 rounded-lg p-3 shadow-lg"
+                        wire:click="deleteDialog({{$item->id}})">
                         <div>
                             <span>{{ $item->amount }}x</span>
                             <span>{{ $item->product }} </span>
@@ -42,6 +43,7 @@
                             <span>R$ {{ $item->cost }} (un.) - {{$item->final_price}}(+{{$item->fee}}%)</span>
                             <span>Total: R$ {{ $item->final_price * $item->amount }}</span>
                         </div>
+
                     </li>
                 @endforeach
 

@@ -7,6 +7,8 @@ export default defineConfig({
             "@css/app.css",
             "@css/bs.css",
             "@js/app.js",
+            "@js/chart.js",
+            "@js/theme.js",
             "@js/sale_page.js",
             "@js/product_add_page.js",
             "/node_modules/html2canvas/dist/html2canvas.js",

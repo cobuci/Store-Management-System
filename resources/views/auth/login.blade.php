@@ -1,73 +1,57 @@
-<head>
+<html lang="pt-br" >
 
+
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>{{ env('APP_NAME') }}- Login</title>
-
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    @livewireStyles
+    <wireui:scripts/>
+    @vite(['resources/css/app.css', "resources/js/theme.js"])
 
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                </div>
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="email" name="email" :value="old('email')" required autofocus
-                                               placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="password" placeholder="Password" name="password" required
-                                               autocomplete="current-password">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <label for="remember_me" class="flex items-center">
-                                            <x-jet-checkbox id="remember_me" name="remember"/>
-                                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </button>
-                                </form>
-                                <hr>
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+        <div>
+            <button class="dark-toogle dark:text-white">
+                Dark mode
+            </button>
+        </div>
+        <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Sign in to your account
+                </h1>
+                <form method="POST" action="{{ route('login') }}" class="space-y-4 md:space-y-6">
+                    @csrf
+                    <div>
+                        <x-input class="pr-28" label="Email" placeholder="your email" suffix="@mail.com" id="email"
+                                 name="email"
+                                 :value="old('email')"/>
+                    </div>
+                    <div>
+                        <x-inputs.password label="Senha" placeholder="*******" id="password" name="password"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <x-checkbox id="right-label" label="Remeber me" id="remember_me" name="remember"/>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <x-button positive label="Sign in" type="submit" class="w-full rounded-lg "/>
+                </form>
             </div>
-
         </div>
-
     </div>
-
-</div>
-
-
-
+</section>
+@livewireScripts
 
 </body>
+</html>

@@ -8,7 +8,7 @@ return [
 
 
 
-    'view_path' => resource_path('views/livewire'),
+    'view_path' => resource_path('views/admin'),
 
 
     'layout' => 'layouts.app',

@@ -155,7 +155,6 @@ class DashboardController extends Controller
     // Retorna o total vendido no Mês informado
     public static function salesMonth($date = 0)
     {
-
         $sales = DB::table('sales')
             ->select(
                 DB::raw('count(id) as `data`'),
@@ -166,7 +165,6 @@ class DashboardController extends Controller
             ->groupBy('year', 'month')
             ->orderBy('id', 'desc')
             ->get();
-
         return $sales[$date]->total_price ?? $result = null;
     }
 

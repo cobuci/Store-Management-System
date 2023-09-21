@@ -1,268 +1,86 @@
-@extends('admin.master.layout')
-@section('title', 'Dashboard')
-@section('content')
-    <div class="row">
-        <div class="d-flex">
-            <div class="w-100">
-                <div class="row">
-                    <!-- Balance Revenue -->
-                    <div class="col-md-4">
-                        <div class="card" style="height: 90%">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Balance</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">R$ {{ Caixa::saldo() }}</h1>
-                                <br>
-                                <div class="mb-0">
-                                    <p class="text-muted"> Daily average ({{ Dashboard::checkMonth(Dashboard::month()) }})
-                                        : R$ {{ Dashboard::dailyAvg() }}
-                                    </p>
-                                </div>
+<div>
+    @vite(['resources/js/chart.js' ])
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+        <x-notifications position=""/>
+        {{--    Balance--}}
+        <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 min-w-min ">
+            <div class="flex flex-row justify-between">
+                <span>Saldo</span>
+                <x-icon name="currency-dollar" class="w-auto h-6"/>
+            </div>
+            <div class="text-2xl font-bold">R$ 0,00</div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Daily Income -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Daily Income</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3 ">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-auto">R$ {{ Dashboard::salesToday() }}</div> <span
-                                            class="text-success"> R$ {{ Dashboard::profit() }}
-                                        </span>
-                                    </div>
-                                </h1>
-                                <div class="mb-0">
-                                    <span
-                                        class=" {{ Dashboard::percentDailySales() > 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ Dashboard::percentDailySales() }} %
-                                    </span>
-                                    <p class="text-muted"> Last day: R$ {{ Dashboard::salesToday(1) }}
-                                        <span class="text-success"> (R$ {{ Dashboard::profit(1) }} )
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Monthly Revenue -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Monthly Revenue</h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-auto">R$
-                                            {{ Dashboard::salesMonth() }}
-                                        </div>
-                                        <span class="text-success">
-                                            R$ {{ Dashboard::profitMonth() }}
-                                        </span>
-                                    </div>
-                                </h1>
-                                <div class="mb-0">
-                                    <span
-                                        class="{{ Dashboard::percentageSalesMonthly() > 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ Dashboard::percentageSalesMonthly() }} %
-                                    </span>
-                                    <p class="text-muted"> Last month: R$
-                                        {{ Dashboard::salesMonth(1) }}
-                                        <span class="text-success"> (R$
-                                            {{ Dashboard::profitMonth(1) }})
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Meta -->
-                    <div class="col-md-12">
-                        <div class="card" type="button" data-bs-toggle="modal" data-bs-target="#definirMeta">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title"> Monthly goal </h5>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">R$ {{ Dashboard::salesMonth() }} / R$ {{ $goal }}
-                                </h1>
-                                <div class="progress" role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                    aria-valuemax="100"style="height: 50px">
-                                    <div class="progress-bar bg-danger" style="width: {{ Dashboard::goalPercentage() }}%">
-                                        {{ Dashboard::goalPercentage() }}%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mt-10">Média Diária (Setembro): R$ 455.90</div>
+
+        </div>
+        {{--    Day--}}
+        <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 min-w-min ">
+            <div class="flex flex-row justify-between">
+                <span>Daily Income</span>
+                <x-icon name="cash" class="w-auto h-6"/>
+            </div>
+            <div class="text-2xl font-bold">R$ 0,00</div>
+            <div>
+
+
+                <div class="mt-5">+ 40%</div>
+                <div>Last day: R$ 216,55 (R$ 93,20)</div>
+
             </div>
         </div>
+        {{--    MONTH --}}
+        <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 min-w-min ">
+            <div class="flex flex-row justify-between">
+                <span>Monthly Revenue</span>
+                <x-icon name="calendar" class="w-auto h-6"/>
+            </div>
+            <div class="text-2xl font-bold">R$ 0,00</div>
+            <div>
+
+
+                <div class="mt-5">+ 40%</div>
+                <div>Last month: R$ 12164,55 (R$ 2393,20)</div>
+
+            </div>
+        </div>
+        {{--    META--}}
+        <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 md:col-span-3 min-w-min "
+            wire:click="goalDialog">
+            <div class="flex flex-row justify-between">
+                <span>Monthly goal</span>
+                <x-icon name="refresh" class="w-auto h-6"/>
+            </div>
+            <div class="text-2xl font-bold">R$ 20,00 / {{ $goal }}</div>
+            <div class="mb-6 h-8  mt-5 w-full bg-neutral-400 dark:bg-neutral-300  ">
+                <div class="h-8 bg-primary text-2xl text-center font-medium  text-gray-200 " style="width: 25%">
+                    23%
+                </div>
+            </div>
+
+        </div>
+
+        <x-dialog id="goalDialog" title="Meta" >
+            <x-input label="Defina a nova meta" wire:model="goal" />
+        </x-dialog>
+
+        {{--    CHART  --}}
+        <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6drop-shadow-xl z-1 md:col-span-3 min-h-[305px]   ">
+            <div class=" w-[100%]">
+                <canvas class="" id="dashboard-line"></canvas>
+            </div>
+        </div>
+
+        <input type="hidden" id="monthsChart" value="{{ $monthsChart }}"/>
+        @for ($i = $monthsChart; $i >= 0; $i--)
+            <input type="hidden" id="{{ 'hiddeninput' . $i }}"
+                   value="{{ Dashboard::checkMonth(Dashboard::month($i)) }}"/>
+
+            <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ Dashboard::salesMonth($i) }}"/>
+
+            <input type="hidden" id="{{ 'hiddeninputProfit' . $i }}" value="{{ Dashboard::profitMonth($i) }}"/>
+        @endfor
+
     </div>
 
 
-    <!-- Modal Definir meta -->
-    <div class="modal fade" id="definirMeta" tabindex="-1" aria-labelledby="definirMeta" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="definirMeta">Definir Meta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="/dashboard/meta">
-                        @csrf
-                        <b>Meta: </b>
-                        <p></p>
-                        <input type="number" class="form-control" type="text" id="valor" name="valor" required
-                            step="any" style="background: rgba(255, 255, 255, 0);border-radius: 10px;"
-                            placeholder="Valor" />
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Definir</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- CHART --}}
-    <div class="row">
-        <div class="">
-            <div class="card flex-fill w-100">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Recent Movement</h5>
-                </div>
-                <div class="card-body py-3">
-                    <div class="chart chart-sm">
-                        <canvas id="chartjs-dashboard-line"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    {{-- DADOS --}}
-    @for ($i = $monthsChart; $i >= 0; $i--)
-        <input type="hidden" id="{{ 'hiddeninput' . $i }}"
-            value="{{ Dashboard::checkMonth(Dashboard::month($i)) }}" />
-
-        <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ Dashboard::salesMonth($i) }}" />
-
-        <input type="hidden" id="{{ 'hiddeninputProfit' . $i }}" value="{{ Dashboard::profitMonth($i) }}" />
-    @endfor
-
-@endsection
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document
-            .getElementById("chartjs-dashboard-line")
-            .getContext("2d");
-        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 1)");
-
-        const labels = [];
-        const valores = [];
-        const profit = [];
-        for (var i = {{ $monthsChart }}; i >= 0; i--) {
-            labels.push(document.getElementById('hiddeninput' + i).value);
-            valores.push(document.getElementById('hiddeninputValue' + i).value);
-            profit.push(document.getElementById('hiddeninputProfit' + i).value);
-        }
-        // Line chart
-        new Chart(document.getElementById("chartjs-dashboard-line"), {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: "Vendas (R$)",
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.primary,
-                        data: valores,
-                    },
-                    {
-
-                        label: "Lucro (R$)",
-                        fill: true,
-                        backgroundColor: "gradient",
-                        borderColor: "rgba(0, 147, 14, 1)",
-                        data: profit,
-                    },
-                ],
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                },
-                tooltips: {
-                    intersect: false,
-                },
-                hover: {
-                    intersect: true,
-                },
-                plugins: {
-                    filler: {
-                        propagate: false,
-                    },
-                },
-                scales: {
-                    xAxes: [{
-                        reverse: true,
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)",
-                        },
-                    }, ],
-                    yAxes: [{
-                        display: true,
-                        borderDash: [33, 3],
-                        gridLines: {
-                            color: "rgba(0,0,0,0.3)",
-                        },
-                    }, ],
-                },
-
-            },
-        });
-    });
-</script>
+</div>

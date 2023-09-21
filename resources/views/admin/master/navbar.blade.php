@@ -1,5 +1,7 @@
 <script src="https://unpkg.com/feather-icons"></script>
+@vite(['resources/js/app.js',  'resources/css/app.css' ])
 <div class="flex items-stretch">
+
     <!-- Sidenav -->
     <nav id="sidebar"
          class="bg-cinza fixed left-0 top-0 z-[1035] h-screen w-64      -translate-x-full         overflow-hidden         leading-6         shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)]         data-[te-sidenav-hidden='false']:translate-x-0"
@@ -148,9 +150,8 @@
             </li>
         </ul>
     </nav>
-    <div class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da] !pl-[240px]" id="content">
-        <header class="bg-white w-full drop-shadow-lg  ">
-
+    <div class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da]  dark:bg-gray-800  dark:text-white !pl-[240px]" id="content">
+        <header class="bg-white w-full drop-shadow-lg dark:bg-gray-800 dark:border-gray-700  z-[1035] ">
             <nav class="px-7 py-3 ">
 
                 {{-- Hamburger--}}
@@ -166,15 +167,18 @@
                         </x-slot>
 
                         <x-dropdown.header label="Settings">
+                            <x-dropdown.item icon="moon" class="dark-toogle">
+                                Dark mode
+                            </x-dropdown.item >
                             <x-dropdown.item icon="cog" label="Preferences" href="{{ route('admin.settings') }}"/>
                             <x-dropdown.item icon="user" label="History"/>
                         </x-dropdown.header>
 
-                        <x-dropdown.item separator/>
+                        <x-dropdown.item separator />
 
                         <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
-                            <x-dropdown.item label="Logout" @click.prevent="$root.submit();"/>
+                            <x-dropdown.item icon="logout" label="Logout" @click.prevent="$root.submit();"/>
                         </form>
 
                     </x-dropdown>
@@ -183,7 +187,10 @@
         </header>
 
         <div class="flex p-12 justify-center">
+
+            <x-dialog z-index="z-50" blur="md" align="center" />
             @yield('content')
+
         </div>
     </div>
 </div>
