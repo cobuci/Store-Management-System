@@ -1,9 +1,13 @@
 import Chart from 'chart.js/auto'
 
 (async function () {
+
     const ctx = document
         .getElementById("dashboard-line")
         .getContext("2d");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 225);
+    gradient.addColorStop(0, "rgba(215, 227, 244, 0.2)");
+    gradient.addColorStop(1, "rgba(215, 227, 244, 0.4)");
 
     const labels = [];
     const valores = [];
@@ -16,19 +20,21 @@ import Chart from 'chart.js/auto'
     const data = {
         labels: labels,
         datasets: [
-            {
-                label: 'Vendas em R$',
-                data: valores,
-                fill: true,
-                borderColor: "#000",
-                backgroundColor: "rgba(0,0,0,0.4)",
-            },
+
             {
                 label: 'Lucro em R$',
                 data: profit,
                 fill: true,
-                borderColor: "#fff",
-                backgroundColor: "rgba(255,255,255,0.4)",
+                borderColor: "black",
+                backgroundColor: gradient,
+
+            }
+            , {
+                label: 'Vendas em R$',
+                data: valores,
+                fill: true,
+                borderColor: "red",
+                backgroundColor: gradient,
             }
         ]
     };
@@ -36,11 +42,30 @@ import Chart from 'chart.js/auto'
     new Chart(document.getElementById("dashboard-line"), {
         type: 'line',
         data: data,
+        tension: 0.4,
         options: {
             responsive: true,
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    reverse: false,
+                    min: 0,
+                },
+                x: {
+                    beginAtZero: true,
+                    reverse: false,
+                }
+            },
+
             plugins: {
                 legend: {
                     display: false,
+                },
+                tooltips: {
+                    enabled: true,
+                    intersect: false,
+
                 },
                 title: {
                     display: true,
@@ -49,13 +74,14 @@ import Chart from 'chart.js/auto'
                 filler: {
                     propagate: false,
                 },
-                hover: {
-                    intersect: true,
-                },
                 maintainAspectRatio: false,
-                tooltips: {
-                    intersect: false,
-                },
+
+                colors: {
+                    forceOverride: true,
+                }
+            },
+            interaction: {
+                mode: 'index',
             },
 
         },
