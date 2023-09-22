@@ -37,8 +37,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - CSS
 - [Laravel](https://laravel.com/)
 - [LiveWire](https://laravel-livewire.com/)
+- [WireUI](https://livewire-wireui.com/)
 - [Chart.js](https://www.chartjs.org/)
-- [Bootstrap](https://getbootstrap.com/)
+- [Tailwind](https://tailwindcss.com/)
 
 
 <br><br>
