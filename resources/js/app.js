@@ -1,5 +1,4 @@
 import "./bootstrap";
-import "./bs";
-import { Sidenav, initTE } from "tw-elements";
+import "./navbar"
 
-initTE({ Sidenav });
+import "./theme";

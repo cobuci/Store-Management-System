@@ -1,1 +1,0 @@
-$(document).ready(function(){$("#category_id").change(function(){const t=$("#personForm").attr("data-url");let a=$(this).val();$.ajax({url:t,data:{categoria:a},success:function(c){$("#product").html(c)}})})});

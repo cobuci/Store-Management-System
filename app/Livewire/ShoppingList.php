@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use http\Params;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -36,12 +37,31 @@ class ShoppingList extends Component
         'cost.required' => 'O campo Custo é obrigatorio',
     ];
 
-    public function delete(string $id): void
+    public function deleteDialog(string $id): void
     {
+        $product = Shopping::find($id);
+        $this->dialog()->confirm([
+            'title' => "{$product?->amount}x - {$product?->product}",
+            'iconColor' => 'primary',
+            'description' => "Você tem certeza que deseja excluir o produto da lista de compras?",
+            'accept' => [
+                'label' => 'Excluir',
+                'method' => 'delete',
+                'params' => $id,
+                'color' => 'negative',
+            ],
+            'reject' => [
+                'label' => 'Cancelar',
+                'color' => 'info',
+            ],
+        ]);
 
-      Shopping::find($id)?->delete();
     }
 
+    public function delete($id)
+    {
+        Shopping::find($id)?->delete();
+    }
 
     public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
@@ -63,9 +83,9 @@ class ShoppingList extends Component
     {
         $this->validate();
 
-        $this->fee == null ? $fee =  0: $fee = $this->fee;
+        $this->fee == null ? $this->fee = 0 : null;
         $cost = $this->cost;
-
+        $fee = $this->fee;
         $final_price = $cost + ($cost * ($fee / 100));
 
         Shopping::updateOrCreate([
@@ -80,13 +100,8 @@ class ShoppingList extends Component
         $this->notification()->success(
             title: 'Produto adicionado a lista',
             description: "Você adicionou $this->amount $this->product à lista."
-
-        );$this->reset();
+        );
+        $this->reset();
     }
 
-    public function mount(): void
-    {
-
-
-    }
 }

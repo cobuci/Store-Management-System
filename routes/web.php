@@ -2,28 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CaixaController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\EntradaController;
-use App\Http\Controllers\StatisticsController;
-use App\Http\Controllers\FinancaController;
-use App\Http\Controllers\InvestimentoController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\ocPackController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\ShoppingListController;
+use App\{Http\Controllers\CaixaController,
+    Http\Controllers\CustomerController,
+    Http\Controllers\DashboardController,
+    Http\Controllers\HistoryController,
+    Http\Controllers\ProductController,
+    Http\Controllers\InventoryController,
+    Http\Controllers\EntradaController,
+    Http\Controllers\StatisticsController,
+    Http\Controllers\FinancaController,
+    Http\Controllers\InvestimentoController,
+    Http\Controllers\InvoiceController,
+    Http\Controllers\ocPackController,
+    Http\Controllers\OrderController,
+    Http\Controllers\SettingsController,
+    Http\Controllers\ShoppingListController,
+    Livewire\Dashboard,
+    Livewire\ShoppingList};
 
 Route::middleware('auth:sanctum')->group(function () {
 
-
-
     Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
-
 
     Route::get('/settings', [SettingsController::class, "index"])->name('admin.settings');
 
@@ -35,8 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::get('/', [DashboardController::class, "index"])->name('admin.home');
-
+    Route::get('/', Dashboard::class)->name('admin.home');
 
     // Estatisticas
 
@@ -44,13 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/estatisticas', [StatisticsController::class, "index"])->name('admin.estatisticas');
 
 
-
-    Route::get('/shoppingList', \App\Livewire\ShoppingList::class)->name('admin.shoppinglist');
-
-    Route::POST('/shoppingList/add', [ShoppingListController::class, "entradaLista"])->name('admin.shoppinglist.add');
-
-    Route::delete('/shoppingList/{id}', [ShoppingListController::class, "destroy"])->name('order.shop.destroy');
-
+    Route::get('/shoppingList', ShoppingList::class)->name('admin.shoppinglist');
 
 
 
