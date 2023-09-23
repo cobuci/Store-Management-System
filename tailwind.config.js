@@ -9,7 +9,6 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/**/*.js",
-        "./resources/**/*.vue",
         "./vendor/wireui/wireui/resources/**/*.blade.php",
         "./vendor/wireui/wireui/ts/**/*.ts",
         "./vendor/wireui/wireui/src/View/**/*.php",

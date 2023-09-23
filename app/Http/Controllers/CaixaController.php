@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Caixa;
-use App\Models\Financa;
+use App\Models\Finance;
 use App\Models\Product;
 
 class CaixaController extends Controller
@@ -19,7 +19,7 @@ class CaixaController extends Controller
         $investimento = $caixa[1]->saldo;
         $meta = $caixa[2]->meta;
 
-        $financas = Financa::latest("id")->paginate(10)->onEachSide(1);
+        $financas = Finance::latest("id")->paginate(10)->onEachSide(1);
 
         return view('admin.financas', [
             'saldo' => $saldo,
@@ -62,7 +62,7 @@ class CaixaController extends Controller
         $saldo->save();
     }
 
-    public static function adicionarSaldo($valorEntrada)
+    public static function addBalance($valorEntrada)
     {
         $saldo = Caixa::find(1);
         $saldo->saldo += $valorEntrada;

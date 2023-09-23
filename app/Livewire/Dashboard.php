@@ -82,13 +82,14 @@ class Dashboard extends Component
     }
     public function calculateGoalMonthPercentage(): string
     {
+        $percent = 0;
         try {
             $percent = ($this->salesMonth / $this->goal) * 100;
         } catch (DivisionByZeroError $e) {
             $percentage = 0;
         }
 
-        return number_format($percent, 2);
+        return number_format($percent, 2) ;
     }
     public function getLastSaleDay($date = 0)
     {
@@ -189,7 +190,7 @@ class Dashboard extends Component
             ->groupBy('year', 'month')
             ->orderBy('id', 'desc')
             ->get();
-        return $sales[$date]->total_price ?? $result = null;
+        return $sales[$date]->total_price ?? $result = 0;
     }
     public function getSalesCostForLastMonth($date = 0)
     {

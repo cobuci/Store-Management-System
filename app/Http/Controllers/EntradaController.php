@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Historico;
+use App\Models\History;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,9 +73,9 @@ class EntradaController extends Controller
             $valorRemovido = $request->amount * $request->cost;
         }
 
-        FinancaController::adicionarCompra($request->product, $valorRemovido, $request->amount);
+        FinanceController::adicionarCompra($request->product, $valorRemovido, $request->amount);
         CaixaController::removerSaldo($valorRemovido);
-        HistoryController::adicionar("ENTRADA", "Compra de ($request->amount - $product->name )");
+        HistoryController::addToHistory("ENTRADA", "Compra de ($request->amount - $product->name )");
 
         return redirect()->route('admin.inventory');
     }

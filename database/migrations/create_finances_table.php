@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historicos', function (Blueprint $table) {
+        Schema::create('finances', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
-            $table->string('descricao');
-            $table->timestamp('data');
+            $table->integer('product_id');
+            $table->integer('product_amount');
+            $table->decimal('value',10);
+            $table->string('description');
+            $table->string('type');
+            $table->timestamp('date');
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historicos');
+        Schema::drop('finances');
     }
 };

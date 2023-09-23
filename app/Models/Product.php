@@ -23,6 +23,7 @@ class Product extends Model
         return $this->belongsTo(Category::class );
     }
 
+
     use HasFactory;
     public $timestamps = false;
 }

@@ -102,7 +102,7 @@ class OrderController extends Controller
             $paramsOrder->product_id = $product_id;
             $paramsOrder->amount = $amount_input;
 
-            ProductController::removerEstoque($product_id,  $amount_input);
+            ProductController::removeStock($product_id,  $amount_input);
             OrderController::newOrder($paramsOrder);
 
         }
@@ -136,8 +136,8 @@ class OrderController extends Controller
 
         Order::where('order_id', $sale->order_id)->delete();
 
-        HistoryController::adicionar("CANCELAMENTO", "Cancelamento da venda #$sale->id");
-        FinancaController::cancelarVenda($sale->id, $sale->price);
+        HistoryController::addToHistory("CANCELAMENTO", "Cancelamento da venda #$sale->id");
+        FinanceController::cancelarVenda($sale->id, $sale->price);
 
         $sale->delete();
         return back();
@@ -179,13 +179,13 @@ class OrderController extends Controller
 
         Sale::create($params);
 
-        CaixaController::adicionarSaldo($params['price']);
-        FinancaController::adicionarVenda($params['price'], $params['order_id']);
-        HistoryController::adicionar("VENDA", "Nova venda realizada ");
+        CaixaController::addBalance($params['price']);
+        FinanceController::addSale($params['price']);
+        HistoryController::addToHistory("VENDA", "Nova venda realizada ");
     }
 
 
-    public function newOrder($params)
+    public static function newOrder($params)
     {
         $params = get_object_vars($params);
 

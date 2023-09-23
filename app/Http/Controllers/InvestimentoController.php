@@ -20,8 +20,8 @@ class InvestimentoController extends Controller
         $investimento->save();
 
         CaixaController::removerInvestimento($request->valor);
-        CaixaController::adicionarSaldo($request->valor);
-        FinancaController::adicionarInvestimento($request->valor, $request->descricao, $request->data);
+        CaixaController::addBalance($request->valor);
+        FinanceController::adicionarInvestimento($request->valor, $request->descricao, $request->data);
         return redirect('/financas');
     }
 
@@ -38,7 +38,7 @@ class InvestimentoController extends Controller
 
         CaixaController::removerSaldo($request->valor);
         CaixaController::adicionarInvestimento($request->valor);
-        FinancaController::resgateInvestimento($request->valor, $request->descricao, $request->data);
+        FinanceController::resgateInvestimento($request->valor, $request->descricao, $request->data);
 
         return redirect('/financas');
     }

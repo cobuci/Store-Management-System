@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Venda extends Model
+class History extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
-  
 }

@@ -10,7 +10,7 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\InventoryController,
     Http\Controllers\EntradaController,
     Http\Controllers\StatisticsController,
-    Http\Controllers\FinancaController,
+    Http\Controllers\FinanceController,
     Http\Controllers\InvestimentoController,
     Http\Controllers\InvoiceController,
     Http\Controllers\ocPackController,
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::POST('/pack/close', [ocPackController::class, "closePack"])->name('admin.pack.close');
 
 
-    Route::get('/dashboard', [DashboardController::class, "index"])->name('admin.dashboard');
+    Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
 
     Route::POST('/dashboard/meta', [CaixaController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
@@ -71,7 +71,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
 
 
-    Route::delete('/financa/{id}', [FinancaController::class, "destroy"])->name('financa.destroy');
+    Route::delete('/financa/{id}', [FinanceController::class, "destroy"])->name('financa.destroy');
 
     // Produto
     Route::get('/load_prod_cat', [EntradaController::class, "load"])->name('load_prod_cat');
