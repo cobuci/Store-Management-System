@@ -1,7 +1,6 @@
 @extends('admin.master.layout')
 @section('title', 'Vender')
 @section('page-name', 'Vender')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 @section('content')
     <div class="col-sm-12 col-md-8 offset-md-2" style="border-style: none;">
         <div class="card bg-light shadow-lg col-md-12 col-sm-12"

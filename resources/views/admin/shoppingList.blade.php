@@ -6,7 +6,7 @@
         class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
         <x-notifications position="top-center"/>
         <div class="flex-1">
-            <x-input class="" icon="shopping-bag" label="Produto" placeholder="Produto" name="product"
+            <x-input icon="shopping-bag" label="Produto" placeholder="Produto" name="product"
                      wire:model="product"/>
             <x-inputs.number label="Quantidade" name="amount" wire:model="amount"/>
             <x-inputs.currency label="Custo" prefix="R$" thousands="." decimal="," wire:model="cost"/>
@@ -29,7 +29,6 @@
         </div>
 
         <div class="flex p-2">
-
             <ul class="grid w-[100%] gap-4 sm:grid-cols-1 md:grid-cols-2">
 
                 @foreach ($list as $item)
@@ -43,7 +42,6 @@
                             <span>R$ {{ $item->cost }} (un.) - {{$item->final_price}}(+{{$item->fee}}%)</span>
                             <span>Total: R$ {{ $item->final_price * $item->amount }}</span>
                         </div>
-
                     </li>
                 @endforeach
 

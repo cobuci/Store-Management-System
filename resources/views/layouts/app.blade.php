@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
 
     @livewireStyles
-    <wireui:scripts />
+    @wireUiScripts
     @vite(['resources/js/app.js',  'resources/css/app.css' ])
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('sale', 10)->nullable();
             $table->integer('amount');
             $table->date('expiration_date')->nullable();
-            $table->integer('category_id');
+            $table->foreignId('category_id')->references('id')->on('categories');
         });
     }
 

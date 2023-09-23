@@ -18,9 +18,10 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\SettingsController,
     Http\Controllers\ShoppingListController,
     Livewire\Dashboard,
+    Livewire\Sale,
     Livewire\ShoppingList};
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
 
@@ -110,9 +111,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/customer/{id}', [CustomerController::class, "put"])->name('customer.edit');
 
 
-    Route::get('/vender', function () {
-        return view('admin.vender');
-    })->name('admin.vender');
+    Route::get('/vender', Sale::class)->name('admin.vender');
 
 
 });
