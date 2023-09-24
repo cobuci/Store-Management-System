@@ -17,61 +17,60 @@ class CategorizeSeeder extends Seeder
     {
 
         DB::table('categories')->insert([
-            'nome' => "Água",
-            'classe' => "fas fa-solid fa-droplet",
+            'name' => "Água",
+            'icon' => "fas fa-solid fa-droplet",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Refrigerante",
-            'classe' => "fas fa-solid fa-whiskey-glass",
+            'name' => "Refrigerante",
+            'icon' => "fas fa-solid fa-whiskey-glass",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Energético",
-            'classe' => "fas fa-solid fa-bolt",
+            'name' => "Energético",
+            'icon' => "fas fa-solid fa-bolt",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Cervejas (caixa)",
-            'classe' => "fas fa-box",
+            'name' => "Cervejas (caixa)",
+            'icon' => "fas fa-box",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Cervejas (unidade)",
-            'classe' => "fas fa-beer",
+            'name' => "Cervejas (unidade)",
+            'icon' => "fas fa-beer",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Bebidas Alcoólicas",
-            'classe' => "fas fa-wine-bottle",
+            'name' => "Bebidas Alcoólicas",
+            'icon' => "fas fa-wine-bottle",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Vinhos",
-            'classe' => "fas fa-wine-glass-alt",
+            'name' => "Vinhos",
+            'icon' => "fas fa-wine-glass-alt",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Comidas",
-            'classe' => "fas fa-hamburger",
+            'name' => "Comidas",
+            'icon' => "fas fa-hamburger",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Kit",
-            'classe' => "fas fa-box-open",
+            'name' => "Kit",
+            'icon' => "fas fa-box-open",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Outros",
-            'classe' => "fas fa-barcode",
+            'name' => "Outros",
+            'icon' => "fas fa-barcode",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Bebidas",
-            'classe' => "fa-solid fa-martini-glass",
+            'name' => "Bebidas",
+            'icon' => "fa-solid fa-martini-glass",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Narguile",
-            'classe' => "fa-solid fa-smoking",
+            'name' => "Narguile",
+            'icon' => "fa-solid fa-smoking",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Gelo",
-
-            'classe' => "fa-solid fa-icicles",
+            'name' => "Gelo",
+            'icon' => "fa-solid fa-icicles",
         ]);
         DB::table('categories')->insert([
-            'nome' => "Doces",
-            'classe' => "fa-solid fa-candy-cane",
+            'name' => "Doces",
+            'icon' => "fa-solid fa-candy-cane",
         ]);
     }
 }

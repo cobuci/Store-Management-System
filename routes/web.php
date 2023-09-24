@@ -10,7 +10,7 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\InventoryController,
     Http\Controllers\EntradaController,
     Http\Controllers\StatisticsController,
-    Http\Controllers\FinancaController,
+    Http\Controllers\FinanceController,
     Http\Controllers\InvestimentoController,
     Http\Controllers\InvoiceController,
     Http\Controllers\ocPackController,
@@ -18,9 +18,12 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\SettingsController,
     Http\Controllers\ShoppingListController,
     Livewire\Dashboard,
+    Livewire\ProductAdd,
+    Livewire\ProductRegister,
+    Livewire\Sale,
     Livewire\ShoppingList};
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
 
@@ -51,7 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::POST('/pack/close', [ocPackController::class, "closePack"])->name('admin.pack.close');
 
 
-    Route::get('/dashboard', [DashboardController::class, "index"])->name('admin.dashboard');
+    Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
 
     Route::POST('/dashboard/meta', [CaixaController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
@@ -70,7 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::delete('/financa/{id}', [FinancaController::class, "destroy"])->name('financa.destroy');
+    Route::delete('/financa/{id}', [FinanceController::class, "destroy"])->name('financa.destroy');
 
     // Produto
     Route::get('/load_prod_cat', [EntradaController::class, "load"])->name('load_prod_cat');
@@ -83,11 +86,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Estoque
     //GET
-    Route::get('/cadastrar', [ProductController::class, "index"])->name('admin.cadastrar');
+    Route::get('/product/register', ProductRegister::class)->name('admin.product.register');
 
     Route::get('/inventory', [InventoryController::class, "index"])->name('admin.inventory');
 
-    Route::get('/entrada', [EntradaController::class, "index"])->name('admin.entrada');
+    Route::get('/product/add', ProductAdd::class)->name('admin.product.add');
 
 
     //POST
@@ -110,9 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/customer/{id}', [CustomerController::class, "put"])->name('customer.edit');
 
 
-    Route::get('/vender', function () {
-        return view('admin.vender');
-    })->name('admin.vender');
+    Route::get('/sale', Sale::class)->name('admin.sale');
 
 
 });

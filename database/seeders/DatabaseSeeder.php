@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
-use App\Models\Financa;
+use App\Models\Finance;
 use App\Models\Product;
 use Database\Factories\CustomerFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

@@ -37,6 +37,7 @@ class ShoppingList extends Component
         'cost.required' => 'O campo Custo é obrigatorio',
     ];
 
+
     public function deleteDialog(string $id): void
     {
         $product = Shopping::find($id);

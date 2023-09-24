@@ -1,67 +1,40 @@
-@extends('admin.master.layout')
 @section('title', 'Cadastrar Produto')
-@section('page-name', 'Cadastrar Produto')
+<div class="flex flex-col">
 
-@section('content')
-    <div class="container">
-        <div class="row" style="margin-bottom: 10px;">
-            <div class="col-sm-12 col-md-6 offset-md-3" style="border-style: none">
-                <div class="card bg-light shadow-lg col-md-12 col-sm-12"
-                     style="border-radius: 22px;background: #3d3d3d;color: rgb(238, 238, 238);border-style: none;border-color: var(--bs-purple);">
-                    <div class="card-body shadow-sm"
-                         style="background: #3d3d3d;border-radius: 10px;border-color: rgba(255, 255, 255, 0);">
-                        @include('admin.master.alertaErro')
-                        <form method="post" action=" {{ route('admin.product.new')}}">
-                            @csrf
-                            <h4 class="text-center" style="color: rgba(246, 247, 248, 0.86)">
-                                Dados
-                            </h4>
-                            <label for="category_id">Categoria</label>
-                            <select class="form-select text-light bg-dark" id="category_id" required
-                                    style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                    name="category_id">
-                                <optgroup label="Categoria">
-                                    <option disabled selected value="">Categoria</option>
-                                    @foreach (Category::show() as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                            <label for="name">Nome</label>
-                            <input class="form-control " type="text" id="name" placeholder="Nome (*)"
-                                   name="name" required
-                                   style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"/>
-                            <label for="brand">Marca</label>
-                            <input class="form-control" type="text" id="brand" placeholder="Marca" name="brand"
-                                   style="color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);"
-                            />
-                            <label for="weight">Peso</label>
-                            <input class="form-control" type="text" id="weight" placeholder="Unidade (*)" required
-                                   name="weight"
-                                   style="background: rgba(255, 255, 255, 0);color: var(--bs-white);border-radius: 10px;margin-bottom: 10px;border-color: rgba(255, 255, 255, 0.17);"
-                                   inputmode="numeric"/>
-                            <label for="weight_type">Tipo do peso</label>
-                            <select class="form-select text-light bg-dark" id="weight_type"
-                                    style="border-radius: 10px;margin-bottom: 10px;background: rgba(255, 255, 255, 0);border-color: rgba(255, 255, 255, 0.17);color:rgb(0, 0, 0);"
-                                    name="weight_type">
-                                <optgroup label="Unidade">
-                                    <option value="ml">Mililitros</option>
-                                    <option value="L">Litros</option>
-                                    <option value="g">Gramas</option>
-                                    <option value="KG">Kg</option>
-                                    <option value="un">Unidade</option>
-                                </optgroup>
-                            </select>
-                            <button class="btn btn-outline-light shadow-sm float-end" data-bs-toggle="tooltip"
-                                    data-bss-tooltip="" data-bs-placement="bottom" type="submit"
-                                    style="border-radius: 10px; margin-top: 10px" title="Cadastrar">
-                                Cadastrar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <h1 class="grid justify-items-center font-bold text-2xl mb-6"> Cadastrar Produto </h1>
+    <div
+        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-1">
+
+        <div class="flex-1">
+            <x-select
+                label="Categoria (*)"
+                :options="$categories"
+                option-label="name"
+                option-value="id"
+                wire:model="category_id"
+                name="categoria"
+                placeholder="Selecione a categoria"
+            />
+
+            <x-input icon="shopping-bag" label="Nome do Produto (*)" placeholder="Produto" name="product"
+                     wire:model="name"/>
+
+            <x-input icon="briefcase" label="Marca" placeholder="Marca" name="brand" wire:model="brand"/>
+            <x-input icon="scale" label="Unidade peso (*)" placeholder="Peso" name="weight" wire:model="weight"/>
+            <x-select label="Tipo peso" placeholder="Selecione o tipo do peso"
+                      :options="[
+                        ['name' => 'Mililitros', 'value'=>'ml'],
+                        ['name' => 'Litros', 'value'=>'l'],
+                        ['name' => 'Gramas', 'value'=>'g'],
+                        ['name' => 'Kilogramas', 'value'=>'kg'],
+                        ['name' => 'Unidade', 'value'=>'un'],
+                 ]"
+                      option-label="name"
+                      wire:model="weight_type"
+                      option-value="value"/>
+            <x-button class="my-4 w-full" icon="check" squared positive label="Cadastrar" wire:click="store"/>
+
         </div>
-    </div>
 
-@endsection
+    </div>
+</div>

@@ -11,6 +11,14 @@ class ProductController extends Controller
 {
 
 
+    public static function averageCost(mixed $product_id, mixed $cost, mixed $amount)
+    {
+        $product = Product::find($product_id);
+        $product->cost = ($product->cost * $product->amount + $cost * $amount) / ($product->amount + $amount);
+        $product->save();
+        return $product->cost;
+    }
+
     public function index()
     {
         return view('admin.product_register');
@@ -29,7 +37,7 @@ class ProductController extends Controller
 
         $history = "Edição do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $product->weight . ")";
 
-        HistoryController::adicionar("EDIÇÃO", $history);
+        HistoryController::addToHistory("EDIÇÃO", $history);
         $product->update($request);
         return  redirect()->route('admin.inventory');
     }
@@ -38,7 +46,7 @@ class ProductController extends Controller
     {
         if ($product = Product::find($id)) {
             $product->delete();
-            HistoryController::adicionar("APAGAR", "O Produto $product->name -  $product->weight - $product->brand foi excluido ");
+            HistoryController::addToHistory("APAGAR", "O Produto $product->name -  $product->weight - $product->brand foi excluido ");
         }
         return redirect()->route('admin.inventory');
     }
@@ -50,7 +58,7 @@ class ProductController extends Controller
         return $prod->orderBy('name')->get();
     }
 
-    public static function removerEstoque($id, $amount)
+    public static function removeStock($id, $amount)
     {
         $produto = Product::find($id);
         $produto->amount -= $amount;
@@ -74,7 +82,7 @@ class ProductController extends Controller
 
         $history = "Cadastro do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $request['weight'] . ")";
 
-        HistoryController::adicionar("CADASTRO", $history);
+        HistoryController::addToHistory("CADASTRO", $history);
         return redirect()->route('admin.inventory');
     }
 

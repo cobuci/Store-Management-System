@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('financas', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->decimal('valor',10);
-            $table->integer('id_produto');
-            $table->integer('quantidade');
-            $table->string('descricao');
-            $table->string('tipo');
-            $table->timestamp('data');
+            $table->string('type');
+            $table->string('description');
+            $table->timestamp('date');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('financas');
+        Schema::dropIfExists('histories');
     }
 };

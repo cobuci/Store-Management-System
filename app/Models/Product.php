@@ -18,6 +18,12 @@ class Product extends Model
         'category_id'
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class );
+    }
+
+
     use HasFactory;
     public $timestamps = false;
 }

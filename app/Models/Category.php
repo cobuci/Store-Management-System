@@ -7,5 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public static function show()
+    {
+        return Category::select('id', 'name')
+            ->orderBy('name')
+            ->get();
+    }
+
     use HasFactory;
 }

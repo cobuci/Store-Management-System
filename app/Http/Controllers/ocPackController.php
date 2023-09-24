@@ -26,7 +26,7 @@ class ocPackController extends Controller
         $selecPack->save();
 
 
-        HistoryController::adicionar("PACK", "Trocou $request->qtProd caixas de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget un. de $prodTarg->marca ($prodTarg->peso)");
+        HistoryController::addToHistory("PACK", "Trocou $request->qtProd caixas de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget un. de $prodTarg->marca ($prodTarg->peso)");
 
         return redirect('/historico');
     }
@@ -44,7 +44,7 @@ class ocPackController extends Controller
         $selecPack->save();
 
 
-        HistoryController::adicionar("PACK", "Trocou $request->qtProd un. de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget caixas de $prodTarg->marca ($prodTarg->peso) ");
+        HistoryController::addToHistory("PACK", "Trocou $request->qtProd un. de $selecPack->marca ($selecPack->peso) por $request->qtProdTarget caixas de $prodTarg->marca ($prodTarg->peso) ");
 
 
         return redirect('/historico');
