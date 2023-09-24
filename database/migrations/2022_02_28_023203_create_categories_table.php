@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('classe');
+            $table->string('name');
+            $table->string('icon');
         });
     }
 

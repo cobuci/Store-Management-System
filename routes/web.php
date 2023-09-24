@@ -18,6 +18,8 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\SettingsController,
     Http\Controllers\ShoppingListController,
     Livewire\Dashboard,
+    Livewire\ProductAdd,
+    Livewire\ProductRegister,
     Livewire\Sale,
     Livewire\ShoppingList};
 
@@ -84,11 +86,11 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     // Estoque
     //GET
-    Route::get('/cadastrar', [ProductController::class, "index"])->name('admin.cadastrar');
+    Route::get('/product/register', ProductRegister::class)->name('admin.product.register');
 
     Route::get('/inventory', [InventoryController::class, "index"])->name('admin.inventory');
 
-    Route::get('/entrada', [EntradaController::class, "index"])->name('admin.entrada');
+    Route::get('/product/add', ProductAdd::class)->name('admin.product.add');
 
 
     //POST
@@ -111,7 +113,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::put('/customer/{id}', [CustomerController::class, "put"])->name('customer.edit');
 
 
-    Route::get('/vender', Sale::class)->name('admin.vender');
+    Route::get('/sale', Sale::class)->name('admin.sale');
 
 
 });

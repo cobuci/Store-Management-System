@@ -11,6 +11,14 @@ class ProductController extends Controller
 {
 
 
+    public static function averageCost(mixed $product_id, mixed $cost, mixed $amount)
+    {
+        $product = Product::find($product_id);
+        $product->cost = ($product->cost * $product->amount + $cost * $amount) / ($product->amount + $amount);
+        $product->save();
+        return $product->cost;
+    }
+
     public function index()
     {
         return view('admin.product_register');

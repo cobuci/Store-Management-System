@@ -67,7 +67,7 @@
             </li>
             <li class="relative">
                 <a class="a-hover a-active flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-400 outline-none transition duration-300 ease-linear motion-reduce:transition-none"
-                   href="{{ route('admin.cadastrar') }}">
+                   href="{{ route('admin.product.register') }}">
           <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
             <i data-feather="plus-square"></i>
           </span>
@@ -76,7 +76,7 @@
             </li>
             <li class="relative">
                 <a class="a-hover a-active flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-400 outline-none transition duration-300 ease-linear motion-reduce:transition-none"
-                   href="{{ route('admin.entrada') }}">
+                   href="{{ route('admin.product.add') }}">
           <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
             <i data-feather="plus-circle"></i>
           </span>
@@ -99,7 +99,7 @@
             </li>
             <li class="relative">
                 <a class="a-hover a-active flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-400 outline-none transition duration-300 ease-linear motion-reduce:transition-none"
-                   href="{{ route('admin.vender') }}">
+                   href="{{ route('admin.sale') }}">
           <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
             <i data-feather="shopping-cart"></i>
           </span>
@@ -150,7 +150,9 @@
             </li>
         </ul>
     </nav>
-    <div class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da]  dark:bg-gray-800  dark:text-white !pl-[240px]" id="content">
+    <div
+        class="flex min-h-screen w-screen flex-col overflow-hidden bg-[#ced4da]  dark:bg-gray-800  dark:text-white !pl-[240px]"
+        id="content">
         <header class="bg-white w-full drop-shadow-lg dark:bg-gray-800 dark:border-gray-700  z-[1035] ">
             <nav class="px-7 py-3 ">
 
@@ -161,7 +163,7 @@
                 </button>
                 {{-- Menu --}}
                 <div class="float-right">
-                    <x-dropdown >
+                    <x-dropdown>
                         <x-slot name="trigger">
                             <i data-feather="settings" class="w-auto h-auto"></i>
                         </x-slot>
@@ -169,12 +171,12 @@
                         <x-dropdown.header label="Settings">
                             <x-dropdown.item icon="moon" class="dark-toogle">
                                 Dark mode
-                            </x-dropdown.item >
+                            </x-dropdown.item>
                             <x-dropdown.item icon="cog" label="Preferences" href="{{ route('admin.settings') }}"/>
                             <x-dropdown.item icon="user" label="History"/>
                         </x-dropdown.header>
 
-                        <x-dropdown.item separator />
+                        <x-dropdown.item separator/>
 
                         <form method="POST" action="{{ route('logout') }}" x-data>
                             @csrf
@@ -188,7 +190,7 @@
 
         <div class="flex p-12 justify-center">
 
-            <x-dialog z-index="z-50" blur="md" align="center" />
+            <x-dialog z-index="z-50" blur="md" align="center"/>
             @yield('content')
 
         </div>

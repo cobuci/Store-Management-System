@@ -15,7 +15,10 @@ class Category extends Model
 
     public static function show()
     {
-        return Category::all();
+        return Category::select('id', 'name')
+            ->orderBy('name')
+            ->get();
     }
+
     use HasFactory;
 }
