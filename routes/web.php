@@ -17,6 +17,7 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\OrderController,
     Http\Controllers\SettingsController,
     Http\Controllers\ShoppingListController,
+    Livewire\CustomerRegister,
     Livewire\Dashboard,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
@@ -102,7 +103,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/customer', [CustomerController::class, "index"])->name('admin.customer');
     Route::get('/searchCustomer', [CustomerController::class, "search"])->name('customer.search');
-    Route::get('/customer/register', [CustomerController::class, "register"])->name('admin.customer.register');
+    Route::get('/customer/register', CustomerRegister::class)->name('admin.customer.register');
     Route::post('/customer/store', [CustomerController::class, "store"])->name('admin.customer.store');
     Route::get('/customer/{id}', [CustomerController::class, "show"])->name('admin.customer.profile');
 

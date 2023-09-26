@@ -72,7 +72,6 @@ class ProductAdd extends Component
 
     public function render()
     {
-
         return view('admin.product_add');
     }
 }
