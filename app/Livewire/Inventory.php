@@ -85,6 +85,7 @@ class Inventory extends Component
     public function deleteProduct($id)
     {
         Product::find($id)->delete();
+        $this->products = Product::all();
         $this->notification()->success('Produto excluído com sucesso!');
     }
 
