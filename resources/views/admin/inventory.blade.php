@@ -1,10 +1,22 @@
 @section('title', 'Estoque')
 <div class="w-[100%]">
     <x-notifications position="top-center" z-index="z-[1036]"/>
-    <div class="flex flex-col overflow-x-auto w-[100%] border-2 border-black rounded-t-lg">
+    <div
+        class="flex flex-wrap w-full p-4 min-w-fit bg-white/[0.8] dark:bg-gray-900 rounded-lg border-2 border-black justify-between">
+       <span class="flex flex-nowrap font-medium">
+             Custo Total: R$ {{ $total_cost}}
+        </span>
+        <span class="flex flex-nowrap font-medium">
+            Venda Total: R$ {{ $total_sale}}
+       </span>
+        <span class="flex flex-nowrap font-medium">
+           Lucro Total: R$ {{ $total_profit}}
+       </span>
 
+    </div>
+    <div class="flex flex-col overflow-x-auto w-[100%] min-w-fit border-2 border-black rounded-t-lg mt-6">
         <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: false }">
-            <div class="p-2 cursor-pointer" @click="open = ! open">
+            <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                 <i class="fa fa-history text-xl mx-2"> </i>
                 <span class="font-bold text-xl">Ultimos Produtos Cadastrados</span>
             </div>
@@ -25,49 +37,31 @@
                     </tr>
                     </thead>
                     <tbody class="dark:bg-gray-700">
-                    <tr class="border-b">
-                        <td class="whitespace-nowrap px-2 py-4">32</td>
-                        <td class="whitespace-nowrap px-2 py-4">Coca - cola</td>
-                        <td class="whitespace-nowrap px-2 py-4">Pepsico</td>
-                        <td class="whitespace-nowrap px-2 py-4">320ml</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 10.99</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 20.90</td>
-                        <td class="whitespace-nowrap px-2 py-4">320</td>
-                        <td class="whitespace-nowrap px-2 py-4">31/12/2021</td>
-                        <td class="whitespace-nowrap px-2 py-4">EXCLUIR</td>
-                        <td class="whitespace-nowrap px-2 py-4">EDITAR</td>
+                        @foreach($lastProducts as $product)
+                    <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->id}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->name}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->brand}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->weight}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">R$ {{$product->cost}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">R$ {{$product->sale}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->amount}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">{{$product->expiration_date}}</td>
+                        <td class="whitespace-nowrap px-2 py-4">
+                            <x-button info label="Editar"/>
+                        </td>
+                        <td class="whitespace-nowrap px-2 py-4">
+                            <x-button negative label="Excluir" wire:click="deleteDialog({{$product->id}})"/>
+                        </td>
                     </tr>
-                    <tr class="border-b">
-                        <td class="whitespace-nowrap px-2 py-4">32</td>
-                        <td class="whitespace-nowrap px-2 py-4">Coca - cola</td>
-                        <td class="whitespace-nowrap px-2 py-4">Pepsico</td>
-                        <td class="whitespace-nowrap px-2 py-4">320ml</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 10.99</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 20.90</td>
-                        <td class="whitespace-nowrap px-2 py-4">320</td>
-                        <td class="whitespace-nowrap px-2 py-4">31/12/2021</td>
-                        <td class="whitespace-nowrap px-2 py-4">EXCLUIR</td>
-                        <td class="whitespace-nowrap px-2 py-4">EDITAR</td>
-                    </tr>
-                    <tr class="border-b">
-                        <td class="whitespace-nowrap px-2 py-4">32</td>
-                        <td class="whitespace-nowrap px-2 py-4">Coca - cola</td>
-                        <td class="whitespace-nowrap px-2 py-4">Pepsico</td>
-                        <td class="whitespace-nowrap px-2 py-4">320ml</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 10.99</td>
-                        <td class="whitespace-nowrap px-2 py-4">R$ 20.90</td>
-                        <td class="whitespace-nowrap px-2 py-4">320</td>
-                        <td class="whitespace-nowrap px-2 py-4">31/12/2021</td>
-                        <td class="whitespace-nowrap px-2 py-4">EXCLUIR</td>
-                        <td class="whitespace-nowrap px-2 py-4">EDITAR</td>
-                    </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-        @foreach($categories as $category)
 
-            <div class="bg-white/[0.8] dark:bg-gray-900 min-w-fit  " x-data="{ open: false }">
+        @foreach($categories as $category)
+            <div class="bg-white/[0.8] dark:bg-gray-900 w-full border-t-2" x-data="{ open: false }">
                 <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                     <i class="{{$category->icon}} text-xl mx-2"> </i>
                     <span class="font-bold text-xl">{{ $category->name }}</span>
@@ -92,13 +86,13 @@
 
                         @foreach ($category->products as $product)
 
-                            <tr class="border-b">
+                            <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->id}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->name}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->brand}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->weight}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->cost}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->sale}}</td>
+                                <td class="whitespace-nowrap px-2 py-4">R$ {{$product->cost}}</td>
+                                <td class="whitespace-nowrap px-2 py-4">R$ {{$product->sale}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->amount}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">{{$product->expiration_date}}</td>
                                 <td class="whitespace-nowrap px-2 py-4">
