@@ -72,5 +72,21 @@ class CategorizeSeeder extends Seeder
             'name' => "Doces",
             'icon' => "fa-solid fa-candy-cane",
         ]);
+        DB::table('categories')->insert([
+            'name' => "Salgadinho",
+            'icon' => "fa-solid fa-cookie-bite",
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Vodka",
+            'icon' => "fas fa-wine-bottle",
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Gin",
+            'icon' => "fas fa-martini-glass-empty",
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Whisky",
+            'icon' => "fa-solid fa-whiskey-glass",
+        ]);
     }
 }

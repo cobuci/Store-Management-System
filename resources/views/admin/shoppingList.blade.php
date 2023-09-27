@@ -4,7 +4,7 @@
     <h1 class="grid justify-items-center font-bold text-2xl mb-6"> Lista de Compras</h1>
     <div
         class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
-        <x-notifications position="top-center"/>
+        <x-notifications position="top-center"  z-index="z-[1036]"/>
         <div class="flex-1">
             <x-input icon="shopping-bag" label="Produto" placeholder="Produto" name="product"
                      wire:model="product"/>

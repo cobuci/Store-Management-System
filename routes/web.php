@@ -19,6 +19,7 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\ShoppingListController,
     Livewire\CustomerRegister,
     Livewire\Dashboard,
+    Livewire\Inventory,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
     Livewire\Sale,
@@ -89,7 +90,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     //GET
     Route::get('/product/register', ProductRegister::class)->name('admin.product.register');
 
-    Route::get('/inventory', [InventoryController::class, "index"])->name('admin.inventory');
+    Route::get('/inventory', Inventory::class)->name('admin.inventory');
 
     Route::get('/product/add', ProductAdd::class)->name('admin.product.add');
 
