@@ -45,7 +45,7 @@ class Dashboard extends Component
     public function changeGoal()
     {
         $goalFind = Cashier::find(3);
-        $goalFind->saldo = $this->goal;
+        $goalFind->balance = $this->goal;
         $goalFind->save();
         $this->notification()->success(
             title: 'Valor da meta atualizado com sucesso!',
