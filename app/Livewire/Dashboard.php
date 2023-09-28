@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Http\Controllers\CaixaController;
-use App\Models\Caixa;
+use App\Http\Controllers\CashierController;
+use App\Models\Cashier;
 use App\Models\Sale;
 use DivisionByZeroError;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +44,7 @@ class Dashboard extends Component
     }
     public function changeGoal()
     {
-        $goalFind = Caixa::find(4);
+        $goalFind = Cashier::find(3);
         $goalFind->saldo = $this->goal;
         $goalFind->save();
         $this->notification()->success(
@@ -225,8 +225,8 @@ class Dashboard extends Component
     {
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
         $this->monthsChart = $getConfig->monthsChart->value;
-        $this->goal = CaixaController::meta();
-        $this->balance = CaixaController::saldo();
+        $this->goal = CashierController::goal();
+        $this->balance = CashierController::balance();
         $this->month = $this->checkMonth($this->getLastSaleMonth());
         $this->salesToday = $this->getSalesIncomeForLastDays();
         $this->salesMonth = $this->getSalesIncomeForLastMonth();

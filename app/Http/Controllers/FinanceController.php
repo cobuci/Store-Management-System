@@ -34,19 +34,18 @@ class FinanceController extends Controller
         $finance->save();
     }
 
-    public static function adicionarCompra($product, $sale, $amount)
+    public static function addProductInventory($product, $value, $amount)
     {
         $product = Product::find($product);
-        $finance = new Finance();
 
-        $descriptor = "Compra de ($amount - $product->name - $product->brand - $product->weight)";
-        $finance->id_produto = $product->id;
-        $finance->quantidade = $amount;
-        $finance->valor = $sale;
-        $finance->descricao = $descriptor;
-        $finance->tipo = "SAIDA";
-
-        $finance->save();
+        Finance::create([
+            'product_id' => $product->id,
+            'product_amount' => $amount,
+            'value' => $value,
+            'description' => "Compra de ($amount - $product->name - $product->brand - $product->weight)",
+            'type' => "wd",
+            'date' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
     }
 
     public static function adicionarInvestimento($valor, $descricao, $data)
@@ -81,21 +80,21 @@ class FinanceController extends Controller
             if ($financa->id_produto != 0) {
                 ProductController::removeStock($financa->id_produto, $financa->quantidade);
             }
-            CaixaController::addBalance($financa->valor);
+            CashierController::addBalance($financa->valor);
             $financa->delete();
         }
         if ($financa->tipo == "RESGATE") {
 
-            CaixaController::addBalance($financa->valor);
-            CaixaController::removerInvestimento($financa->valor);
+            CashierController::addBalance($financa->valor);
+            CashierController::removerInvestimento($financa->valor);
 
             $financa->delete();
         }
 
         if ($financa->tipo == "INVESTIMENTO") {
 
-            CaixaController::removerSaldo($financa->valor);
-            CaixaController::adicionarInvestimento($financa->valor);
+            CashierController::withdrawBalance($financa->valor);
+            CashierController::adicionarInvestimento($financa->valor);
             $financa->delete();
         }
 

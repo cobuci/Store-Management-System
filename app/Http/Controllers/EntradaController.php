@@ -73,8 +73,8 @@ class EntradaController extends Controller
             $valorRemovido = $request->amount * $request->cost;
         }
 
-        FinanceController::adicionarCompra($request->product, $valorRemovido, $request->amount);
-        CaixaController::removerSaldo($valorRemovido);
+        FinanceController::addProductInventory($request->product, $valorRemovido, $request->amount);
+        CashierController::withdrawBalance($valorRemovido);
         HistoryController::addToHistory("ENTRADA", "Compra de ($request->amount - $product->name )");
 
         return redirect()->route('admin.inventory');

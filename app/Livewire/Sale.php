@@ -7,7 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Customer;
 use App\Models\Product;
-use App\{Http\Controllers\CaixaController,
+use App\{Http\Controllers\CashierController,
     Http\Controllers\FinanceController,
     Http\Controllers\HistoryController,
     Models\Sale as SaleModel
@@ -108,7 +108,7 @@ class Sale extends Component
             'payment_method' => $this->payment_method,
             'payment_status' => 0,
         ]);
-        CaixaController::addBalance($finalPrice);
+        CashierController::addBalance($finalPrice);
         FinanceController::addSale($finalPrice);
         HistoryController::addToHistory("txn", "Nova venda realizada ");
     }

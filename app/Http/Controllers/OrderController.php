@@ -132,7 +132,7 @@ class OrderController extends Controller
         }
         // Retirar saldo
 
-        CaixaController::removerSaldo($sale->price);
+        CashierController::withdrawBalance($sale->price);
 
         Order::where('order_id', $sale->order_id)->delete();
 
@@ -179,7 +179,7 @@ class OrderController extends Controller
 
         Sale::create($params);
 
-        CaixaController::addBalance($params['price']);
+        CashierController::addBalance($params['price']);
         FinanceController::addSale($params['price']);
         HistoryController::addToHistory("VENDA", "Nova venda realizada ");
     }

@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\CashierController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Livewire\Component;
@@ -62,8 +65,17 @@ class ProductAdd extends Component
         $product->expiration_date = $this->expiration_date;
         $product->save();
 
-//        $this->reset(['product', 'amount', 'cost', 'price']);
-        return redirect()->route('admin.inventory')->with('success', 'Produto adicionado com sucesso!')            ;
+        FinanceController::addProductInventory(
+            product: $this->product_id,
+            value: $this->cost * $this->amount,
+            amount: $this->amount
+        );
+
+        CashierController::withdrawBalance($this->cost * $this->amount);
+        HistoryController::addToHistory("ENTRADA", "Compra de ($this->amount - $product->name - $product->brand - $product->weight)");
+
+        $this->reset(['product', 'amount', 'cost', 'price']);
+        return redirect()->route('admin.inventory')->with('success', 'Produto adicionado com sucesso!');
 
     }
 
