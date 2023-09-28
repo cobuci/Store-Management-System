@@ -19,8 +19,8 @@ class InvestimentoController extends Controller
 
         $investimento->save();
 
-        CaixaController::removerInvestimento($request->valor);
-        CaixaController::addBalance($request->valor);
+        CashierController::removerInvestimento($request->valor);
+        CashierController::addBalance($request->valor);
         FinanceController::adicionarInvestimento($request->valor, $request->descricao, $request->data);
         return redirect('/financas');
     }
@@ -36,8 +36,8 @@ class InvestimentoController extends Controller
 
         $investimento->save();
 
-        CaixaController::removerSaldo($request->valor);
-        CaixaController::adicionarInvestimento($request->valor);
+        CashierController::withdrawBalance($request->valor);
+        CashierController::adicionarInvestimento($request->valor);
         FinanceController::resgateInvestimento($request->valor, $request->descricao, $request->data);
 
         return redirect('/financas');

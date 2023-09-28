@@ -1,9 +1,9 @@
 @section('title', 'Adicionar Produto')
-<div class="flex flex-col">
+<div class="flex flex-col w-full items-center">
 
     <h1 class="grid justify-items-center font-bold text-2xl mb-6">Adicionar Produto </h1>
     <div
-        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-1">
+        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-full max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
 
         <div class="flex-1">
             <x-select

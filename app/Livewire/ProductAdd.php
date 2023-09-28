@@ -2,12 +2,20 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\CashierController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Livewire\Component;
+use WireUi\Traits\Actions;
+
 
 class ProductAdd extends Component
 {
+
+    use Actions;
+
     public $products = [];
     public $product_id = '';
     public $amount = '';
@@ -39,11 +47,11 @@ class ProductAdd extends Component
         if ($this->amount != null && $this->cost != null) {
             $this->cost = $this->totalCost / $this->amount;
         }
-       $this->profit();
+        $this->profit();
 
     }
 
-    public function addProduct(): void
+    public function addProduct()
     {
         $this->validate();
         $product = Product::find($this->product_id);
@@ -57,7 +65,18 @@ class ProductAdd extends Component
         $product->expiration_date = $this->expiration_date;
         $product->save();
 
+        FinanceController::addProductInventory(
+            product: $this->product_id,
+            value: $this->cost * $this->amount,
+            amount: $this->amount
+        );
+
+        CashierController::withdrawBalance($this->cost * $this->amount);
+        HistoryController::addToHistory("ENTRADA", "Compra de ($this->amount - $product->name - $product->brand - $product->weight)");
+
         $this->reset(['product', 'amount', 'cost', 'price']);
+        return redirect()->route('admin.inventory')->with('success', 'Produto adicionado com sucesso!');
+
     }
 
     public function mount()
@@ -67,12 +86,11 @@ class ProductAdd extends Component
 
     public function profit()
     {
-        $this->profit = floatval($this->price) -floatval($this->cost);
+        $this->profit = floatval($this->price) - floatval($this->cost);
     }
 
     public function render()
     {
-
         return view('admin.product_add');
     }
 }

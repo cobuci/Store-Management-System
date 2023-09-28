@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $monthsChart = $getConfig->monthsChart->value;
 
         // Meta
-        $goal = CaixaController::meta();
+        $goal = CashierController::goal();
 
 
         return view('admin.dashboard', [
@@ -216,7 +216,7 @@ class DashboardController extends Controller
     public static function goalPercentage()
     {
         $current = DashboardController::salesMonth();
-        $goal =  CaixaController::meta();
+        $goal =  CashierController::goal();
 
         try {
             $percentage = ($current / $goal) * 100;

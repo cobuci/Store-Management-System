@@ -22,10 +22,9 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-
             SettingsSeeder::class,
             UserSeeder::class,
-            CaixaSeeder::class,
+            CashierSeeder::class,
             CategorizeSeeder::class,
         ]);
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\{Http\Controllers\CaixaController,
+use App\{Http\Controllers\CashierController,
     Http\Controllers\CustomerController,
     Http\Controllers\DashboardController,
     Http\Controllers\HistoryController,
@@ -17,9 +17,12 @@ use App\{Http\Controllers\CaixaController,
     Http\Controllers\OrderController,
     Http\Controllers\SettingsController,
     Http\Controllers\ShoppingListController,
+    Livewire\CustomerRegister,
     Livewire\Dashboard,
+    Livewire\Inventory,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
+    Livewire\Reports,
     Livewire\Sale,
     Livewire\ShoppingList};
 
@@ -56,13 +59,13 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
 
-    Route::POST('/dashboard/meta', [CaixaController::class, "definirMeta"])->name('admin.dashboard.meta');
+    Route::POST('/dashboard/meta', [CashierController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
 
-    Route::get('/financas', [CaixaController::class, "index"])->name('admin.financas');
+    Route::get('/financas', [CashierController::class, "index"])->name('admin.financas');
 
 
-    Route::get('/reports', [OrderController::class, "index"])->name('admin.reports');
+    Route::get('/reports', Reports::class)->name('admin.reports');
 
 
     Route::get('/historico', [HistoryController::class, "index"])->name('admin.historico');
@@ -88,7 +91,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     //GET
     Route::get('/product/register', ProductRegister::class)->name('admin.product.register');
 
-    Route::get('/inventory', [InventoryController::class, "index"])->name('admin.inventory');
+    Route::get('/inventory', Inventory::class)->name('admin.inventory');
 
     Route::get('/product/add', ProductAdd::class)->name('admin.product.add');
 
@@ -102,7 +105,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/customer', [CustomerController::class, "index"])->name('admin.customer');
     Route::get('/searchCustomer', [CustomerController::class, "search"])->name('customer.search');
-    Route::get('/customer/register', [CustomerController::class, "register"])->name('admin.customer.register');
+    Route::get('/customer/register', CustomerRegister::class)->name('admin.customer.register');
     Route::post('/customer/store', [CustomerController::class, "store"])->name('admin.customer.store');
     Route::get('/customer/{id}', [CustomerController::class, "show"])->name('admin.customer.profile');
 

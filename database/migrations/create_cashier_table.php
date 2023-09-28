@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('caixas', function (Blueprint $table) {
+        Schema::create('cashiers', function (Blueprint $table) {
             $table->id();
-            $table->decimal('saldo',10,2);
-            $table->string('descricao');
+            $table->decimal('balance',10,2);
+            $table->string('description');
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('caixas');
+        Schema::drop('cashiers');
     }
 };
