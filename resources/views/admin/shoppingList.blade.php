@@ -32,7 +32,7 @@
             <ul class="grid w-[100%] gap-4 sm:grid-cols-1 md:grid-cols-2">
 
                 @foreach ($list as $item)
-                    <li class="grid-span-1 h-18 min-w-fit  bg-white dark:bg-gray-900 rounded-lg p-3 shadow-lg"
+                    <li class="grid-span-1 h-18 min-w-fit cursor-pointer bg-white dark:bg-gray-900 rounded-lg p-3 shadow-lg"
                         wire:click="deleteDialog({{$item->id}})">
                         <div>
                             <span>{{ $item->amount }}x</span>
