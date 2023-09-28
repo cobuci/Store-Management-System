@@ -74,7 +74,7 @@ class Reports extends Component
                 'color' => 'negative',
             ],
             'reject' => [
-                'label' => 'Cancelar',
+                'label' => 'Fechar',
                 'color' => 'info',
             ],
         ]);
