@@ -82,7 +82,7 @@ class Sale extends Component
         $this->reset(['customer', 'discount', 'list']);
     }
 
-    public function storeSale($order_id): void
+    public function storeSale($order_id)
     {
 
         $fee = 1;
@@ -111,6 +111,8 @@ class Sale extends Component
         CashierController::addBalance($finalPrice);
         FinanceController::addSale($finalPrice);
         HistoryController::addToHistory("txn", "Nova venda realizada ");
+
+        return redirect()->route('admin.reports');
     }
 
     public function removeProduct($id): void

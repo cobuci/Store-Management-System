@@ -41,7 +41,7 @@ class ProductRegister extends Component
 
         Product::create($product);
 
-        $this->reset();
+        return redirect()->route('admin.inventory');
     }
 
     public function render()

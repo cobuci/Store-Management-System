@@ -117,7 +117,7 @@ class OrderController extends Controller
     }
 
 
-    public function destroy($id)
+    public static function destroy($id)
     {
 
         $sale = Sale::find($id);
@@ -137,7 +137,7 @@ class OrderController extends Controller
         Order::where('order_id', $sale->order_id)->delete();
 
         HistoryController::addToHistory("CANCELAMENTO", "Cancelamento da venda #$sale->id");
-        FinanceController::cancelarVenda($sale->id, $sale->price);
+        FinanceController::cancelSale($sale->id, $sale->price);
 
         $sale->delete();
         return back();

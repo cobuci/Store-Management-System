@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class, 'order_id', 'order_id');
+    }
     protected $fillable = [
         'id',
         'order_id',

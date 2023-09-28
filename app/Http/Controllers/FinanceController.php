@@ -20,18 +20,13 @@ class FinanceController extends Controller
         $finance->save();
     }
 
-    public static function cancelarVenda($id, $valor)
+    public static function cancelSale($id, $value)
     {
-
-        $finance = new Finance();
-        $descriptor = "Cancelamento da Venda #$id";
-
-        $finance->valor = $valor;
-        $finance->descricao = $descriptor;
-        $finance->tipo = "CANCELAMENTO";
-
-
-        $finance->save();
+        Finance::create([
+            'value' => $value,
+            'description' => "Cancelamento da Venda #$id",
+            'type' => "rev",
+        ]);
     }
 
     public static function addProductInventory($product, $value, $amount)

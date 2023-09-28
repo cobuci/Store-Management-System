@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use WireUi\Traits\Actions;
-use App\Http\Controllers\InventoryController as InventoryController;
 
 class Inventory extends Component
 {
@@ -133,7 +132,7 @@ class Inventory extends Component
     public function deleteProduct($id) : void
     {
         Product::find($id)->delete();
-        $this->products = Product::all();
+        $this->mount();
         $this->notification()->success('Produto excluído com sucesso!');
     }
 

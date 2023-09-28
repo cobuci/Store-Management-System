@@ -3,7 +3,7 @@
     <h1 class="grid justify-items-center font-bold text-2xl mb-6">Vender</h1>
 
     <div
-        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-1">
+        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-[100]">
         <div class="flex-1">
             <x-notifications position="top-center"/>
             <x-select
@@ -13,7 +13,8 @@
                 wire:model="product"
             >
                 @foreach ($products as $product)
-                    <x-select.option value="{{$product->id}}" label=" {{$product->amount}} - {{$product->name}} ({{$product->weight}})"
+                    <x-select.option value="{{$product->id}}"
+                                     label=" {{$product->amount}} - {{$product->name}} ({{$product->weight}})"
                                      description="{{$product->brand}}"/>
                 @endforeach
             </x-select>
@@ -27,12 +28,12 @@
     <div class="grid md:grid-cols-3">
         {{--    // Lista produtos--}}
         <div
-            class="md:col-span-2 flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-1">
+            class="md:col-span-2 flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl">
             <div class="flex-1 p-2">
                 <ul class="grid w-[100%] gap-4">
                     @foreach ($list as $key=>$item)
                         <li class="flex justify-between h-18 min-w-fit cursor-pointer  bg-white dark:bg-gray-900 rounded-lg shadow-lg"
-                        wire:click="removeProduct({{$key}})"  >
+                            wire:click="removeProduct({{$key}})">
 
                             <div class="p-2">
                                 <div>
@@ -57,10 +58,12 @@
 
         {{--    // Finalizar Venda --}}
         <div
-            class="flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-1">
+            class="flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl">
             <div class="flex-1 p-2">
-                <x-inputs.currency label="Desconto" prefix="R$" thousands="." decimal="," wire:model="discount" wire:change="calculateTotal"/>
-                <x-inputs.currency label="Valor Total" prefix="R$" thousands="." decimal="," wire:model="finalPrice" class="cursor-not-allowed"  disabled/>
+                <x-inputs.currency label="Desconto" prefix="R$" thousands="." decimal="," wire:model="discount"
+                                   wire:change="calculateTotal"/>
+                <x-inputs.currency label="Valor Total" prefix="R$" thousands="." decimal="," wire:model="finalPrice"
+                                   class="cursor-not-allowed" disabled/>
                 <x-select
                     label="Forma de pagamento"
                     :options="[
@@ -96,7 +99,7 @@
                     wire:model="customer"
                     name="customer"
                 />
-                <x-button class="w-full mt-4" positive label="Vender" wire:click="saveSale" />
+                <x-button class="w-full mt-4" positive label="Vender" wire:click="saveSale"/>
             </div>
         </div>
     </div>
