@@ -20,6 +20,27 @@ class Inventory extends Component
     public $total_cost = 0;
     public $total_sale = 0;
     public $total_profit = 0;
+    public $cardModal = false;
+
+    public $product = [
+        'id' => '',
+        'category_id' => '',
+        'name' => '',
+        'brand' => '',
+        'weight' => '',
+        'weight_type' => '',
+        'amount' => '',
+        'expiration_date' => '',
+        'cost' => '',
+        'sale' => '',
+    ];
+
+    protected $rules = [
+        'product.name' => 'required',
+        'product.brand' => 'required',
+        'product.weight' => 'required',
+        'product.weight_type' => 'required',
+    ];
 
     public function mount()
     {
@@ -31,6 +52,30 @@ class Inventory extends Component
         $this->total_sale = $this->saleValueTotal();
         $this->total_profit = $this->profitValue();
     }
+
+
+    public function modalCardEdit(string $id)
+    {
+        $this->cardModal = true;
+        $this->product = Product::find($id)->toArray();
+
+        $weight_type = preg_replace('/[^a-zA-Z]/', '',  $this->product['weight']);
+        $this->product['weight'] = preg_replace('/[^0-9]/', '',  $this->product['weight']);
+        $this->product['weight_type'] = $weight_type;
+        $this->product['cost'] = str_replace('.', ',', $this->product['cost']);
+        $this->product['sale'] = str_replace('.', ',', $this->product['sale']);
+    }
+
+  public function productEdit(){
+        $this->validate();
+        $this->product['weight'] = $this->product['weight'] . $this->product['weight_type'];
+        $this->product['cost'] = str_replace(',', '.', $this->product['cost']);
+        $this->product['sale'] = str_replace(',', '.', $this->product['sale']);
+        Product::find($this->product['id'])->update($this->product);
+        $this->cardModal = false;
+        $this->products = Product::all();
+        $this->notification()->success('Produto editado com sucesso!');
+  }
 
     public function costValueTotal()
     {

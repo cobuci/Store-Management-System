@@ -10,7 +10,7 @@ class Category extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class)->orderBy('name');
     }
 
     public static function show()
