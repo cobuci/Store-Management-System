@@ -17,9 +17,12 @@ class Inventory extends Component
 
     public $products = [];
     public $lastProducts = [];
-    public $total_cost = 0;
-    public $total_sale = 0;
-    public $total_profit = 0;
+
+    public $values = [
+        'cost' => 0,
+        'sale' => 0,
+        'profit' => 0,
+    ];
     public $cardModal = false;
 
     public $product = [
@@ -42,42 +45,42 @@ class Inventory extends Component
         'product.weight_type' => 'required',
     ];
 
-    public function mount()
+    public function mount() : void
     {
         $this->categories = Category::all();
         $this->categories_skip = json_decode(file_get_contents('../config/app_settings.json'))->stockSkipCategories;
         $this->products = Product::all();
         $this->lastProducts = $this->products->sortByDesc('id')->take(5);
-        $this->total_cost = $this->costValueTotal();
-        $this->total_sale = $this->saleValueTotal();
-        $this->total_profit = $this->profitValue();
+        $this->values['cost'] = $this->costValueTotal();
+        $this->values['sale'] = $this->saleValueTotal();
+        $this->values['profit'] = $this->profitValue();
     }
 
-
-    public function modalCardEdit(string $id)
+    public function modalCardEdit(string $id) : void
     {
         $this->cardModal = true;
         $this->product = Product::find($id)->toArray();
 
-        $weight_type = preg_replace('/[^a-zA-Z]/', '',  $this->product['weight']);
-        $this->product['weight'] = preg_replace('/[^0-9]/', '',  $this->product['weight']);
+        $weight_type = preg_replace('/[^a-zA-Z]/', '', $this->product['weight']);
+        $this->product['weight'] = preg_replace('/[^0-9]/', '', $this->product['weight']);
         $this->product['weight_type'] = $weight_type;
         $this->product['cost'] = str_replace('.', ',', $this->product['cost']);
         $this->product['sale'] = str_replace('.', ',', $this->product['sale']);
     }
 
-  public function productEdit(){
+    public function productEdit() : void
+    {
         $this->validate();
         $this->product['weight'] = $this->product['weight'] . $this->product['weight_type'];
         $this->product['cost'] = str_replace(',', '.', $this->product['cost']);
         $this->product['sale'] = str_replace(',', '.', $this->product['sale']);
         Product::find($this->product['id'])->update($this->product);
         $this->cardModal = false;
-        $this->products = Product::all();
-        $this->notification()->success('Produto editado com sucesso!');
-  }
 
-    public function costValueTotal()
+        $this->notification()->success('Produto editado com sucesso!');
+    }
+
+    public function costValueTotal() : string
     {
         $cost_value = 0;
         foreach ($this->products as $product) {
@@ -88,7 +91,7 @@ class Inventory extends Component
         return number_format($cost_value, 2);
     }
 
-    public function saleValueTotal()
+    public function saleValueTotal() : string
     {
         $sale_value = 0;
         foreach ($this->products as $product) {
@@ -99,7 +102,7 @@ class Inventory extends Component
         return number_format($sale_value, 2);
     }
 
-    public function profitValue()
+    public function profitValue() : string
     {
         $sale_value = floatval(str_replace(',', '', $this->saleValueTotal()));
         $cost_value = floatval(str_replace(',', '', $this->costValueTotal()));
@@ -127,7 +130,7 @@ class Inventory extends Component
 
     }
 
-    public function deleteProduct($id)
+    public function deleteProduct($id) : void
     {
         Product::find($id)->delete();
         $this->products = Product::all();
@@ -136,7 +139,6 @@ class Inventory extends Component
 
     public function render()
     {
-
         return view('admin.inventory');
     }
 }

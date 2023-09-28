@@ -9,13 +9,13 @@
     <div
         class="flex flex-wrap w-full p-4 min-w-fit bg-white/[0.8] dark:bg-gray-900 rounded-lg border-2 border-black justify-between">
        <span class="flex flex-nowrap font-medium">
-             Custo Total: R$ {{ $total_cost}}
+             Custo Total: R$ {{ $values['cost']}}
         </span>
         <span class="flex flex-nowrap font-medium">
-            Venda Total: R$ {{ $total_sale}}
+            Venda Total: R$ {{ $values['sale']}}
        </span>
         <span class="flex flex-nowrap font-medium">
-           Lucro Total: R$ {{ $total_profit}}
+           Lucro Total: R$ {{ $values['profit']}}
        </span>
 
     </div>
