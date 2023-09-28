@@ -88,7 +88,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Helper' => App\Helpers\Helper::class,
-        'Caixa' => App\Http\Controllers\CaixaController::class,
+        'Cashier' => App\Http\Controllers\CashierController::class,
         'Product' => App\Http\Controllers\ProductController::class,
         'Category' => App\Http\Controllers\CategoryController::class,
         'Customer' => App\Http\Controllers\CustomerController::class,

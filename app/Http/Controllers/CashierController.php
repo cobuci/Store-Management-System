@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Caixa;
+use App\Models\Cashier;
 use App\Models\Finance;
 use App\Models\Product;
 
-class CaixaController extends Controller
+class CashierController extends Controller
 {
 
 
-    public function index(Caixa $caixa)
+    public function index(Cashier $caixa)
     {
         $caixa = $caixa->all();
 
@@ -29,59 +29,57 @@ class CaixaController extends Controller
         ]);
     }
 
-    public static function saldo()
+    public static function balance()
     {
-        $caixa = new Caixa;
+        $caixa = new Cashier;
         $caixa = $caixa->all();
 
-        return $caixa[0]->saldo;
+        return $caixa[0]->balance;
     }
 
 
-    public static function meta()
+    public static function goal()
     {
-        $caixa = new Caixa;
+        $caixa = new Cashier;
         $caixa = $caixa->all();
 
-        return $caixa[2]->saldo;
+        return $caixa[2]->balance;
     }
 
 
     // Remover Saldos
-    public static function removerSaldo($valorEntrada)
+    public static function withdrawBalance($value)
     {
-        $saldo = Caixa::find(1);
-        $saldo->saldo -= $valorEntrada;
-        $saldo->save();
+        $cashier = Cashier::find(1);
+        $cashier->balance -= $value;
+        $cashier->save();
     }
 
     public static function removerInvestimento($valorEntrada)
     {
-        $saldo = Caixa::find(2);
-        $saldo->saldo -= $valorEntrada;
-        $saldo->save();
+        $cashier = Cashier::find(2);
+        $cashier->balance -= $valorEntrada;
+        $cashier->save();
     }
 
     public static function addBalance($valorEntrada)
     {
-        $saldo = Caixa::find(1);
-        $saldo->saldo += $valorEntrada;
-        $saldo->save();
+        $cashier = Cashier::find(1);
+        $cashier->balance += $valorEntrada;
+        $cashier->save();
     }
     public static function adicionarInvestimento($valorEntrada)
     {
 
-        $saldo = Caixa::find(2);
-        $saldo->saldo += $valorEntrada;
-        $saldo->save();
+        $cashier = Cashier::find(2);
+        $cashier->balance += $valorEntrada;
+        $cashier->save();
     }
     public static function definirMeta(Request $request)
     {
-        $saldo = Caixa::find(4);
-        $saldo->saldo = $request->valor;
-        $saldo->save();
-
-        return redirect('/dashboard');
+        $cashier = Cashier::find(3);
+        $cashier->balance = $request->valor;
+        $cashier->save();
     }
 
 }

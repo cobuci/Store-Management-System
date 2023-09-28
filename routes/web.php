@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\{Http\Controllers\CaixaController,
+use App\{Http\Controllers\CashierController,
     Http\Controllers\CustomerController,
     Http\Controllers\DashboardController,
     Http\Controllers\HistoryController,
@@ -22,6 +22,7 @@ use App\{Http\Controllers\CaixaController,
     Livewire\Inventory,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
+    Livewire\Reports,
     Livewire\Sale,
     Livewire\ShoppingList};
 
@@ -58,13 +59,13 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
 
-    Route::POST('/dashboard/meta', [CaixaController::class, "definirMeta"])->name('admin.dashboard.meta');
+    Route::POST('/dashboard/meta', [CashierController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
 
-    Route::get('/financas', [CaixaController::class, "index"])->name('admin.financas');
+    Route::get('/financas', [CashierController::class, "index"])->name('admin.financas');
 
 
-    Route::get('/reports', [OrderController::class, "index"])->name('admin.reports');
+    Route::get('/reports', Reports::class)->name('admin.reports');
 
 
     Route::get('/historico', [HistoryController::class, "index"])->name('admin.historico');
