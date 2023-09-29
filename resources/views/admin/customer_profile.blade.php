@@ -1,541 +1,186 @@
-@extends('admin.master.layout')
-@section('title', 'Perfil')
+@section('title', 'Perfil do cliente')
+<div class="w-full h-full">
+    <x-notifications position="top-center" z-index="z-[1400]" />
+    <div class="flex flex-wrap gap-5">
+        <div class="bg-gray-600 h-full min-h-fit w-auto min-w-fit p-4 rounded-lg">
 
-@section('content')
+            <div class="flex justify-center items-center mb-5 h-auto w-full">
+                {{ $customer['name'] }}
+            </div>
+            <x-input label="ID" wire:model="customer.id" disabled />
+            <x-input label="Nome" wire:model="customer.name" />
+            <x-select label="Sexo" placeholder="Selecione o sexo" :options="[['name' => 'Masculino', 'value' => 'Masculino'], ['name' => 'Feminino', 'value' => 'Feminino']]" option-label="name"
+                wire:model="customer.gender" option-value="value" />
+            <x-input label="Telefone" wire:model="customer.phone" />
+            <x-input label="Email" wire:model="customer.email" />
+            <x-input label="CEP" wire:model="customer.zipcode" />
+            <x-input label="Endereço" wire:model="customer.street" />
+            <x-input label="Número" wire:model="customer.number" />
+            <x-input label="Bairro" wire:model="customer.district" />
+            <x-button class="w-full mt-5" icon="check" squared positive label="Salvar" wire:click="update" />
+            <x-button class="w-full mt-5" icon="trash" squared red label="Excluir" wire:click="deleteModal" />
 
-    <div class="container">
-        <h1 class="text-center text-dark">{{ '#' . $customer->id . ' - ' . $customer->name }}</h1>
-        <div class="row" style="margin-top:20px; margin-bottom: 10px;">
-            <div class="col-sm-12 col-md-4 col-sm-12" style="margin-bottom: 10px;">
-                <div class="card col-md-12 col-sm-12"
-                     style="border-radius: 22px;background: rgb(61,61,61);color: rgb(238,238,238);height: 100%;">
-                    <div class="card-body shadow-sm">
-                        <div style="height: 26em; margin-bottom: 20px;" id="map"></div>
-                        {{-- Formulario --}}
-                        <form method="post" action=" {{ route('customer.edit', $customer->id) }}">
-                            @method('PUT')
-                            @csrf
-                            <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control text-light" type="text"
-                                       style="margin-bottom: 10px;width: 60%;margin-right: 10px;background: rgba(255,255,255,0);"
-                                       placeholder="Name" name="name" value="{{ $customer->name }}">
-                                <input class="form-control text-light" type="text"
-                                       style="margin-bottom: 10px;width: 40%;background: rgba(255,255,255,0);"
-                                       placeholder="Tel" name="phone" value="{{ $customer->phone }}">
-                            </div>
-                            <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control text-light" type="email"
-                                       style="margin-bottom: 10px;width: 100%;background: rgba(255,255,255,0);"
-                                       placeholder="E-mail" name="email" value="{{ $customer->email }}">
-                            </div>
-                            <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control text-light" type="text" id="zipcode"
-                                       style="margin-bottom: 10px;width: 30%;background: rgba(255,255,255,0);margin-right: 10px;"
-                                       placeholder="Zip" name="zipcode" value="{{ $customer->zipcode }}">
-                                <input class="form-control text-light" type="text" id="street"
-                                       style="margin-bottom: 10px;width: 70%;background: rgba(255,255,255,0);"
-                                       placeholder="Address" name="street" value="{{ $customer->street }}">
-                            </div>
-                            <div class="col-12 d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
-                                <input class="form-control text-light" type="text"
-                                       style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);margin-right: 10px;"
-                                       placeholder="N / AP" name="number" value="{{ $customer->number }}">
-                                <input class="form-control text-light" type="text" id="district"
-                                       style="margin-bottom: 10px;width: 50%;background: rgba(255,255,255,0);"
-                                       placeholder="Bairro" name="district" value="{{ $customer->district }}">
-                            </div>
-                            <div class="d-xl-flex d-xxl-flex justify-content-xl-end justify-content-xxl-end">
+        </div>
 
-                                <button class="btn btn-outline-danger shadow-sm" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#modalApagar" style="border-radius: 10px;margin-right: 15px;"
-                                        title="Deletar customer">Apagar
-                                </button>
-
-
-                                <button class="btn btn-outline-light shadow-sm" data-bs-toggle="tooltip"
-                                        data-bss-tooltip=""
-                                        data-bs-placement="bottom" type="submit" style="border-radius: 10px;"
-                                        title="Salvar alterações">Salvar
-                                </button>
-                            </div>
-                        </form>
+        <div class=" flex flex-col flex-1  min-h-fit">
+            <div class="grid md:grid-cols-3 gap-4 p-6 pt-0 flex-wrap h-auto min-w-fit">
+                <div class="bg-gray-600 rounded-lg p-4">
+                    <div class="flex justify-between">
+                        <span class="font-bold ">Valor Devido</span>
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div>
+                        R$ {{ $customer['debits'] }}
+                    </div>
+                </div>
+                <div class="bg-gray-600 rounded-lg p-4">
+                    <div class="flex justify-between">
+                        <span class="font-bold ">Total gasto (PAGO)</span>
+                        <x-icon name="cash" class="w-auto h-6" />
+                    </div>
+                    <div>
+                        R$ {{ $customer['spent'] }}
+                    </div>
+                </div>
+                <div class="bg-gray-600  rounded-lg p-4">
+                    <div class="flex justify-between">
+                        <span class="font-bold ">Águas Compradas</span>
+                        <i class="fas fa-droplet "></i>
+                    </div>
+                    <div>
+                        {{ $customer['water'] }}
                     </div>
                 </div>
             </div>
-            <div class="col" style="width: 100%;">
-                <div class="row">
-                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
-                        <div class="card"
-                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
-                            <div class="card-body" style="height: 10em;">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="fs-3">A pagar</span>
-                                    </div>
-                                    <div class="col-auto text-light">
-                                        <i class="fas fa-hand-holding-dollar fs-1"></i></div>
-                                </div>
-                                <div class="row">
-                                    <h6 class="fs-4 text-light  mb-2 ">R$ {{ $totalDebit }}</h6>
-                                </div>
+            <div class=" h-full p-6">
 
-                            </div>
-                        </div>
+                <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: false }">
+                    <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
+                        <i class="fa fa-history text-xl mx-2"> </i>
+                        <span class="font-bold text-xl">A pagar</span>
                     </div>
-                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
-                        <div class="card"
-                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
-                            <div class="card-body" style="height: 10em;">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="fs-3">Total gasto</span>
-                                    </div>
-                                    <div class="col-auto text-light">
-                                        <i class="fas fa-money-bill-trend-up fs-1"></i></div>
-                                </div>
-                                <div class="row">
-                                    <h6 class="fs-4 text-light  mb-2 ">R$ {{ $totalSpent }}</h6>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4" style="margin-bottom: 10px;">
-                        <div class="card"
-                             style="background: rgb(61,61,61);color: var(--bs-gray-200);border-radius: 10px;">
-                            <div class="card-body" style="height: 10em;">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="fs-4 mb-5">Águas Compradas</span>
-                                    </div>
-                                    <div class="col-auto text-light">
-                                        <i class="fas fa-glass-whiskey fs-1"></i>
-                                    </div>
-                                </div>
-                                <h6 class="fs-4 text-light card-subtitle mb-3">
-                                    {{ $water_amount }}</h6>
-                            </div>
-                        </div>
+                    <div class="w-full" x-show="open" x-transition>
+                        <table class="w-full min-w-full">
+                            <thead class="border-b border-1">
+                                <tr class="bg-white/[0.1]">
+                                    <th class="border-r" scope="col">#</th>
+                                    <th class="border-r" scope="col">Custo</th>
+                                    <th class="border-r" scope="col">Venda</th>
+                                    <th class="border-r" scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dark:bg-gray-700">
+                                @foreach ($unconfirmedSale as $sale)
+                                    <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">{{ $sale->id }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->cost }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->price }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">
+                                            {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/yy') }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 ">
+                                            <x-button class="w-full" info label="Detalhes"
+                                                wire:click="modalSale({{ $sale->id }})" />
+                                        </td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r ">
+                                            <x-button class="w-full" positive label="Confirmar"
+                                                wire:click="confirmSale({{ $sale->id }})" />
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="font-monospace text-truncate">
-                            <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="false"
-                               aria-controls="collapse-1" href="#collapse-1" role="button"
-                               style="border-radius: 10px 10px 0 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
-                                    class="float-end">
-                                    <i class="fa fa-chevron-down text-white"></i>
-                                </span>
-                                <span class="float-start" style="margin-right: 10px;">
-                                    <i class="fa fa-history text-center text-white"
-                                       style="width: 30px;height: 30px;"></i>
-                                </span>A Pagar
-                            </a>
-                        </div>
-                        <div class="collapse col-md-12" id="collapse-1">
-                            <div class="card ">
-                                <div class="card-body" style="padding: 0;">
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-sm table-bordered tabela-data">
-                                            <thead class="text-dark">
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Valor (Custo)</th>
-                                                <th>Valor (Venda)</th>
-                                                <th>Data</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="text-truncate text-dark ">
-                                            @foreach ($all_purchases as $order)
-                                                @if ($order->payment_status == 0)
-                                                    <tr>
-                                                        <td>{{ $order->id }}</td>
-                                                        <td>{{ $order->cost }}<br></td>
-                                                        <td>{{ $order->price }}<br></td>
-                                                        <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/yy') }}
-                                                            <br>
-                                                        <td class="text-center">
-                                                            <form method="post"
-                                                                  action="{{ route('order.status', $order->id) }}">
-
-                                                                @csrf
-                                                                <button class="btn btn-outline-primary" type="button"
-                                                                        style="margin-right: 10px;"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#{{ 'modDetail' . $order->id }}">
-                                                                    Detalhes
-                                                                </button>
-
-                                                                <button class="btn btn-outline-success" type="submit"
-                                                                        style="margin-right: 10px;width: 50%;">Confirmar
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class=" bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: true }">
+                    <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
+                        <i class="fa fa-check text-xl mx-2"> </i>
+                        <span class="font-bold text-xl">Pago</span>
                     </div>
-                    <div class="col">
-                        <div class="font-monospace text-truncate">
-                            <a class="btn text-start col-12" data-bs-toggle="collapse" aria-expanded="true"
-                               aria-controls="collapse-2" href="#collapse-2" role="button"
-                               style="border-radius: 0;background: #3d3d3d;color: var(--bs-white);font-weight: bold;font-size: 20px;"><span
-                                    class="float-end">
-                                    <i class="fa fa-chevron-down text-white"></i>
-                                </span>
-                                <span class="float-start" style="margin-right: 10px;"><i
-                                        class="fa fa-check text-center text-white"
-                                        style="width: 30px;height: 30px;"></i>
-                                </span>Pago
-                            </a>
-                            <div class="collapse show col-md-12" id="collapse-2">
-                                <div class="card">
-                                    <div class="card-body " style="padding: 0;">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-sm table-bordered">
-                                                <thead class="text-dark">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Valor (Custo)</th>
-                                                    <th>Valor (Venda)</th>
-                                                    <th>Lucro</th>
-                                                    <th>Data</th>
-
-                                                </tr>
-                                                </thead>
-                                                <tbody class="text-truncate text-dark">
-                                                @foreach ($all_purchases as $order)
-                                                    @if ($order->payment_status == 1)
-                                                        <tr>
-                                                            <td>{{ $order->id }}</td>
-                                                            <td>{{ $order->cost }}<br></td>
-                                                            <td>{{ $order->price }}<br></td>
-                                                            <td>R$ {{ $order->price - $order->cost }}<br></td>
-                                                            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/yy') }}
-                                                                <br>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-outline-primary" type="button"
-                                                                        style="margin-right: 10px;"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#{{ 'modDetail' . $order->id }}">
-                                                                    Detalhes
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    @endif
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="w-full" x-show="open" x-transition>
+                        <table class="w-full min-w-full">
+                            <thead class="border-b border-1">
+                                <tr class="bg-white/[0.1]">
+                                    <th class="border-r" scope="col">#</th>
+                                    <th class="border-r" scope="col">Custo</th>
+                                    <th class="border-r" scope="col">Venda</th>
+                                    <th class="border-r" scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dark:bg-gray-700">
+                                @foreach ($confirmedSale as $sale)
+                                    <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">{{ $sale->id }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->cost }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->price }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 border-r">
+                                            {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/yy') }}</td>
+                                        <td class="whitespace-nowrap px-2 py-4 ">
+                                            <x-button class="w-full" info label="Detalhes"
+                                                wire:click="modalSale({{ $sale->id }})" />
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
 
+    </div>
 
-            @foreach ($all_purchases as $item)
-                <div class="modal fade" id="{{ 'mod' . $item->id }}" tabindex="-1"
-                     aria-labelledby="{{ 'mod' . $item->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="{{ 'mod' . $item->id }}">Cancelar Venda
-                                    #{{ $item->id }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+    
+    <x-modal.card title="Detalhes da venda" blur wire:model.defer="modal" z-index="z-[1136]">
 
-                                <br>
-                                Preço: R${{ $item->price }}
-                                <br>
-                                Cliente: {{ $item->customer_name }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <form method="POST" action="{{ route('order.destroy', $item->id) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
+            <x-input label="ID" wire:model="sale_detail.id" disabled />
+            <x-input label="Data" wire:model="sale_detail.created_at" disabled />
+            <x-input label="Cliente" wire:model="sale_detail.customer_name" disabled />
+            <x-input label="Forma de pagamento" wire:model="sale_detail.payment_method" disabled />
+            <x-input label="Custo" wire:model="sale_detail.cost" disabled />
+            <x-input label="Desconto" wire:model="sale_detail.discount" disabled />
+            <x-input label="Venda" wire:model="sale_detail.price" disabled />
+            <x-input label="Lucro" wire:model="sale_detail.profit" disabled />
 
-                <div class="modal fade" tabindex="-1" id="{{ 'modDetail' . $item->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content"
-                             style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
-                            <div class="modal-header text-light"
-                                 style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
-                                <h4 class="modal-title  text-light">#{{ $item->id }}</h4>
-                                <button type="button"
-                                        class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body font-monospace" style="background: #3d3d3d;">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12 col-md-12 text-nowrap text-light"
-                                             style="border-radius: 9px;padding-top: 15px;border-width: 2px;border-color: #8c61ff;">
-                                            <h2 class="text-uppercase text-center text-light"
-                                                style="margin-bottom: 16px;">Valores
-                                            </h2>
-                                            <p>
-                                                <span class="float-end">
-                                                    R$ {{ $item->cost }}
-                                                </span>
-                                                Custo:
-                                            </p>
-                                            <hr>
-                                            <p>
-                                                Desconto:
-                                                <span class="float-end">
-                                                    R$ {{ $item->discount == null ? '0.00' : $item->discount }}
-                                                </span>
-                                            </p>
-                                            <hr>
-                                            <p>
-                                                Venda:
-                                                <span class="float-end">
-                                                    R$ {{ $item->price }}
-                                                </span>
-                                            </p>
-                                            <hr>
-                                            <p>
-                                                Lucro:
-                                                <span class="float-end">
-                                                    R$ {{ $item->price - $item->cost }}
-                                                </span>
-                                            </p>
-                                            <hr>
-                                            <ul class="item-unstyled"></ul>
-                                        </div>
+            <div
+                class="md:col-span-2 flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl">
+                <div class="flex-1 p-2">
+                    <ul class="grid w-[100%] gap-4">
+                        @foreach ($products as $product)
+                            <li
+                                class="flex justify-between h-18 min-w-fit bg-white dark:bg-gray-900 rounded-lg shadow-lg">
+                                <div class="p-2">
+                                    <div>
+                                        <span>{{ $product->product_name }}</span>
+                                        <span>({{ $product->weight }})</span>
+                                    </div>
+                                    <div>
+                                        <span>{{ $product->product_brand }}</span>
                                     </div>
                                 </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12 col-md-12 text-nowrap text-light"
-                                             style="border-radius: 0 0 9px 9px;border-width: 2px;border-color: #8c61ff;">
-                                            <h2 class="text-uppercase text-center  text-light"
-                                                style="margin-bottom: 16px;">
-                                                Produtos
-                                            </h2>
-                                            <ul class="item-unstyled">
-                                                @foreach (Order::findOrder($item->order_id) as $prod)
-                                                    <li
-                                                        style="background: rgba(255,255,255,0.1);border-radius: 11px;padding-right: 3px;padding-left: 15px;margin-bottom: 10px;border: 1px solid rgba(255,255,255,0.4);">
-
-                                                        {{ $prod->amount }}x - {{ $prod->product_name }}
-                                                        {{ $prod->product_brand }} ({{ $prod->weight }})
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            <hr>
-                                        </div>
-                                    </div>
+                                <div
+                                    class="bg-gray-600 text-white rounded-r-lg  w-8 min-w-fit flex items-center justify-center ">
+                                    <span>{{ $product->amount }}</span>
                                 </div>
-                                <div class="col-12 col-md-12 text-nowrap text-light"
-                                     style="border-radius: 9px;border-width: 2px;border-color: #8c61ff;">
-                                    <h2 class="text-uppercase text-center text-light" style="margin-bottom: 16px;">
-                                        Informações
-                                    </h2>
-                                    <p>Cliente:<span class="float-end"> {{ $item->customer_name }}</span></p>
-                                    <hr>
-                                    <p>Forma de Pagamento:<span class="float-end">{{ $item->payment_method }}</span></p>
-                                    <hr>
-                                    <p>Data:<span class="float-end">{{ $item->created_at }}</span></p>
-                                    <ul class="item-unstyled"></ul>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer"
-                                 style="background: #262626;border-bottom-right-radius: 15px;border-bottom-left-radius: 15px;">
-                                <div class="ms-auto">
-                                    <a href="{{ route('invoice', $item->id) }}" class="btn btn-outline-primary"
-                                       type="button">Recibo</a>
-                                </div>
-                                <button class="btn btn-outline-light" type="button"
-                                        data-bs-dismiss="modal">Fechar
-                                </button>
-                                <button class="btn btn-danger" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#{{ 'mod' . $item->id }}">Cancelar
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-
-
-
-            {{-- Modal Apagar Cliente --}}
-            <div class="modal fade" tabindex="-1" id="modalApagar" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content"
-                         style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
-                        <div class="modal-header text-light"
-                             style="border-top-left-radius: 15px;border-top-right-radius: 15px;background: #262626;">
-                            <h4 class="modal-title  text-light">
-                                Confirmar exclusão
-                            </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body font-monospace" style="background: #3d3d3d;">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 col-md-12 text-nowrap text-light"
-                                         style="border-radius: 9px;padding-top: 15px;border-width: 2px;border-color: #8c61ff;">
-                                        <p>
-                                            Nome: {{ $customer->name }}
-                                        </p>
-                                        <p>
-                                            A pagar: R$ {{ $totalDebit }}
-                                        </p>
-                                        <p>
-                                            Total Gasto: R$ {{ $totalSpent }}
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <form method="POST" action="{{ route('customer.destroy', $customer->id) }}">
-                                @method('DELETE')
-                                @csrf
-                                <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar
-                                </button>
-                                <button type="submit" class="btn btn-danger">Excluir</button>
-                            </form>
-                        </div>
-                    </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
+        </div>
 
-            <script type="module">
-                $(document).ready(function () {
-                    function cleanFormZip() {
+        <x-slot name="footer">
+            <div class="flex justify-between gap-x-4">
+                <div>
+                    <x-button red label="Cancelar" wire:click="cancelDialog({{ $sale_detail['id'] }})" />
+                </div>
+                <div class="flex gap-4 ">
+                    <x-button info label="Recibo" href="{{ route('invoice', $sale_detail['id']) }}" />
+                    <x-button indigo label="Fechar" x-on:click="close" />
+                </div>
+            </div>
+        </x-slot>
+    </x-modal.card>
 
-                        $("#street").val("");
-                        $("#district").val("");
-                    }
-
-                    //Quando o campo cep perde o foco.
-                    $("#zipcode").blur(function () {
-                        const zip = $(this).val().replace(/\D/g, '');
-                        if (zip !== "") {
-                            const validacep = /^[0-9]{8}$/;
-                            if (validacep.test(zip)) {
-                                $("#street").val("...");
-                                $("#district").val("...");
-
-                                $.getJSON("https://viacep.com.br/ws/" + zip + "/json/?callback=?", function (data) {
-                                    if (!("erro" in data)) {
-
-                                        $("#street").val(data.logradouro);
-                                        $("#district").val(data.bairro);
-                                    } else {
-                                        cleanFormZip();
-                                        alert("CEP não encontrado.");
-                                    }
-                                });
-                            } else {
-                                cleanFormZip();
-                                alert("Formato de CEP inválido.");
-                            }
-                        } //end if.
-                        else {
-                            cleanFormZip();
-                        }
-                    });
-                });
-            </script>
-
-            <script>
-                (g => {
-                    let h, a, k, p = "The Google Maps JavaScript API",
-                        c = "google",
-                        l = "importLibrary",
-                        q = "__ib__",
-                        m = document,
-                        b = window;
-                    b = b[c] || (b[c] = {});
-                    const d = b.maps || (b.maps = {}),
-                        r = new Set,
-                        e = new URLSearchParams,
-                        u = () => h || (h = new Promise(async (f, n) => {
-                            await (a = m.createElement("script"));
-                            e.set("libraries", [...r] + "");
-                            for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
-                            e.set("callback", c + ".maps." + q);
-                            a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-                            d[q] = f;
-                            a.onerror = () => h = n(Error(p + " could not load."));
-                            a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-                            m.head.append(a)
-                        }));
-                    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() =>
-                        d[l](f, ...n))
-                })
-                ({
-                    key: @json($apiGoogle),
-                    v: "beta"
-                });
-            </script>
-
-
-
-            <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-            <script>
-                // Initialize and add the map
-                let map;
-
-                async function initMap() {
-
-                    const position = {
-                        lat: @json($latitude),
-                        lng: @json($longitude)
-                    };
-                    // Request needed libraries.
-                    //@ts-ignore
-                    const {
-                        Map
-                    } = await google.maps.importLibrary("maps");
-                    const {
-                        AdvancedMarkerView
-                    } = await google.maps.importLibrary("marker");
-
-
-                    map = new Map(document.getElementById("map"), {
-                        zoom: 16,
-                        center: position,
-                        mapId: "DEMO_MAP_ID",
-                    });
-
-                    const marker = new AdvancedMarkerView({
-                        map: map,
-                        position: position,
-                    });
-                }
-
-                initMap();
-            </script>
-@endsection
+</div>

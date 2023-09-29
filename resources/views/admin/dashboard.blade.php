@@ -1,3 +1,4 @@
+@section('title', 'Dashboard')
 <div>
     @vite(['resources/js/chart.js' ])
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ">

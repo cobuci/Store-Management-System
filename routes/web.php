@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\{Http\Controllers\CashierController,
     Http\Controllers\CustomerController,
-    Http\Controllers\DashboardController,
+   
     Http\Controllers\HistoryController,
     Http\Controllers\ProductController,
     Http\Controllers\InventoryController,
@@ -16,7 +16,7 @@ use App\{Http\Controllers\CashierController,
     Http\Controllers\ocPackController,
     Http\Controllers\OrderController,
     Http\Controllers\SettingsController,
-    Http\Controllers\ShoppingListController,
+
     Livewire\CustomerRegister,
     Livewire\Dashboard,
     Livewire\Inventory,
@@ -25,6 +25,8 @@ use App\{Http\Controllers\CashierController,
     Livewire\Reports,
     Livewire\Sale,
     Livewire\ShoppingList};
+use App\Livewire\CustomerProfile;
+use App\Livewire\Customers;
 
 Route::middleware('auth:sanctum')->group(callback: function () {
 
@@ -103,11 +105,11 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     // Clientes
     Route::get('/customer/filter', [CustomerController::class, "filter"])->name('customer.filter');
 
-    Route::get('/customer', [CustomerController::class, "index"])->name('admin.customer');
+    Route::get('/customer', Customers::class)->name('admin.customer');
     Route::get('/searchCustomer', [CustomerController::class, "search"])->name('customer.search');
     Route::get('/customer/register', CustomerRegister::class)->name('admin.customer.register');
     Route::post('/customer/store', [CustomerController::class, "store"])->name('admin.customer.store');
-    Route::get('/customer/{id}', [CustomerController::class, "show"])->name('admin.customer.profile');
+    Route::get('/customer/{id}', CustomerProfile::class)->name('admin.customer.profile');
 
 
     Route::get('/customer/filter/report', [OrderController::class, "filterReport"])->name('customer.report');

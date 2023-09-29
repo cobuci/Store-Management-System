@@ -12,6 +12,11 @@ class Sale extends Model
         return $this->hasMany(Order::class, 'order_id', 'order_id');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
     protected $fillable = [
         'order_id',
         'cost',
@@ -21,6 +26,7 @@ class Sale extends Model
         'customer_name',
         'payment_method',        
     ];
+
 
 
 
