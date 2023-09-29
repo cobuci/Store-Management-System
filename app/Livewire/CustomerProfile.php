@@ -35,8 +35,8 @@ class CustomerProfile extends Component
         $this->customer['debits'] = Customer::find($id)->debit();
         $this->customer['spent'] = Customer::find($id)->spent();
         $this->customer['water'] = Customer::find($id)->water();
-        $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get();
-        $this->confirmedSale = Customer::find($id)->confirmedSale()->get();
+        $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get()->sortByDesc('id');
+        $this->confirmedSale = Customer::find($id)->confirmedSale()->get()->sortByDesc('id');
     }
 
     public function modalSale($id)

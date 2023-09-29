@@ -2,10 +2,10 @@
 <div class="w-full h-full">
     <x-notifications position="top-center" z-index="z-[1400]" />
     <div class="flex flex-wrap gap-5">
-        <div class="bg-gray-600 h-full min-h-fit w-auto min-w-fit p-4 rounded-lg">
+        <div class="dark:bg-gray-600 bg-white h-full min-h-fit w-auto min-w-fit p-4 rounded-lg">
 
             <div class="flex justify-center items-center mb-5 h-auto w-full">
-                {{ $customer['name'] }}
+               <span class="font-bold text-xl">{{ $customer['name'] }} </span> 
             </div>
             <x-input label="ID" wire:model="customer.id" disabled />
             <x-input label="Nome" wire:model="customer.name" />
@@ -22,9 +22,9 @@
 
         </div>
 
-        <div class=" flex flex-col flex-1  min-h-fit">
+        <div class=" flex flex-col flex-1 w-full  min-h-fit">
             <div class="grid md:grid-cols-3 gap-4 p-6 pt-0 flex-wrap h-auto min-w-fit">
-                <div class="bg-gray-600 rounded-lg p-4">
+                <div class="dark:bg-gray-600 bg-white rounded-lg p-4">
                     <div class="flex justify-between">
                         <span class="font-bold ">Valor Devido</span>
                         <i class="fas fa-dollar-sign"></i>
@@ -33,7 +33,7 @@
                         R$ {{ $customer['debits'] }}
                     </div>
                 </div>
-                <div class="bg-gray-600 rounded-lg p-4">
+                <div class="dark:bg-gray-600 bg-white rounded-lg p-4">
                     <div class="flex justify-between">
                         <span class="font-bold ">Total gasto (PAGO)</span>
                         <x-icon name="cash" class="w-auto h-6" />
@@ -42,7 +42,7 @@
                         R$ {{ $customer['spent'] }}
                     </div>
                 </div>
-                <div class="bg-gray-600  rounded-lg p-4">
+                <div class="dark:bg-gray-600 bg-white rounded-lg p-4">
                     <div class="flex justify-between">
                         <span class="font-bold ">Águas Compradas</span>
                         <i class="fas fa-droplet "></i>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class=" h-full p-6">
+            <div class=" w-full  h-full p-6">
 
                 <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: false }">
                     <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
@@ -129,7 +129,7 @@
 
     </div>
 
-    
+
     <x-modal.card title="Detalhes da venda" blur wire:model.defer="modal" z-index="z-[1136]">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

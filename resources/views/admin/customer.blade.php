@@ -8,11 +8,9 @@
         </div>
 
         <div class="w-full items-center">
-
-
             <table class="w-full dark:bg-gray-800 my-2 rounded-md p-2  ">
                 <tr>
-                    <thead class="" >
+                    <thead class="">
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Endereço</th>
@@ -22,14 +20,15 @@
                 </tr>
                 <tbody class="dark:bg-gray-800 my-2 rounded-md">
                     @foreach ($customers as $customer)
-                        <tr class="hover:bg-gray-900 flex-1 cursor-default">
-                         
+                        <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
+
                             <td class="pl-4"> {{ $customer->id }} </td>
                             <td> {{ $customer->name }}</td>
                             <td> {{ $customer->street }}</td>
-                            <td> R$ {{ $customer->debit()}}</td>
+                            <td> R$ {{ $customer->debit() }}</td>
                             <td class="px-4">
-                                <x-button class="w-full" label="Verificar" wire:click="customerProfile({{$customer->id}})" />
+                                <x-button primary class="w-full" label="Verificar"
+                                    wire:click="customerProfile({{ $customer->id }})" />
                             </td>
                         </tr>
                     @endforeach
