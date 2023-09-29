@@ -1,9 +1,11 @@
 @section('title', 'Perfil do cliente')
 <div class="w-full h-full">
     <x-notifications position="top-center" z-index="z-[1400]" />
+    <x-button class="w-auto mb-5" icon="arrow-left" squared blue label="Voltar" href="{{ route('admin.customer') }}" />
     <div class="flex flex-wrap gap-5">
+       
         <div class="dark:bg-gray-600 bg-white h-full min-h-fit w-auto min-w-fit p-4 rounded-lg">
-
+            
             <div class="flex justify-center items-center mb-5 h-auto w-full">
                <span class="font-bold text-xl">{{ $customer['name'] }} </span> 
             </div>
@@ -19,6 +21,7 @@
             <x-input label="Bairro" wire:model="customer.district" />
             <x-button class="w-full mt-5" icon="check" squared positive label="Salvar" wire:click="update" />
             <x-button class="w-full mt-5" icon="trash" squared red label="Excluir" wire:click="deleteModal" />
+          
 
         </div>
 

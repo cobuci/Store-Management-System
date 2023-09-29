@@ -53,6 +53,8 @@ class CustomerProfile extends Component
         $this->sale_detail['profit'] = number_format($this->sale_detail['profit'], 2, ',', '.');
     }
 
+   
+
     public function cancelDialog(string $id)
     {
         $this->modal = false;

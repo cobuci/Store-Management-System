@@ -94,6 +94,8 @@ class Reports extends Component
         $this->mount();
     }
 
+ 
+
     public function confirmSale($id)
     {
         $sale = Sale::find($id);
