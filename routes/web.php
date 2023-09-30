@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\{Http\Controllers\CashierController,
     Http\Controllers\CustomerController,
-   
+
     Http\Controllers\HistoryController,
     Http\Controllers\ProductController,
     Http\Controllers\InventoryController,
@@ -27,6 +27,7 @@ use App\{Http\Controllers\CashierController,
     Livewire\ShoppingList};
 use App\Livewire\CustomerProfile;
 use App\Livewire\Customers;
+use App\Livewire\Finance;
 
 Route::middleware('auth:sanctum')->group(callback: function () {
 
@@ -64,7 +65,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::POST('/dashboard/meta', [CashierController::class, "definirMeta"])->name('admin.dashboard.meta');
     // Dados
 
-    Route::get('/financas', [CashierController::class, "index"])->name('admin.financas');
+    Route::get('/finances', Finance::class)->name('admin.finances');
 
 
     Route::get('/reports', Reports::class)->name('admin.reports');

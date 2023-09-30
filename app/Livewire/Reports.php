@@ -3,10 +3,10 @@
 namespace App\Livewire;
 
 use App\Http\Controllers\OrderController;
-use Livewire\Component;
 use App\Models\Sale;
-use WireUi\Traits\Actions;
+use Livewire\Component;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class Reports extends Component
 {
@@ -32,6 +32,10 @@ class Reports extends Component
 
     public $products = [];
 
+    public function updatedSearch()
+    {
+        $this->mount();
+    }
 
     public function mount()
     {
@@ -47,11 +51,6 @@ class Reports extends Component
                 $this->total = $this->total + $item->price;
             }
         }
-    }
-
-    public function updatedSearch()
-    {
-        $this->mount();
     }
 
     public function modalSale($id)
@@ -94,7 +93,6 @@ class Reports extends Component
         $this->mount();
     }
 
- 
 
     public function confirmSale($id)
     {
