@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('investimentos', function (Blueprint $table) {
+        Schema::create('Investments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('valorInvestimento',10,2);
-            $table->string('descricao');
-            $table->date('data');
+            $table->decimal('value',10,2);
+            $table->string('description');
+            $table->date('date');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investimentos');
+        Schema::dropIfExists('Investments');
     }
 };

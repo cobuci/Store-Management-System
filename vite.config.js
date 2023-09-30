@@ -1,4 +1,4 @@
-import {defineConfig} from "vite";
+import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
@@ -9,10 +9,8 @@ export default defineConfig({
             "@js/app.js",
             "@js/chart.js",
             "@js/theme.js",
-            "@js/sale_page.js",
-            "@js/product_add_page.js",
             "/node_modules/html2canvas/dist/html2canvas.js",
-            './node_modules/feather-icons/dist/feather.min.js'
+            "./node_modules/feather-icons/dist/feather.min.js",
         ]),
     ],
     resolve: {

@@ -45,12 +45,7 @@ class Reports extends Component
             $this->unconfirmedSale = Sale::where('payment_status', 'LIKE', '0')->where('customer_name', 'LIKE', "%{$this->search}%")->get()->sortByDesc('id');
         }
 
-        $this->total = 0;
-        foreach ($this->unconfirmedSale as $item) {
-            if ($item->payment_status == 0) {
-                $this->total = $this->total + $item->price;
-            }
-        }
+        $this->total = Sale::totalDue();
     }
 
     public function modalSale($id)

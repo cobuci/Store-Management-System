@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +20,7 @@ class CashierSeeder extends Seeder
         ]);
 
         DB::table('cashiers')->insert([
-            'description' => "Investimento",
+            'description' => "Investment",
             'balance' => 0,
         ]);
 
