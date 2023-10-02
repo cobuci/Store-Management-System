@@ -1,7 +1,7 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Finanças')
 <div class="w-full h-full">
-    <x-notifications position="top-center"  z-index="z-[1036]"/>
+    <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="grid md:grid-cols-3 gap-4 text-white">
         <div class="bg-green-600 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
             <div class="flex justify-between text-xl">
@@ -49,11 +49,16 @@
             <tbody class="dark:bg-gray-600 my-2 rounded-md">
 
             @foreach($finances as $finance)
-
                 <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
 
                     <td> {{ $finance->id }}</td>
-                    <td> R$ {{ $finance->value }}</td>
+                    <td>
+                        @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'rev')
+                            <x-badge negative label="R$ {{ $finance->value }}"/>
+                        @else
+                            <x-badge positive label="R$ {{ $finance->value }}"/>
+                        @endif
+                    </td>
                     <td> {{ $finance->description }}</td>
                     <td> {{ Carbon::parse($finance->date)->format('d/m/yy') }}</td>
 

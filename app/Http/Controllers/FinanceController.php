@@ -65,14 +65,14 @@ class FinanceController extends Controller
     }
 
 
-    public static function balanceInvestment($value, $description, $date, $type)
+    public static function balanceInvestment($value, $description, $type)
     {
         $financa = new Finance();
 
         $financa->description = $description;
         $financa->type = $type;
         $financa->value = $value;
-        $financa->date = $date;
+        $financa->date = Carbon::now()->toDateTimeString();
         $financa->save();
     }
 }
