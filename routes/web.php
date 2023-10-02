@@ -2,7 +2,6 @@
 
 use App\{Http\Controllers\HistoryController,
     Http\Controllers\InvoiceController,
-    Http\Controllers\ocPackController,
     Http\Controllers\StatisticsController,
     Livewire\CustomerRegister,
     Livewire\Dashboard,
@@ -48,9 +47,6 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::get('/shoppingList', ShoppingList::class)->name('admin.shoppinglist');
 
     Route::get('/tool/pack', PackTool::class)->name('admin.tool.pack');
-    Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
-    Route::POST('/pack/close', [ocPackController::class, "closePack"])->name('admin.pack.close');
-
 
     //Others
     Route::get('/settings',Settings::class)->name('admin.settings');
