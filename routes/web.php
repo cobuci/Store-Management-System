@@ -44,9 +44,9 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     //Tools
     Route::get('/statistics', [StatisticsController::class, "index"])->name('admin.tool.statistics');
-    Route::get('/tool/shopping', ShoppingList::class)->name('admin.tool.shopping');
+    Route::get('/tools/shopping', ShoppingList::class)->name('admin.tool.shopping');
 
-    Route::get('/tool/pack', PackTool::class)->name('admin.tool.pack');
+    Route::get('/tools/pack', PackTool::class)->name('admin.tool.pack');
 
     //Others
     Route::get('/settings',Settings::class)->name('admin.settings');
