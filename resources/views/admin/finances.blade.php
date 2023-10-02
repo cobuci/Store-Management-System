@@ -36,7 +36,7 @@
     </div>
 
     <div class="w-full h-full mt-4 overflow-auto">
-        <table class="w-full dark:bg-gray-500 my-2 whitespace-nowrap rounded-md p-2  ">
+        <table class="w-full dark:bg-gray-500 bg-white/[0.7] my-2 whitespace-nowrap rounded-md p-2  ">
             <tr>
                 <thead class="">
                 <th>ID</th>
@@ -49,12 +49,12 @@
             <tbody class="dark:bg-gray-600 my-2 rounded-md">
 
             @foreach($finances as $finance)
-                <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
+                <tr class="dark:hover:bg-gray-900 dark:bg-gray-700 bg-white/[0.8] hover:bg-gray-200 flex-1 cursor-default">
 
                     <td>
                         <x-badge full outline label=" #{{ $finance->id }}"/>
                     </td>
-                    <td>
+                    <td class="px-4">
                         @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'rev')
                             <x-badge lg full negative label=" R$ {{ $finance->value }}"/>
                         @else
@@ -69,7 +69,7 @@
                     </td>
 
                     @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')
-                        <td class="">
+                        <td class="p-4">
                             <x-button red class="w-full" label="Cancelar" wire:click="dialogCancel({{ $finance->id }})"
                             />
                         </td>
