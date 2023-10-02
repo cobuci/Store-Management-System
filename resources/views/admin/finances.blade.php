@@ -3,10 +3,10 @@
 <div class="w-full h-full">
     <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="grid md:grid-cols-3 gap-4 text-white">
-        <div class="bg-green-600 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
+        <div class="bg-green-600 hover:bg-green-800 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
             <div class="flex justify-between text-xl">
                 <span>Saldo</span>
-                <i class="fas fa-info-circle"></i>
+                <i class="fas fa-dollar-sign"></i>
             </div>
             <div>
                 <span class=" text-3xl">R$ {{$balance}}</span>
