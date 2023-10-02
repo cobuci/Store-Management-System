@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Finance;
 use App\Models\Product;
-use App\Models\Venda;
+use Carbon\Carbon;
 
 class FinanceController extends Controller
 {
@@ -16,7 +15,7 @@ class FinanceController extends Controller
         $finance->value = $value;
         $finance->description = 'Nova Venda realizada';
         $finance->type = "txn";
-        $finance->date = \Carbon\Carbon::now()->toDateTimeString();
+        $finance->date = Carbon::now()->toDateTimeString();
         $finance->save();
     }
 
@@ -39,62 +38,41 @@ class FinanceController extends Controller
             'value' => $value,
             'description' => "Compra de ($amount - $product->name - $product->brand - $product->weight)",
             'type' => "wd",
-            'date' => \Carbon\Carbon::now()->toDateTimeString(),
+            'date' => Carbon::now()->toDateTimeString(),
         ]);
     }
 
-    public static function adicionarInvestimento($valor, $descricao, $data)
+    public static function destroy($id)
     {
+        $finance = Finance::find($id);
 
-        $financa = new Finance();
-
-        $financa->descricao = $descricao;
-        $financa->tipo = "INVESTIMENTO";
-        $financa->valor = $valor;
-        $financa->data = $data;
-        $financa->save();
-    }
-
-    public static function resgateInvestimento($valor, $descricao, $data, $tipo = "RESGATE")
-    {
-
-        $financa = new Finance();
-
-        $financa->descricao = $descricao;
-        $financa->tipo = $tipo;
-        $financa->valor = $valor;
-        $financa->data = $data;
-        $financa->save();
-    }
-
-    public function destroy($id)
-    {
-        $financa = Finance::find($id);
-
-        if ($financa->tipo == "SAIDA") {
-            if ($financa->id_produto != 0) {
-                ProductController::removeStock($financa->id_produto, $financa->quantidade);
+        if ($finance->type == "wd") {
+            if ($finance->product_id != 0) {
+                ProductController::removeStock($finance->product_id, $finance->product_amount);
             }
-            CashierController::addBalance($financa->valor);
-            $financa->delete();
+            CashierController::addBalance($finance->value);
         }
-        if ($financa->tipo == "RESGATE") {
-
-            CashierController::addBalance($financa->valor);
-            CashierController::removerInvestimento($financa->valor);
-
-            $financa->delete();
+        if ($finance->type == "rdm") {
+            CashierController::addBalance($finance->value);
+            CashierController::withdrawInvestment($finance->value);
         }
-
-        if ($financa->tipo == "INVESTIMENTO") {
-
-            CashierController::withdrawBalance($financa->valor);
-            CashierController::adicionarInvestimento($financa->valor);
-            $financa->delete();
+        if ($finance->type == "inv") {
+            CashierController::withdrawBalance($finance->value);
+            CashierController::addInvestment($finance->value);
         }
 
+        $finance->delete();
+    }
 
 
-        return redirect('/financas');
+    public static function balanceInvestment($value, $description, $date, $type)
+    {
+        $financa = new Finance();
+
+        $financa->description = $description;
+        $financa->type = $type;
+        $financa->value = $value;
+        $financa->date = $date;
+        $financa->save();
     }
 }

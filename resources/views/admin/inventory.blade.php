@@ -19,24 +19,24 @@
        </span>
 
     </div>
-    <div class="flex flex-col overflow-x-auto w-[100%] min-w-fit border-2 border-black rounded-t-lg mt-6">
-        <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: false }">
+    <div class=" w-full  border-2 border-black rounded-t-lg mt-6">
+        <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900" x-data="{ open: false }">
             <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                 <i class="fa fa-history text-xl mx-2"> </i>
                 <span class="font-bold text-xl">Ultimos Produtos Cadastrados</span>
             </div>
-            <div class="w-full" x-show="open" x-transition>
-                <table class="w-full min-w-full">
+            <div class="overflow-auto" x-show="open" x-transition>
+                <table class="w-full whitespace-nowrap">
                     <thead class="border-b border-1">
                     <tr class="bg-white/[0.1]">
-                        <th class="border-r" scope="col">#</th>
-                        <th class="border-r" scope="col">Produto</th>
-                        <th class="border-r" scope="col">Marca</th>
-                        <th class="border-r" scope="col">Peso</th>
-                        <th class="border-r" scope="col">Preço Custo</th>
-                        <th class="border-r" scope="col">Preço Venda</th>
-                        <th class="border-r" scope="col">Quantidade</th>
-                        <th class="border-r" scope="col">Validade</th>
+                        <th class="border-r">#</th>
+                        <th class="border-r">Produto</th>
+                        <th class="border-r">Marca</th>
+                        <th class="border-r">Peso</th>
+                        <th class="border-r">Preço Custo</th>
+                        <th class="border-r">Preço Venda</th>
+                        <th class="border-r">Quantidade</th>
+                        <th class="border-r">Validade</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -44,15 +44,15 @@
                     <tbody class="dark:bg-gray-700">
                     @foreach($lastProducts as $product)
                         <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->id}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->name}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->brand}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->weight}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">R$ {{$product->cost}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">R$ {{$product->sale}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->amount}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">{{$product->expiration_date}}</td>
-                            <td class="whitespace-nowrap px-2 py-4">
+                            <td class=" px-2 py-4">{{$product->id}}</td>
+                            <td class=" px-2 py-4">{{$product->name}}</td>
+                            <td class=" px-2 py-4">{{$product->brand}}</td>
+                            <td class=" px-2 py-4">{{$product->weight}}</td>
+                            <td class=" px-2 py-4">R$ {{$product->cost}}</td>
+                            <td class=" px-2 py-4">R$ {{$product->sale}}</td>
+                            <td class=" px-2 py-4">{{$product->amount}}</td>
+                            <td class=" px-2 py-4">{{$product->expiration_date}}</td>
+                            <td class=" px-2 py-4">
                                 <x-button info label="Editar" wire:click="modalCardEdit({{$product->id}})"/>
                             </td>
                             <td class="whitespace-nowrap px-2 py-4">
@@ -66,13 +66,13 @@
         </div>
 
         @foreach($categories as $category)
-            <div class="bg-white/[0.8] dark:bg-gray-900 w-full border-t-2" x-data="{ open: false }">
+            <div class="bg-white/[0.8] dark:bg-gray-900  border-t-2  " x-data="{ open: false }">
                 <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                     <i class="{{$category->icon}} text-xl mx-2"> </i>
                     <span class="font-bold text-xl">{{ $category->name }}</span>
                 </div>
-                <div class="w-full" x-show="open" x-transition>
-                    <table class="w-full min-w-full">
+                <div class="overflow-auto" x-show="open" x-transition>
+                    <table class="w-full whitespace-nowrap">
                         <thead class="border-b border-1">
                         <tr class="bg-white/[0.1]">
                             <th class="border-r" scope="col">#</th>
@@ -92,15 +92,15 @@
                         @foreach ($category->products as $product)
 
                             <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->id}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->name}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->brand}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->weight}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">R$ {{$product->cost}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">R$ {{$product->sale}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->amount}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">{{$product->expiration_date}}</td>
-                                <td class="whitespace-nowrap px-2 py-4">
+                                <td class=" px-2 py-4">{{$product->id}}</td>
+                                <td class=" px-2 py-4">{{$product->name}}</td>
+                                <td class=" px-2 py-4">{{$product->brand}}</td>
+                                <td class=" px-2 py-4">{{$product->weight}}</td>
+                                <td class=" px-2 py-4">R$ {{$product->cost}}</td>
+                                <td class=" px-2 py-4">R$ {{$product->sale}}</td>
+                                <td class=" px-2 py-4">{{$product->amount}}</td>
+                                <td class=" px-2 py-4">{{$product->expiration_date}}</td>
+                                <td class=" px-2 py-4">
                                     <x-button info label="Editar" wire:click="modalCardEdit({{$product->id}})"/>
                                 </td>
                                 <td class="whitespace-nowrap px-2 py-4">

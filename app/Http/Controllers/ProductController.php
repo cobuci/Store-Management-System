@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Http\Requests\StoreUpdateProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,12 +19,37 @@ class ProductController extends Controller
         return $product->cost;
     }
 
+    public static function listar()
+    {
+        $prod = new Product();
+        return $prod->orderBy('name')->get();
+    }
+
+    public static function removeStock($id, $amount)
+    {
+        $product = Product::find($id);
+        $product->amount -= $amount;
+        $product->save();
+    }
+
+    public static function addStock($id, $amount)
+    {
+        $product = Product::find($id);
+        $product->amount += $amount;
+        $product->save();
+    }
+
+    public static function findProduct($id)
+    {
+        return DB::table('products')
+            ->where('id', '=', $id)
+            ->get();
+    }
+
     public function index()
     {
         return view('admin.product_register');
     }
-
-
 
     public function put($id, StoreUpdateProduct $request)
     {
@@ -51,27 +76,6 @@ class ProductController extends Controller
         return redirect()->route('admin.inventory');
     }
 
-
-    public static function listar()
-    {
-        $prod = new Product();
-        return $prod->orderBy('name')->get();
-    }
-
-    public static function removeStock($id, $amount)
-    {
-        $produto = Product::find($id);
-        $produto->amount -= $amount;
-        $produto->save();
-    }
-
-    public static function addStock($id, $amount)
-    {
-        $product = Product::find($id);
-        $product->amount += $amount;
-        $product->save();
-    }
-
     public function store(Request $request)
     {
         $request = $request->all();
@@ -84,14 +88,5 @@ class ProductController extends Controller
 
         HistoryController::addToHistory("CADASTRO", $history);
         return redirect()->route('admin.inventory');
-    }
-
-
-
-    public static function findProduct($id)
-    {
-        return DB::table('products')
-            ->where('id', '=', $id)
-            ->get();
     }
 }

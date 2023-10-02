@@ -26,6 +26,7 @@
         "vite": "^4.4.9"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.8",
         "@wireui/alpinejs-hold-directive": "^1.0.1",
         "bootstrap": "^5.3.2",
         "chart.js": "^4.4.0",
