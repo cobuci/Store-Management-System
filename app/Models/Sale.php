@@ -18,14 +18,12 @@ class Sale extends Model
         'payment_method',
     ];
 
-    // função que some o valor devido de todas as vendas
-
     public static function totalDue()
     {
         $total = 0;
-        $vendas = Sale::where('payment_status', 'LIKE', '0')->get();
-        foreach ($vendas as $venda) {
-            $total = $total + $venda->price;
+        $sales = Sale::where('payment_status', 'LIKE', '0')->get();
+        foreach ($sales as $sale) {
+            $total = $total + $sale->price;
         }
         return $total;
     }

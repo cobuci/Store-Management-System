@@ -141,7 +141,7 @@
             </li>
             <li class="relative">
                 <a class="a-hover a-active flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-400 outline-none transition duration-300 ease-linear motion-reduce:transition-none"
-                   href="{{ route('admin.ocpack') }}">
+                   href="{{ route('admin.tool.pack') }}">
           <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
             <i data-feather="box"></i>
           </span>
