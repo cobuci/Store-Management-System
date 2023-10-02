@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <div class="w-full h-full mt-4">
-        <table class="w-full dark:bg-gray-500 my-2  rounded-md p-2  ">
+    <div class="w-full h-full mt-4 overflow-auto">
+        <table class="w-full dark:bg-gray-500 my-2 whitespace-nowrap rounded-md p-2  ">
             <tr>
                 <thead class="">
                 <th>ID</th>
