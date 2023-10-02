@@ -57,7 +57,7 @@
                     <td> {{ $finance->description }}</td>
                     <td> {{ Carbon::parse($finance->date)->format('d/m/yy') }}</td>
 
-                    @if($finance->type == 'wd')
+                    @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')
                         <td class="">
                             <x-button red class="w-full" label="Cancelar" wire:click="dialogCancel({{ $finance->id }})"
                             />
