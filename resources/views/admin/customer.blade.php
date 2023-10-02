@@ -21,7 +21,6 @@
                 <tbody class="dark:bg-gray-800 my-2 rounded-md">
                 @foreach ($customers as $customer)
                     <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
-
                         <td class="px-4"> {{ $customer->id }} </td>
                         <td> {{ $customer->name }}</td>
                         <td> {{ $customer->street }}</td>
