@@ -51,16 +51,22 @@
             @foreach($finances as $finance)
                 <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
 
-                    <td> {{ $finance->id }}</td>
+                    <td>
+                        <x-badge full outline label=" #{{ $finance->id }}"/>
+                    </td>
                     <td>
                         @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'rev')
-                            <x-badge negative label="R$ {{ $finance->value }}"/>
+                            <x-badge lg full negative label=" R$ {{ $finance->value }}"/>
                         @else
-                            <x-badge positive label="R$ {{ $finance->value }}"/>
+                            <x-badge lg full positive label="R$ {{ $finance->value }}"/>
                         @endif
                     </td>
-                    <td> {{ $finance->description }}</td>
-                    <td> {{ Carbon::parse($finance->date)->format('d/m/yy') }}</td>
+                    <td>
+                        <x-badge outline full lg zinc label="{{ $finance->description }}"/>
+                    </td>
+                    <td>
+                        <x-badge outline full lg zinc label=" {{ Carbon::parse($finance->date)->format('d/m/yy') }}"/>
+                    </td>
 
                     @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')
                         <td class="">
