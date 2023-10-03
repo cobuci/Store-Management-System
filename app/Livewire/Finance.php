@@ -76,7 +76,7 @@ class Finance extends Component
         $this->validate([
             'value_balance_add' => 'required|numeric',
         ]);
-        InvestimentController::addBalance($this->value_balance_add, "Adicionado saldo", date('d-m-Y'));
+        InvestimentController::addBalance($this->value_balance_add, "Adicionado saldo");
 
         $this->reset('value_balance_add');
         $this->mount();

@@ -2,11 +2,10 @@
 
 namespace App\Livewire;
 
-use http\Params;
+use App\{Models\ShoppingList as Shopping};
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use App\{Models\ShoppingList as Shopping};
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -70,7 +69,7 @@ class ShoppingList extends Component
         $this->total = $this->calculateTotal();
 
 
-        return view('admin.shoppingList');
+        return view('admin.tool_shopping');
     }
 
     public function calculateTotal(): string

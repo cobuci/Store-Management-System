@@ -2,11 +2,11 @@
 
 use App\{Http\Controllers\HistoryController,
     Http\Controllers\InvoiceController,
-    Http\Controllers\ocPackController,
-    Http\Controllers\StatisticsController,
     Livewire\CustomerRegister,
     Livewire\Dashboard,
     Livewire\Inventory,
+    Livewire\Pages\PackTool,
+    Livewire\Pages\Statistics,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
     Livewire\Reports,
@@ -43,17 +43,14 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
 
     //Tools
-    Route::get('/statistics', [StatisticsController::class, "index"])->name('admin.estatisticas');
-    Route::get('/shoppingList', ShoppingList::class)->name('admin.shoppinglist');
+    Route::get('/statistics', Statistics::class)->name('admin.tool.statistics');
+    Route::get('/tools/shopping', ShoppingList::class)->name('admin.tool.shopping');
 
-    Route::get('/pack', [ocPackController::class, "index"])->name('admin.ocpack');
-    Route::POST('/pack/open', [ocPackController::class, "openPack"])->name('admin.pack.open');
-    Route::POST('/pack/close', [ocPackController::class, "closePack"])->name('admin.pack.close');
-
+    Route::get('/tools/pack', PackTool::class)->name('admin.tool.pack');
 
     //Others
     Route::get('/settings',Settings::class)->name('admin.settings');
-    Route::get('/historico', [HistoryController::class, "index"])->name('admin.historico');
+    Route::get('/history', [HistoryController::class, "index"])->name('admin.history');
 
 
 });

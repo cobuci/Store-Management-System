@@ -1,12 +1,12 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Finanças')
 <div class="w-full h-full">
-    <x-notifications position="top-center"  z-index="z-[1036]"/>
+    <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="grid md:grid-cols-3 gap-4 text-white">
-        <div class="bg-green-600 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
+        <div class="bg-green-600 hover:bg-green-800 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
             <div class="flex justify-between text-xl">
                 <span>Saldo</span>
-                <i class="fas fa-info-circle"></i>
+                <i class="fas fa-dollar-sign"></i>
             </div>
             <div>
                 <span class=" text-3xl">R$ {{$balance}}</span>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="w-full h-full mt-4 overflow-auto">
-        <table class="w-full dark:bg-gray-500 my-2 whitespace-nowrap rounded-md p-2  ">
+        <table class="w-full dark:bg-gray-500 bg-white/[0.7] my-2 whitespace-nowrap rounded-md p-2  ">
             <tr>
                 <thead class="">
                 <th>ID</th>
@@ -49,16 +49,27 @@
             <tbody class="dark:bg-gray-600 my-2 rounded-md">
 
             @foreach($finances as $finance)
+                <tr class="dark:hover:bg-gray-900 dark:bg-gray-700 bg-white/[0.8] hover:bg-gray-200 flex-1 cursor-default">
 
-                <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
+                    <td>
+                        <x-badge full outline label=" #{{ $finance->id }}"/>
+                    </td>
+                    <td class="px-4">
+                        @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'rev')
+                            <x-badge lg full negative label=" R$ {{ $finance->value }}"/>
+                        @else
+                            <x-badge lg full positive label="R$ {{ $finance->value }}"/>
+                        @endif
+                    </td>
+                    <td>
+                        <x-badge outline full lg zinc label="{{ $finance->description }}"/>
+                    </td>
+                    <td>
+                        <x-badge outline full lg zinc label=" {{ Carbon::parse($finance->date)->format('d/m/yy') }}"/>
+                    </td>
 
-                    <td> {{ $finance->id }}</td>
-                    <td> R$ {{ $finance->value }}</td>
-                    <td> {{ $finance->description }}</td>
-                    <td> {{ Carbon::parse($finance->date)->format('d/m/yy') }}</td>
-
-                    @if($finance->type == 'wd')
-                        <td class="">
+                    @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')
+                        <td class="p-4">
                             <x-button red class="w-full" label="Cancelar" wire:click="dialogCancel({{ $finance->id }})"
                             />
                         </td>
