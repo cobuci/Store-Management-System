@@ -2,11 +2,11 @@
 
 use App\{Http\Controllers\HistoryController,
     Http\Controllers\InvoiceController,
-    Http\Controllers\StatisticsController,
     Livewire\CustomerRegister,
     Livewire\Dashboard,
     Livewire\Inventory,
     Livewire\Pages\PackTool,
+    Livewire\Pages\Statistics,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
     Livewire\Reports,
@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
 
     //Tools
-    Route::get('/statistics', [StatisticsController::class, "index"])->name('admin.tool.statistics');
+    Route::get('/statistics', Statistics::class)->name('admin.tool.statistics');
     Route::get('/tools/shopping', ShoppingList::class)->name('admin.tool.shopping');
 
     Route::get('/tools/pack', PackTool::class)->name('admin.tool.pack');
