@@ -27,11 +27,20 @@ class Statistics extends Component
     public function mount()
     {
         $this->categories = Category::all();
-
     }
 
     public function updatedDate()
     {
+        // Pegar a data do primeiro created_at da tabela sales
+        $firstSale = Sale::orderBy('created_at', 'asc')->first();
+        if (empty($this->date['start'])) {
+            $this->date['start'] = $firstSale->created_at->toDateString();
+        }
+        if (empty($this->date['end'])) {
+            // adoção de data atual +1 doa como padrão
+            $this->date['end'] = date('Y-m-d', strtotime('+1 day'));
+           
+        }
         $this->values['cost'] = $this->costValueTotal();
         $this->values['sale'] = $this->saleValueTotal();
         $this->values['profit'] = $this->profitValue();
