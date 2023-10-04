@@ -24,9 +24,10 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-7c98166d.js",
+    "file": "assets/app-588991e0.js",
     "imports": [
-      "__commonjsHelpers-725317a4.js"
+      "__commonjsHelpers-725317a4.js",
+      "resources/js/theme.js"
     ],
     "isEntry": true,
     "src": "resources/js/app.js"
@@ -35,5 +36,10 @@
     "file": "assets/chart-3c7fabad.js",
     "isEntry": true,
     "src": "resources/js/chart.js"
+  },
+  "resources/js/theme.js": {
+    "file": "assets/theme-0e721fe6.js",
+    "isEntry": true,
+    "src": "resources/js/theme.js"
   }
 }
