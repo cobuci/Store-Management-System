@@ -1,9 +1,11 @@
+@php use Carbon\Carbon; @endphp
 <head>
     <meta charset="utf-8">
 
-    @vite(['resources/css/bs.css','node_modules/html2canvas/dist/html2canvas.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>invoice - Garagem 46</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
@@ -60,7 +62,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <h5 class="font-size-15 mb-1">Data:</h5>
-                                    <p> {{ \Carbon\Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
+                                    <p> {{ Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
                                 </div>
                             </div>
                         </div>

@@ -10,13 +10,13 @@
     "isEntry": true,
     "src": "node_modules/feather-icons/dist/feather.min.js?commonjs-entry"
   },
-  "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry": {
-    "file": "assets/html2canvas-ea482e0d.js",
+  "node_modules/html2canvas/dist/html2canvas.min.js?commonjs-entry": {
+    "file": "assets/html2canvas.min-e3571641.js",
     "imports": [
       "__commonjsHelpers-725317a4.js"
     ],
     "isEntry": true,
-    "src": "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry"
+    "src": "node_modules/html2canvas/dist/html2canvas.min.js?commonjs-entry"
   },
   "resources/css/app.css": {
     "file": "assets/app-d0e75866.css",
