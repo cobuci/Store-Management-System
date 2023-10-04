@@ -31,15 +31,13 @@ class Statistics extends Component
 
     public function updatedDate()
     {
-        // Pegar a data do primeiro created_at da tabela sales
+
         $firstSale = Sale::orderBy('created_at', 'asc')->first();
         if (empty($this->date['start'])) {
             $this->date['start'] = $firstSale->created_at->toDateString();
         }
         if (empty($this->date['end'])) {
-            // adoção de data atual +1 doa como padrão
             $this->date['end'] = date('Y-m-d', strtotime('+1 day'));
-           
         }
         $this->values['cost'] = $this->costValueTotal();
         $this->values['sale'] = $this->saleValueTotal();
@@ -49,14 +47,12 @@ class Statistics extends Component
         $amounts = array_column($this->products, 'amount');
         array_multisort($amounts, SORT_DESC, $this->products);
     }
-
     public function costValueTotal()
     {
         return Sale::where('created_at', '>=', $this->date['start'])
             ->where('created_at', '<=', $this->date['end'])
             ->sum('cost');
     }
-
     public function saleValueTotal()
     {
         return Sale::where('created_at', '>=', $this->date['start'])
@@ -95,7 +91,7 @@ class Statistics extends Component
 
             foreach ($sale->orders as $order) {
                 $productId = $order->product_id;
-                $categoryId = Product::find($productId)->category_id;
+                $categoryId = Product::find($productId)?->category_id;
 
                 // Verifica se o produto já está no array $products
                 if (isset($products[$productId])) {
@@ -118,7 +114,7 @@ class Statistics extends Component
                         'category_id' => $categoryId,
                     ];
                 }
-                $products = array_values($products);
+
 
             }
         }

@@ -91,16 +91,16 @@
 
                         @foreach ($category->products as $product)
 
-                            <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                                <td class=" px-2 py-4">{{$product->id}}</td>
-                                <td class=" px-2 py-4">{{$product->name}}</td>
-                                <td class=" px-2 py-4">{{$product->brand}}</td>
-                                <td class=" px-2 py-4">{{$product->weight}}</td>
-                                <td class=" px-2 py-4">R$ {{$product->cost}}</td>
-                                <td class=" px-2 py-4">R$ {{$product->sale}}</td>
-                                <td class=" px-2 py-4">{{$product->amount}}</td>
-                                <td class=" px-2 py-4">{{$product->expiration_date}}</td>
-                                <td class=" px-2 py-4">
+                            <tr class="border-b {{ $product->amount > 0 ? null : 'dark:bg-red-900 bg-red-400'}} dark:hover:bg-gray-600 hover:bg-gray-400">
+                                <td class="px-2 py-4">{{$product->id}}</td>
+                                <td class="px-2 py-4">{{$product->name}}</td>
+                                <td class="px-2 py-4">{{$product->brand}}</td>
+                                <td class="px-2 py-4">{{$product->weight}}</td>
+                                <td class="px-2 py-4">R$ {{$product->cost}}</td>
+                                <td class="px-2 py-4">R$ {{$product->sale}}</td>
+                                <td class="px-2 py-4">{{$product->amount}}</td>
+                                <td class="px-2 py-4">{{$product->expiration_date}}</td>
+                                <td class="px-2 py-4">
                                     <x-button info label="Editar" wire:click="modalCardEdit({{$product->id}})"/>
                                 </td>
                                 <td class="whitespace-nowrap px-2 py-4">

@@ -4,8 +4,7 @@
     <x-notifications position="top-center" z-index="z-[1400]"/>
     <x-button class="w-auto mb-5" icon="arrow-left" squared blue label="Voltar" href="{{ route('admin.customer') }}"/>
     <div class="flex flex-wrap gap-5">
-
-        <div class="dark:bg-gray-600 bg-white h-full min-h-fit w-auto min-w-fit p-4 rounded-lg">
+        <div class="dark:bg-gray-600 bg-white h-full w-auto min-w-fit p-4 rounded-lg">
 
             <div class="flex justify-center items-center mb-5 h-auto w-full">
                 <span class="font-bold text-xl">{{ $customer['name'] }} </span>
@@ -28,8 +27,8 @@
 
         </div>
 
-        <div class=" flex flex-col flex-1 w-full ">
-            <div class="grid md:grid-cols-3 gap-4 mb-4 pt-0 flex-wrap h-auto">
+        <div class="flex flex-col flex-1 w-full h-full">
+            <div class="grid md:grid-cols-3 gap-4 mb-4 pt-0 flex-wrap ">
                 <div class="dark:bg-gray-600 bg-white rounded-lg p-4">
                     <div class="flex justify-between">
                         <span class="font-bold ">Valor Devido</span>
@@ -58,8 +57,8 @@
                     </div>
                 </div>
             </div>
-            <div class=" w-full h-full">
-                <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900 " x-data="{ open: false }">
+            <div class=" w-full overflow-auto ">
+                <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900 " x-data="{ open: true }">
                     <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                         <i class="fa fa-history text-xl mx-2"> </i>
                         <span class="font-bold text-xl">A pagar</span>
@@ -96,7 +95,7 @@
                         </table>
                     </div>
                 </div>
-                <div class=" bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: true }">
+                <div class=" bg-white/[0.8] dark:bg-gray-900  min-w-fit " x-data="{ open: false }">
                     <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                         <i class="fa fa-check text-xl mx-2"> </i>
                         <span class="font-bold text-xl">Pago</span>
@@ -127,6 +126,7 @@
                             @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

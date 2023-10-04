@@ -3,9 +3,9 @@
 namespace App\Livewire;
 
 use App\Http\Controllers\OrderController;
-use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Sale;
+use Livewire\Component;
 use WireUi\Traits\Actions;
 
 class CustomerProfile extends Component
@@ -28,17 +28,6 @@ class CustomerProfile extends Component
     ];
     public $products = [];
 
-
-    public function mount($id)
-    {
-        $this->customer = Customer::find($id)->toArray();
-        $this->customer['debits'] = Customer::find($id)->debit();
-        $this->customer['spent'] = Customer::find($id)->spent();
-        $this->customer['water'] = Customer::find($id)->water();
-        $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get()->sortByDesc('id');
-        $this->confirmedSale = Customer::find($id)->confirmedSale()->get()->sortByDesc('id');
-    }
-
     public function modalSale($id)
     {
         $this->modal = true;
@@ -52,8 +41,6 @@ class CustomerProfile extends Component
         $this->sale_detail['profit'] = $sale['price'] - $sale['cost'];
         $this->sale_detail['profit'] = number_format($this->sale_detail['profit'], 2, ',', '.');
     }
-
-   
 
     public function cancelDialog(string $id)
     {
@@ -75,7 +62,16 @@ class CustomerProfile extends Component
         ]);
         $this->mount($this->customer['id']);
     }
-    
+
+    public function mount($id)
+    {
+        $this->customer = Customer::find($id)->toArray();
+        $this->customer['debits'] = Customer::find($id)->debit();
+        $this->customer['spent'] = Customer::find($id)->spent();
+        $this->customer['water'] = Customer::find($id)->water();
+        $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get()->sortByDesc('id');
+        $this->confirmedSale = Customer::find($id)->confirmedSale()->get()->sortByDesc('id');
+    }
 
     public function cancelSale($id): void
     {
@@ -129,10 +125,6 @@ class CustomerProfile extends Component
 
     public function render()
     {
-
-
-
-
         return view('admin.customer_profile');
     }
 }
