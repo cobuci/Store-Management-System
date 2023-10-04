@@ -41,12 +41,11 @@
                         </tr>
                     @endforeach
                     </tbody>
-
                 </table>
             </div>
         </div>
 
-        <div class="bg-white/[0.8] dark:bg-gray-900  " x-data="{ open: true }">
+        <div class="bg-white/[0.8] dark:bg-gray-900" x-data="{ open: true }">
             <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
                 <i class="fa fa-check text-xl mx-2"> </i>
                 <span class="font-bold text-xl">Pago</span>
