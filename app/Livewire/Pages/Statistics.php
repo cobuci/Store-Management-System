@@ -114,7 +114,7 @@ class Statistics extends Component
                         'category_id' => $categoryId,
                     ];
                 }
-                $products = array_values($products);
+
 
             }
         }

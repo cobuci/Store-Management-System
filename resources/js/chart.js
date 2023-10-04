@@ -20,8 +20,8 @@ import Chart from 'chart.js/auto'
     const data = {
         labels: labels,
         datasets: [
-
             {
+                type: 'line',
                 label: 'Lucro em R$',
                 data: profit,
                 fill: true,
@@ -40,12 +40,11 @@ import Chart from 'chart.js/auto'
     };
     // Line chart
     new Chart(document.getElementById("dashboard-line"), {
-        type: 'line',
+        type: 'bar',
         data: data,
         tension: 0.4,
         options: {
             responsive: true,
-
             scales: {
                 y: {
                     beginAtZero: true,
