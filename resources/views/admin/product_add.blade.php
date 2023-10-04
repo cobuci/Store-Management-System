@@ -14,12 +14,13 @@
                 required
             >
                 @foreach ($products as $product)
-                    <x-select.option value="{{$product->id}}" label=" {{$product->amount}}x - {{$product->name}} ({{$product->weight}})"
+                    <x-select.option value="{{$product->id}}"
+                                     label=" {{$product->amount}}x - {{$product->name}} ({{$product->weight}})"
                                      description="{{$product->brand}}"/>
                 @endforeach
             </x-select>
 
-            <x-inputs.number label="Quantidade" name="amount" wire:model="amount" wire:change="calculateCost"/>
+            <x-inputs.number label="Quantidade" name="amount" wire:model="amount" wire:change.live="calculateCost"/>
             <x-datetime-picker
                 label="Validade"
                 placeholder="Data de validade"
@@ -28,13 +29,17 @@
                 wire:model="expiration_date"
             />
             <div class="my-12">
-                <x-inputs.currency label="Custo Unitario" prefix="R$" thousands="." decimal="," wire:model="cost" wire:change="calculateCost" />
-                <x-inputs.currency label="Custo Total" prefix="R$" thousands="." decimal="," wire:model="totalCost"  wire:change="calculateUnitCost" />
+                <x-inputs.currency label="Custo Unitario" prefix="R$" thousands="." decimal="," wire:model="cost"
+                                   wire:change.live="calculateCost"/>
+                <x-inputs.currency label="Custo Total" prefix="R$" thousands="." decimal="," wire:model="totalCost"
+                                   wire:change.live="calculateUnitCost"/>
 
             </div>
-           <x-inputs.currency label="Preço de Venda" prefix="R$" thousands="." decimal="," wire:model="price" wire:change="profit" />
-            <x-inputs.currency label="Lucro" prefix="R$" thousands="." decimal="," wire:model="profit" disabled />
-            <x-button class="w-full my-4" icon="check" squared positive label="Adicionar" wire:click="addProduct"/>
+            <x-inputs.currency label="Preço de Venda" prefix="R$" thousands="." decimal="," wire:model="price"
+                               wire:change.live="profitCalculate"/>
+            <x-inputs.currency label="Lucro" prefix="R$" thousands="." decimal="," wire:model.live="profit" disabled/>
+            <x-button class="w-full my-4" icon="check" squared positive label="Adicionar"
+                      wire:loading.class="opacity-50" wire:click="addProduct"/>
 
 
         </div>

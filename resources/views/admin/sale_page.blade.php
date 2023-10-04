@@ -61,7 +61,7 @@
             class="flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl">
             <div class="flex-1 p-2">
                 <x-inputs.currency label="Desconto" prefix="R$" thousands="." decimal="," wire:model="discount"
-                                   wire:change="calculateTotal"/>
+                                   wire:change.live="calculateTotal"/>
                 <x-inputs.currency label="Valor Total" prefix="R$" thousands="." decimal="," wire:model="finalPrice"
                                    class="cursor-not-allowed" disabled/>
                 <x-select
@@ -77,8 +77,6 @@
                     option-value="name"
                     wire:model="payment_method"
                     name="payment_method"
-
-
                 />
                 <x-select
                     label="Bonificação"
@@ -88,7 +86,7 @@
                     ]"
                     option-label="name"
                     option-value="value"
-                    wire:model="bonus"
+                    wire:model.live="bonus"
                     name="bonus"
                 />
                 <x-select

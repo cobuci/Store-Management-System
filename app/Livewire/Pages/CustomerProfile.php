@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Http\Controllers\OrderController;
+use App\Models\Customer;
 use App\Models\Sale;
 use Livewire\Component;
-use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
-class Reports extends Component
+class CustomerProfile extends Component
 {
-    use WithPagination;
     use Actions;
-
-    public $search = '';
-    public $total = 0;
-    public $modal = false;
+    public $customer = [];
     public $unconfirmedSale = [];
+    public $confirmedSale = [];
+    public $modal = false;
     public $sale_detail = [
         'id' => '',
         'order_id' => '',
@@ -28,25 +26,7 @@ class Reports extends Component
         'payment_method' => '',
         'created_at' => '',
     ];
-
-
     public $products = [];
-
-    public function updatedSearch()
-    {
-        $this->mount();
-    }
-
-    public function mount()
-    {
-        if (!$this->search) {
-            $this->unconfirmedSale = Sale::where('payment_status', 'LIKE', '0')->get()->sortByDesc('id');
-        } else {
-            $this->unconfirmedSale = Sale::where('payment_status', 'LIKE', '0')->where('customer_name', 'LIKE', "%{$this->search}%")->get()->sortByDesc('id');
-        }
-
-        $this->total = Sale::totalDue();
-    }
 
     public function modalSale($id)
     {
@@ -80,29 +60,71 @@ class Reports extends Component
                 'color' => 'info',
             ],
         ]);
+        $this->mount($this->customer['id']);
+    }
+
+    public function mount($id)
+    {
+        $this->customer = Customer::find($id)->toArray();
+        $this->customer['debits'] = Customer::find($id)->debit();
+        $this->customer['spent'] = Customer::find($id)->spent();
+        $this->customer['water'] = Customer::find($id)->water();
+        $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get()->sortByDesc('id');
+        $this->confirmedSale = Customer::find($id)->confirmedSale()->get()->sortByDesc('id');
     }
 
     public function cancelSale($id): void
     {
         OrderController::destroy($id);
-        $this->mount();
+        $this->mount($this->customer['id']);
     }
-
 
     public function confirmSale($id)
     {
         $sale = Sale::find($id);
         $sale->payment_status = 1;
         $sale->save();
-        $this->mount();
+        $this->mount($this->customer['id']);
+    }
+    public function update()
+    {
+        $this->validate([
+            'customer.name' => 'required',
+        ]);
+
+        Customer::find($this->customer['id'])->update($this->customer);
+
+        $this->mount($this->customer['id']);
+        $this->notification()->success('Cliente atualizado com sucesso!');
+    }
+
+    public function deleteModal()
+    {
+        $this->dialog()->confirm([
+            'title' => "Deletar Cliente",
+            'iconColor' => 'primary',
+            'description' => "Você tem certeza que deseja excluir o cliente: {$this->customer['name']}?",
+            'accept' => [
+                'label' => 'Excluir',
+                'method' => 'delete',
+                'color' => 'negative',
+            ],
+            'reject' => [
+                'label' => 'Cancelar',
+                'color' => 'info',
+            ],
+        ]);
+    }
+
+    public function delete()
+    {
+        Customer::find($this->customer['id'])->delete();
+        $this->notification()->success('Cliente deletado com sucesso!');
+        return redirect()->route('admin.customer');
     }
 
     public function render()
     {
-        $sales = Sale::latest("id")->where('payment_status', 'LIKE', '1')->paginate(10);
-
-        return view('admin.reports', [
-            'sales' => $sales,
-        ]);
+        return view('admin.customer_profile');
     }
 }

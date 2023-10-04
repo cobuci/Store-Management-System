@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\{Models\ShoppingList as Shopping};
 use Illuminate\Contracts\View\Factory;

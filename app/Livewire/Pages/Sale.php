@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 
+use App\{Http\Controllers\CashierController,
+    Http\Controllers\FinanceController,
+    Http\Controllers\HistoryController,
+    Models\Sale as SaleModel};
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Customer;
 use App\Models\Product;
-use App\{Http\Controllers\CashierController,
-    Http\Controllers\FinanceController,
-    Http\Controllers\HistoryController,
-    Models\Sale as SaleModel
-};
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,25 +22,22 @@ class Sale extends Component
 {
     use Actions;
 
-    protected array $rules = [
-        'product' => ['required'],
-        'amount' => ['required'],
-    ];
     public $products = [];
     public $product = '';
     public $list = [];
     public $bonus = 0;
     public $amount = '';
-
     public string $finalPrice;
     public string $finalCost;
-
     public $customers = [];
     public $customer = '';
     public $discount = 0;
     public $price = 0;
     public $payment_method = 'Dinheiro';
-
+    protected array $rules = [
+        'product' => ['required'],
+        'amount' => ['required'],
+    ];
 
     public function addProduct(): void
     {
@@ -120,6 +116,21 @@ class Sale extends Component
         unset($this->list[$id]);
     }
 
+    public function mount(): void
+    {
+        $this->customers = Customer::show();
+        $this->products = Product::get();
+    }
+
+    public function render(): View|Factory|Application
+    {
+
+        $this->finalPrice = $this->calculateTotal();
+        $this->finalCost = $this->calculateCost();
+
+        return view('admin.sale_page');
+    }
+
     public function calculateTotal(): string
     {
         $total = 0;
@@ -141,20 +152,5 @@ class Sale extends Component
         }
 
         return number_format($total, 2, ',', '.');
-    }
-
-    public function mount(): void
-    {
-        $this->customers = Customer::show();
-        $this->products = Product::get();
-    }
-
-    public function render(): View|Factory|Application
-    {
-
-        $this->finalPrice = $this->calculateTotal();
-        $this->finalCost = $this->calculateCost();
-
-        return view('admin.sale_page');
     }
 }

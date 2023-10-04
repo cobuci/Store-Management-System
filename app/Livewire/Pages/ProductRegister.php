@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -15,18 +15,17 @@ class ProductRegister extends Component
     public $brand = '';
     public $weight = '';
     public $weight_type = '';
-
-    public function mount()
-    {
-        $this->categories = Category::show();
-    }
-
     protected $rules = [
         'category_id' => 'required',
         'name' => 'required',
         'weight' => 'required',
         'weight_type' => 'required',
     ];
+
+    public function mount()
+    {
+        $this->categories = Category::show();
+    }
 
     public function store()
     {
