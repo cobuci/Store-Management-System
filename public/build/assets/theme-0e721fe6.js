@@ -1,0 +1,1 @@
+const e=document.querySelector(".dark-toogle");e.addEventListener("click",()=>{document.body.classList.toggle("dark"),localStorage.setItem("dark_mode",document.body.classList.contains("dark"))});const t=localStorage.getItem("dark_mode")==="true";t?document.body.classList.add("dark"):document.body.classList.remove("dark");
