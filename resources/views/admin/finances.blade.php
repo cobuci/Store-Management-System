@@ -65,7 +65,7 @@
                         <x-badge outline full lg zinc label="{{ $finance->description }}"/>
                     </td>
                     <td>
-                        <x-badge outline full lg zinc label=" {{ Carbon::parse($finance->date)->format('d/m/yy') }}"/>
+                        <x-badge outline full lg zinc label=" {{ Carbon::parse($finance->date)->format('d/m/y') }}"/>
                     </td>
 
                     @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')

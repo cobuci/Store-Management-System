@@ -11,12 +11,3 @@
         @apply bg-neutral-800;
     }
 }
-
-/* styles.css */
-.a-hover{
-    @apply  hover:text-[#e9ecef]  hover:outline-none hover:border-l-red-300 hover:bg-gradient-to-r from-[rgb(59,125,221)]/[0.1] to-[rgb(59,125,221)]/[0.08]
-
-}
-.a-active{
-    @apply active:bg-gradient-to-r from-[rgb(59,125,221)]/[0.1] to-[rgb(59,125,221)]/[0.08] active:text-[#e9ecef]  active:outline-none data-[te-sidenav-state-active]:text-[#e9ecef] ;
-}
