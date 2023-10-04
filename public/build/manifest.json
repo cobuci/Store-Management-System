@@ -1,0 +1,39 @@
+{
+  "__commonjsHelpers-725317a4.js": {
+    "file": "assets/_commonjsHelpers-725317a4.js"
+  },
+  "node_modules/feather-icons/dist/feather.min.js?commonjs-entry": {
+    "file": "assets/feather.min-c21f3f5d.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/feather-icons/dist/feather.min.js?commonjs-entry"
+  },
+  "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry": {
+    "file": "assets/html2canvas-ea482e0d.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/html2canvas/dist/html2canvas.js?commonjs-entry"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-d0e75866.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-7c98166d.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/chart.js": {
+    "file": "assets/chart-3c7fabad.js",
+    "isEntry": true,
+    "src": "resources/js/chart.js"
+  }
+}
