@@ -6,6 +6,7 @@ use App\{Http\Controllers\HistoryController,
     Livewire\Dashboard,
     Livewire\Inventory,
     Livewire\Pages\PackTool,
+    Livewire\Pages\Purchase,
     Livewire\Pages\Statistics,
     Livewire\ProductAdd,
     Livewire\ProductRegister,
@@ -40,6 +41,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::get('/sale', Sale::class)->name('admin.sale');
     Route::get('/reports', Reports::class)->name('admin.reports');
     Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
+    Route::get('/purchase', Purchase::class)->name('admin.purchase');
 
 
     //Tools
