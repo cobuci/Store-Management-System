@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Models\Customer;
 use Livewire\Component;
@@ -12,14 +12,13 @@ class Customers extends Component
 
     public $search = '';
 
-
-    public function mount()
-    {
-    }
-
     public function updatedSearch()
     {
         $this->mount();
+    }
+
+    public function mount()
+    {
     }
 
     public function customerProfile($id)

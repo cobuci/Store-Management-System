@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\FinanceController;

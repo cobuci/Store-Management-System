@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\FinanceController;
@@ -41,6 +41,10 @@ class ProductAdd extends Component
         $this->profit();
     }
 
+    public function profit()
+    {
+        $this->profit = floatval($this->price) - floatval($this->cost);
+    }
 
     public function calculateUnitCost()
     {
@@ -82,11 +86,6 @@ class ProductAdd extends Component
     public function mount()
     {
         $this->products = Product::all();
-    }
-
-    public function profit()
-    {
-        $this->profit = floatval($this->price) - floatval($this->cost);
     }
 
     public function render()

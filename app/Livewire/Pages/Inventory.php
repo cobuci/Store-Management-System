@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -44,17 +44,6 @@ class Inventory extends Component
         'product.weight_type' => 'required',
     ];
 
-    public function mount() : void
-    {
-        $this->categories = Category::all();
-        $this->categories_skip = json_decode(file_get_contents('../config/app_settings.json'))->stockSkipCategories;
-        $this->products = Product::all();
-        $this->lastProducts = $this->products->sortByDesc('id')->take(5);
-        $this->values['cost'] = $this->costValueTotal();
-        $this->values['sale'] = $this->saleValueTotal();
-        $this->values['profit'] = $this->profitValue();
-    }
-
     public function modalCardEdit(string $id) : void
     {
         $this->cardModal = true;
@@ -77,6 +66,45 @@ class Inventory extends Component
         $this->cardModal = false;
 
         $this->notification()->success('Produto editado com sucesso!');
+    }
+
+    public function deleteDialog(string $id): void
+    {
+        $product = Product::find($id);
+        $this->dialog()->confirm([
+            'title' => "#{$product->id} - {$product?->name}  ({$product?->weight}) - {$product?->brand} ",
+            'iconColor' => 'primary',
+            'description' => "Você tem certeza que deseja excluir o produto do estoque?",
+            'accept' => [
+                'label' => 'Excluir',
+                'method' => 'deleteProduct',
+                'params' => $id,
+                'color' => 'negative',
+            ],
+            'reject' => [
+                'label' => 'Cancelar',
+                'color' => 'info',
+            ],
+        ]);
+
+    }
+
+    public function deleteProduct($id) : void
+    {
+        Product::find($id)->delete();
+        $this->mount();
+        $this->notification()->success('Produto excluído com sucesso!');
+    }
+
+    public function mount() : void
+    {
+        $this->categories = Category::all();
+        $this->categories_skip = json_decode(file_get_contents('../config/app_settings.json'))->stockSkipCategories;
+        $this->products = Product::all();
+        $this->lastProducts = $this->products->sortByDesc('id')->take(5);
+        $this->values['cost'] = $this->costValueTotal();
+        $this->values['sale'] = $this->saleValueTotal();
+        $this->values['profit'] = $this->profitValue();
     }
 
     public function costValueTotal() : string
@@ -106,34 +134,6 @@ class Inventory extends Component
         $sale_value = floatval(str_replace(',', '', $this->saleValueTotal()));
         $cost_value = floatval(str_replace(',', '', $this->costValueTotal()));
         return number_format($sale_value - $cost_value, 2);
-    }
-
-    public function deleteDialog(string $id): void
-    {
-        $product = Product::find($id);
-        $this->dialog()->confirm([
-            'title' => "#{$product->id} - {$product?->name}  ({$product?->weight}) - {$product?->brand} ",
-            'iconColor' => 'primary',
-            'description' => "Você tem certeza que deseja excluir o produto do estoque?",
-            'accept' => [
-                'label' => 'Excluir',
-                'method' => 'deleteProduct',
-                'params' => $id,
-                'color' => 'negative',
-            ],
-            'reject' => [
-                'label' => 'Cancelar',
-                'color' => 'info',
-            ],
-        ]);
-
-    }
-
-    public function deleteProduct($id) : void
-    {
-        Product::find($id)->delete();
-        $this->mount();
-        $this->notification()->success('Produto excluído com sucesso!');
     }
 
     public function render()

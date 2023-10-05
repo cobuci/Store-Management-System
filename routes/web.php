@@ -2,21 +2,21 @@
 
 use App\{Http\Controllers\HistoryController,
     Http\Controllers\InvoiceController,
-    Livewire\CustomerRegister,
-    Livewire\Dashboard,
-    Livewire\Inventory,
+    Livewire\Pages\CustomerRegister,
+    Livewire\Pages\Dashboard,
+    Livewire\Pages\Inventory,
     Livewire\Pages\PackTool,
+    Livewire\Pages\ProductAdd,
+    Livewire\Pages\ProductRegister,
     Livewire\Pages\Purchase,
-    Livewire\Pages\Statistics,
-    Livewire\ProductAdd,
-    Livewire\ProductRegister,
-    Livewire\Reports,
-    Livewire\Sale,
-    Livewire\ShoppingList};
-use App\Livewire\CustomerProfile;
-use App\Livewire\Customers;
-use App\Livewire\Finance;
-use App\Livewire\Settings;
+    Livewire\Pages\Reports,
+    Livewire\Pages\Sale,
+    Livewire\Pages\ShoppingList,
+    Livewire\Pages\Statistics};
+use App\Livewire\Pages\CustomerProfile;
+use App\Livewire\Pages\Customers;
+use App\Livewire\Pages\Finance;
+use App\Livewire\Pages\Settings;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(callback: function () {
