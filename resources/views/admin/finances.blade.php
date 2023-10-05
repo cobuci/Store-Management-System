@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Finanças')
-<div class="w-full h-full">
+<div class="w-full h-full max-w-4xl">
     <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="grid md:grid-cols-3 gap-4 text-white">
         <div class="bg-green-600 hover:bg-green-800 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
@@ -15,11 +15,11 @@
         <div class="bg-blue-600 p-4 rounded-lg font-bold">
 
             <div class="flex justify-between text-xl ">
-                <span>Investimento</span>
+                <span>A pagar</span>
                 <i class="fas fa-info-circle"></i>
             </div>
             <div>
-                <span class=" text-3xl">R$ {{$investments}}</span>
+                <span class=" text-3xl">R$ {{$value_unpaid_purchases}}</span>
             </div>
         </div>
         <div class="bg-orange-600 p-4 rounded-lg font-bold">
@@ -68,7 +68,7 @@
                         <x-badge outline full lg zinc label=" {{ Carbon::parse($finance->date)->format('d/m/y') }}"/>
                     </td>
 
-                    @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'inv')
+                    @if($finance->type == 'rdm' || $finance->type == 'inv')
                         <td class="p-4">
                             <x-button red class="w-full" label="Cancelar" wire:click="dialogCancel({{ $finance->id }})"
                             />

@@ -20,9 +20,9 @@
                         @foreach (History::listarHistorico() as $history)
                             <tr>
                                 <td># {{ $history->id}}</td>
-                                <td>{{ $history->tipo}}</td>
-                                <td>{{ $history->descricao}}</td>
-                                <td>{{ $history->data}}</td>
+                                <td>{{ $history->type}}</td>
+                                <td>{{ $history->description}}</td>
+                                <td>{{ $history->date}}</td>
                             </tr>
                         @endforeach
                         </tbody>

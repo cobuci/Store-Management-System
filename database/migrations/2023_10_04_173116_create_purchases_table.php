@@ -11,9 +11,13 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('product_name');
+            $table->string('product_brand');
+            $table->string('product_weight');
             $table->decimal('unit_cost');
             $table->integer('amount');
+            $table->date('expiration_date');
             $table->integer('payment_status');
+
             $table->timestamps();
         });
     }
