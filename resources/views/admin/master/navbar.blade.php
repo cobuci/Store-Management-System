@@ -188,7 +188,7 @@
             </nav>
         </header>
 
-        <div class="flex p-12 justify-center">
+        <div class="flex p-6 justify-center">
 
             <x-dialog z-index="z-50" blur="md" align="center"/>
             @yield('content')
