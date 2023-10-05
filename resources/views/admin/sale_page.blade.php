@@ -14,8 +14,8 @@
             >
                 @foreach ($products as $product)
                     <x-select.option value="{{$product->id}}"
-                                     label=" {{$product->amount}} - {{$product->name}} ({{$product->weight}})"
-                                     description="{{$product->brand}}"/>
+                                     label=" {{$product->name}} ({{$product->weight}}) - {{$product->brand}}"
+                                     description="Estoque: {{$product->amount}} "/>
                 @endforeach
             </x-select>
 
