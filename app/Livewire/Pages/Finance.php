@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\InvestimentController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\{Finance as FinanceModel, Sale};
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,8 +18,9 @@ class Finance extends Component
     use Actions;
 
     public string $balance = '';
-    public string $investments = '';
+
     public string $due = '';
+    public $value_unpaid_purchases = '';
     public $modalBalanceOptions = false;
     public $modalBalanceAdd = false;
     public $value_balance_add = '';
@@ -56,8 +58,8 @@ class Finance extends Component
     public function mount()
     {
         $this->balance = CashierController::balance();
-        $this->investments = CashierController::investments();
         $this->due = Sale::totalDue();
+        $this->value_unpaid_purchases = PurchaseController::unpaidPurchases();
     }
 
     public function showBalanceOptions()

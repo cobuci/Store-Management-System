@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Pages;
 
-use App\Http\Controllers\CashierController;
-use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
+use App\Models\Purchase;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -23,6 +22,7 @@ class ProductAdd extends Component
     public $price = '';
     public $profit = '';
     public $expiration_date;
+    public $expiration_purchase;
     public $totalCost = '';
 
 
@@ -31,6 +31,7 @@ class ProductAdd extends Component
         'amount' => 'required',
         'cost' => 'required',
         'price' => 'required',
+        'expiration_purchase' => 'required',
     ];
 
     public function calculateCost()
@@ -38,10 +39,10 @@ class ProductAdd extends Component
         if ($this->amount != null && $this->cost != null) {
             $this->totalCost = $this->amount * $this->cost;
         }
-        $this->profit();
+        $this->calculateProfit();
     }
 
-    public function profit()
+    public function calculateProfit()
     {
         $this->profit = floatval($this->price) - floatval($this->cost);
     }
@@ -51,7 +52,7 @@ class ProductAdd extends Component
         if ($this->amount != null && $this->cost != null) {
             $this->cost = $this->totalCost / $this->amount;
         }
-        $this->profit();
+        $this->calculateProfit();
 
     }
 
@@ -69,13 +70,17 @@ class ProductAdd extends Component
         $product->expiration_date = $this->expiration_date;
         $product->save();
 
-        FinanceController::addProductInventory(
-            product: $this->product_id,
-            value: $this->cost * $this->amount,
-            amount: $this->amount
-        );
+        Purchase::create([
+            'product_id' => $this->product_id,
+            'product_name' => $product->name,
+            'product_brand' => $product->brand,
+            'product_weight' => $product->weight,
+            'unit_cost' => $this->cost,
+            'amount' => $this->amount,
+            'payment_status' => 0,
+            'expiration_date' => $this->expiration_purchase,
+        ]);
 
-        CashierController::withdrawBalance($this->cost * $this->amount);
         HistoryController::addToHistory("ENTRADA", "Compra de ($this->amount - $product->name - $product->brand - $product->weight)");
 
         $this->reset(['product', 'amount', 'cost', 'price']);

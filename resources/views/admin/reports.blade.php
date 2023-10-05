@@ -1,6 +1,7 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Relatório')
-<div class="w-[100%]">
+<div class="w-full">
+    <h1 class="grid justify-items-center font-bold text-2xl mb-6 w-full"> Relatórios de Vendas </h1>
     <div class="flex flex-col  border-2 border-black rounded-t-lg mt-6">
         <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  " x-data="{ open: false }">
             <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">

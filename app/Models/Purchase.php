@@ -10,9 +10,12 @@ class Purchase extends Model
     protected $fillable = [
         'product_id',
         'product_name',
+        'product_brand',
+        'product_weight',
         'unit_cost',
         'amount',
         'payment_status',
+        'expiration_date',
     ];
 
 }

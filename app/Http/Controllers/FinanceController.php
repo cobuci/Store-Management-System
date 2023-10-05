@@ -46,12 +46,6 @@ class FinanceController extends Controller
     {
         $finance = Finance::find($id);
 
-        if ($finance->type == "wd") {
-            if ($finance->product_id != 0) {
-                ProductController::removeStock($finance->product_id, $finance->product_amount);
-            }
-            CashierController::addBalance($finance->value);
-        }
         if ($finance->type == "rdm") {
             CashierController::addBalance($finance->value);
             CashierController::withdrawInvestment($finance->value);
