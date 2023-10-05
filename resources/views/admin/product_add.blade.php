@@ -14,8 +14,9 @@
                 required
             >
                 @foreach ($products as $product)
-                    <x-select.option value="{{$product->id}}" label=" {{$product->amount}}x - {{$product->name}} ({{$product->weight}})"
-                                     description="{{$product->brand}}"/>
+                    <x-select.option value="{{$product->id}}"
+                                     label=" {{$product->name}} ({{$product->weight}}) - {{$product->brand}}"
+                                     description="Estoque: {{$product->amount}} "/>
                 @endforeach
             </x-select>
 
@@ -28,12 +29,16 @@
                 wire:model="expiration_date"
             />
             <div class="my-12">
-                <x-inputs.currency label="Custo Unitario" prefix="R$" thousands="." decimal="," wire:model="cost" wire:change.live="calculateCost" />
-                <x-inputs.currency label="Custo Total" prefix="R$" thousands="." decimal="," wire:model="totalCost"  wire:change.live="calculateUnitCost" />
+                <x-inputs.currency label="Custo Unitario" prefix="R$" thousands="." decimal="," wire:model="cost"
+                                   wire:change.live="calculateCost"/>
+                <x-inputs.currency label="Custo Total" prefix="R$" thousands="." decimal="," wire:model="totalCost"
+                                   wire:change.live="calculateUnitCost"/>
 
             </div>
-           <x-inputs.currency label="Preço de Venda" prefix="R$" thousands="." decimal="," wire:model="price" wire:change="calculateProfit" />
-            <x-inputs.currency label="Lucro" prefix="R$" thousands="." decimal="," wire:model="profit" disabled class="mb-6" />
+            <x-inputs.currency label="Preço de Venda" prefix="R$" thousands="." decimal="," wire:model="price"
+                               wire:change="calculateProfit"/>
+            <x-inputs.currency label="Lucro" prefix="R$" thousands="." decimal="," wire:model="profit" disabled
+                               class="mb-6"/>
 
             <x-datetime-picker
                 label="Vencimento da fatura"
