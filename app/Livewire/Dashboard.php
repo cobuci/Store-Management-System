@@ -32,16 +32,6 @@ class Dashboard extends Component
     public string $lastMonthProfit = '';
     public string $lastDayProfit = '';
 
-    public function getDailyProfit($date = 0){
-        $dayCost = $this->getSalesCostForLastDays($date);
-        $dayIncome = $this->getSalesIncomeForLastDays($date);
-        return $dayIncome - $dayCost;
-    }
-    public function getMonthProfit($date = 0){
-        $monthCost = $this->getSalesCostForLastMonth($date);
-        $monthIncome = $this->getSalesIncomeForLastMonth($date);
-        return $monthIncome - $monthCost;
-    }
     public function changeGoal()
     {
         $goalFind = Cashier::find(3);
@@ -51,6 +41,7 @@ class Dashboard extends Component
             title: 'Valor da meta atualizado com sucesso!',
         );
     }
+
     public function goalDialog()
     {
         $this->dialog()->id('goalDialog')->confirm([
@@ -66,160 +57,6 @@ class Dashboard extends Component
             ],
         ]);
     }
-    public function getDailyMonthAverage()
-    {
-        $revenue = $this->salesMonth;
-        $day = $this->getLastSaleDay();
-
-        try {
-            $average = $revenue / $day;
-            $average = number_format($average, 2);
-        } catch (DivisionByZeroError $e) {
-            $average = $revenue;
-        }
-
-        return $average;
-    }
-    public function calculateGoalMonthPercentage(): string
-    {
-        $percent = 0;
-        try {
-            $percent = ($this->salesMonth / $this->goal) * 100;
-        } catch (DivisionByZeroError $e) {
-            $percentage = 0;
-        }
-
-        return number_format($percent, 2) ;
-    }
-    public function getLastSaleDay($date = 0)
-    {
-        $date = max(0, $date);
-        $sales = Sale::selectRaw('DAY(created_at) as day')
-            ->orderByDesc('created_at')
-            ->get();
-        if ($sales->isEmpty()) {
-            return 0;
-        }
-        if ($date >= $sales->count()) {
-            return $sales->last()->day;
-        }
-        return $sales[$date]->day;
-    }
-    public function getSalesIncomeForLastDays($date = 0)
-    {
-        $sales = DB::table('sales')
-            ->select(
-                DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(price) as total_price'),
-            )
-            ->groupBy('date')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return $sales[$date]->total_price ?? $sales = 0;
-    }
-    public static function getSalesCostForLastDays($date = 0)
-    {
-        $sales = DB::table('sales')
-            ->select(
-                DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(cost) as cost')
-            )
-            ->groupBy('date')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return $sales[$date]->cost ?? $sales = 0;
-    }
-    public function percentDailySales()
-    {
-        $today = Dashboard::getSalesIncomeForLastDays();
-        $yesterday = Dashboard::getSalesIncomeForLastDays(1);
-        if ($yesterday) {
-            $amount = $today - $yesterday;
-
-            $amount = ($amount / abs($yesterday)) * 100;
-
-            return number_format($amount, 2);
-        } else {
-            return 0;
-        }
-    }
-    public function checkMonth($month)
-    {
-        $namesOfMonths = [
-            1 => "Janeiro",
-            2 => "Fevereiro",
-            3 => "Março",
-            4 => "Abril",
-            5 => "Maio",
-            6 => "Junho",
-            7 => "Julho",
-            8 => "Agosto",
-            9 => "Setembro",
-            10 => "Outubro",
-            11 => "Novembro",
-            12 => "Dezembro",
-        ];
-
-        return $namesOfMonths[$month] ?? 0;
-    }
-    public function getLastSaleMonth($date = 0)
-    {
-        $sales = DB::table('sales')
-            ->select(
-                DB::raw('count(id) as `data`'),
-                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
-                DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day')
-            )
-            ->groupBy('year', 'month')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return $sales[$date]->month ?? $sales = 0;
-    }
-    public function getSalesIncomeForLastMonth($date = 0)
-    {
-        $sales = DB::table('sales')
-            ->select(
-                DB::raw('count(id) as `data`'),
-                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
-                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
-                DB::raw('SUM(price) as total_price')
-            )
-            ->groupBy('year', 'month')
-            ->orderBy('id', 'desc')
-            ->get();
-        return $sales[$date]->total_price ?? $result = 0;
-    }
-    public function getSalesCostForLastMonth($date = 0)
-    {
-        $sales = DB::table('sales')
-            ->select(
-                DB::raw('count(id) as `data`'),
-                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
-                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
-                DB::raw('SUM(cost) as cost')
-            )
-            ->groupBy('year', 'month')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        return $sales[$date]->cost ?? $result = null;
-    }
-    public function percentMonthSales()
-    {
-        $current_month = Dashboard::getSalesIncomeForLastMonth();
-        $previous_month = Dashboard::getSalesIncomeForLastMonth(1);
-        if ($previous_month) {
-            $amount = $current_month - $previous_month;
-            $amount = ($amount / abs($previous_month)) * 100;
-            return number_format($amount, 2);
-        } else {
-            return 0;
-        }
-    }
-
-
 
     public function render()
     {
@@ -242,5 +79,182 @@ class Dashboard extends Component
         $this->lastDayProfit = $this->getDailyProfit(1);
 
         return view('admin.dashboard');
+    }
+
+    public function checkMonth($month)
+    {
+        $namesOfMonths = [
+            1 => "Janeiro",
+            2 => "Fevereiro",
+            3 => "Março",
+            4 => "Abril",
+            5 => "Maio",
+            6 => "Junho",
+            7 => "Julho",
+            8 => "Agosto",
+            9 => "Setembro",
+            10 => "Outubro",
+            11 => "Novembro",
+            12 => "Dezembro",
+        ];
+
+        return $namesOfMonths[$month] ?? 0;
+    }
+
+    public function getLastSaleMonth($date = 0)
+    {
+        $sales = DB::table('sales')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month, DAY(created_at) day')
+            )
+            ->groupBy('year', 'month')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $sales[$date]->month ?? $sales = 0;
+    }
+
+    public function getSalesIncomeForLastDays($date = 0)
+    {
+        $sales = DB::table('sales')
+            ->select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('SUM(price) as total_price'),
+            )
+            ->groupBy('date')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $sales[$date]->total_price ?? $sales = 0;
+    }
+
+    public function getSalesIncomeForLastMonth($date = 0)
+    {
+        $sales = DB::table('sales')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
+                DB::raw('SUM(price) as total_price')
+            )
+            ->groupBy('year', 'month')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $sales[$date]->total_price ?? $result = 0;
+    }
+
+    public function percentDailySales()
+    {
+        $today = Dashboard::getSalesIncomeForLastDays();
+        $yesterday = Dashboard::getSalesIncomeForLastDays(1);
+        if ($yesterday) {
+            $amount = $today - $yesterday;
+
+            $amount = ($amount / abs($yesterday)) * 100;
+
+            return number_format($amount, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    public function percentMonthSales()
+    {
+        $current_month = Dashboard::getSalesIncomeForLastMonth();
+        $previous_month = Dashboard::getSalesIncomeForLastMonth(1);
+        if ($previous_month) {
+            $amount = $current_month - $previous_month;
+            $amount = ($amount / abs($previous_month)) * 100;
+            return number_format($amount, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    public function calculateGoalMonthPercentage(): string
+    {
+        $percent = 0;
+        try {
+            $percent = ($this->salesMonth / $this->goal) * 100;
+        } catch (DivisionByZeroError $e) {
+            $percentage = 0;
+        }
+
+        return number_format($percent, 2);
+    }
+
+    public function getDailyMonthAverage()
+    {
+        $revenue = $this->salesMonth;
+        $day = $this->getLastSaleDay();
+
+        try {
+            $average = $revenue / $day;
+            $average = number_format($average, 2);
+        } catch (DivisionByZeroError $e) {
+            $average = $revenue;
+        }
+
+        return $average;
+    }
+
+    public function getLastSaleDay($date = 0)
+    {
+        $date = max(0, $date);
+        $sales = Sale::selectRaw('DAY(created_at) as day')
+            ->orderByDesc('created_at')
+            ->get();
+        if ($sales->isEmpty()) {
+            return 0;
+        }
+        if ($date >= $sales->count()) {
+            return $sales->last()->day;
+        }
+        return $sales[$date]->day;
+    }
+
+    public function getMonthProfit($date = 0)
+    {
+        $monthCost = $this->getSalesCostForLastMonth($date);
+        $monthIncome = $this->getSalesIncomeForLastMonth($date);
+        return $monthIncome - $monthCost;
+    }
+
+    public function getSalesCostForLastMonth($date = 0)
+    {
+        $sales = DB::table('sales')
+            ->select(
+                DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),
+                DB::raw('YEAR(created_at) year, MONTH(created_at) month'),
+                DB::raw('SUM(cost) as cost')
+            )
+            ->groupBy('year', 'month')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return $sales[$date]->cost ?? $result = null;
+    }
+
+    public function getDailyProfit($date = 0)
+    {
+        $dayCost = $this->getSalesCostForLastDays($date);
+        $dayIncome = $this->getSalesIncomeForLastDays($date);
+        return $dayIncome - $dayCost;
+    }
+
+    public static function getSalesCostForLastDays($date = 0)
+    {
+        $sales = DB::table('sales')
+            ->select(
+                DB::raw('DATE(created_at) as date'),
+                DB::raw('SUM(cost) as cost')
+            )
+            ->groupBy('date')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $sales[$date]->cost ?? $sales = 0;
     }
 }

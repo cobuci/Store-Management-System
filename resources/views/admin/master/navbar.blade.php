@@ -116,6 +116,17 @@
                 </a>
             </li>
 
+            <li class="relative">
+                <a class="a-hover a-active flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-400 outline-none transition duration-300 ease-linear motion-reduce:transition-none"
+                   href="{{ route('admin.purchase') }}">
+          <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+            <x-icon name="calendar" class="w-auto h-6"/>
+          </span>
+                    <span>Contas</span>
+                </a>
+            </li>
+
+
             <!--  -->
             <div class="my-4">
                 <span class="px-6 py-4 text-[0.875rem] text-gray-300">Ferramentas</span>
@@ -188,7 +199,7 @@
             </nav>
         </header>
 
-        <div class="flex p-12 justify-center">
+        <div class="flex p-6 justify-center">
 
             <x-dialog z-index="z-50" blur="md" align="center"/>
             @yield('content')
