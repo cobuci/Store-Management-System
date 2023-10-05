@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
-
-    <wireui:scripts />
+    <title>@yield('title',__('Garagem 46'))</title>
+    <wireui:scripts/>
     @livewireStyles
 
     @vite(['resources/js/app.js',  'resources/css/app.css' ])
@@ -19,7 +18,7 @@
 
 </head>
 @extends('admin.master.navbar')
-<body id="page-top">
+<body>
 
 @section('content')
     {{ $slot }}
