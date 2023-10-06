@@ -20,8 +20,8 @@
                      wire:model="name"/>
 
             <x-input icon="briefcase" label="Marca" placeholder="Marca" name="brand" wire:model="brand"/>
-            <x-input icon="scale" label="Unidade peso (*)" placeholder="Peso" name="weight" wire:model="weight"/>
-            <x-select label="Tipo peso" placeholder="Selecione o tipo do peso"
+            <x-input icon="scale" label="Quantidade (peso) (*)" placeholder="Quantidade" name="weight" wire:model="weight"/>
+            <x-select label="Unidade Medida" placeholder="Selecione a unidade de medida"
                       :options="[
                         ['name' => 'Mililitros', 'value'=>'ml'],
                         ['name' => 'Litros', 'value'=>'l'],
