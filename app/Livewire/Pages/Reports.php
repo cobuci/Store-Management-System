@@ -82,6 +82,24 @@ class Reports extends Component
         ]);
     }
 
+    public function confirmDialog(string $id){
+        $this->dialog()->confirm([
+            'title' => "Confirmar a compra #{$this->sale_detail['id']}",
+            'iconColor' => 'primary',
+            'description' => "Você tem certeza que deseja confirmar esta compra?",
+            'accept' => [
+                'label' => 'Confirmar',
+                'method' => 'confirmSale',
+                'params' => $id,
+                'color' => 'positive',
+            ],
+            'reject' => [
+                'label' => 'Fechar',
+                'color' => 'negative',
+            ],
+        ]);
+    }
+
     public function cancelSale($id): void
     {
         OrderController::destroy($id);
