@@ -15,7 +15,7 @@
             <td>{{ $item->cost }}<br></td>
             <td>{{ $item->price }}<br></td>
             <td>{{ $item->customer_name }}<br></td>
-            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/yy') }}<br>
+            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/y') }}<br>
             </td>
             <td class="text-center ">
                 <form method="post" action="{{ route('order.status', $item->id) }}">
