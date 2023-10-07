@@ -7,10 +7,18 @@
 
         <div class="flex-1">
             <x-select
+                label="Categoria"
+                placeholder="Selecione a categoria"
+                option-label="name"
+                option-value="id"
+                :options="$categories"
+                wire:model.live="category"
+            />
+            <x-select
                 label="Produto"
                 placeholder="Selecione o produto"
                 name="product"
-                wire:model="product_id"
+                wire:model.live="product_id"
                 required
             >
                 @foreach ($products as $product)

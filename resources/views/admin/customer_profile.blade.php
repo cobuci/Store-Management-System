@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Perfil do cliente')
-<div class="w-full h-full">
+<div class="w-full h-full select-none">
     <x-notifications position="top-center" z-index="z-[1400]"/>
     <x-button class="w-auto mb-5" icon="arrow-left" squared blue label="Voltar" href="{{ route('admin.customer') }}"/>
     <div class="flex flex-wrap gap-5">
@@ -66,26 +66,26 @@
                     <div class="overflow-auto" x-show="open" x-transition>
                         <table class="w-full">
                             <thead class="border-b border-1">
-                            <tr class="bg-white/[0.1]">
-                                <th class="border-r" scope="col">#</th>
-                                <th class="border-r" scope="col">Custo</th>
-                                <th class="border-r" scope="col">Venda</th>
-                                <th class="border-r" scope="col">Data</th>
+                            <tr class="bg-whit
+                                <th scope="col">#</th>
+                                <th scope="col">Custo</th>
+                                <th scope="col">Venda</th>
+                                <th scope="col">Data</th>
                             </tr>
                             </thead>
                             <tbody class="dark:bg-gray-700">
                             @foreach ($unconfirmedSale as $sale)
                                 <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">{{ $sale->id }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->cost }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->price }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">
+                                    <td class="whitespace-nowrap px-2 py-4">{{ $sale->id }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">R$ {{ $sale->cost }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">R$ {{ $sale->price }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">
                                         {{ Carbon::parse($sale->created_at)->format('d/m/yy') }}</td>
                                     <td class="whitespace-nowrap px-2 py-4 ">
                                         <x-button class="w-full" info label="Detalhes"
                                                   wire:click="modalSale({{ $sale->id }})"/>
                                     </td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r ">
+                                    <td class="whitespace-nowrap px-2 py-4">
                                         <x-button class="w-full" positive label="Confirmar"
                                                   wire:click="confirmSale({{ $sale->id }})"/>
                                     </td>
@@ -104,19 +104,19 @@
                         <table class="w-full min-w-full">
                             <thead class="border-b border-1">
                             <tr class="bg-white/[0.1]">
-                                <th class="border-r" scope="col">#</th>
-                                <th class="border-r" scope="col">Custo</th>
-                                <th class="border-r" scope="col">Venda</th>
-                                <th class="border-r" scope="col">Data</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Custo</th>
+                                <th scope="col">Venda</th>
+                                <th scope="col">Data</th>
                             </tr>
                             </thead>
                             <tbody class="dark:bg-gray-700">
                             @foreach ($confirmedSale as $sale)
                                 <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">{{ $sale->id }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->cost }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">R$ {{ $sale->price }}</td>
-                                    <td class="whitespace-nowrap px-2 py-4 border-r">
+                                    <td class="whitespace-nowrap px-2 py-4">{{ $sale->id }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">R$ {{ $sale->cost }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">R$ {{ $sale->price }}</td>
+                                    <td class="whitespace-nowrap px-2 py-4">
                                         {{ Carbon::parse($sale->created_at)->format('d/m/yy') }}</td>
                                     <td class="whitespace-nowrap px-2 py-4 ">
                                         <x-button class="w-full" info label="Detalhes"

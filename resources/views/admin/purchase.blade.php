@@ -1,5 +1,5 @@
 @section('title', 'Compras')
-<div class="w-full max-w-4xl">
+<div class="w-full max-w-4xl select-none">
     <h1 class="grid justify-items-center font-bold text-2xl mb-6 w-full"> Contas a pagar </h1>
     <div
         class="flex flex-wrap w-full p-4 min-w-fit bg-white/[0.8] dark:bg-gray-900 rounded-lg border-2 border-black justify-between">

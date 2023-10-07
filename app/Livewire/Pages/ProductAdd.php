@@ -4,6 +4,7 @@ namespace App\Livewire\Pages;
 
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Purchase;
 use Livewire\Component;
@@ -22,6 +23,8 @@ class ProductAdd extends Component
     public $price = '';
     public $profit = '';
     public $expiration_date;
+    public $categories = [];
+    public $category = 0;
     public $expiration_purchase;
     public $totalCost = '';
 
@@ -54,6 +57,11 @@ class ProductAdd extends Component
         }
         $this->calculateProfit();
 
+    }
+
+    public function updatedCategory()
+    {
+        $this->products = Product::where('category_id', $this->category)->get();
     }
 
     public function addProduct()
@@ -90,7 +98,7 @@ class ProductAdd extends Component
 
     public function mount()
     {
-        $this->products = Product::all();
+        $this->categories = Category::all();
     }
 
     public function render()

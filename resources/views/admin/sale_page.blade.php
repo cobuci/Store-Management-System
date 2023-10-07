@@ -7,10 +7,18 @@
         <div class="flex-1">
             <x-notifications position="top-center"/>
             <x-select
+                label="Categoria"
+                placeholder="Selecione a categoria"
+                option-label="name"
+                option-value="id"
+                :options="$categories"
+                wire:model.live="category"
+                />
+            <x-select
                 label="Produtos"
                 placeholder="Selecione o produto"
                 name="product"
-                wire:model="product"
+                wire:model.live="product"
             >
                 @foreach ($products as $product)
                     <x-select.option value="{{$product->id}}"
