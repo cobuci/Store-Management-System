@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Finanças')
-<div class="w-full h-full max-w-4xl">
+<div class="w-full h-full max-w-4xl select-none">
     <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="grid md:grid-cols-3 gap-4 text-white">
         <div class="bg-green-600 hover:bg-green-800 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">

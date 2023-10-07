@@ -1,5 +1,5 @@
 @section('title', 'Clientes')
-<div class="flex flex-col w-full max-w-4xl">
+<div class="flex flex-col w-full max-w-4xl select-none">
     <h1 class="grid justify-items-center font-bold text-2xl mb-6 w-full"> Clientes</h1>
     <div
         class="flex flex-col bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 items-center justify-center drop-shadow-xl w-full">

@@ -1,5 +1,5 @@
 @section('title', 'Estoque')
-<div class="w-full ">
+<div class="w-full select-none">
     <x-notifications position="top-center" z-index="z-[1036]"/>
     @if (session('success'))
         <div class="alert alert-success">

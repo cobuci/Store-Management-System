@@ -1,5 +1,5 @@
 @section('title', 'Estatisticas')
-<div class="flex flex-col h-full w-full">
+<div class="flex flex-col h-full w-full select-none">
     <x-notifications position="top-center" z-index="z-[1036]"/>
     <div class="flex justify-center text-2xl mb-4">
         <span> Estatisticas</span>
