@@ -6,6 +6,7 @@ namespace App\Livewire\Pages;
 use App\{Http\Controllers\CashierController,
     Http\Controllers\FinanceController,
     Http\Controllers\HistoryController,
+    Models\Category,
     Models\Sale as SaleModel};
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -25,6 +26,8 @@ class Sale extends Component
     public $products = [];
     public $product = '';
     public $list = [];
+    public $categories = [];
+    public $category = 0;
     public $bonus = 0;
     public $amount = '';
     public string $finalPrice;
@@ -119,7 +122,12 @@ class Sale extends Component
     public function mount(): void
     {
         $this->customers = Customer::show();
-        $this->products = Product::get();
+        $this->categories = Category::all();
+    }
+
+    public function updatedCategory(): void
+    {
+        $this->products = Product::where('category_id', 'LIKE', $this->category)->get();
     }
 
     public function render(): View|Factory|Application
