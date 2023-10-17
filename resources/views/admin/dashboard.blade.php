@@ -82,7 +82,7 @@
         <input type="hidden" id="monthsChart" value="{{ $monthsChart }}"/>
         @for ($i = $monthsChart; $i >= 0; $i--)
             <input type="hidden" id="{{ 'hiddeninput' . $i }}"
-                   value="{{ $this->checkMonth($i)}} "/>
+                   value="{{ $this->checkMonth($this->getLastSaleMonth($i))}} "/>
 
             <input type="hidden" id="{{ 'hiddeninputValue' . $i }}" value="{{ $this->getSalesIncomeForLastMonth($i) }}"/>
 
