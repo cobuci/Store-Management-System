@@ -75,7 +75,7 @@
 							</td>
 							<td class="whitespace-nowrap px-2 py-4 ">{{ $sale->customer_name }}</td>
 							<td class="whitespace-nowrap px-2 py-4 ">
-								{{ Carbon::parse($sale->created_at)->format('d/m/y') }}</td>
+								{{ Carbon::parse($sale->created_at)->format('d/m/y     ') }}</td>
 
 							<td class="whitespace-nowrap px-2 py-4 ">
 								<x-button class="w-full" info label="Detalhes"

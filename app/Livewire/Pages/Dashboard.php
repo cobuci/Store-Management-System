@@ -58,6 +58,9 @@ class Dashboard extends Component
         ]);
     }
 
+
+
+
     public function render()
     {
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
