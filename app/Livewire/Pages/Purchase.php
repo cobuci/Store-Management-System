@@ -14,7 +14,13 @@ class Purchase extends Component
     use WithPagination;
 
     public $unpaidPurchases = [];
-    public $totalCost = '';
+
+    public array $costs = [
+        'total' => 0,
+        'thisMonth' => 0,
+        'expired' => 0,
+    ];
+
 
     public function payPurchase($id)
     {
@@ -27,7 +33,14 @@ class Purchase extends Component
     public function mount()
     {
         $this->unpaidPurchases = PurchaseModel::where('payment_status', 0)->orderBy('expiration_date', 'asc')->get();
-        $this->totalCost = PurchaseController::unpaidPurchases();
+
+        $this->costs = [
+            'total' => PurchaseController::unpaidPurchases(),
+            'thisMonth' => PurchaseController::unpaidPurchasesThisMonth(),
+            'expired' => PurchaseController::unpaidPurchasesExpired(),
+        ];
+
+
     }
 
 
@@ -63,7 +76,10 @@ class Purchase extends Component
     public function render()
     {
 
-        $paidPurchases = PurchaseModel::where('payment_status', 1)->orderBy('updated_at', 'desc')->paginate(10);
+        $paidPurchases = PurchaseModel::
+        where('payment_status', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
 
         return view('admin.purchase', compact('paidPurchases'));
     }
