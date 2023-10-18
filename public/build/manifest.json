@@ -19,7 +19,7 @@
     "src": "node_modules/html2canvas/dist/html2canvas.min.js?commonjs-entry"
   },
   "resources/css/app.css": {
-    "file": "assets/app-f9b436db.css",
+    "file": "assets/app-597c9e94.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
