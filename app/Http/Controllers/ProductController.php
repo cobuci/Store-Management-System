@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUpdateProduct;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -17,12 +15,6 @@ class ProductController extends Controller
         $product->cost = ($product->cost * $product->amount + $cost * $amount) / ($product->amount + $amount);
         $product->save();
         return $product->cost;
-    }
-
-    public static function listar()
-    {
-        $prod = new Product();
-        return $prod->orderBy('name')->get();
     }
 
     public static function removeStock($id, $amount)
@@ -46,26 +38,6 @@ class ProductController extends Controller
             ->get();
     }
 
-    public function index()
-    {
-        return view('admin.product_register');
-    }
-
-    public function put($id, StoreUpdateProduct $request)
-    {
-        $product = Product::find($id);
-
-        $request = $request->all();
-
-        $request['weight'] != null ? $request['weight'] = $request['weight'] . $request['weight_type'] :  $request['weight'] = $product->weight;
-
-
-        $history = "Edição do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $product->weight . ")";
-
-        HistoryController::addToHistory("EDIÇÃO", $history);
-        $product->update($request);
-        return  redirect()->route('admin.inventory');
-    }
 
     public function destroy($id)
     {
@@ -76,17 +48,4 @@ class ProductController extends Controller
         return redirect()->route('admin.inventory');
     }
 
-    public function store(Request $request)
-    {
-        $request = $request->all();
-
-        $request['weight'] = $request['weight'] . $request['weight_type'];
-
-        Product::create($request);
-
-        $history = "Cadastro do Produto " . $request['name'] . " - " . $request['brand'] . " - (" . $request['weight'] . ")";
-
-        HistoryController::addToHistory("CADASTRO", $history);
-        return redirect()->route('admin.inventory');
-    }
 }

@@ -81,7 +81,7 @@ class ProductAdd extends Component
         Purchase::create([
             'product_id' => $this->product_id,
             'product_name' => $product->name,
-            'product_brand' => $product->brand,
+            'product_brand' => $product->brand || null,
             'product_weight' => $product->weight,
             'unit_cost' => $this->cost,
             'amount' => $this->amount,
@@ -99,6 +99,8 @@ class ProductAdd extends Component
     public function mount()
     {
         $this->categories = Category::all();
+
+        now()->day >= 20 ? $this->expiration_purchase = now()->addMonths(1)->setDay(27) : $this->expiration_purchase = now()->setDay(27);
     }
 
     public function render()

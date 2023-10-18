@@ -21,8 +21,4 @@ class HistoryController extends Controller
         $history->save();
     }
 
-    public function index()
-    {
-        return view('admin.history');
-    }
 }

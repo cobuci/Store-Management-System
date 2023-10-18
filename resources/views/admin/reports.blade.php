@@ -96,14 +96,14 @@
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-			<x-input label="ID" wire:model="sale_detail.id" disabled/>
-			<x-input label="Data" wire:model="sale_detail.created_at" disabled/>
-			<x-input label="Cliente" wire:model="sale_detail.customer_name" disabled/>
-			<x-input label="Forma de pagamento" wire:model="sale_detail.payment_method" disabled/>
-			<x-input label="Custo" wire:model="sale_detail.cost" disabled/>
-			<x-input label="Desconto" wire:model="sale_detail.discount" disabled/>
-			<x-input label="Venda" wire:model="sale_detail.price" disabled/>
-			<x-input label="Lucro" wire:model="sale_detail.profit" disabled/>
+			<x-input class="dark:text-white text-black" label="ID" wire:model="sale_detail.id" disabled/>
+			<x-input class="dark:text-white text-black" label="Data" wire:model="sale_detail.created_at" disabled/>
+			<x-input class="dark:text-white text-black" label="Cliente" wire:model="sale_detail.customer_name" disabled/>
+			<x-input class="dark:text-white text-black" label="Forma de pagamento" wire:model="sale_detail.payment_method" disabled/>
+			<x-input class="dark:text-white text-black" label="Custo" wire:model="sale_detail.cost" disabled/>
+			<x-input class="dark:text-white text-black" label="Desconto" wire:model="sale_detail.discount" disabled/>
+			<x-input class="dark:text-white text-black" label="Venda" wire:model="sale_detail.price" disabled/>
+			<x-input class="dark:text-white text-black" label="Lucro" wire:model="sale_detail.profit" disabled/>
 
 			<div
 					class="md:col-span-2 flex flex-wrap bg-white/[.80] mt-5 rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl">

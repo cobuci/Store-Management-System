@@ -16,6 +16,31 @@ class PurchaseController extends Controller
         return $totalCost;
     }
 
+    public static function unpaidPurchasesThisMonth()
+    {
+        $unpaidPurchases = Purchase::where('payment_status', 0)
+            ->whereMonth('expiration_date', date('m'))
+            ->get();
+        $totalCost = 0;
+        foreach ($unpaidPurchases as $purchase) {
+            $totalCost += $purchase->unit_cost * $purchase->amount;
+        }
+        return $totalCost;
+    }
+
+
+    public static function unpaidPurchasesExpired()
+    {
+        $unpaidPurchases = Purchase::where('payment_status', 0)
+            ->where('expiration_date', '<', date('Y-m-d'))
+            ->get();
+        $totalCost = 0;
+        foreach ($unpaidPurchases as $purchase) {
+            $totalCost += $purchase->unit_cost * $purchase->amount;
+        }
+        return $totalCost;
+    }
+
     public static function destroy($id)
     {
         $purchase = Purchase::find($id);
@@ -25,9 +50,6 @@ class PurchaseController extends Controller
         $purchase->delete();
     }
 
-    public function index()
-    {
 
-    }
 
 }
