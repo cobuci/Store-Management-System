@@ -18,10 +18,6 @@ class CashierController extends Controller
         return $cashier->balance - $due;
     }
 
-    public static function investments()
-    {
-        return Cashier::find(2)->balance;
-    }
 
     public static function goal()
     {
@@ -34,10 +30,6 @@ class CashierController extends Controller
         $cashier->balance -= $value;
         $cashier->save();
     }
-
-
-    // Remover Saldos
-
     public static function withdrawInvestment($value)
     {
         $cashier = Cashier::find(2);
@@ -54,7 +46,6 @@ class CashierController extends Controller
 
     public static function addInvestment($value)
     {
-
         $cashier = Cashier::find(2);
         $cashier->balance += $value;
         $cashier->save();

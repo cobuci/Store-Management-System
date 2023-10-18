@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Finance;
-use App\Models\Product;
 use Carbon\Carbon;
 
 class FinanceController extends Controller
@@ -25,20 +24,6 @@ class FinanceController extends Controller
             'value' => $value,
             'description' => "Cancelamento da Venda #$id",
             'type' => "rev",
-        ]);
-    }
-
-    public static function addProductInventory($product, $value, $amount)
-    {
-        $product = Product::find($product);
-
-        Finance::create([
-            'product_id' => $product->id,
-            'product_amount' => $amount,
-            'value' => $value,
-            'description' => "Compra de ($amount - $product->name - $product->brand - $product->weight)",
-            'type' => "wd",
-            'date' => Carbon::now()->toDateTimeString(),
         ]);
     }
 

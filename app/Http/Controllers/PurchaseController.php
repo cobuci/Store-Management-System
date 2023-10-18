@@ -25,9 +25,6 @@ class PurchaseController extends Controller
         $purchase->delete();
     }
 
-    public function index()
-    {
 
-    }
 
 }
