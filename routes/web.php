@@ -1,9 +1,9 @@
 <?php
 
-use App\{Http\Controllers\HistoryController,
-    Http\Controllers\InvoiceController,
+use App\{Http\Controllers\InvoiceController,
     Livewire\Pages\CustomerRegister,
     Livewire\Pages\Dashboard,
+    Livewire\Pages\Histories,
     Livewire\Pages\Inventory,
     Livewire\Pages\PackTool,
     Livewire\Pages\ProductAdd,
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     //Others
     Route::get('/settings',Settings::class)->name('admin.settings');
-    Route::get('/history', [HistoryController::class, "index"])->name('admin.history');
+    Route::get('/history', Histories::class)->name('admin.history');
 
 
 });
