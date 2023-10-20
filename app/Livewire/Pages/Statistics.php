@@ -42,7 +42,7 @@ class Statistics extends Component
 
         $firstSale = Sale::orderBy('created_at', 'asc')->first();
         if (empty($this->date['start'])) {
-            $this->date['start'] = $firstSale->created_at->toDateString();
+            $this->date['start'] = $firstSale?->created_at->toDateString() ?? date('Y-m-d');
         }
         if (empty($this->date['end'])) {
             $this->date['end'] = date('Y-m-d', strtotime('+1 day'));
