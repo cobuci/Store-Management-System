@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
+use DB;
 use Livewire\Component;
 
 class Statistics extends Component
@@ -23,6 +24,13 @@ class Statistics extends Component
     public $categories = [];
     public $sales;
     public $products = [];
+    public $payment_method = [
+        'Dinheiro' => 0,
+        'Credito' => 0,
+        'Debito' => 0,
+        'PIX' => 0,
+        'Outros' => 0,
+    ];
 
     public function mount()
     {
@@ -46,13 +54,16 @@ class Statistics extends Component
         $this->products = $this->getProducts();
         $amounts = array_column($this->products, 'amount');
         array_multisort($amounts, SORT_DESC, $this->products);
+        $this->paymentMethodTotal();
     }
+
     public function costValueTotal()
     {
         return Sale::where('created_at', '>=', $this->date['start'])
             ->where('created_at', '<=', $this->date['end'])
             ->sum('cost');
     }
+
     public function saleValueTotal()
     {
         return Sale::where('created_at', '>=', $this->date['start'])
@@ -122,9 +133,23 @@ class Statistics extends Component
 
     }
 
+    public function paymentMethodTotal()
+    {
+
+        $methods = Sale::select('payment_method', DB::raw('SUM(price) as total_price'))
+            ->where('created_at', '>=', $this->date['start'])
+            ->where('created_at', '<=', $this->date['end'])
+            ->groupBy('payment_method')
+            ->get();
+
+        foreach ($methods as $method) {
+            $this->payment_method[$method->payment_method] = $method->total_price;
+        }
+    }
 
     public function render()
     {
+
         return view('admin.tool_statistics');
     }
 }
