@@ -12,7 +12,9 @@ use Livewire\Component;
 class Statistics extends Component
 {
 
-       public $date = [
+   
+
+    public $date = [
         'start' => '',
         'end' => '',
     ];
@@ -40,7 +42,7 @@ class Statistics extends Component
 
     #[On('dateUpdated')]
     public function updatedDate($date = null)
-    {
+    {       
         $this->date = $date;
 
         $this->values['cost'] = $this->costValueTotal();
@@ -51,7 +53,7 @@ class Statistics extends Component
         $amounts = array_column($this->products, 'amount');
         array_multisort($amounts, SORT_DESC, $this->products);
         $this->paymentMethodTotal();
-        
+        $this->dispatch('statisticsUpdated',['valuesArray' => $this->payment_method]);
     }
 
     public function costValueTotal()
@@ -84,7 +86,8 @@ class Statistics extends Component
     public function getProducts()
     {
         $products = [
-            ['id' => '',
+            [
+                'id' => '',
                 'name' => '',
                 'amount' => '',
                 'brand' => '',
@@ -122,12 +125,9 @@ class Statistics extends Component
                         'category_id' => $categoryId,
                     ];
                 }
-
-
             }
         }
         return $products;
-
     }
 
     public function paymentMethodTotal()
@@ -145,12 +145,13 @@ class Statistics extends Component
     }
 
 
-    public function placeholder(){
+    public function placeholder()
+    {
         return view('layouts.lazy');
     }
-    
+
     public function render()
-    {             
+    {
         return view('admin.components.statistics');
     }
 }

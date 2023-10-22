@@ -17,7 +17,8 @@ class Statistics extends Component
     ];
 
 
-    public function updatedDate(){
+    public function updatedDate()
+    {
 
         $firstSale = Sale::orderBy('created_at', 'asc')->first();
         if (empty($this->date['start'])) {
@@ -27,9 +28,9 @@ class Statistics extends Component
             $this->date['end'] = date('Y-m-d', strtotime('+1 day'));
         }
 
-        $this->dispatch('dateUpdated',$this->date);
+        $this->dispatch('dateUpdated', $this->date);
     }
-    
+
     public function render()
     {
 

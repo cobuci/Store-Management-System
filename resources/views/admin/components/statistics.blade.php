@@ -1,5 +1,5 @@
 <div>
-   
+    @vite(['resources/js/statistics.js'])
     <ul class="mb-5 flex list-none flex-col flex-wrap pl-0 md:flex-row" role="tablist" data-te-nav-ref>
         {{--        Valores         --}}
         <li role="presentation">
@@ -63,6 +63,10 @@
             </div>
             <div class="overflow-hidden">
 
+                <div class="mx-auto w-3/5 overflow-hidden">
+                    <canvas id="pie-chart"></canvas>
+                </div>
+
                 "@json(array_keys($payment_method))"
                 "@json(array_values($payment_method))"
                 @foreach ($payment_method as $key => $value)
@@ -124,3 +128,7 @@
         </div>
     </div>
 </div>
+<script>
+    window.keysArray = @json(array_keys($payment_method));
+    window.valuesArray = @json(array_values($payment_method));
+</script>
