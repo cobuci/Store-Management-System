@@ -13,8 +13,6 @@ use Livewire\Component;
 
 class Statistics extends Component
 {
-
-
     public $date = [
         'start' => '',
         'end' => '',
@@ -57,6 +55,7 @@ class Statistics extends Component
     #[On('dateUpdated')]
     public function updatedDate($date = null)
     {
+
         $this->date = $date;
 
         $this->values['cost'] = $this->costValueTotal();
@@ -69,6 +68,7 @@ class Statistics extends Component
         $this->paymentMethodTotal();
 
         unset($this->pieChartModel);
+
 
     }
 
@@ -185,8 +185,8 @@ class Statistics extends Component
 
     public function render()
     {
-
         return view('admin.components.statistics');
+
     }
 
 }
