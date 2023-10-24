@@ -28,6 +28,7 @@
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "@wireui/alpinejs-hold-directive": "^1.0.1",
+        "apexcharts": "^3.44.0",
         "bootstrap": "^5.3.2",
         "chart.js": "^4.4.0",
         "feather-icons": "^4.29.1",

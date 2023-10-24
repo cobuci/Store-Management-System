@@ -2,22 +2,19 @@
 
 namespace App\Livewire\Pages;
 
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Sale;
-use DB;
 use Livewire\Component;
 
 class Statistics extends Component
 {
 
-    public $date = [
+    public array $date = [
         'start' => '',
         'end' => '',
     ];
 
 
-    public function updatedDate()
+    public function updatedDate(): void
     {
 
         $firstSale = Sale::orderBy('created_at', 'asc')->first();
@@ -33,7 +30,6 @@ class Statistics extends Component
 
     public function render()
     {
-
         return view('admin.tool_statistics');
     }
 }

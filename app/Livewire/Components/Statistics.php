@@ -5,14 +5,15 @@ namespace App\Livewire\Components;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
+use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Statistics extends Component
 {
 
-   
 
     public $date = [
         'start' => '',
@@ -35,14 +36,27 @@ class Statistics extends Component
         'Outro' => 0,
     ];
 
+    public $pieColors = [
+        "Dinheiro" => "#f6ad55",
+        "Credito" => "#fc8181",
+        "Debito" => "#90cdf4",
+        "PIX" => "#68d391",
+        "Outro" => "#f6e05e",
+    ];
+
+    /**
+     * @var array|string[]
+     */
+
     public function mount()
     {
         $this->categories = Category::all();
+
     }
 
     #[On('dateUpdated')]
     public function updatedDate($date = null)
-    {       
+    {
         $this->date = $date;
 
         $this->values['cost'] = $this->costValueTotal();
@@ -53,7 +67,9 @@ class Statistics extends Component
         $amounts = array_column($this->products, 'amount');
         array_multisort($amounts, SORT_DESC, $this->products);
         $this->paymentMethodTotal();
-        $this->dispatch('statisticsUpdated',['valuesArray' => $this->payment_method]);
+
+        unset($this->pieChartModel);
+
     }
 
     public function costValueTotal()
@@ -132,7 +148,6 @@ class Statistics extends Component
 
     public function paymentMethodTotal()
     {
-
         $methods = Sale::select('payment_method', DB::raw('SUM(price) as total_price'))
             ->where('created_at', '>=', $this->date['start'])
             ->where('created_at', '<=', $this->date['end'])
@@ -144,6 +159,24 @@ class Statistics extends Component
         }
     }
 
+    #[Computed()]
+    public function pieChartModel()
+    {
+        $pieChartModel =
+            (new PieChartModel())
+                ->setTitle('Método de Pagamento')
+                ->setAnimated(true)
+                ->addSlice("Dinheiro", doubleval($this->payment_method['Dinheiro']), $this->pieColors['Dinheiro'])
+                ->addSlice("Credito", doubleval($this->payment_method['Credito']), $this->pieColors['Credito'])
+                ->addSlice("Debito", doubleval($this->payment_method['Debito']), $this->pieColors['Debito'])
+                ->addSlice("PIX", doubleval($this->payment_method['PIX']), $this->pieColors['PIX'])
+                ->addSlice("Outro", doubleval($this->payment_method['Outro']), $this->pieColors['Outro'])
+                ->withLegend()
+                ->withDataLabels()
+                ->asDonut();
+        return $pieChartModel;
+    }
+
 
     public function placeholder()
     {
@@ -152,6 +185,8 @@ class Statistics extends Component
 
     public function render()
     {
+
         return view('admin.components.statistics');
     }
+
 }

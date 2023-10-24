@@ -28,6 +28,6 @@
 
 @stack('modals')
 @livewireScripts
-
+@livewireChartsScripts
 
 </body>

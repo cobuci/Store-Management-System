@@ -71,7 +71,7 @@
         </x-dialog>
 
         {{--    CHART  --}}
-        <div
+        <div wire:ignore
             class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6drop-shadow-xl z-1 md:col-span-3">
             <div class=" w-full sm:w-auto">
                 <canvas class="" id="dashboard-line"></canvas>

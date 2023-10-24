@@ -7,7 +7,6 @@ export default defineConfig({
             "/resources/css/app.css",
             "/resources/js/app.js",
             "/resources/js/chart.js",
-            "/resources/js/statistics.js",
             "/resources/js/theme.js",
             '/resources/css/app.css',
             './node_modules/html2canvas/dist/html2canvas.min.js',
