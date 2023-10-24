@@ -76,14 +76,14 @@
                 </span>
             </div>
             <div class="overflow-hidden">
-
-                <div class="h-[300px] h-min-fit">
-                    <livewire:livewire-pie-chart
-                        key="{{ $this->pieChartModel->reactiveKey()}}"
-                        :pie-chart-model="$this->pieChartModel"
-                    />
-                </div>
-
+                @if ($date['start'])
+                    <div class="h-[300px] h-min-fit">
+                        <livewire:livewire-pie-chart
+                            key="{{ $this->pieChartModel->reactiveKey()}}"
+                            :pie-chart-model="$this->pieChartModel"
+                        />
+                    </div>
+                @endif
 
                 @foreach ($payment_method as $key => $value)
                     <div class="flex justify-between w-full min-w-fit flex-wrap text-black p-2 rounded-lg">
