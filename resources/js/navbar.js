@@ -1,7 +1,7 @@
 const sidenav = document.getElementById("full-screen-example");
-import { Sidenav, initTE,Ripple  } from "tw-elements";
+import {initTE, Ripple, Sidenav, Tab} from "tw-elements";
 
-initTE({ Ripple ,Sidenav });
+initTE({ Ripple ,Sidenav, Tab });
 
 
 const sidenavInstance = Sidenav.getInstance(sidebar);

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +23,7 @@ class DatabaseSeeder extends Seeder
             CategorizeSeeder::class,
         ]);
 
-//        Customer::factory(count: 100)->create();
-//        Product::factory(count: 200)->create();
+        Customer::factory(count: 100)->create();
+        Product::factory(count: 200)->create();
     }
 }

@@ -19,12 +19,12 @@
     "src": "node_modules/html2canvas/dist/html2canvas.min.js?commonjs-entry"
   },
   "resources/css/app.css": {
-    "file": "assets/app-597c9e94.css",
+    "file": "assets/app-7377ff6d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-588991e0.js",
+    "file": "assets/app-7d4e7595.js",
     "imports": [
       "__commonjsHelpers-725317a4.js",
       "resources/js/theme.js"

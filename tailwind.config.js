@@ -13,6 +13,7 @@ module.exports = {
         "./vendor/wireui/wireui/ts/**/*.ts",
         "./vendor/wireui/wireui/src/View/**/*.php",
         "./node_modules/tw-elements/dist/js/**/*.js",
+        "./App/Livewire/**/*.php",
     ],
 
     theme: {
