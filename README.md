@@ -60,7 +60,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
  * php artisan key:generate
  * php artisan migrate --seed
 
-  
+### Docker
+* cp .env.example .env
+* ./vendor/bin/sail up -d
 <br><br>
 ### Autor
 ---
