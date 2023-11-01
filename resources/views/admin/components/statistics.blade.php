@@ -88,7 +88,7 @@
                 @foreach ($payment_method as $key => $value)
                     <div class="flex justify-between w-full min-w-fit flex-wrap text-black p-2 rounded-lg">
                         <span
-                            class="flex flex-nowrap w-full font-medium bg-[{{$pieColors[$key]}}] p-2 rounded-lg justify-between">
+                            class="flex flex-nowrap w-full font-medium {{ "bg-[".$pieColors[$key]."]"}} p-2 rounded-lg justify-between">
                           <span>
                               {{ $key }}:
                           </span>
