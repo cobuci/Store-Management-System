@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 
+    protected $fillable = [
+        'name',
+        'icon'
+    ];
+
     public static function show()
     {
         return Category::select('id', 'name')
@@ -21,6 +26,8 @@ class Category extends Model
             ->orderByRaw('amount > 0 DESC')
             ->orderBy('name');
     }
+
+
 
     use HasFactory;
 }
