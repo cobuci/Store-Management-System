@@ -44,7 +44,7 @@ class FinanceController extends Controller
     }
 
 
-    public static function balanceInvestment($value, $description, $type)
+    public static function store($value, $description, $type)
     {
         $financa = new Finance();
 

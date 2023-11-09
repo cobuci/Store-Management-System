@@ -9,11 +9,9 @@ class InvestimentController extends Controller
 {
     public static function withdrawBalance($value, $description)
     {
-        InvestimentController::store($value, $description);
 
-        CashierController::addInvestment($value);
         CashierController::withdrawBalance($value);
-        FinanceController::balanceInvestment($value, $description, "rdm");
+        FinanceController::store($value, $description, "rdm");
     }
 
     public static function store($value, $description)
@@ -29,9 +27,7 @@ class InvestimentController extends Controller
 
     public static function addBalance($value, $description)
     {
-        InvestimentController::store($value, $description);
-        CashierController::withdrawInvestment($value);
         CashierController::addBalance($value);
-        FinanceController::balanceInvestment($value, $description, "inv");
+        FinanceController::store($value, $description, "inv");
     }
 }

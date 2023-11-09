@@ -49,6 +49,10 @@ class Finance extends Component
 
     }
 
+    public function withdrawAll(){
+        $this->value_balance_remove = CashierController::balance();
+    }
+
     public function cancelFinance($id)
     {
         FinanceController::destroy($id);

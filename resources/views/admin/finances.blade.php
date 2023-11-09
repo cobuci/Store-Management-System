@@ -118,8 +118,11 @@
     </x-modal.card>
 
 
-    <x-modal.card title="Resgatar saldo" blur wire:model.defer="modalBalanceRemove" z-index="z-[1330]">
+    <x-modal.card title="Resgatar saldo: R${{ $balance}}" blur wire:model.defer="modalBalanceRemove" z-index="z-[1330]">
         <div class="">
+            <div>
+                <x-button primary label="Zerar" wire:click="withdrawAll"/>
+            </div>
             <x-inputs.currency label="Valor" prefix="R$" thousands="." decimal="," wire:model="value_balance_remove"
             />
 
