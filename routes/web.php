@@ -1,6 +1,7 @@
 <?php
 
-use App\{Http\Controllers\InvoiceController,
+use App\{
+    Http\Controllers\InvoiceController,
     Livewire\Pages\CustomerRegister,
     Livewire\Pages\Dashboard,
     Livewire\Pages\Histories,
@@ -12,7 +13,10 @@ use App\{Http\Controllers\InvoiceController,
     Livewire\Pages\Reports,
     Livewire\Pages\Sale,
     Livewire\Pages\ShoppingList,
-    Livewire\Pages\Statistics};
+    Livewire\Pages\Statistics,
+};
+use App\Livewire\CheckReceipt;
+use App\Livewire\Components\ShowReceipt;
 use App\Livewire\Pages\CustomerProfile;
 use App\Livewire\Pages\Customers;
 use App\Livewire\Pages\Finance;
@@ -50,9 +54,11 @@ Route::middleware('auth:sanctum')->group(callback: function () {
 
     Route::get('/tools/pack', PackTool::class)->name('admin.tool.pack');
 
+    Route::get('/check-receipt', CheckReceipt::class)->name('admin.tool.check-receipt');
+    Route::get('/check-receipt/{id}', ShowReceipt::class)->name('admin.tool.show-receipt');
+
+
     //Others
-    Route::get('/settings',Settings::class)->name('admin.settings');
+    Route::get('/settings', Settings::class)->name('admin.settings');
     Route::get('/history', Histories::class)->name('admin.history');
-
-
 });
