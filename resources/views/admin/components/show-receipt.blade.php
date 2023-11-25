@@ -8,10 +8,11 @@
 
             <p><span class="font-bold"> </span> {{ $product->name }}</p>
             <p><span class="font-bold"> Custo:</span> R${{ $product->price }}</p>
-            <p><span class="font-bold"> Quantidade: </span>{{ $product->amount }}</p>
+            <p><span class="font-bold"> Quantidade: </span>{{ intval($product->amount) }}</p>
             <p><span class="font-bold"> Total:</span> R${{ $product->total }}</p>
 
-            <x-button class="mt-4 md:mt-0 rounded-lg" icon="check" squared green wire:click="productActive({{$product->id}})" />
+            <x-button class="mt-4 md:mt-0 rounded-lg" icon="check" squared green
+                wire:click="productActive({{ $product->id }})" />
 
         </div>
     @endforeach

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('cod');
-            $table->decimal('price',10);
+            $table->string('price');
             $table->string('amount');
-            $table->decimal('total',10);
+            $table->string('total');
             $table->boolean('active');
             $table->foreignId('receipt_list_id')->references('id')->on('receipt_lists');
             $table->timestamps();

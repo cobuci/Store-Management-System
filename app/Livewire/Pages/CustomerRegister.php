@@ -30,7 +30,8 @@ class CustomerRegister extends Component
     public function save()
     {
         $this->validate();
-        Customer::create([
+        Customer::create(
+            [
                 'name' => $this->name,
                 'phone' => $this->phone,
                 'gender' => $this->gender,
@@ -46,7 +47,6 @@ class CustomerRegister extends Component
             $title = 'Cliente cadastrado com sucesso',
             $description = 'O cliente foi cadastrado com sucesso',
         );
-
     }
 
     public function updatedPhone()

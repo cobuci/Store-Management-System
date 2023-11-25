@@ -8,7 +8,7 @@
         <div class="flex-1 md:justify-between md:flex gap-4">
             <x-input icon="key" placeholder="Digite a chave do cupom fiscal" wire:model='receiptKey' />
             <x-input class="mt-4 md:mt-0" icon="document" placeholder="Descrição" wire:model='receiptName' />
-            <x-button class="h-1/2 m-auto mt-4 md:mt-0 rounded-lg" icon="check" squared positive label="Adicionar"
+            <x-button class="h-1/2 m-auto mt-4 md:mt-0 rounded-lg" icon="check" squared positive label="Adicionar" wire:loading.attr="disabled"
                 wire:click='newReceipt' />
         </div>
     </div>
