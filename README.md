@@ -1,77 +1,152 @@
 
-<h1 align="center">Vanguard</h1>
+# Store Management System
+
+## Introduction
+
+This project is a web-based solution designed to streamline inventory management, customer tracking, and sales control. It provides businesses with an efficient platform to monitor and optimize stock levels, maintain customer records, and oversee sales operations. The user-friendly interface empowers enterprises to make data-driven decisions, enhancing organization and facilitating sustainable growth and profitability.
+
+## Content
 
 
-Conteúdo
-=================
-<!--ts-->
-   * [Sobre](#Sobre)
-   * [Features](#Features)
-   * [Tecnologias](#Tecnologias)
-   * [Instalação](#Instalação)
-   * [Autor](#Autor)
-<!--te-->
-<br><br>
+* [Features](#Features)
+* [API](#Api)
+* [Tools and Technologies](#Technologies)
+* [Deploy](#Deploy)
+* [Author](#Author)
+## API documentation
+Define *api_token* in .env
 
-## Descrição
-<br>
-<p align=""></p>
+#### Returns all items
 
-<br><br>
+```http
+  GET /api/v1/products/
+```
 
-### Features
+| Parameter   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `api_key` | `string` | **Required**. Bearer *api_token* |
 
-- [x] Gerenciamento de Estoque
-- [x] Gerenciamento de Vendas
-- [x] Gerenciamento de Finanças
-- [x] Gerenciamento de Clientes
-- [x] Dados do Negócio
+#### Retorna um item
 
-<br><br>
-### 🛠 Tecnologias
+```http
+  GET /api/v1/products/${id}
+```
 
-As seguintes ferramentas foram usadas na construção do projeto:
+| Parameter   | Type       | Description     
+| :---------- | :--------- | :------------------------------------------ |
+| `api_key` | `string` | **Required**. Bearer *api_token* |
+| `id`      | `string` | **Required**. The ID of the item you want |
+
+
+## Features
+
+- Inventory management
+- Sales Management
+- Finance Management
+- Customer Management
+- Dark / Light Mode
+- Sales report and statistics
+
+## Deploy locally
+
+```bash 
+git clone https://github.com/cobuci/Vanguard-LARAVEL
+``` 
+
+
+Before running migrate seed you can change the default user in
+
+```bash 
+Database -> seeders -> UserSeeder.php
+``` 
+
+The default login is
+
+```bash 
+ Email: test@test.com
+ Password: test
+
+``` 
+
+If you DO NOT want the system to manage Customers, Products and Categories, remember to comment the respective lines in
+```bash 
+Database -> seeders -> DatabaseSeeder.php
+``` 
+
+
+
+To deploy this project, run
+
+<details>
+  <summary>Without Docker</summary>
+
+Requirements
+* PHP ^8.1
+* Composer
+* Node
+
+```bash 
+  cp .env.example .env
+
+  npm install 
+
+  composer install 
+
+  php artisan key:generate 
+
+  php artisan migrate --seed
+
+  php artisan serve 
+
+  npm run dev 
+ 
+```
+
+</details>
+
+
+<details>
+  <summary>With Docker</summary>
+
+Requirements
+* Docker
+  However, instead of repeatedly typing vendor/bin/sail to execute Sail commands, you may wish to configure a shell alias that allows you to execute Sail's commands more easily:
+
+```bash
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+```
+```bash 
+  cp .env.example .env
+
+  sail up -d
+
+  sail php artisan key:generate
+
+  sail php artisan migrate --seed ()
+
+  sail npm run dev
+ 
+```
+
+</details>
+
+
+## Stack used
 
 - PHP
-- JavaScript
-- CSS
 - [Laravel](https://laravel.com/)
-- [LiveWire](https://laravel-livewire.com/)
+- [LiveWire](https://livewire.laravel.com/)
 - [WireUI](https://livewire-wireui.com/)
-- [Chart.js](https://www.chartjs.org/)
 - [Tailwind](https://tailwindcss.com/)
+- [Chart.js](https://www.chartjs.org/)
+
+## Demo
+
+https://demo1.cobuci.com/
 
 
-<br><br>
-### Requisitos
+## Author
 
- * php ^8.1 
- * composer
- * node / npm
+- [Victor Cobuci](https://www.dev.cobuci.com)
 
-
-<br><br>
-### Instalação
-
- * npm install
- * composer install
- * composer update
- * cp .env.example .env
- * php artisan key:generate
- * php artisan migrate --seed
-
-### Docker
-* cp .env.example .env
-* ./vendor/bin/sail up -d
-<br><br>
-### Autor
----
-
-<b>Victor Cobuci</b></a> 
-
-
-
- [![Linkedin Badge](https://img.shields.io/badge/-Cobuci-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/cobuci/)](https://www.linkedin.com/in/cobuci/) 
-
-
-
+[![Linkedin Badge](https://img.shields.io/badge/-Cobuci-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/cobuci/)](https://www.linkedin.com/in/cobuci/) 
