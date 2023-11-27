@@ -5,14 +5,7 @@
 
 This project is a web-based solution designed to streamline inventory management, customer tracking, and sales control. It provides businesses with an efficient platform to monitor and optimize stock levels, maintain customer records, and oversee sales operations. The user-friendly interface empowers enterprises to make data-driven decisions, enhancing organization and facilitating sustainable growth and profitability.
 
-## Content
 
-
-* [Features](#Features)
-* [API](#Api)
-* [Tools and Technologies](#Technologies)
-* [Deploy](#Deploy)
-* [Author](#Author)
 ## API documentation
 Define *api_token* in .env
 
