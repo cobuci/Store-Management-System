@@ -6,30 +6,6 @@
 This project is a web-based solution designed to streamline inventory management, customer tracking, and sales control. It provides businesses with an efficient platform to monitor and optimize stock levels, maintain customer records, and oversee sales operations. The user-friendly interface empowers enterprises to make data-driven decisions, enhancing organization and facilitating sustainable growth and profitability.
 
 
-## API documentation
-Define *api_token* in .env
-
-#### Returns all items
-
-```http
-  GET /api/v1/products/
-```
-
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
-| `api_key` | `string` | **Required**. Bearer *api_token* |
-
-#### Retorna um item
-
-```http
-  GET /api/v1/products/${id}
-```
-
-| Parameter   | Type       | Description     
-| :---------- | :--------- | :------------------------------------------ |
-| `api_key` | `string` | **Required**. Bearer *api_token* |
-| `id`      | `string` | **Required**. The ID of the item you want |
-
 
 ## Features
 
@@ -122,6 +98,32 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
 
 </details>
+
+
+
+## API documentation
+Define *api_token* in .env
+
+#### Returns all items
+
+```http
+  GET /api/v1/products/
+```
+
+| Parameter   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `api_key` | `string` | **Required**. Bearer *api_token* |
+
+#### Retorna um item
+
+```http
+  GET /api/v1/products/${id}
+```
+
+| Parameter   | Type       | Description     
+| :---------- | :--------- | :------------------------------------------ |
+| `api_key` | `string` | **Required**. Bearer *api_token* |
+| `id`      | `string` | **Required**. The ID of the item you want |
 
 
 ## Stack used
