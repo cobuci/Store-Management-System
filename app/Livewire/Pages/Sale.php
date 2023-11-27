@@ -33,10 +33,10 @@ class Sale extends Component
     public string $finalPrice;
     public string $finalCost;
     public $customers = [];
-    public $customer = '';
+    public string $customer = '';
     public $discount = 0;
     public $price = 0;
-    public $payment_method = 'Dinheiro';
+    public string $payment_method = 'Dinheiro';
     protected array $rules = [
         'product' => ['required'],
         'amount' => ['required'],
@@ -59,15 +59,16 @@ class Sale extends Component
     }
 
 
-    public function teste(): void
-    {
-        dd($this->list);
-    }
-
     public function saveSale(): void
     {
         $order_id = uniqid('', true);
         $paramsOrder = new stdClass();
+
+        if($this->list == null){
+            return;
+        }
+
+        $this->storeSale($order_id);
 
         foreach ($this->list as $key => $item) {
             $paramsOrder->order_id = $order_id;
@@ -76,14 +77,12 @@ class Sale extends Component
             ProductController::removeStock($item['id'], $item['amount']);
             OrderController::newOrder($paramsOrder);
         }
-        $this->storeSale($order_id);
 
         $this->reset(['customer', 'discount', 'list']);
     }
 
     public function storeSale($order_id)
     {
-
         $fee = 1;
         $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
 
