@@ -62,6 +62,7 @@ class Finance extends Component
     public function mount()
     {
         $this->balance = CashierController::balance();
+        $this->balance = number_format($this->balance, 2, ',', '.');
         $this->due = Sale::totalDue();
         $this->value_unpaid_purchases = PurchaseController::unpaidPurchases();
     }

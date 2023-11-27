@@ -1,11 +1,11 @@
 @section('title', 'Sale Page')
 <div class="flex flex-col  w-full md:max-w-3xl">
     <h1 class="grid justify-items-center font-bold text-2xl mb-6">Vender</h1>
-
+    <x-notifications position="top-center" z-index="z-[1035]"  />
     <div
         class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-auto min-w-min items-center justify-center drop-shadow-xl z-[100]">
         <div class="flex-1">
-            <x-notifications position="top-center"/>
+
             <x-select
                 label="Categoria"
                 placeholder="Selecione a categoria"
@@ -105,7 +105,7 @@
                     wire:model="customer"
                     name="customer"
                 />
-                <x-button class="w-full mt-4" positive label="Vender" wire:click="saveSale"/>
+                <x-button class="w-full mt-4 " positive label="Vender" wire:click="saveSale" wire:loading.attr="disabled"/>
             </div>
         </div>
     </div>

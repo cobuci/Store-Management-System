@@ -65,6 +65,10 @@ class Sale extends Component
         $paramsOrder = new stdClass();
 
         if($this->list == null){
+            $this->notification()->error(
+                $title = 'Error !!!',
+                $description = 'Adicione produtos para realizar a venda',
+            );
             return;
         }
 
