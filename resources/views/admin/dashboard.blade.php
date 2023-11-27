@@ -1,8 +1,9 @@
 @section('title', 'Dashboard')
 <div>
     @vite(['resources/js/chart.js' ])
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 select-none">
-        <x-notifications position=""/>
+        <x-notifications position="top-center"  z-index="z-[1035]"/>
         {{--    Balance--}}
         <div class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 min-w-min ">
             <div class="flex flex-row justify-between">
@@ -66,7 +67,7 @@
             </div>
 
         </div>
-        <x-dialog id="goalDialog" title="Meta">
+        <x-dialog id="goalDialog" title="Meta"  z-index="z-[1035]" >
             <x-input label="Defina a nova meta" wire:model="goal"/>
         </x-dialog>
 

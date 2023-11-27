@@ -105,7 +105,7 @@
                     wire:model="customer"
                     name="customer"
                 />
-                <x-button class="w-full mt-4" positive label="Vender" wire:click="saveSale"/>
+                <x-button class="w-full mt-4 " positive label="Vender" wire:click="saveSale" wire:loading.attr="disabled"/>
             </div>
         </div>
     </div>
