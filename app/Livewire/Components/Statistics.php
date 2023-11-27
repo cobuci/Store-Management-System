@@ -53,8 +53,9 @@ class Statistics extends Component
     }
 
     #[On('dateUpdated')]
-    public function updatedDate($date = null)
+    public function updatedDate($date = null): void
     {
+        dump('oi');
 
         $this->date = $date;
 
@@ -91,7 +92,7 @@ class Statistics extends Component
         return $this->saleValueTotal() - $this->costValueTotal();
     }
 
-    public function getSales()
+    public function getSales(): \Illuminate\Database\Eloquent\Collection|array
     {
         return Sale::with('orders')
             ->where('created_at', '>=', $this->date['start'])

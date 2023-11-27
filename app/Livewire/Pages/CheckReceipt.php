@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pages;
 
 use App\Models\ReceiptList;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class CheckReceipt extends Component
 {
@@ -17,7 +23,7 @@ class CheckReceipt extends Component
     public string $httpCode = '';
 
 
-    public function newReceipt()
+    public function newReceipt(): void
     {
         $this->validate([
             'receiptKey' => 'required|min:30',
@@ -32,7 +38,6 @@ class CheckReceipt extends Component
                 'name' => $this->receiptName,
             ]);
 
-            $receiptList;
             $id_receiptList = $receiptList->id;
 
             foreach ($this->items as $item) {
@@ -52,7 +57,7 @@ class CheckReceipt extends Component
     }
 
 
-    public function getItems()
+    public function getItems(): void
     {
         $token = env('API_INFOSIMPLES_TOKEN');
         $response = Http::get('https://api.infosimples.com/api/v2/consultas/sefaz/sp/cfe?token=' . $token . '-em&timeout=600&chave=' . $this->receiptKey)->json();
@@ -64,7 +69,7 @@ class CheckReceipt extends Component
     }
 
 
-    public function showReceipt($id)
+    public function showReceipt($id): Redirector| RedirectResponse
     {
         return redirect()->route('admin.tool.show-receipt', $id);
     }
@@ -76,7 +81,7 @@ class CheckReceipt extends Component
 
 
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('admin.check-receipt');
     }

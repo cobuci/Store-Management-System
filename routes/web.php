@@ -1,7 +1,6 @@
 <?php
 
-use App\{
-    Http\Controllers\InvoiceController,
+use App\{Http\Controllers\InvoiceController,
     Livewire\Pages\CustomerRegister,
     Livewire\Pages\Dashboard,
     Livewire\Pages\Histories,
@@ -13,10 +12,9 @@ use App\{
     Livewire\Pages\Reports,
     Livewire\Pages\Sale,
     Livewire\Pages\ShoppingList,
-    Livewire\Pages\Statistics,
-};
-use App\Livewire\CheckReceipt;
+    Livewire\Pages\Statistics,};
 use App\Livewire\Components\ShowReceipt;
+use App\Livewire\Pages\CheckReceipt;
 use App\Livewire\Pages\CustomerProfile;
 use App\Livewire\Pages\Customers;
 use App\Livewire\Pages\Finance;
