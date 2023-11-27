@@ -79,6 +79,7 @@ Requirements
 
 Requirements
 * Docker
+<br>
   However, instead of repeatedly typing vendor/bin/sail to execute Sail commands, you may wish to configure a shell alias that allows you to execute Sail's commands more easily:
 
 ```bash
