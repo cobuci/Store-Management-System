@@ -55,8 +55,6 @@ class Statistics extends Component
     #[On('dateUpdated')]
     public function updatedDate($date = null): void
     {
-        dump('oi');
-
         $this->date = $date;
 
         $this->values['cost'] = $this->costValueTotal();
