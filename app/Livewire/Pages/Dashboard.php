@@ -103,7 +103,7 @@ class Dashboard extends Component
             12 => "Dezembro",
         ];
 
-        return $namesOfMonths[$month] ?? 0;
+        return $namesOfMonths[$month] ?? "Indefinido";
     }
 
     public function getLastSaleMonth($date = 0)

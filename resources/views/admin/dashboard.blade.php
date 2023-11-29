@@ -12,7 +12,7 @@
             </div>
             <div class="text-2xl font-bold">R$ {{ number_format($balance,2) }}</div>
 
-            <div class="mt-10">Média Diária ({{ $month }}): R$ {{ $dailyMonthAverage }}</div>
+            <div class="mt-10">Média Diária ({{ $month }}): R$ {{ number_format($dailyMonthAverage,2) }}</div>
 
         </div>
         {{--    Day--}}
@@ -23,12 +23,12 @@
             </div>
             <div class="text-2xl font-bold">
                     R$ {{ number_format($salesToday, 2) }}
-                <span class="text-sm text-green-500">(R$ {{ $dayProfit }})</span>
+                <span class="text-sm text-green-500">(R$ {{ number_format($dayProfit,2) }})</span>
 
             </div>
             <div>
                 <div class="mt-5"> <span class="text-sm {{ $percentDailySales >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percentDailySales }}%</span></div>
-                <div>Last day: {{ $salesYesterday }} (R$ {{$lastDayProfit}})</div>
+                <div>Last day: R$ {{ number_format($salesYesterday,2) }} (R$ {{number_format($lastDayProfit,2)}})</div>
             </div>
         </div>
         {{--    MONTH --}}
@@ -39,14 +39,14 @@
             </div>
             <div class="text-2xl font-bold">
                 R$ {{ number_format($salesMonth, 2) }}
-                <span class="text-sm text-green-500">(R$ {{ $monthProfit }})</span>
+                <span class="text-sm text-green-500">(R$ {{ number_format($monthProfit,2) }})</span>
 
             </div>
             <div>
                 <div class="mt-5">
                     <span class="text-sm {{ $percentMonthSales >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percentMonthSales }}%</span></div>
 
-                <div>Last month: R$ {{ $salesLastMonth }} (R$ {{ $lastMonthProfit }})</div>
+                <div>Last month: R$ {{ number_format($salesLastMonth,2) }} (R$ {{ number_format($lastMonthProfit,2) }})</div>
 
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <span>Monthly goal</span>
                 <x-icon name="refresh" class="w-auto h-6"/>
             </div>
-            <div class="text-2xl font-bold">R$ {{ $salesMonth }} / {{ $goal }}</div>
+            <div class="text-2xl font-bold">R$ {{ number_format($salesMonth,2) }} / {{ number_format($goal,2) }}</div>
             <div class="mb-6 h-8  mt-5 w-full bg-neutral-400 dark:bg-neutral-300  ">
                 <div class="h-8 bg-primary text-2xl text-center font-medium  text-gray-200 max-w-full"
                      style="width:{{ $goalPercent }}%">
