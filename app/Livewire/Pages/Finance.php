@@ -32,7 +32,7 @@ class Finance extends Component
     public function dialogCancel($id)
     {
         $this->dialog()->confirm([
-            'title' => "Cancelar a compra",
+            'title' => "Cancelar",
             'iconColor' => 'primary',
             'description' => "Você tem certeza que deseja cancelar?",
             'accept' => [
@@ -62,7 +62,6 @@ class Finance extends Component
     public function mount()
     {
         $this->balance = CashierController::balance();
-        $this->balance = number_format($this->balance, 2, ',', '.');
         $this->due = Sale::totalDue();
         $this->value_unpaid_purchases = PurchaseController::unpaidPurchases();
     }
