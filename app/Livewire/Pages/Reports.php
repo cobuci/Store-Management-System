@@ -84,9 +84,9 @@ class Reports extends Component
 
     public function confirmDialog(string $id){
         $this->dialog()->confirm([
-            'title' => "Confirmar a compra #{$this->sale_detail['id']}",
+            'title' => "Confirmar o pagamendo da Venda #{$this->sale_detail['id']}",
             'iconColor' => 'primary',
-            'description' => "Você tem certeza que deseja confirmar esta compra?",
+            'description' => "Você tem certeza que deseja confirmar o pagamento da Venda?",
             'accept' => [
                 'label' => 'Confirmar',
                 'method' => 'confirmSale',

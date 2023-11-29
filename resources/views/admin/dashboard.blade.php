@@ -10,7 +10,7 @@
                 <span>Saldo</span>
                 <x-icon name="currency-dollar" class="w-auto h-6"/>
             </div>
-            <div class="text-2xl font-bold">R$ {{ $balance }}</div>
+            <div class="text-2xl font-bold">R$ {{ number_format($balance,2) }}</div>
 
             <div class="mt-10">Média Diária ({{ $month }}): R$ {{ $dailyMonthAverage }}</div>
 
@@ -22,7 +22,7 @@
                 <x-icon name="cash" class="w-auto h-6"/>
             </div>
             <div class="text-2xl font-bold">
-                    R$ {{ $salesToday }}
+                    R$ {{ number_format($salesToday, 2) }}
                 <span class="text-sm text-green-500">(R$ {{ $dayProfit }})</span>
 
             </div>
@@ -38,7 +38,7 @@
                 <x-icon name="calendar" class="w-auto h-6"/>
             </div>
             <div class="text-2xl font-bold">
-                R$ {{ $salesMonth }}
+                R$ {{ number_format($salesMonth, 2) }}
                 <span class="text-sm text-green-500">(R$ {{ $monthProfit }})</span>
 
             </div>

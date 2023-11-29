@@ -26,8 +26,8 @@
 					@foreach ($unconfirmedSale as $sale)
 						<tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
 							<td class="whitespace-nowrap px-2 py-4 ">{{ $sale->id }}</td>
-							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ $sale->cost }}</td>
-							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ $sale->price }}</td>
+							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ number_format($sale->cost,2) }}</td>
+							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ number_format($sale->price,2) }}</td>
 							<td class="whitespace-nowrap px-2 py-4 ">{{ $sale->customer_name }}</td>
 							<td class="whitespace-nowrap px-2 py-4 ">
 								{{ Carbon::parse($sale->created_at)->format('d/m/y') }}</td>
@@ -69,9 +69,9 @@
 					@foreach ($sales as $sale)
 						<tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
 							<td class="whitespace-nowrap px-2 py-4 ">{{ $sale->id }}</td>
-							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ $sale->cost }}</td>
-							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ $sale->price }}</td>
-							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ $sale->price - $sale->cost }}
+							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ number_format($sale->cost ,2)}}</td>
+							<td class="whitespace-nowrap px-2 py-4 ">R$ {{number_format( $sale->price,2) }}</td>
+							<td class="whitespace-nowrap px-2 py-4 ">R$ {{ number_format($sale->price - $sale->cost,2) }}
 							</td>
 							<td class="whitespace-nowrap px-2 py-4 ">{{ $sale->customer_name }}</td>
 							<td class="whitespace-nowrap px-2 py-4 ">

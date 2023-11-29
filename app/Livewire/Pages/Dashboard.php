@@ -68,7 +68,7 @@ class Dashboard extends Component
         $this->monthsChart = $getConfig->monthsChart->value;
         $this->goal = CashierController::goal();
         $this->balance = CashierController::balance();
-        $this->balance = number_format($this->balance, 2);
+
         $this->month = $this->checkMonth($this->getLastSaleMonth());
         $this->salesToday = $this->getSalesIncomeForLastDays();
         $this->salesMonth = $this->getSalesIncomeForLastMonth();
