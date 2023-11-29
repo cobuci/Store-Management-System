@@ -9,7 +9,7 @@
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div>
-                <span class=" text-3xl">R$ {{$balance}}</span>
+                <span class=" text-3xl">R$ {{number_format($balance,2)}}</span>
             </div>
         </div>
         <div class="bg-blue-600 p-4 rounded-lg font-bold">
@@ -19,7 +19,7 @@
                 <i class="fas fa-info-circle"></i>
             </div>
             <div>
-                <span class=" text-3xl">R$ {{$value_unpaid_purchases}}</span>
+                <span class=" text-3xl">R$ {{number_format($value_unpaid_purchases,2)}}</span>
             </div>
         </div>
         <div class="bg-orange-600 p-4 rounded-lg font-bold">
@@ -30,7 +30,7 @@
                 <i class="fas fa-info-circle"></i>
             </div>
             <div>
-                <span class="text-3xl">R$ {{ $due }}</span>
+                <span class="text-3xl">R$ {{ number_format($due,2) }}</span>
             </div>
         </div>
     </div>
@@ -56,9 +56,9 @@
                     </td>
                     <td class="px-4">
                         @if($finance->type == 'wd' || $finance->type == 'rdm' || $finance->type == 'rev')
-                            <x-badge lg full negative label=" R$ {{ $finance->value }}"/>
+                            <x-badge lg full negative label=" R$ {{ number_format($finance->value,2) }}"/>
                         @else
-                            <x-badge lg full positive label="R$ {{ $finance->value }}"/>
+                            <x-badge lg full positive label="R$ {{number_format( $finance->value,2) }}"/>
                         @endif
                     </td>
                     <td>
