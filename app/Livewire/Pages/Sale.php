@@ -29,7 +29,7 @@ class Sale extends Component
     public $categories = [];
     public $category = 0;
     public $bonus = 0;
-    public $amount = '';
+    public $amount;
     public string $finalPrice;
     public string $finalCost;
     public $customers = [];
@@ -71,15 +71,14 @@ class Sale extends Component
             );
             return;
         }
-
         $this->storeSale($order_id);
 
         foreach ($this->list as $key => $item) {
             $paramsOrder->order_id = $order_id;
             $paramsOrder->product_id = $item['id'];
             $paramsOrder->amount = $item['amount'];
-            ProductController::removeStock($item['id'], $item['amount']);
-            OrderController::newOrder($paramsOrder);
+           ProductController::removeStock($item['id'], $item['amount']);
+           OrderController::newOrder($paramsOrder);
         }
 
         $this->reset(['customer', 'discount', 'list']);
@@ -96,8 +95,11 @@ class Sale extends Component
         $this->payment_method == "Credito" ? $fee = $creditFee : null;
         $this->payment_method == "Debito" ? $fee = $debitFee : null;
 
-        $finalPrice = floatval(str_replace(",", ".", $this->finalPrice)) * $fee;
-        $finalCost = floatval(str_replace(",", ".", $this->finalCost));
+        $finalPrice = (str_replace(['.', ','], ['', '.'],$this->finalPrice)) * $fee;
+        $finalPrice = floatval($finalPrice);
+
+        $finalCost = (str_replace(['.', ','], ['', '.'],  $this->finalCost));
+        $finalCost = floatval($finalCost);
 
         $customer = Customer::find($this->customer);
         SaleModel::create([
