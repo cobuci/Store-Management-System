@@ -1,8 +1,4 @@
 {
-    "monthsChart": {
-        "value": 13,
-        "description": "Quantidade de meses que mostrará no grafico da Dashboard "
-    },
     "water": {
         "value": 2,
         "description": "ID da agua para mostrar no perfil do cliente"

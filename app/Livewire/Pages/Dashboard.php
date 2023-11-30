@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
 use App\Http\Controllers\CashierController;
 use App\Models\Cashier;
 use App\Models\Sale;
 use DivisionByZeroError;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -14,35 +19,46 @@ class Dashboard extends Component
 {
     use Actions;
 
-    public string $monthsChart = '';
-    public string $goal = '';
-    public string $month = '';
-    public string $salesToday = '';
-    public string $balance = '';
-    public string $percentDailySales = '';
-    public string $salesMonth = '';
-    public string $salesLastMonth = '';
-    public string $salesYesterday = '';
-    public string $percentMonthSales = '';
-    public string $goalPercent = '';
-    public string $dailyMonthAverage = '';
+    public array $sales = [
+        'today' => '',
+        'yesterday' => '',
+        'month' => '',
+        'lastMonth' => '',
+    ];
 
-    public string $monthProfit = '';
-    public string $dayProfit = '';
-    public string $lastMonthProfit = '';
-    public string $lastDayProfit = '';
+    public array $profit = [
+        'today' => '',
+        'yesterday' => '',
+        'month' => '',
+        'lastMonth' => '',
+    ];
 
-    public function changeGoal()
+    public array $percent = [
+        'today' => '',
+        'month' => '',
+        'goal' => '',
+    ];
+
+    public array $data = [
+        'balance' => '',
+        'dailyAverage' => '',
+        'goal' => '',
+        'month' => '',
+        'monthsChart' => '',
+    ];
+
+    public function changeGoal(): void
     {
         $goalFind = Cashier::find(3);
-        $goalFind->balance = $this->goal;
+        $goalFind->balance = $this->data['goal'];
         $goalFind->save();
+
         $this->notification()->success(
             title: 'Valor da meta atualizado com sucesso!',
         );
     }
 
-    public function goalDialog()
+    public function goalDialog(): void
     {
         $this->dialog()->id('goalDialog')->confirm([
             'icon' => 'document-report',
@@ -58,35 +74,45 @@ class Dashboard extends Component
         ]);
     }
 
-
-
-
-
-    public function render()
+    public function mount(): void
     {
-        $getConfig = json_decode(file_get_contents('../config/app_settings.json'));
-        $this->monthsChart = $getConfig->monthsChart->value;
-        $this->goal = CashierController::goal();
-        $this->balance = CashierController::balance();
+        $this->sales = [
+            'today' =>  $this->getSalesIncomeForLastDays(),
+            'yesterday' => $this->getSalesIncomeForLastDays(1),
+            'month' => $this->getSalesIncomeForLastMonth(),
+            'lastMonth' => $this->getSalesIncomeForLastMonth(1),
+        ];
 
-        $this->month = $this->checkMonth($this->getLastSaleMonth());
-        $this->salesToday = $this->getSalesIncomeForLastDays();
-        $this->salesMonth = $this->getSalesIncomeForLastMonth();
-        $this->salesYesterday = $this->getSalesIncomeForLastDays(1);
-        $this->percentDailySales = $this->percentDailySales();
-        $this->percentMonthSales = $this->percentMonthSales();
-        $this->salesLastMonth = $this->getSalesIncomeForLastMonth(1);
-        $this->goalPercent = $this->calculateGoalMonthPercentage();
-        $this->dailyMonthAverage = $this->getDailyMonthAverage();
-        $this->monthProfit = $this->getMonthProfit();
-        $this->dayProfit = $this->getDailyProfit();
-        $this->lastMonthProfit = $this->getMonthProfit(1);
-        $this->lastDayProfit = $this->getDailyProfit(1);
+        $this->profit = [
+            'today' => $this->getDailyProfit(),
+            'yesterday' => $this->getDailyProfit(1),
+            'month' => $this->getMonthProfit(),
+            'lastMonth' => $this->getMonthProfit(1),
+        ];
+
+        $this->percent = [
+            'today' => $this->percentDailySales(),
+            'month' => $this->percentMonthSales(),
+
+        ];
+
+        $this->data = [
+            'balance' => CashierController::balance(),
+            'dailyAverage' => $this->getDailyAverage(),
+            'month' => $this->checkMonth($this->getLastSaleMonth()),
+            'monthsChart' => config('pages.dashboard.monthsChart'),
+        ];
+    }
+
+    public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $this->data['goal'] = CashierController::goal();
+        $this->percent['goal'] = $this->calculateGoalMonthPercentage();
 
         return view('admin.dashboard');
     }
 
-    public function checkMonth($month)
+    public function checkMonth($month): string
     {
         $namesOfMonths = [
             1 => "Janeiro",
@@ -106,7 +132,7 @@ class Dashboard extends Component
         return $namesOfMonths[$month] ?? "Indefinido";
     }
 
-    public function getLastSaleMonth($date = 0)
+    public function getLastSaleMonth(Int $date = 0)
     {
         $sales = DB::table('sales')
             ->select(
@@ -118,10 +144,10 @@ class Dashboard extends Component
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return $sales[$date]->month ?? $sales = 0;
+        return $sales[$date]->month ?? 0;
     }
 
-    public function getSalesIncomeForLastDays($date = 0)
+    public function getSalesIncomeForLastDays(Int $date = 0)
     {
         $sales = DB::table('sales')
             ->select(
@@ -132,10 +158,10 @@ class Dashboard extends Component
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return $sales[$date]->total_price ?? $sales = 0;
+        return $sales[$date]->total_price ?? 0;
     }
 
-    public function getSalesIncomeForLastMonth($date = 0)
+    public function getSalesIncomeForLastMonth(Int $date = 0)
     {
         $sales = DB::table('sales')
             ->select(
@@ -147,13 +173,13 @@ class Dashboard extends Component
             ->groupBy('year', 'month')
             ->orderBy('id', 'desc')
             ->get();
-        return $sales[$date]->total_price ?? $result = 0;
+        return $sales[$date]->total_price ?? 0;
     }
 
-    public function percentDailySales()
+    public function percentDailySales(): string
     {
         $today = Dashboard::getSalesIncomeForLastDays();
-        $yesterday = Dashboard::getSalesIncomeForLastDays(1);
+        $yesterday = floatval(Dashboard::getSalesIncomeForLastDays(1));
         if ($yesterday) {
             $amount = $today - $yesterday;
 
@@ -161,51 +187,54 @@ class Dashboard extends Component
 
             return number_format($amount, 2);
         } else {
-            return 0;
+            return "0";
         }
     }
 
-    public function percentMonthSales()
+    public function percentMonthSales(): string
     {
         $current_month = Dashboard::getSalesIncomeForLastMonth();
-        $previous_month = Dashboard::getSalesIncomeForLastMonth(1);
+        $previous_month = floatval(Dashboard::getSalesIncomeForLastMonth(1));
         if ($previous_month) {
             $amount = $current_month - $previous_month;
             $amount = ($amount / abs($previous_month)) * 100;
             return number_format($amount, 2);
         } else {
-            return 0;
+            return "0";
         }
     }
 
     public function calculateGoalMonthPercentage(): string
     {
-        $percent = 0;
+        $sales = floatval($this->sales['month']);
         try {
-            $percent = ($this->salesMonth / $this->goal) * 100;
-        } catch (DivisionByZeroError $e) {
-            $percentage = 0;
+            $goal = floatval($this->data['goal']);
+
+            $percent = ($sales / $goal) * 100;
+
+        } catch (DivisionByZeroError) {
+            $percent = 0;
         }
 
         return number_format($percent, 2);
     }
 
-    public function getDailyMonthAverage()
+    public function getDailyAverage()
     {
-        $revenue = $this->salesMonth;
+        $revenue = $this->sales['month'];
         $day = $this->getLastSaleDay();
 
         try {
             $average = $revenue / $day;
             $average = number_format($average, 2);
-        } catch (DivisionByZeroError $e) {
+        } catch (DivisionByZeroError) {
             $average = $revenue;
         }
 
         return $average;
     }
 
-    public function getLastSaleDay($date = 0)
+    public function getLastSaleDay(Int $date = 0)
     {
         $date = max(0, $date);
         $sales = Sale::selectRaw('DAY(created_at) as day')
@@ -220,14 +249,14 @@ class Dashboard extends Component
         return $sales[$date]->day;
     }
 
-    public function getMonthProfit($date = 0)
+    public function getMonthProfit(Int $date = 0)
     {
         $monthCost = $this->getSalesCostForLastMonth($date);
         $monthIncome = $this->getSalesIncomeForLastMonth($date);
         return $monthIncome - $monthCost;
     }
 
-    public function getSalesCostForLastMonth($date = 0)
+    public function getSalesCostForLastMonth(Int $date = 0)
     {
         $sales = DB::table('sales')
             ->select(
@@ -239,17 +268,17 @@ class Dashboard extends Component
             ->groupBy('year', 'month')
             ->orderBy('created_at', 'desc')
             ->get();
-        return $sales[$date]->cost ?? $result = null;
+        return $sales[$date]->cost ?? null;
     }
 
-    public function getDailyProfit($date = 0)
+    public function getDailyProfit(Int $date = 0)
     {
         $dayCost = $this->getSalesCostForLastDays($date);
         $dayIncome = $this->getSalesIncomeForLastDays($date);
         return $dayIncome - $dayCost;
     }
 
-    public static function getSalesCostForLastDays($date = 0)
+    public static function getSalesCostForLastDays(Int $date = 0)
     {
         $sales = DB::table('sales')
             ->select(
@@ -260,6 +289,6 @@ class Dashboard extends Component
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return $sales[$date]->cost ?? $sales = 0;
+        return $sales[$date]->cost ?? 0;
     }
 }

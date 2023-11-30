@@ -10,9 +10,9 @@
                 <span>Saldo</span>
                 <x-icon name="currency-dollar" class="w-auto h-6"/>
             </div>
-            <div class="text-2xl font-bold">R$ {{ number_format($balance,2) }}</div>
+            <div class="text-2xl font-bold">R$ {{ number_format($data['balance'],2) }}</div>
 
-            <div class="mt-10">Média Diária ({{ $month }}): R$ {{ number_format($dailyMonthAverage,2) }}</div>
+            <div class="mt-10">Média Diária ({{ $data['month'] }}): R$ {{ number_format($data['dailyAverage'],2) }}</div>
 
         </div>
         {{--    Day--}}
@@ -22,13 +22,13 @@
                 <x-icon name="cash" class="w-auto h-6"/>
             </div>
             <div class="text-2xl font-bold">
-                    R$ {{ number_format($salesToday, 2) }}
-                <span class="text-sm text-green-500">(R$ {{ number_format($dayProfit,2) }})</span>
+                    R$ {{ number_format($sales['today'],2) }}
+                <span class="text-sm text-green-500">(R$ {{ number_format($profit['today'],2) }})</span>
 
             </div>
             <div>
-                <div class="mt-5"> <span class="text-sm {{ $percentDailySales >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percentDailySales }}%</span></div>
-                <div>Last day: R$ {{ number_format($salesYesterday,2) }} (R$ {{number_format($lastDayProfit,2)}})</div>
+                <div class="mt-5"> <span class="text-sm {{ $percent['today'] >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percent['today'] }}%</span></div>
+                <div>Last day: R$ {{ $sales['yesterday'] }} (R$ {{number_format($profit['yesterday'],2)}})</div>
             </div>
         </div>
         {{--    MONTH --}}
@@ -38,15 +38,15 @@
                 <x-icon name="calendar" class="w-auto h-6"/>
             </div>
             <div class="text-2xl font-bold">
-                R$ {{ number_format($salesMonth, 2) }}
-                <span class="text-sm text-green-500">(R$ {{ number_format($monthProfit,2) }})</span>
+                R$ {{  number_format($sales['month'],2) }}
+                <span class="text-sm text-green-500">(R$ {{ number_format($profit['month'],2) }})</span>
 
             </div>
             <div>
                 <div class="mt-5">
-                    <span class="text-sm {{ $percentMonthSales >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percentMonthSales }}%</span></div>
+                    <span class="text-sm {{ $percent['month'] >= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $percent['month'] }}%</span></div>
 
-                <div>Last month: R$ {{ number_format($salesLastMonth,2) }} (R$ {{ number_format($lastMonthProfit,2) }})</div>
+                <div>Last month: R$ {{  $sales['lastMonth'] }} (R$ {{ number_format($profit['lastMonth'],2) }})</div>
 
             </div>
         </div>
@@ -54,21 +54,21 @@
         <div
             class="bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 drop-shadow-xl z-1 md:col-span-3 min-w-min cursor-pointer "
             wire:click="goalDialog">
-            <div class="flex flex-row justify-between">
+            <div class="flex flex-row justify-between ">
                 <span>Monthly goal</span>
                 <x-icon name="refresh" class="w-auto h-6"/>
             </div>
-            <div class="text-2xl font-bold">R$ {{ number_format($salesMonth,2) }} / {{ number_format($goal,2) }}</div>
-            <div class="mb-6 h-8  mt-5 w-full bg-neutral-400 dark:bg-neutral-300  ">
-                <div class="h-8 bg-primary text-2xl text-center font-medium  text-gray-200 max-w-full"
-                     style="width:{{ $goalPercent }}%">
-                    {{ $goalPercent }}%
+            <div class="text-2xl font-bold ">R$ {{ ($sales['month']) }} / {{ number_format($data['goal'],2) }}</div>
+            <div class="mb-6 h-8  mt-5 w-full bg-neutral-400 dark:bg-neutral-300  rounded-lg  ">
+                <div class="h-8 bg-primary text-2xl text-center font-medium text-gray-800 max-w-full"
+                     style="width:{{ $percent['goal'] }}%">
+                    {{ $percent['goal'] }}%
                 </div>
             </div>
 
         </div>
         <x-dialog id="goalDialog" title="Meta"  z-index="z-[1035]" >
-            <x-input label="Defina a nova meta" wire:model="goal"/>
+            <x-input label="Defina a nova meta" wire:model="data.goal"/>
         </x-dialog>
 
         {{--    CHART  --}}
@@ -80,8 +80,8 @@
         </div>
 
 
-        <input type="hidden" id="monthsChart" value="{{ $monthsChart }}"/>
-        @for ($i = $monthsChart; $i >= 0; $i--)
+        <input type="hidden" id="monthsChart" value="{{ $data['monthsChart'] }}"/>
+        @for ($i =  $data['monthsChart']; $i >= 0; $i--)
             <input type="hidden" id="{{ 'hiddeninput' . $i }}"
                    value="{{ $this->checkMonth($this->getLastSaleMonth($i))}} "/>
 
