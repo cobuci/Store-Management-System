@@ -97,7 +97,9 @@ docker run --rm --interactive --tty -v $(pwd):/app composer install
 
   sail php artisan key:generate
 
-  sail php artisan migrate --seed ()
+  sail php artisan migrate --seed
+
+  sail npm install
 
   sail npm run dev
  
