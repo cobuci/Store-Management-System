@@ -122,7 +122,7 @@ Define *api_token* in .env
 | :---------- | :--------- | :---------------------------------- |
 | `api_key` | `string` | **Required**. Bearer *api_token* |
 
-#### Retorna um item
+#### Return a specific item
 
 ```http
   GET /api/v1/products/${id}
