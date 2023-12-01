@@ -85,6 +85,11 @@ Requirements
 ```bash
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 ```
+
+```bash
+docker run --rm --interactive --tty -v $(pwd):/app composer install
+```
+
 ```bash 
   cp .env.example .env
 
