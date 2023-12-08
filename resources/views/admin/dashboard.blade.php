@@ -12,7 +12,7 @@
             </div>
             <div class="text-2xl font-bold">R$ {{ number_format($data['balance'],2) }}</div>
 
-            <div class="mt-10">Média Diária ({{ $data['month'] }}): R$ {{ number_format($data['dailyAverage'],2) }}</div>
+            <div class="mt-10">Média Diária ({{ $data['month'] }}): R$ {{ ($data['dailyAverage']) }}</div>
 
         </div>
         {{--    Day--}}

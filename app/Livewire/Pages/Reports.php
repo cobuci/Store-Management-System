@@ -4,6 +4,7 @@ namespace App\Livewire\Pages;
 
 use App\Http\Controllers\OrderController;
 use App\Models\Sale;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
@@ -112,6 +113,7 @@ class Reports extends Component
         $sale = Sale::find($id);
         $sale->payment_status = 1;
         $sale->save();
+        Cache::forget('balance');
         $this->mount();
     }
 

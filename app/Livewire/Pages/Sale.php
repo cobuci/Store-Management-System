@@ -3,11 +3,14 @@
 namespace App\Livewire\Pages;
 
 
-use App\{Http\Controllers\CashierController,
+use App\{
+    Http\Controllers\CashierController,
     Http\Controllers\FinanceController,
     Http\Controllers\HistoryController,
     Models\Category,
-    Models\Sale as SaleModel};
+    Models\Sale as SaleModel
+};
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Customer;
@@ -64,7 +67,7 @@ class Sale extends Component
         $order_id = uniqid('', true);
         $paramsOrder = new stdClass();
 
-        if($this->list == null){
+        if ($this->list == null) {
             $this->notification()->error(
                 $title = 'Error !!!',
                 $description = 'Adicione produtos para realizar a venda',
@@ -77,8 +80,8 @@ class Sale extends Component
             $paramsOrder->order_id = $order_id;
             $paramsOrder->product_id = $item['id'];
             $paramsOrder->amount = $item['amount'];
-           ProductController::removeStock($item['id'], $item['amount']);
-           OrderController::newOrder($paramsOrder);
+            ProductController::removeStock($item['id'], $item['amount']);
+            OrderController::newOrder($paramsOrder);
         }
 
         $this->reset(['customer', 'discount', 'list']);
@@ -95,7 +98,7 @@ class Sale extends Component
         $this->payment_method == "Credito" ? $fee = $creditFee : null;
         $this->payment_method == "Debito" ? $fee = $debitFee : null;
 
-        $finalPrice = (str_replace(['.', ','], ['', '.'],$this->finalPrice)) * $fee;
+        $finalPrice = (str_replace(['.', ','], ['', '.'], $this->finalPrice)) * $fee;
         $finalPrice = floatval($finalPrice);
 
         $finalCost = (str_replace(['.', ','], ['', '.'],  $this->finalCost));
@@ -127,7 +130,7 @@ class Sale extends Component
     public function mount(): void
     {
         $this->customers = Customer::show();
-        $this->categories = Category::all();
+        $this->categories = CategoryController::show();
     }
 
     public function updatedCategory(): void

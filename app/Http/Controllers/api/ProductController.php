@@ -14,6 +14,11 @@ class ProductController extends Controller
         return Product::all();
     }
 
+    public function productsByCategory(string $id)
+    {
+        return Product::where('category_id', $id)->get();
+    }
+
 
     public function create()
     {

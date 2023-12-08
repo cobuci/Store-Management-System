@@ -33,10 +33,10 @@
                     <div>
                         <x-input class="pr-28" label="Email" placeholder="your email" suffix="@mail.com" id="email"
                                  name="email"
-                                 :value="old('email')"/>
+                                 value="test@test.com"/>
                     </div>
                     <div>
-                        <x-inputs.password label="Senha" placeholder="*******" id="password" name="password"/>
+                        <x-inputs.password label="Senha" placeholder="*******" id="password" value="test" name="password"/>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">

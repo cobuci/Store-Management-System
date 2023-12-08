@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Http\Controllers\CategoryController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
@@ -48,8 +49,7 @@ class Statistics extends Component
 
     public function mount()
     {
-        $this->categories = Category::all();
-
+        $this->categories = CategoryController::show();
     }
 
     #[On('dateUpdated')]
@@ -67,8 +67,6 @@ class Statistics extends Component
         $this->paymentMethodTotal();
 
         unset($this->pieChartModel);
-
-
     }
 
     public function costValueTotal()

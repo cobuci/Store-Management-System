@@ -9,7 +9,7 @@
         "asantibanez/livewire-charts": "^3.0",
         "filament/filament": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.8.0",
-        "laravel/framework": "^v10.24.0",
+        "laravel/framework": "^v10.34.0",
         "laravel/jetstream": "^v4.0.1",
         "laravel/sanctum": "^v3.3.1",
         "laravel/tinker": "^v2.8.2",
@@ -17,6 +17,7 @@
         "wireui/wireui": "^1.18"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.4.4",

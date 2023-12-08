@@ -4,7 +4,7 @@
     <x-notifications position="top-center" z-index="z-[1400]"/>
     <x-button class="w-auto mb-5" icon="arrow-left" squared blue label="Voltar" href="{{ route('admin.customer') }}"/>
     <div class="flex flex-wrap gap-5">
-        <div class="dark:bg-gray-600 bg-white h-full w-auto min-w-fit p-4 rounded-lg">
+        <div class="dark:bg-gray-600 bg-white h-full w-full md:w-auto min-w-fit p-4 rounded-lg">
 
             <div class="flex justify-center items-center mb-5 h-auto w-full">
                 <span class="font-bold text-xl">{{ $customer['name'] }} </span>
@@ -45,15 +45,6 @@
                     </div>
                     <div>
                         R$ {{ $customer['spent'] }}
-                    </div>
-                </div>
-                <div class="dark:bg-gray-600 bg-white rounded-lg p-4">
-                    <div class="flex justify-between">
-                        <span class="font-bold ">Águas Compradas</span>
-                        <i class="fas fa-droplet "></i>
-                    </div>
-                    <div>
-                        {{ $customer['water'] }}
                     </div>
                 </div>
             </div>

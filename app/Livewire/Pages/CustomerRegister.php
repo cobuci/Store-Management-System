@@ -3,6 +3,8 @@
 namespace App\Livewire\Pages;
 
 use App\Models\Customer;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -11,35 +13,48 @@ class CustomerRegister extends Component
 {
     use Actions;
 
-
-    public $name = '';
-    public $phone = '';
-    public $address = '';
-
-    public $gender = '';
-    public $zip_code = '';
-    public $street = '';
-    public $number = '';
-    public $district = '';
-    public $mail = '';
-
-    protected array $rules = [
-        'name' => 'required',
+    public array $customer = [
+        'name' => '',
+        'gender' => '',
+        'phone' => '',
+        'email' => '',
+        'street' => '',
+        'number' => '',
+        'district' => '',
     ];
 
-    public function save()
+    public string $zip_code = '';
+
+
+    protected array $rules = [
+        'customer.name' => 'required|string|max:50',
+        'customer.phone' => 'nullable|string|max:16',
+        'customer.email' => 'nullable|email|max:60',
+        'customer.street' => 'nullable|string|max:60',
+        'customer.number' => 'nullable|string|max:10',
+        'customer.district' => 'nullable|string|max:60',
+        'zip_code' => 'nullable|string|max:11',
+    ];
+
+    protected array $messages =[
+            'customer.name.required' => 'O campo está em branco.',
+            'content.max' => 'The  is too short.',
+    ];
+
+    public function save(): void
     {
         $this->validate();
+
         Customer::create(
             [
-                'name' => $this->name,
-                'phone' => $this->phone,
-                'gender' => $this->gender,
+                'name' => $this->customer['name'],
+                'phone' => $this->customer['phone'],
+                'gender' => $this->customer['gender'],
                 'zipcode' => $this->zip_code,
-                'street' => $this->street,
-                'number' => $this->number,
-                'district' => $this->district,
-                'email' => $this->mail,
+                'street' => $this->customer['street'],
+                'number' => $this->customer['number'],
+                'district' => $this->customer['district'],
+                'email' => $this->customer['email'],
             ]
         );
         $this->reset();
@@ -49,21 +64,14 @@ class CustomerRegister extends Component
         );
     }
 
-    public function updatedPhone()
-    {
-        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
-        $this->phone = preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $this->phone);
-    }
-
-    public function updatedZipCode()
+    public function updatedZipCode(): void
     {
         $response = Http::get('https://viacep.com.br/ws/' . $this->zip_code . '/json/')->json();
-        $this->street = $response['logradouro'];
-        $this->district = $response['bairro'];
+        $this->customer['street'] = $response['logradouro'];
+        $this->customer['district'] = $response['bairro'];
     }
 
-
-    public function render()
+    public function render(): View|Application
     {
         return view('admin.customer_register');
     }

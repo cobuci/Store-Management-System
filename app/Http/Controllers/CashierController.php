@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cashier;
 use App\Models\Sale;
+use Illuminate\Support\Facades\Cache;
 
 class CashierController extends Controller
 {
@@ -12,16 +13,18 @@ class CashierController extends Controller
 
     public static function balance()
     {
-        $cashier = Cashier::find(1);
-        $due = Sale::totalDue();
+        return Cache::rememberForever('balance', function () {
+            $cashier = Cashier::find(1);
+            $due = Sale::totalDue();
 
-        return $cashier->balance - $due;
+            return $cashier->balance - $due;
+        });
     }
 
 
     public static function goal()
     {
-        return Cashier::find(3)->balance;
+        return Cache::rememberForever('goal', fn () => Cashier::find(3)->balance);
     }
 
     public static function withdrawBalance($value)
@@ -29,12 +32,7 @@ class CashierController extends Controller
         $cashier = Cashier::find(1);
         $cashier->balance -= $value;
         $cashier->save();
-    }
-    public static function withdrawInvestment($value)
-    {
-        $cashier = Cashier::find(2);
-        $cashier->balance -= $value;
-        $cashier->save();
+        Cache::forget('balance');
     }
 
     public static function addBalance($value)
@@ -42,15 +40,7 @@ class CashierController extends Controller
         $cashier = Cashier::find(1);
         $cashier->balance += $value;
         $cashier->save();
+        Cache::forget('balance');
     }
-
-    public static function addInvestment($value)
-    {
-        $cashier = Cashier::find(2);
-        $cashier->balance += $value;
-        $cashier->save();
-    }
-
-
 
 }

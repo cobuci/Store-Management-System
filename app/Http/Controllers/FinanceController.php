@@ -33,11 +33,9 @@ class FinanceController extends Controller
 
         if ($finance->type == "rdm") {
             CashierController::addBalance($finance->value);
-            CashierController::withdrawInvestment($finance->value);
         }
         if ($finance->type == "inv") {
             CashierController::withdrawBalance($finance->value);
-            CashierController::addInvestment($finance->value);
         }
 
         $finance->delete();

@@ -2,6 +2,10 @@
 
 namespace App\Livewire\Pages;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Number;
 use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
@@ -11,97 +15,25 @@ class Inventory extends Component
 {
     use Actions;
 
-    public $categories = [];
-    public $categories_skip = [];
-
     public $products = [];
-    public $lastProducts = [];
-
-    public $values = [
+    public array $categories_skip = [];
+    public array $values = [
         'cost' => 0,
         'sale' => 0,
         'profit' => 0,
     ];
-    public $cardModal = false;
-
-    public $product = [
-        'id' => '',
-        'category_id' => '',
-        'name' => '',
-        'brand' => '',
-        'weight' => '',
-        'weight_type' => '',
-        'amount' => '',
-        'expiration_date' => '',
-        'cost' => '',
-        'sale' => '',
-    ];
-
-    protected $rules = [
-        'product.name' => 'required',
-        'product.brand' => 'required',
-        'product.weight' => 'required',
-        'product.weight_type' => 'required',
-    ];
-
-    public function modalCardEdit(string $id) : void
-    {
-        $this->cardModal = true;
-        $this->product = Product::find($id)->toArray();
-
-        $weight_type = preg_replace('/[^a-zA-Z]/', '', $this->product['weight']);
-        $this->product['weight'] = preg_replace('/[^0-9]/', '', $this->product['weight']);
-        $this->product['weight_type'] = $weight_type;
-        $this->product['cost'] = str_replace('.', ',', $this->product['cost']);
-        $this->product['sale'] = str_replace('.', ',', $this->product['sale']);
-    }
-
-    public function productEdit() : void
-    {
-        $this->validate();
-        $this->product['weight'] = $this->product['weight'] . $this->product['weight_type'];
-        $this->product['cost'] = str_replace(',', '.', $this->product['cost']);
-        $this->product['sale'] = str_replace(',', '.', $this->product['sale']);
-        Product::find($this->product['id'])->update($this->product);
-        $this->cardModal = false;
-
-        $this->notification()->success('Produto editado com sucesso!');
-    }
-
-    public function deleteDialog(string $id): void
-    {
-        $product = Product::find($id);
-        $this->dialog()->confirm([
-            'title' => "#{$product->id} - {$product?->name}  ({$product?->weight}) - {$product?->brand} ",
-            'iconColor' => 'primary',
-            'description' => "Você tem certeza que deseja excluir o produto do estoque?",
-            'accept' => [
-                'label' => 'Excluir',
-                'method' => 'deleteProduct',
-                'params' => $id,
-                'color' => 'negative',
-            ],
-            'reject' => [
-                'label' => 'Cancelar',
-                'color' => 'info',
-            ],
-        ]);
-
-    }
-
-    public function deleteProduct($id) : void
-    {
-        Product::find($id)->delete();
-        $this->mount();
-        $this->notification()->success('Produto excluído com sucesso!');
-    }
 
     public function mount() : void
     {
-        $this->categories = Category::all();
-        $this->categories_skip = json_decode(file_get_contents('../config/app_settings.json'))->stockSkipCategories;
-        $this->products = Product::all();
-        $this->lastProducts = $this->products->sortByDesc('id')->take(5);
+
+        $this->categories_skip = config('pages.inventory.categories_skip');
+        $this->products = Product::select('category_id','amount', 'cost', 'sale')->get();
+        $this->getValues();
+
+    }
+
+    public function getValues() : void
+    {
         $this->values['cost'] = $this->costValueTotal();
         $this->values['sale'] = $this->saleValueTotal();
         $this->values['profit'] = $this->profitValue();
@@ -115,7 +47,7 @@ class Inventory extends Component
                 $cost_value += ($product->cost * $product->amount);
             }
         }
-        return number_format($cost_value, 2);
+        return Number::currency($cost_value, 'BRL');
     }
 
     public function saleValueTotal() : string
@@ -126,17 +58,22 @@ class Inventory extends Component
                 $sale_value += ($product->sale * $product->amount);
             }
         }
-        return number_format($sale_value, 2);
+        return Number::currency($sale_value, 'BRL');
     }
 
     public function profitValue() : string
     {
-        $sale_value = floatval(str_replace(',', '', $this->saleValueTotal()));
-        $cost_value = floatval(str_replace(',', '', $this->costValueTotal()));
-        return number_format($sale_value - $cost_value, 2);
+        $sale_value = floatval($this->saleValueTotal());
+        $cost_value = floatval($this->costValueTotal());
+        return Number::currency($sale_value - $cost_value, 'BRL');
     }
 
-    public function render()
+    public function placeholder()
+    {
+        return view('layouts.lazy');
+    }
+
+    public function render(): View|Application
     {
         return view('admin.inventory');
     }

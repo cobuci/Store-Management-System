@@ -5,6 +5,9 @@ namespace App\Livewire\Pages;
 use App\Http\Controllers\OrderController;
 use App\Models\Customer;
 use App\Models\Sale;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -28,7 +31,7 @@ class CustomerProfile extends Component
     ];
     public $products = [];
 
-    public function modalSale($id)
+    public function modalSale($id): void
     {
         $this->modal = true;
         $sale = Sale::find($id)->toArray();
@@ -42,7 +45,7 @@ class CustomerProfile extends Component
         $this->sale_detail['profit'] = number_format($this->sale_detail['profit'], 2, ',', '.');
     }
 
-    public function cancelDialog(string $id)
+    public function cancelDialog(string $id): void
     {
         $this->modal = false;
         $this->dialog()->confirm([
@@ -63,12 +66,12 @@ class CustomerProfile extends Component
         $this->mount($this->customer['id']);
     }
 
-    public function mount($id)
+    public function mount($id): void
     {
         $this->customer = Customer::find($id)->toArray();
         $this->customer['debits'] = Customer::find($id)->debit();
         $this->customer['spent'] = Customer::find($id)->spent();
-        $this->customer['water'] = Customer::find($id)->water();
+
         $this->unconfirmedSale = Customer::find($id)->unconfirmedSale()->get()->sortByDesc('id');
         $this->confirmedSale = Customer::find($id)->confirmedSale()->get()->sortByDesc('id');
     }
@@ -79,7 +82,7 @@ class CustomerProfile extends Component
         $this->mount($this->customer['id']);
     }
 
-    public function confirmSale($id)
+    public function confirmSale($id): void
     {
         $sale = Sale::find($id);
         $sale->payment_status = 1;
@@ -123,7 +126,7 @@ class CustomerProfile extends Component
         return redirect()->route('admin.customer');
     }
 
-    public function render()
+    public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.customer_profile');
     }

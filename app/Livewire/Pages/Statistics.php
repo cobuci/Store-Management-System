@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Statistics extends Component
 {
-
     public array $date = [
         'start' => '',
         'end' => '',
@@ -16,7 +15,6 @@ class Statistics extends Component
 
     public function updatedDate(): void
     {
-
         $firstSale = Sale::orderBy('created_at', 'asc')->first();
         if (empty($this->date['start'])) {
             $this->date['start'] = $firstSale?->created_at->toDateString() ?? date('Y-m-d');

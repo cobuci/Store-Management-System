@@ -104,7 +104,7 @@ class Dashboard extends Component
         ];
     }
 
-    public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function render(): View|Application
     {
         $this->data['goal'] = CashierController::goal();
         $this->percent['goal'] = $this->calculateGoalMonthPercentage();

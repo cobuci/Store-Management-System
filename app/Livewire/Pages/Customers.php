@@ -3,6 +3,8 @@
 namespace App\Livewire\Pages;
 
 use App\Models\Customer;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,9 +12,9 @@ class Customers extends Component
 {
     use WithPagination;
 
-    public $search = '';
+    public string $search = '';
 
-    public function updatedSearch()
+    public function updatedSearch(): void
     {
         $this->mount();
     }
@@ -27,7 +29,7 @@ class Customers extends Component
     }
 
 
-    public function render()
+    public function render(): View|Application
     {
         if (!$this->search) {
             $customers =   Customer::orderBy('name','asc')->paginate(10);

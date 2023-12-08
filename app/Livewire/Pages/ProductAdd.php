@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages;
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
@@ -98,7 +99,7 @@ class ProductAdd extends Component
 
     public function mount()
     {
-        $this->categories = Category::all();
+        $this->categories = CategoryController::show();
 
         now()->day >= 20 ? $this->expiration_purchase = now()->addMonths(1)->setDay(27) : $this->expiration_purchase = now()->setDay(27);
     }
