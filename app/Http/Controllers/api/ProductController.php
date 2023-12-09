@@ -21,7 +21,7 @@ class ProductController extends Controller
 
     public function productsByUpc(string $upc)
     {
-        return Product::where('upc', $upc)->get();
+        return Product::where('upc', $upc)->get()->first();
     }
 
 
