@@ -19,6 +19,11 @@ class ProductController extends Controller
         return Product::where('category_id', $id)->get();
     }
 
+    public function productsByUpc(string $upc)
+    {
+        return Product::where('upc', $upc)->get();
+    }
+
 
     public function create()
     {
