@@ -24,6 +24,7 @@ class DashboardController extends Controller
         $due = Sale::totalDue();
 
         $result['balance'] = $cashier->balance - $due;
+        $result['balance'] = number_format($result['balance'], 2, '.', '');
 
         return $result;
     }
@@ -39,7 +40,8 @@ class DashboardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $result['sales'] = $sales[$date]->total_price ?? "0";
+        $result['sales'] = $sales[$date]->total_price ?? 0;
+        $result['sales'] = number_format($result['sales'], 2, '.', '');
 
         return $result;
     }
@@ -58,6 +60,7 @@ class DashboardController extends Controller
             ->get();
 
         $result['sales'] = $sales[$date]->total_price ?? "0";
+        $result['sales'] = number_format($result['sales'], 2, '.', '');
 
         return $result;
     }
