@@ -37,6 +37,8 @@
                     wire:model="product.cost" />
                 <x-inputs.currency label="Preço de Venda" prefix="R$" thousands="." decimal=","
                     wire:model="product.sale" />
+                <x-input label="UPC" name="upc" icon="qrcode" placeholder="Digite o código de barras do produto" wire:model="product.upc"/>
+
 
             </div>
 

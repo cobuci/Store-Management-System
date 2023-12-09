@@ -11,18 +11,21 @@ class ProductRegister extends Component
 
     public $categories = [];
     public $category_id;
-    public $name = '';
-    public $brand = '';
-    public $weight = '';
-    public $weight_type = '';
+    public string $name = '';
+    public string $brand = '';
+    public string $upc = '';
+    public string $weight = '';
+    public string $weight_type = '';
     protected $rules = [
         'category_id' => 'required',
         'name' => 'required',
         'weight' => 'required',
         'weight_type' => 'required',
+        'brand' => 'required',
+        'upc' => 'nullable',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->categories = Category::show();
     }
@@ -36,6 +39,7 @@ class ProductRegister extends Component
             'name' => $this->name,
             'brand' => $this->brand,
             'weight' => $this->weight . $this->weight_type,
+            'upc' => $this->upc,
         ];
 
         Product::create($product);

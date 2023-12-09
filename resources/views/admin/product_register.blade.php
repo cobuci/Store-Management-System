@@ -32,6 +32,7 @@
                       option-label="name"
                       wire:model="weight_type"
                       option-value="value"/>
+            <x-input label="UPC" name="upc" icon="qrcode" placeholder="Digite o código de barras do produto" wire:model="upc"/>
             <x-button class="my-4 w-full" icon="check" squared positive label="Cadastrar" wire:click="store"/>
 
         </div>

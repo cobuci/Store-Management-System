@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->date('expiration_date')->nullable();
             $table->foreignId('category_id')->references('id')->on('categories');
+            $table->string('upc')->nullable()->unique();
         });
     }
 

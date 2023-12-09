@@ -15,7 +15,8 @@ class Product extends Model
         'sale',
         'amount',
         'expiration_date',
-        'category_id'
+        'category_id',
+        'upc'
     ];
 
     public function category()

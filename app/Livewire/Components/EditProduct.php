@@ -23,6 +23,7 @@ class EditProduct extends Component
         'product.brand' => 'required|string|max:255',
         'product.weight' => 'required|string|max:255',
         'product.weight_type' => 'required|string|max:255',
+        'product.upc' => 'nullable|string|max:255',
     ];
 
     public function openModal(): void
@@ -38,8 +39,8 @@ class EditProduct extends Component
 
 
 
-  
-    public function mount()
+
+    public function mount(): void
     {
         $this->item = $this->product;
     }
