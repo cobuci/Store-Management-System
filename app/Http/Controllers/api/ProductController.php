@@ -27,10 +27,6 @@ class ProductController extends Controller
 
     public function productStoreUpc(Request $request, $id): JsonResponse
     {
-        $request->validate([
-            'upc' => 'required'
-        ]);
-
         $product = Product::findorFail($id);
         $product->update([
             'upc' => $request->input('upc')
