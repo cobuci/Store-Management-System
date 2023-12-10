@@ -25,7 +25,7 @@ class ProductController extends Controller
         return Product::where('upc', $upc)->get()->first();
     }
 
-    public function productStoreUpc(string $upc, string $id): JsonResponse
+    public function productStoreUpc(string $upc, int $id): JsonResponse
     {
         $product = Product::find($id);
 
