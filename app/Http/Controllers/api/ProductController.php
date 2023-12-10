@@ -25,31 +25,19 @@ class ProductController extends Controller
         return Product::where('upc', $upc)->get()->first();
     }
 
-    public function productStoreUpc(string $upc, int $id): JsonResponse
+    public function productStoreUpc(Request $request, $id): JsonResponse
     {
-        $product = Product::find($id);
+        $request->validate([
+            'upc' => 'required'
+        ]);
 
-        if(!$product){
-            return response()->json([
-                'message' => 'Product not found',
-                'product' => $product
-            ], 404);
-        }
+        $product = Product::findorFail($id);
+        $product->update([
+            'upc' => $request->input('upc')
+        ]);
 
-        $product->upc = $upc;
-        $product->save();
+        return response()->json(['message' => 'Produto atualizado com sucesso']);
 
-        if($product->save()){
-            return response()->json([
-                'message' => 'Product updated successfully',
-                'product' => $product
-            ], 200);
-        }
-
-        return response()->json([
-            'message' => 'Product not updated',
-            'product' => $product
-        ], 500);
 
     }
 
