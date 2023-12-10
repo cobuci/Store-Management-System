@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -24,6 +25,33 @@ class ProductController extends Controller
         return Product::where('upc', $upc)->get()->first();
     }
 
+    public function productStoreUpc(string $upc, string $id): JsonResponse
+    {
+        $product = Product::find($id);
+
+        if(!$product){
+            return response()->json([
+                'message' => 'Product not found',
+                'product' => $product
+            ], 404);
+        }
+
+        $product->upc = $upc;
+        $product->save();
+
+        if($product->save()){
+            return response()->json([
+                'message' => 'Product updated successfully',
+                'product' => $product
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'Product not updated',
+            'product' => $product
+        ], 500);
+
+    }
 
     public function create()
     {
