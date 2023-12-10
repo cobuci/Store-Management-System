@@ -18,7 +18,7 @@ class ApiAuth
         $token = $request->header('api_key');
         $apiToken = env('API_TOKEN');
 
-        if (!$token || $token !== "Bearer $apiToken") {
+        if ($token !== "Bearer $apiToken") {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);
