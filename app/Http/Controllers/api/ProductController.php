@@ -22,7 +22,16 @@ class ProductController extends Controller
 
     public function productsByUpc(string $upc)
     {
-        return Product::where('upc', $upc)->get()->first();
+       $product = Product::where('upc', $upc)->get()->first();
+
+         if (!$product) {
+              return response()->json(['message' => 'Produto não encontrado'], 404);
+         }
+         $product->sale = floatval($product->sale);
+         $product->cost = floatval($product->cost);
+         $product->amount = floatval($product->amount);
+
+        return $product;
     }
 
     public function productStoreUpc(Request $request, $id): JsonResponse
