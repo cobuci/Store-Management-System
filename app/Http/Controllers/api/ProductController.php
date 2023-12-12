@@ -27,10 +27,10 @@ class ProductController extends Controller
          if (!$product) {
               return response()->json(['message' => 'Produto não encontrado'], 404);
          }
-         $product->sale = number_format($product->sale,2);
-         $product->cost = number_format($product->cost,2);
+
          $product->sale = floatval($product->sale);
-            $product->cost = floatval($product->cost);
+       
+
          $product->amount = floatval($product->amount);
 
 
