@@ -47,7 +47,7 @@ class Inventory extends Component
                 $cost_value += ($product->cost * $product->amount);
             }
         }
-        return Number::currency($cost_value, 'BRL');
+        return $cost_value;
     }
 
     public function saleValueTotal() : string
@@ -58,13 +58,16 @@ class Inventory extends Component
                 $sale_value += ($product->sale * $product->amount);
             }
         }
-        return Number::currency($sale_value, 'BRL');
+        return $sale_value;
     }
 
     public function profitValue() : string
     {
         $sale_value = floatval($this->saleValueTotal());
         $cost_value = floatval($this->costValueTotal());
+        // take the saleValueTotal value , remove the R$ and convert the result  to float
+
+
         return Number::currency($sale_value - $cost_value, 'BRL');
     }
 
