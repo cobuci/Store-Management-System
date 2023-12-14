@@ -57,6 +57,7 @@ class EditProduct extends Component
 
         $this->notification()->success('Produto editado com sucesso!');
         $this->dispatch('product::updated');
+        $this->render();
 
     }
 
