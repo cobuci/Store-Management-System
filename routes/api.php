@@ -20,6 +20,8 @@ Route::middleware(ApiAuth::class)->group(function () {
         Route::get('products', [ProductController::class, 'index']);
         Route::get('products/{id}', [ProductController::class, 'show']);
         Route::get('products/category/{id}', [ProductController::class, 'productsByCategory']);
+        Route::put('products/entry/{id}', [ProductController::class, 'addProduct']);
+
         Route::get('products/upc/{upc}', [ProductController::class, 'productsByUpc']);
         Route::put('upc/link/{id}', [ProductController::class, 'productStoreUpc']);
 
