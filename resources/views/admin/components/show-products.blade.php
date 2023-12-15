@@ -71,7 +71,7 @@
 
                         @foreach ($category->products as $item)
 
-                            <tr class="border-b {{ $item->amount > 0 ? null : 'dark:bg-red-900 bg-red-400'}} dark:hover:bg-gray-600 hover:bg-gray-400">
+                            <tr wire:key="product-{{$item->id}}" class="border-b {{ $item->amount > 0 ? null : 'dark:bg-red-900 bg-red-400'}} dark:hover:bg-gray-600 hover:bg-gray-400">
                                 <td class="px-2 py-4">{{$item->id}}</td>
                                 <td class="px-2 py-4">{{$item->name}}</td>
                                 <td class="px-2 py-4">{{$item->brand}}</td>
@@ -80,7 +80,7 @@
                                 <td class="px-2 py-4">R$ {{$item->sale}}</td>
                                 <td class="px-2 py-4">{{$item->amount}}</td>
                                 <td class="px-2 py-4">{{$item->expiration_date}}</td>
-                                <td class="px-2 py-4">
+                                <td class="px-2 py-4" wire:ignore>
                                     @livewire('components.edit-product', ['product' => $item, 'categories' => $categories], key("edit-"."$item->id"))
 
                                 </td>

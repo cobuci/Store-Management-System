@@ -6,7 +6,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Number;
-use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -25,11 +24,9 @@ class Inventory extends Component
 
     public function mount() : void
     {
-
         $this->categories_skip = config('pages.inventory.categories_skip');
         $this->products = Product::select('category_id','amount', 'cost', 'sale')->get();
         $this->getValues();
-
     }
 
     public function getValues() : void
@@ -65,8 +62,6 @@ class Inventory extends Component
     {
         $sale_value = floatval($this->saleValueTotal());
         $cost_value = floatval($this->costValueTotal());
-        // take the saleValueTotal value , remove the R$ and convert the result  to float
-
 
         return Number::currency($sale_value - $cost_value, 'BRL');
     }
@@ -75,6 +70,7 @@ class Inventory extends Component
     {
         return view('layouts.lazy');
     }
+
 
     public function render(): View|Application
     {

@@ -3,8 +3,6 @@
 namespace App\Livewire\Components;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Cache;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -36,9 +34,6 @@ class EditProduct extends Component
         $this->product['cost'] = str_replace('.', ',', $this->product['cost']);
         $this->product['sale'] = str_replace('.', ',', $this->product['sale']);
     }
-
-
-
 
     public function mount(): void
     {

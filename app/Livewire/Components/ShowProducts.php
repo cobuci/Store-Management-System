@@ -26,7 +26,7 @@ class ShowProducts extends Component
     public bool $cardModal = false;
 
     protected $listeners = [
-        'product::updated' => '$refresh',
+        'product::updated' => '$commit',
 
     ];
 
@@ -42,27 +42,6 @@ class ShowProducts extends Component
         'cost' => '',
         'sale' => '',
     ];
-
-    protected array $rules = [
-        'product.name' => 'required',
-        'product.brand' => 'required',
-        'product.weight' => 'required',
-        'product.weight_type' => 'required',
-    ];
-
-    public function modalCardEdit(string $id): void
-    {
-        $this->cardModal = true;
-        $this->product = Product::find($id)->toArray();
-
-        $weight_type = preg_replace('/[^a-zA-Z]/', '', $this->product['weight']);
-        $this->product['weight'] = preg_replace('/[^0-9]/', '', $this->product['weight']);
-        $this->product['weight_type'] = $weight_type;
-        $this->product['cost'] = str_replace('.', ',', $this->product['cost']);
-        $this->product['sale'] = str_replace('.', ',', $this->product['sale']);
-    }
-
-
 
     public function deleteDialog(string $id): void
     {
@@ -89,7 +68,7 @@ class ShowProducts extends Component
         Product::find($id)->delete();
         $this->mount();
         $this->notification()->success('Produto excluído com sucesso!');
-    
+
     }
 
 
