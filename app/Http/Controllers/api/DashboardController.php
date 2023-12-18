@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PurchaseController;
 use App\Models\Cashier;
 use App\Models\Sale;
 use Illuminate\Http\Request;
@@ -23,8 +24,23 @@ class DashboardController extends Controller
         $cashier = Cashier::find(1);
         $due = Sale::totalDue();
 
+        $result['due'] = $due;
         $result['balance'] = $cashier->balance - $due;
+        $result['unpaid'] = PurchaseController::unpaidPurchases();
+
         $result['balance'] = number_format($result['balance'], 2, '.', '');
+        $result['due'] = number_format($result['due'], 2, '.', '');
+        $result['unpaid'] = number_format($result['unpaid'], 2, '.', '');
+
+        return $result;
+    }
+
+    public function getDue(): array
+    {
+        $due = Sale::totalDue();
+
+        $result['due'] = $due;
+        $result['due'] = number_format($result['due'], 2, '.', '');
 
         return $result;
     }
