@@ -1,11 +1,11 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Compras')
 <div class="w-full max-w-4xl select-none">
-    <h1 class="grid justify-items-center font-bold text-2xl mb-6 w-full"> Contas a pagar </h1>
+    <h1 class="mb-6 grid w-full justify-items-center text-2xl font-bold"> Contas a pagar </h1>
     <div
-        class="flex flex-wrap w-full p-4 min-w-fit bg-white/[0.8] font-medium dark:bg-gray-900 rounded-lg border-2 border-black justify-between">
+        class="flex w-full min-w-fit flex-wrap justify-between rounded-lg border-2 border-black p-4 font-medium bg-white/[0.8] dark:bg-gray-900">
 
-        <span class="flex flex-nowrap ">
+        <span class="flex flex-nowrap">
            Total Devido: R$  {{ $costs['total'] }}
        </span>
 
@@ -19,11 +19,11 @@
 
 
     </div>
-    <div class="flex flex-col  border-2 border-black rounded-t-lg mt-6">
-        <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900  " x-data="{ open: false }">
-            <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
-                <i class="fa fa-history text-xl mx-2"> </i>
-                <span class="font-bold text-xl">A pagar</span>
+    <div class="mt-6 flex flex-col rounded-t-lg border-2 border-black">
+        <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900" x-data="{ open: false }">
+            <div class="cursor-pointer p-2 hover:bg-gray-400 dark:hover:bg-gray-700" @click="open = ! open">
+                <i class="mx-2 text-xl fa fa-history"> </i>
+                <span class="text-xl font-bold">A pagar</span>
             </div>
             <div class="overflow-auto" x-show="open" x-transition>
 
@@ -42,22 +42,22 @@
                     </thead>
                     <tbody class="dark:bg-gray-700">
                     @foreach ($unpaidPurchases as $unpaidPurchase)
-                        <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                            <td class="whitespace-nowrap px-2 py-4 ">{{ $unpaidPurchase->id }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 ">{{ $unpaidPurchase->product_name }}
+                        <tr class="border-b hover:bg-gray-400 dark:hover:bg-gray-600">
+                            <td class="whitespace-nowrap px-2 py-4">{{ $unpaidPurchase->id }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ $unpaidPurchase->product_name }}
                                 - {{ $unpaidPurchase->product_brand }} ({{ $unpaidPurchase->product_weight }})
                             </td>
-                            <td class="whitespace-nowrap px-2 py-4 ">{{ $unpaidPurchase->amount }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 ">R$ {{ $unpaidPurchase->unit_cost }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{ $unpaidPurchase->amount }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">R$ {{ $unpaidPurchase->unit_cost }}</td>
                             <td class="whitespace-nowrap px-2 py-4">
                                 R$ {{ $unpaidPurchase->unit_cost * $unpaidPurchase->amount }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 ">{{  Carbon::parse( $unpaidPurchase->expiration_date)->format('d-m-y') }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 ">
-                                <x-button class="w-full my-4" icon="check" squared positive label="Pagar"
+                            <td class="whitespace-nowrap px-2 py-4">{{  Carbon::parse( $unpaidPurchase->expiration_date)->format('d-m-y') }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">
+                                <x-button class="my-4 w-full" icon="check" squared positive label="Pagar"
                                           wire:click="dialogPay({{ $unpaidPurchase->id }})"/>
                             </td>
-                            <td class="whitespace-nowrap px-2 py-4 ">
-                                <x-button class="w-full my-4" icon="check" squared negative label="Cancelar"
+                            <td class="whitespace-nowrap px-2 py-4">
+                                <x-button class="my-4 w-full" icon="check" squared negative label="Cancelar"
                                           wire:click="dialogCancel({{ $unpaidPurchase->id }})"/>
                             </td>
 
@@ -71,9 +71,9 @@
         </div>
 
         <div class="bg-white/[0.8] dark:bg-gray-900" x-data="{ open: true }">
-            <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
-                <i class="fa fa-check text-xl mx-2"> </i>
-                <span class="font-bold text-xl">Pago</span>
+            <div class="cursor-pointer p-2 hover:bg-gray-400 dark:hover:bg-gray-700" @click="open = ! open">
+                <i class="mx-2 text-xl fa fa-check"> </i>
+                <span class="text-xl font-bold">Pago</span>
             </div>
             <div class="overflow-auto" x-show="open" x-transition>
                 <table class="w-full">
@@ -92,7 +92,7 @@
                     <tbody class="dark:bg-gray-700">
 
                     @foreach ($paidPurchases as $paidPurchase)
-                        <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
+                        <tr class="border-b hover:bg-gray-400 dark:hover:bg-gray-600">
                             <td class="whitespace-nowrap px-2 py-4">{{ $paidPurchase->id }}</td>
                             <td class="whitespace-nowrap px-2 py-4">{{ $paidPurchase->product_name }}
                                 - {{ $paidPurchase->product_brand }} ({{ $paidPurchase->product_weight }})
@@ -103,7 +103,7 @@
                                 R$ {{ $paidPurchase->unit_cost * $paidPurchase->amount }}</td>
 
                             <td class="whitespace-nowrap px-2 py-4">{{ Carbon::parse( $paidPurchase->updated_at)->format('d-m-y') }}</td>
-                            <td class="whitespace-nowrap px-2 py-4 ">{{  Carbon::parse( $paidPurchase->expiration_date)->format('d-m-y') }}</td>
+                            <td class="whitespace-nowrap px-2 py-4">{{  Carbon::parse( $paidPurchase->expiration_date)->format('d-m-y') }}</td>
 
                         </tr>
                     @endforeach

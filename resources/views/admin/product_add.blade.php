@@ -1,9 +1,9 @@
 @section('title', 'Adicionar Produto')
-<div class="flex flex-col w-full items-center">
+<div class="flex w-full flex-col items-center">
 
-    <h1 class="grid justify-items-center font-bold text-2xl mb-6">Adicionar Produto </h1>
+    <h1 class="mb-6 grid justify-items-center text-2xl font-bold">Adicionar Produto </h1>
     <div
-        class="flex flex-wrap bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 h-auto w-full max-w-2xl min-w-min items-center justify-center drop-shadow-xl z-1">
+        class="flex h-auto w-full min-w-min max-w-2xl flex-wrap items-center justify-center rounded-lg px-6 py-6 drop-shadow-xl bg-white/[.80] z-1 dark:bg-gray-700">
 
         <div class="flex-1">
             <x-select
@@ -55,7 +55,7 @@
                 without-time="true"
                 wire:model="expiration_purchase"
             />
-            <x-button class="w-full my-4" icon="check" squared positive label="Adicionar" wire:click="addProduct"/>
+            <x-button class="my-4 w-full" icon="check" squared positive label="Adicionar" wire:click="addProduct"/>
 
 
         </div>

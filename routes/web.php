@@ -12,7 +12,8 @@ use App\{Http\Controllers\InvoiceController,
     Livewire\Pages\Reports,
     Livewire\Pages\Sale,
     Livewire\Pages\ShoppingList,
-    Livewire\Pages\Statistics,};
+    Livewire\Pages\Statistics,
+};
 use App\Livewire\Components\ShowReceipt;
 use App\Livewire\Pages\CheckReceipt;
 use App\Livewire\Pages\CustomerProfile;

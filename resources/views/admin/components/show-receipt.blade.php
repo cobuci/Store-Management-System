@@ -1,6 +1,6 @@
-<div class="w-full h-full select-none">
-    <x-button class="w-auto mb-5 rounded-lg" icon="arrow-left" squared blue label="Voltar"
-        href="{{ route('admin.tool.check-receipt') }}" />
+<div class="h-full w-full select-none">
+    <x-button class="mb-5 w-auto rounded-lg" icon="arrow-left" squared blue label="Voltar"
+              href="{{ route('admin.tool.check-receipt') }}"/>
 
     @foreach ($products as $product)
         <div
@@ -11,8 +11,8 @@
             <p><span class="font-bold"> Quantidade: </span>{{ intval($product->amount) }}</p>
             <p><span class="font-bold"> Total:</span> R${{ $product->total }}</p>
 
-            <x-button class="mt-4 md:mt-0 rounded-lg" icon="check" squared green
-                wire:click="productActive({{ $product->id }})" />
+            <x-button class="mt-4 rounded-lg md:mt-0" icon="check" squared green
+                      wire:click="productActive({{ $product->id }})"/>
 
         </div>
     @endforeach

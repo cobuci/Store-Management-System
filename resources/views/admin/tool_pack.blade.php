@@ -1,8 +1,8 @@
 @section('title', 'Fardo (abrir / fechar)')
-<div class="w-full h-full flex flex-col gap-4 items-center">
+<div class="flex h-full w-full flex-col items-center gap-4">
     <x-notifications position="top-center" z-index="z-[1036]"/>
 
-    <div class="w-full dark:bg-gray-700 bg-white/[0.8] p-6 rounded-lg max-w-2xl min-w-fit">
+    <div class="w-full min-w-fit max-w-2xl rounded-lg p-6 bg-white/[0.8] dark:bg-gray-700">
         <div class="flex justify-center text-xl">
             <span> Abrir Fardo</span>
         </div>
@@ -35,7 +35,7 @@
     </div>
 
 
-    <div class="w-full dark:bg-gray-700 bg-white/[0.8] p-6 rounded-lg max-w-2xl min-w-fit">
+    <div class="w-full min-w-fit max-w-2xl rounded-lg p-6 bg-white/[0.8] dark:bg-gray-700">
         <div class="flex justify-center text-xl">
             <span> Fechar Fardo</span>
         </div>

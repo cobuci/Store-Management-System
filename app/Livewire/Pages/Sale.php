@@ -101,7 +101,7 @@ class Sale extends Component
         $finalPrice = (str_replace(['.', ','], ['', '.'], $this->finalPrice)) * $fee;
         $finalPrice = floatval($finalPrice);
 
-        $finalCost = (str_replace(['.', ','], ['', '.'],  $this->finalCost));
+        $finalCost = (str_replace(['.', ','], ['', '.'], $this->finalCost));
         $finalCost = floatval($finalCost);
 
         $customer = Customer::find($this->customer);

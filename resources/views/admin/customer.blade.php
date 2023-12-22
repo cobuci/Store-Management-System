@@ -1,14 +1,14 @@
 @section('title', 'Clientes')
-<div class="flex flex-col w-full max-w-4xl select-none">
-    <h1 class="grid justify-items-center font-bold text-2xl mb-6 w-full"> Clientes</h1>
+<div class="flex w-full max-w-4xl select-none flex-col">
+    <h1 class="mb-6 grid w-full justify-items-center text-2xl font-bold"> Clientes</h1>
     <div
-        class="flex flex-col bg-white/[.80] rounded-lg dark:bg-gray-700 px-6 py-6 items-center justify-center drop-shadow-xl w-full">
+        class="flex w-full flex-col items-center justify-center rounded-lg px-6 py-6 drop-shadow-xl bg-white/[.80] dark:bg-gray-700">
         <div class="w-full">
-            <x-input class="w-full mb-4" type="text" wire:model.live="search" placeholder="Pesquisar"/>
+            <x-input class="mb-4 w-full" type="text" wire:model.live="search" placeholder="Pesquisar"/>
         </div>
 
         <div class="w-full overflow-auto">
-            <table class="w-full dark:bg-gray-800 my-2 rounded-md p-2 whitespace-nowrap ">
+            <table class="my-2 w-full whitespace-nowrap rounded-md p-2 dark:bg-gray-800">
                 <tr>
                     <thead class="">
                     <th>ID</th>
@@ -18,9 +18,9 @@
                     <th>Opções</th>
                     </thead>
                 </tr>
-                <tbody class="dark:bg-gray-800 my-2 rounded-md">
+                <tbody class="my-2 rounded-md dark:bg-gray-800">
                 @foreach ($customers as $customer)
-                    <tr class="dark:hover:bg-gray-900 hover:bg-gray-200 flex-1 cursor-default">
+                    <tr class="flex-1 cursor-default hover:bg-gray-200 dark:hover:bg-gray-900">
                         <td class="px-4"> {{ $customer->id }} </td>
                         <td> {{ $customer->name }}</td>
                         <td> {{ $customer->street }}</td>

@@ -1,30 +1,31 @@
 @php use Carbon\Carbon; @endphp
 @section('title', 'Finanças')
-<div class="w-full h-full max-w-4xl select-none">
+<div class="h-full w-full max-w-4xl select-none">
     <x-notifications position="top-center" z-index="z-[1036]"/>
-    <div class="grid md:grid-cols-3 gap-4 text-white">
-        <div class="bg-green-600 hover:bg-green-800 p-4 rounded-lg font-bold cursor-pointer" wire:click="showBalanceOptions">
+    <div class="grid gap-4 text-white md:grid-cols-3">
+        <div class="cursor-pointer rounded-lg bg-green-600 p-4 font-bold hover:bg-green-800"
+             wire:click="showBalanceOptions">
             <div class="flex justify-between text-xl">
                 <span>Saldo</span>
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div>
-                <span class=" text-3xl">R$ {{number_format($balance,2)}}</span>
+                <span class="text-3xl">R$ {{number_format($balance,2)}}</span>
             </div>
         </div>
-        <div class="bg-blue-600 p-4 rounded-lg font-bold">
+        <div class="rounded-lg bg-blue-600 p-4 font-bold">
 
-            <div class="flex justify-between text-xl ">
+            <div class="flex justify-between text-xl">
                 <span>A pagar</span>
                 <i class="fas fa-info-circle"></i>
             </div>
             <div>
-                <span class=" text-3xl">R$ {{number_format($value_unpaid_purchases,2)}}</span>
+                <span class="text-3xl">R$ {{number_format($value_unpaid_purchases,2)}}</span>
             </div>
         </div>
-        <div class="bg-orange-600 p-4 rounded-lg font-bold">
+        <div class="rounded-lg bg-orange-600 p-4 font-bold">
 
-            <div class="flex justify-between text-xl ">
+            <div class="flex justify-between text-xl">
                 <span class="">A receber</span>
 
                 <i class="fas fa-info-circle"></i>
@@ -35,8 +36,8 @@
         </div>
     </div>
 
-    <div class="w-full h-full mt-4 overflow-auto">
-        <table class="w-full dark:bg-gray-500 bg-white/[0.7] my-2 whitespace-nowrap rounded-md p-2  ">
+    <div class="mt-4 h-full w-full overflow-auto">
+        <table class="my-2 w-full whitespace-nowrap rounded-md p-2 bg-white/[0.7] dark:bg-gray-500">
             <tr>
                 <thead class="">
                 <th>ID</th>
@@ -46,10 +47,10 @@
                 <th>Opções</th>
                 </thead>
             </tr>
-            <tbody class="dark:bg-gray-600 my-2 rounded-md">
+            <tbody class="my-2 rounded-md dark:bg-gray-600">
 
             @foreach($finances as $finance)
-                <tr class="dark:hover:bg-gray-900 dark:bg-gray-700 bg-white/[0.8] hover:bg-gray-200 flex-1 cursor-default">
+                <tr class="flex-1 cursor-default bg-white/[0.8] hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-900">
 
                     <td>
                         <x-badge full outline label=" #{{ $finance->id }}"/>
@@ -84,7 +85,7 @@
     </div>
 
     <x-modal.card title="Balance Options" blur wire:model.defer="modalBalanceOptions" z-index="z-[1330]">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+        <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
             <x-button class="w-full" positive label="Adicionar" wire:click="showAddBalance"/>
             <x-button class="w-full" info label="Resgatar" wire:click="showRemoveBalance"/>
         </div>

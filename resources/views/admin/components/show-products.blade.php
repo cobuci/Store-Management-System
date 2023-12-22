@@ -1,9 +1,9 @@
 <div>
-    <div class=" w-full  border-2 border-black rounded-t-lg mt-6">
+    <div class="mt-6 w-full rounded-t-lg border-2 border-black">
         <div class="rounded-t-lg bg-white/[0.8] dark:bg-gray-900" x-data="{ open: false }">
-            <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
-                <i class="fa fa-history text-xl mx-2"> </i>
-                <span class="font-bold text-xl">Ultimos Produtos Cadastrados</span>
+            <div class="cursor-pointer p-2 hover:bg-gray-400 dark:hover:bg-gray-700" @click="open = ! open">
+                <i class="mx-2 text-xl fa fa-history"> </i>
+                <span class="text-xl font-bold">Ultimos Produtos Cadastrados</span>
             </div>
             <div class="overflow-auto" x-show="open" x-transition>
                 <table class="w-full whitespace-nowrap">
@@ -23,17 +23,18 @@
                     </thead>
                     <tbody class="dark:bg-gray-700">
                     @foreach($lastProducts as $item)
-                        <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                            <td class=" px-2 py-4">{{$item->id}}</td>
-                            <td class=" px-2 py-4">{{$item->name}}</td>
-                            <td class=" px-2 py-4">{{$item->brand}}</td>
-                            <td class=" px-2 py-4">{{$item->weight}}</td>
-                            <td class=" px-2 py-4">R$ {{$item->cost}}</td>
-                            <td class=" px-2 py-4">R$ {{$item->sale}}</td>
-                            <td class=" px-2 py-4">{{$item->amount}}</td>
-                            <td class=" px-2 py-4">{{$item->expiration_date}}</td>
-                            <td class=" px-2 py-4">
-                                @livewire('components.edit-product', ['product' => $item, 'categories' => $categories], key("editlast-"."$item->id"))
+                        <tr class="border-b hover:bg-gray-400 dark:hover:bg-gray-600">
+                            <td class="px-2 py-4">{{$item->id}}</td>
+                            <td class="px-2 py-4">{{$item->name}}</td>
+                            <td class="px-2 py-4">{{$item->brand}}</td>
+                            <td class="px-2 py-4">{{$item->weight}}</td>
+                            <td class="px-2 py-4">R$ {{$item->cost}}</td>
+                            <td class="px-2 py-4">R$ {{$item->sale}}</td>
+                            <td class="px-2 py-4">{{$item->amount}}</td>
+                            <td class="px-2 py-4">{{$item->expiration_date}}</td>
+                            <td class="px-2 py-4">
+                                @livewire('components.edit-product', ['product' => $item, 'categories' => $categories],
+                                key("editlast-"."$item->id"))
                             </td>
                             <td class="whitespace-nowrap px-2 py-4">
                                 <x-button negative label="Excluir" wire:click="deleteDialog({{$item->id}})"/>
@@ -46,10 +47,10 @@
         </div>
 
         @foreach($categories as $category)
-            <div class="bg-white/[0.8] dark:bg-gray-900  border-t-2  " x-data="{ open: false }">
-                <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
+            <div class="border-t-2 bg-white/[0.8] dark:bg-gray-900" x-data="{ open: false }">
+                <div class="cursor-pointer p-2 hover:bg-gray-400 dark:hover:bg-gray-700" @click="open = ! open">
                     <i class="{{$category->icon}} text-xl mx-2"> </i>
-                    <span class="font-bold text-xl">{{ $category->name }}</span>
+                    <span class="text-xl font-bold">{{ $category->name }}</span>
                 </div>
                 <div class="overflow-auto" x-show="open" x-transition>
                     <table class="w-full whitespace-nowrap">
@@ -71,7 +72,8 @@
 
                         @foreach ($category->products as $item)
 
-                            <tr wire:key="product-{{$item->id}}" class="border-b {{ $item->amount > 0 ? null : 'dark:bg-red-900 bg-red-400'}} dark:hover:bg-gray-600 hover:bg-gray-400">
+                            <tr wire:key="product-{{$item->id}}"
+                                class="border-b {{ $item->amount > 0 ? null : 'dark:bg-red-900 bg-red-400'}} dark:hover:bg-gray-600 hover:bg-gray-400">
                                 <td class="px-2 py-4">{{$item->id}}</td>
                                 <td class="px-2 py-4">{{$item->name}}</td>
                                 <td class="px-2 py-4">{{$item->brand}}</td>
@@ -80,8 +82,9 @@
                                 <td class="px-2 py-4">R$ {{$item->sale}}</td>
                                 <td class="px-2 py-4">{{$item->amount}}</td>
                                 <td class="px-2 py-4">{{$item->expiration_date}}</td>
-                                <td class="px-2 py-4" wire:ignore>
-                                    @livewire('components.edit-product', ['product' => $item, 'categories' => $categories], key("edit-"."$item->id"))
+                                <td class="px-2 py-4">
+                                    @livewire('components.edit-product', ['product' => $item, 'categories' =>
+                                    $categories], key("edit-"."$item->id"))
 
                                 </td>
                                 <td class="whitespace-nowrap px-2 py-4">

@@ -83,7 +83,8 @@ class Reports extends Component
         ]);
     }
 
-    public function confirmDialog(string $id){
+    public function confirmDialog(string $id)
+    {
         $this->dialog()->confirm([
             'title' => "Confirmar o pagamendo da Venda #{$this->sale_detail['id']}",
             'iconColor' => 'primary',

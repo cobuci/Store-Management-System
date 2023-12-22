@@ -43,17 +43,17 @@
     <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
          id="pills-values" role="tabpanel" data-te-tab-active>
         <div
-            class="flex flex-col w-full p-4 min-w-fit bg-white/[0.8] dark:bg-gray-900 rounded-lg border dark:border-2 border-black ">
+            class="flex w-full min-w-fit flex-col rounded-lg border border-black p-4 bg-white/[0.8] dark:border-2 dark:bg-gray-900">
             <div class="mb-2">
                 <span class="font-medium">
                     Periodo:
                     @if ($date['start'])
                         <p class="my-4">
-                            <span class="dark:bg-gray-700 p-2 rounded-lg border dark:border-2 border-black">
+                            <span class="rounded-lg border border-black p-2 dark:border-2 dark:bg-gray-700">
                                 {{ $date['start'] }}
                             </span>
                              -
-                            <span class="dark:bg-gray-700 p-2 rounded-lg border dark:border-2 border-black">
+                            <span class="rounded-lg border border-black p-2 dark:border-2 dark:bg-gray-700">
                                 {{ $date['end'] }}
                             </span>
                         </p>
@@ -61,17 +61,17 @@
 
                 </span>
             </div>
-            <div class="flex justify-between w-full min-w-fit flex-wrap mb-4 gap-4">
+            <div class="mb-4 flex w-full min-w-fit flex-wrap justify-between gap-4">
                 <span
-                    class="flex flex-nowrap font-medium dark:bg-gray-700 p-4 rounded-lg border dark:border-2 border-black flex-grow">
+                    class="flex flex-grow flex-nowrap rounded-lg border border-black p-4 font-medium dark:border-2 dark:bg-gray-700">
                     Custo Total: R$ {{ $values['cost'] }}
                 </span>
                 <span
-                    class="flex flex-nowrap font-medium dark:bg-gray-700  p-4 rounded-lg border dark:border-2 border-black flex-grow">
+                    class="flex flex-grow flex-nowrap rounded-lg border border-black p-4 font-medium dark:border-2 dark:bg-gray-700">
                     Venda Total: R$ {{ $values['sale'] }}
                 </span>
                 <span
-                    class="flex flex-nowrap font-medium dark:bg-gray-700  p-4 rounded-lg border dark:border-2 border-black flex-grow">
+                    class="flex flex-grow flex-nowrap rounded-lg border border-black p-4 font-medium dark:border-2 dark:bg-gray-700">
                     Lucro Total: R$ {{ $values['profit'] }}
                 </span>
             </div>
@@ -86,7 +86,7 @@
                 @endif
 
                 @foreach ($payment_method as $key => $value)
-                    <div class="flex justify-between w-full min-w-fit flex-wrap text-black p-2 rounded-lg">
+                    <div class="flex w-full min-w-fit flex-wrap justify-between rounded-lg p-2 text-black">
                         <span
                             class="flex flex-nowrap w-full font-medium {{ "bg-[".$pieColors[$key]."]"}} bg-white p-2 rounded-lg justify-between">
                           <span>
@@ -106,12 +106,12 @@
     {{--        Produtos         --}}
     <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
          id="pills-products" role="tabpanel">
-        <div class=" w-full  border-2 border-black rounded-t-lg ">
+        <div class="w-full rounded-t-lg border-2 border-black">
             @foreach ($categories as $category)
                 <div class="bg-white/[0.8] dark:bg-gray-900" x-data="{ open: false }">
-                    <div class="p-2 cursor-pointer dark:hover:bg-gray-700 hover:bg-gray-400" @click="open = ! open">
+                    <div class="cursor-pointer p-2 hover:bg-gray-400 dark:hover:bg-gray-700" @click="open = ! open">
                         <i class="{{ $category->icon }} text-xl mx-2"> </i>
-                        <span class="font-bold text-xl"> {{ $category->name }}</span>
+                        <span class="text-xl font-bold"> {{ $category->name }}</span>
                     </div>
                     <div class="overflow-auto" x-show="open" x-transition>
                         <table class="w-full whitespace-nowrap">
@@ -130,15 +130,15 @@
                             <tbody class="dark:bg-gray-700">
                             @foreach ($products as $product)
                                 @if ($product['category_id'] == $category->id)
-                                    <tr class="border-b dark:hover:bg-gray-600 hover:bg-gray-400">
-                                        <td class=" px-2 py-4">{{ $product['id'] }}</td>
-                                        <td class=" px-2 py-4">{{ $product['name'] }}</td>
-                                        <td class=" px-2 py-4">{{ $product['brand'] }}</td>
-                                        <td class=" px-2 py-4">{{ $product['weight'] }}</td>
-                                        <td class=" px-2 py-4">{{ $product['amount'] }}</td>
-                                        <td class=" px-2 py-4">R$ {{ $product['cost'] }}</td>
-                                        <td class=" px-2 py-4">R$ {{ $product['sale'] }}</td>
-                                        <td class=" px-2 py-4">R$ {{ $product['profit'] }}</td>
+                                    <tr class="border-b hover:bg-gray-400 dark:hover:bg-gray-600">
+                                        <td class="px-2 py-4">{{ $product['id'] }}</td>
+                                        <td class="px-2 py-4">{{ $product['name'] }}</td>
+                                        <td class="px-2 py-4">{{ $product['brand'] }}</td>
+                                        <td class="px-2 py-4">{{ $product['weight'] }}</td>
+                                        <td class="px-2 py-4">{{ $product['amount'] }}</td>
+                                        <td class="px-2 py-4">R$ {{ $product['cost'] }}</td>
+                                        <td class="px-2 py-4">R$ {{ $product['sale'] }}</td>
+                                        <td class="px-2 py-4">R$ {{ $product['profit'] }}</td>
                                     </tr>
                                 @endif
                             @endforeach

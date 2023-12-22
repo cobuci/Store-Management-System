@@ -9,6 +9,7 @@ use WireUi\Traits\Actions;
 class EditProduct extends Component
 {
     use Actions;
+
     public bool $cardModal = false;
 
     public Product $item;

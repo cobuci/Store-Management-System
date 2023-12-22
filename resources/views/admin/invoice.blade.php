@@ -2,7 +2,9 @@
 <head>
     <meta charset="utf-8">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>invoice - {{ config("app.name") }} </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -49,19 +51,19 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="text-muted">
-                                <h5 class="font-size-16 mb-3">Cliente:</h5>
-                                <h5 class="font-size-15 mb-2"> {{ $sale->customer_name }}</h5>
+                                <h5 class="mb-3 font-size-16">Cliente:</h5>
+                                <h5 class="mb-2 font-size-15"> {{ $sale->customer_name }}</h5>
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="text-muted text-sm-end">
                                 <div>
-                                    <h5 class="font-size-15 mb-1">Order No:</h5>
+                                    <h5 class="mb-1 font-size-15">Order No:</h5>
                                     <p># {{ $sale->id }}</p>
                                 </div>
                                 <div class="mt-4">
-                                    <h5 class="font-size-15 mb-1">Data:</h5>
+                                    <h5 class="mb-1 font-size-15">Data:</h5>
                                     <p> {{ Carbon::parse($sale->created_at)->format('d M, Y') }}</p>
                                 </div>
                             </div>
@@ -72,7 +74,7 @@
                     <div class="py-2">
                         <h5 class="font-size-15">Resumo da Compra</h5>
                         <div class="table-responsive">
-                            <table class="table align-middle table-nowrap table-centered mb-0">
+                            <table class="mb-0 table align-middle table-nowrap table-centered">
                                 <thead>
                                 <tr>
                                     <th style="width: 70px;">No.</th>
@@ -88,9 +90,9 @@
                                         <th scope="row">{{ $itemN++ }}</th>
                                         <td>
                                             <div>
-                                                <h5 class="text-truncate font-size-14 mb-1">
+                                                <h5 class="mb-1 text-truncate font-size-14">
                                                     {{ ucwords($order->product_name) }}</h5>
-                                                <p class="text-muted mb-0">{{ $order->weight }},
+                                                <p class="mb-0 text-muted">{{ $order->weight }},
                                                     {{ $order->product_brand }}</p>
                                             </div>
                                         </td>
