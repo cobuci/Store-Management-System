@@ -60,7 +60,9 @@ class ProductController extends Controller
 
     public function productsByCategory(string $id)
     {
-        return Product::where('category_id', $id)->get();
+               
+
+        return Product::where('category_id', $id)->orderBy('amount', 'desc')->get();
     }
 
     public function productsByUpc(string $upc)
