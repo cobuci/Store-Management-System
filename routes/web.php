@@ -19,6 +19,7 @@ use App\Livewire\Pages\CheckReceipt;
 use App\Livewire\Pages\CustomerProfile;
 use App\Livewire\Pages\Customers;
 use App\Livewire\Pages\Finance;
+use App\Livewire\Pages\PreSale;
 use App\Livewire\Pages\Settings;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::middleware('auth:sanctum')->group(callback: function () {
     Route::get('/reports', Reports::class)->name('admin.reports');
     Route::get('/invoice/{id}', [InvoiceController::class, "show"])->name('invoice');
     Route::get('/purchase', Purchase::class)->name('admin.purchase');
+    Route::get('/pre-sale', PreSale::class)->name('admin.pre-sale');
 
 
     //Tools
