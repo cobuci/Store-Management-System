@@ -129,8 +129,25 @@ class Sale extends Component
 
     public function mount(): void
     {
+
         $this->customers = Customer::show();
         $this->categories = CategoryController::show();
+        if (session('sale') != null) {
+            foreach (session('sale') as $item) {
+                $product = Product::find($item['id']);
+                $this->list[] = [
+                    'id' => $item['id'],
+                    'name' => $product->name,
+                    'brand' => $product->brand,
+                    'weight' => $product->weight,
+                    'amount' => $item['amount'],
+                    'sale' => $product->sale,
+                    'cost' => $product->cost,
+                ];
+                
+            }
+        }
+
     }
 
     public function updatedCategory(): void

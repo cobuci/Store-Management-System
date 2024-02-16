@@ -10,7 +10,7 @@ class PreSale extends Component
 {
 
     public  $sales;
-    public $urlApi = 'https://us-central1-garagem-server.cloudfunctions.net/api/sales';
+    public $urlApi;
 
     public function getSales()
     {
@@ -44,6 +44,7 @@ class PreSale extends Component
 
     public function mount()
     {
+        $this->urlApi = env('API_FIREBASE_URL');
         $this->getSales();
     }
 
