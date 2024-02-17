@@ -1,11 +1,11 @@
-<div class="bg-gray-700 p-6 rounded-lg w-full mb-4 md:flex justify-between">
+<div class="bg-white/[0.8] dark:bg-gray-700 p-6 rounded-lg w-full mb-4 md:flex justify-between">
     <div>
         <p><strong>Cliente: </strong>{{ $sale['customer'] }} </p>
         <p><strong>Data da Venda:</strong> {{ $sale['date'] }} </p>
         <p><strong>Ultima atualização: </strong> {{ $sale['updated'] }} </p>
     </div>
     <div class="self-center mt-4 md:mt-0">
-        <button class="p-4 bg-gray-800 font-bold rounded-lg hover:bg-gray-900" wire:click="openModal">Detalhes</button>
+        <button class="p-4 bg-blue-600 text-white dark:bg-gray-800 font-bold rounded-lg dark:hover:bg-gray-900" wire:click="openModal">Detalhes</button>
     </div>
 
 
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="flex w-8 min-w-fit items-center justify-center rounded-r-lg bg-gray-600 text-white">
+                                    class="flex w-8 min-w-fit items-center justify-center rounded-r-lg dark:bg-gray-600 text-white">
                                     <span>{{ $product['amount'] }}</span>
                                 </div>
                             </li>
