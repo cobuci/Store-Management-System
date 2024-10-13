@@ -15,7 +15,7 @@ class ApiAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->header('api_key');
+        $token = $request->header('Authorization');
         $apiToken = env('API_TOKEN');
 
         if ($token !== "Bearer $apiToken") {
